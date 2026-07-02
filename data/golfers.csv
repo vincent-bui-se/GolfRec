@@ -1,0 +1,2001 @@
+handicap,swing_speed,driver_carry,shot_shape,goal,iron_miss,iron_feel,driver_loft,shaft_flex,iron_category
+19.7,82.2,196,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+7.6,94.6,222,Fade,Distance,Consistent,Forged/Blade-like,10.5,R,players-cb
+23.8,83.7,208,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+25.5,80.4,197,Slice,Forgiveness,Consistent,Confidence-inspiring,12,A,game-improvement
+0.0,98.2,192,Hook,Accuracy,Consistent,Forged/Blade-like,9,S,game-improvement
+5.3,109.8,265,Slice,Forgiveness,Consistent,Forged/Blade-like,8,X,game-improvement
+18.2,86.4,190,Draw,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+14.2,83.9,179,Hook,Distance,Fat/Thin,Confidence-inspiring,10.5,A,players-distance
+16.8,97.0,225,Slice,Forgiveness,Inconsistent,Forged/Blade-like,9,S,players-distance
+9.3,101.7,244,Fade,Forgiveness,Consistent,No preference,9,S,game-improvement
+24.9,70.5,144,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,L,game-improvement
+24.0,92.8,227,Slice,Distance,Consistent,No preference,10.5,R,game-improvement
+17.6,92.4,227,Fade,Forgiveness,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+27.1,76.8,181,Slice,Accuracy,Fat/Thin,Confidence-inspiring,9,A,super-game-improvement
+21.2,94.8,212,Slice,Forgiveness,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+9.3,98.4,219,Fade,Accuracy,Left/Right,No preference,9,X,players-distance
+20.3,84.5,212,Straight,Accuracy,Fat/Thin,No preference,10.5,R,players-distance
+8.4,93.7,201,Hook,Accuracy,Consistent,No preference,10.5,R,players-distance
+24.9,83.4,210,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+16.6,92.2,215,Slice,Forgiveness,Inconsistent,Forged/Blade-like,10.5,R,game-improvement
+15.3,90.5,211,Fade,Accuracy,Inconsistent,No preference,10.5,X,super-game-improvement
+10.9,89.9,189,Fade,Accuracy,Left/Right,Confidence-inspiring,10.5,S,players-distance
+28.0,76.7,178,Fade,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+15.6,89.6,219,Draw,Accuracy,Fat/Thin,No preference,10.5,R,super-game-improvement
+13.1,83.6,179,Hook,Accuracy,Fat/Thin,Confidence-inspiring,12,A,players-distance
+13.8,81.8,199,Fade,Forgiveness,Left/Right,Forged/Blade-like,12,A,players-distance
+21.8,86.9,205,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+20.3,66.4,148,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+20.7,85.6,212,Straight,Accuracy,Consistent,No preference,10.5,R,game-improvement
+20.9,80.6,161,Slice,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+36.0,75.8,183,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+13.3,89.3,231,Fade,Distance,Left/Right,Forged/Blade-like,10.5,R,players-distance
+12.4,98.4,250,Hook,Forgiveness,Fat/Thin,Confidence-inspiring,9,S,game-improvement
+9.7,94.1,226,Straight,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-cb
+22.5,82.9,191,Straight,Distance,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+27.2,81.9,184,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+16.0,86.4,199,Straight,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+9.4,104.2,252,Straight,Forgiveness,Consistent,Confidence-inspiring,9,S,players-cb
+9.6,90.0,201,Fade,Distance,Fat/Thin,No preference,10.5,R,players-distance
+22.9,83.7,207,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+23.7,87.2,233,Straight,Forgiveness,Fat/Thin,No preference,12,R,super-game-improvement
+21.9,87.4,205,Slice,Distance,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+11.0,108.8,238,Fade,Accuracy,Consistent,Forged/Blade-like,8,S,players-cb
+19.1,80.7,172,Draw,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+18.1,77.5,192,Straight,Distance,Left/Right,Confidence-inspiring,12,A,players-distance
+19.0,79.2,185,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+24.8,84.1,209,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+19.0,89.6,204,Fade,Distance,Left/Right,No preference,9,S,players-distance
+23.1,82.2,204,Straight,Accuracy,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+17.6,79.9,186,Fade,Accuracy,Inconsistent,Forged/Blade-like,10.5,A,players-distance
+19.6,90.8,204,Straight,Accuracy,Inconsistent,No preference,10.5,R,super-game-improvement
+22.7,73.3,167,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+3.9,111.6,247,Draw,Forgiveness,Consistent,Forged/Blade-like,8,X,blade
+14.1,111.8,289,Straight,Forgiveness,Inconsistent,Confidence-inspiring,8,X,players-cb
+12.8,95.8,224,Straight,Accuracy,Left/Right,Forged/Blade-like,9,R,players-distance
+11.3,99.1,241,Draw,Forgiveness,Consistent,Confidence-inspiring,9,S,game-improvement
+14.5,87.9,200,Slice,Distance,Inconsistent,Confidence-inspiring,10.5,R,players-distance
+30.5,60.3,130,Hook,Accuracy,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+9.2,93.2,216,Fade,Forgiveness,Consistent,Forged/Blade-like,8,R,players-cb
+25.7,70.8,181,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+1.9,95.7,218,Draw,Accuracy,Consistent,No preference,9,R,blade
+14.0,104.0,233,Slice,Forgiveness,Left/Right,Confidence-inspiring,9,S,game-improvement
+18.5,88.6,210,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+22.3,85.0,206,Straight,Distance,Inconsistent,No preference,8,R,super-game-improvement
+23.4,78.9,207,Slice,Distance,Consistent,Confidence-inspiring,12,A,game-improvement
+24.1,79.1,190,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+13.9,98.8,241,Straight,Forgiveness,Inconsistent,Confidence-inspiring,9,S,game-improvement
+12.8,93.1,228,Draw,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+24.7,83.3,181,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+15.3,89.0,197,Draw,Accuracy,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+5.5,99.3,219,Fade,Accuracy,Inconsistent,Forged/Blade-like,9,S,players-cb
+6.8,90.3,195,Draw,Distance,Left/Right,No preference,10.5,R,players-cb
+8.7,84.2,208,Straight,Accuracy,Consistent,No preference,10.5,R,players-distance
+21.5,81.4,195,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+18.3,87.4,206,Hook,Accuracy,Consistent,Confidence-inspiring,10.5,A,game-improvement
+23.2,72.3,136,Fade,Distance,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+13.2,92.6,244,Slice,Distance,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+18.4,87.2,193,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+22.6,66.9,184,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+14.2,85.3,182,Straight,Accuracy,Consistent,Confidence-inspiring,10.5,R,players-distance
+21.1,86.6,193,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+11.0,98.1,202,Slice,Accuracy,Left/Right,No preference,9,S,players-distance
+13.7,84.2,203,Fade,Distance,Inconsistent,No preference,10.5,R,super-game-improvement
+13.6,93.5,205,Straight,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+6.2,108.0,240,Slice,Distance,Consistent,No preference,8,X,players-cb
+21.4,88.8,191,Slice,Distance,Inconsistent,Confidence-inspiring,10.5,S,super-game-improvement
+12.8,92.6,228,Fade,Distance,Fat/Thin,Confidence-inspiring,10.5,R,players-distance
+17.1,85.1,209,Hook,Accuracy,Left/Right,No preference,10.5,R,game-improvement
+21.3,79.1,209,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+21.0,87.1,196,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+23.0,82.9,198,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+16.1,93.9,204,Draw,Accuracy,Fat/Thin,No preference,10.5,R,super-game-improvement
+13.2,93.7,216,Fade,Accuracy,Left/Right,No preference,10.5,R,players-distance
+16.3,95.0,217,Straight,Forgiveness,Inconsistent,Confidence-inspiring,9,R,super-game-improvement
+1.8,106.6,257,Hook,Accuracy,Inconsistent,No preference,8,X,game-improvement
+4.0,108.9,269,Straight,Distance,Left/Right,Confidence-inspiring,8,X,blade
+5.1,108.2,267,Fade,Accuracy,Inconsistent,Forged/Blade-like,8,X,players-cb
+8.0,93.2,208,Slice,Forgiveness,Inconsistent,Forged/Blade-like,10.5,R,players-cb
+20.6,71.7,181,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,L,game-improvement
+8.9,108.6,255,Slice,Forgiveness,Inconsistent,Forged/Blade-like,8,X,players-cb
+13.6,94.2,217,Draw,Forgiveness,Inconsistent,Confidence-inspiring,10.5,R,game-improvement
+28.7,63.0,139,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+13.8,87.1,197,Hook,Forgiveness,Left/Right,Forged/Blade-like,12,R,players-distance
+23.6,86.3,225,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+8.6,96.2,230,Draw,Accuracy,Fat/Thin,Forged/Blade-like,9,R,players-cb
+15.2,86.9,206,Straight,Accuracy,Inconsistent,Forged/Blade-like,9,R,players-distance
+8.4,108.1,251,Draw,Forgiveness,Consistent,Forged/Blade-like,8,R,blade
+13.9,84.7,231,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,players-distance
+24.6,74.1,191,Draw,Accuracy,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+1.5,107.8,244,Straight,Distance,Consistent,Forged/Blade-like,8,X,blade
+20.9,86.7,200,Fade,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+19.1,89.5,208,Slice,Distance,Consistent,Forged/Blade-like,10.5,R,players-distance
+11.7,100.9,239,Fade,Accuracy,Left/Right,Confidence-inspiring,9,S,players-distance
+4.0,104.8,237,Fade,Accuracy,Consistent,Forged/Blade-like,9,S,blade
+17.6,91.2,220,Hook,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+12.2,92.2,236,Slice,Distance,Left/Right,Confidence-inspiring,10.5,S,players-distance
+19.1,86.5,186,Fade,Distance,Left/Right,No preference,10.5,L,players-distance
+17.2,89.0,194,Hook,Distance,Inconsistent,Confidence-inspiring,10.5,X,super-game-improvement
+31.4,73.4,166,Straight,Forgiveness,Inconsistent,Forged/Blade-like,12,A,players-distance
+14.8,96.4,221,Fade,Forgiveness,Fat/Thin,Forged/Blade-like,9,S,players-distance
+7.8,102.9,268,Draw,Accuracy,Consistent,No preference,9,S,players-cb
+18.6,86.9,217,Straight,Distance,Inconsistent,No preference,10.5,R,game-improvement
+19.0,80.5,201,Draw,Distance,Fat/Thin,No preference,10.5,L,super-game-improvement
+29.2,74.9,173,Slice,Distance,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+24.5,79.6,183,Slice,Distance,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+20.2,86.1,183,Fade,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+30.2,88.7,219,Slice,Accuracy,Left/Right,Confidence-inspiring,10.5,R,super-game-improvement
+6.3,97.1,235,Straight,Accuracy,Inconsistent,Forged/Blade-like,9,S,players-cb
+11.2,98.1,247,Slice,Distance,Left/Right,No preference,9,S,players-distance
+8.7,105.5,245,Fade,Accuracy,Consistent,Forged/Blade-like,9,X,players-cb
+13.5,93.2,217,Slice,Distance,Fat/Thin,Confidence-inspiring,10.5,R,players-distance
+4.6,119.1,282,Slice,Accuracy,Inconsistent,No preference,8,X,blade
+22.7,79.2,198,Straight,Forgiveness,Inconsistent,No preference,12,A,super-game-improvement
+15.0,93.0,199,Fade,Distance,Left/Right,Forged/Blade-like,10.5,R,players-distance
+3.8,98.0,240,Straight,Accuracy,Inconsistent,No preference,9,S,blade
+7.9,96.5,227,Fade,Accuracy,Left/Right,No preference,9,R,players-cb
+19.8,87.0,191,Straight,Distance,Inconsistent,Forged/Blade-like,10.5,R,super-game-improvement
+24.5,85.7,174,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+35.0,70.0,163,Draw,Forgiveness,Left/Right,Confidence-inspiring,12,S,super-game-improvement
+36.0,75.4,196,Fade,Forgiveness,Inconsistent,Confidence-inspiring,8,A,super-game-improvement
+20.7,83.5,218,Slice,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+8.1,96.4,231,Fade,Accuracy,Left/Right,Forged/Blade-like,9,R,players-cb
+0.0,120.0,308,Straight,Accuracy,Inconsistent,No preference,8,X,blade
+19.4,88.4,207,Hook,Accuracy,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+9.7,91.8,228,Hook,Accuracy,Consistent,Confidence-inspiring,10.5,R,players-distance
+13.3,87.8,200,Slice,Accuracy,Inconsistent,No preference,10.5,R,players-distance
+11.5,88.2,201,Fade,Accuracy,Fat/Thin,No preference,10.5,S,players-distance
+15.7,96.5,218,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,9,R,super-game-improvement
+26.6,74.9,149,Straight,Accuracy,Inconsistent,No preference,10.5,A,super-game-improvement
+18.4,87.7,223,Draw,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+15.6,89.6,202,Straight,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+7.7,104.3,235,Straight,Distance,Left/Right,Forged/Blade-like,9,S,players-cb
+1.9,99.9,219,Fade,Accuracy,Consistent,Forged/Blade-like,9,S,blade
+12.6,86.0,199,Draw,Forgiveness,Consistent,No preference,12,R,game-improvement
+16.5,90.6,236,Hook,Accuracy,Consistent,No preference,10.5,R,game-improvement
+32.9,74.4,202,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+18.2,89.4,188,Draw,Accuracy,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+25.8,72.7,166,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+12.5,98.4,218,Hook,Distance,Consistent,Forged/Blade-like,9,S,players-distance
+6.3,95.5,237,Straight,Distance,Consistent,Forged/Blade-like,9,R,players-cb
+8.3,94.8,227,Slice,Accuracy,Consistent,Forged/Blade-like,10.5,R,players-cb
+10.5,89.3,202,Straight,Distance,Fat/Thin,Forged/Blade-like,10.5,R,super-game-improvement
+36.0,75.7,179,Straight,Forgiveness,Left/Right,No preference,12,A,super-game-improvement
+9.6,101.4,232,Straight,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+24.5,84.1,219,Slice,Distance,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+8.9,106.5,257,Fade,Forgiveness,Consistent,Forged/Blade-like,8,X,players-cb
+25.4,98.5,240,Slice,Accuracy,Fat/Thin,No preference,10.5,S,super-game-improvement
+20.5,72.5,136,Straight,Distance,Left/Right,Forged/Blade-like,12,A,players-distance
+15.6,84.9,199,Fade,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+16.6,84.6,226,Draw,Distance,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+11.1,89.3,227,Fade,Forgiveness,Inconsistent,Forged/Blade-like,12,R,players-cb
+21.0,76.3,155,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+12.9,91.1,210,Slice,Accuracy,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+6.0,92.6,202,Straight,Accuracy,Fat/Thin,No preference,10.5,R,players-cb
+5.5,104.0,267,Draw,Accuracy,Left/Right,Forged/Blade-like,9,S,players-cb
+18.6,87.0,208,Slice,Distance,Left/Right,Confidence-inspiring,10.5,R,blade
+31.2,75.5,167,Slice,Distance,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+18.4,90.4,213,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+15.9,93.9,187,Draw,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+19.6,82.8,180,Straight,Accuracy,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+28.8,89.7,211,Slice,Forgiveness,Fat/Thin,No preference,12,R,super-game-improvement
+19.0,87.8,217,Draw,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+13.3,79.7,162,Fade,Accuracy,Left/Right,No preference,10.5,A,players-distance
+27.0,69.9,159,Hook,Accuracy,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+20.9,71.8,182,Slice,Distance,Consistent,No preference,12,L,players-distance
+30.8,72.7,152,Hook,Accuracy,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+18.6,85.8,205,Hook,Distance,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+6.0,97.8,231,Draw,Accuracy,Consistent,Forged/Blade-like,12,S,players-cb
+4.7,116.7,297,Draw,Accuracy,Left/Right,Forged/Blade-like,9,X,blade
+31.9,75.2,174,Fade,Accuracy,Consistent,Confidence-inspiring,12,L,super-game-improvement
+32.5,75.7,176,Slice,Forgiveness,Left/Right,Forged/Blade-like,12,A,players-distance
+15.4,83.8,208,Straight,Distance,Left/Right,No preference,10.5,A,players-distance
+13.6,85.4,183,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,players-distance
+30.2,73.5,170,Slice,Forgiveness,Left/Right,No preference,12,A,super-game-improvement
+7.0,101.2,232,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,9,S,players-cb
+8.9,84.8,197,Slice,Distance,Consistent,No preference,10.5,R,players-distance
+22.8,80.5,200,Straight,Forgiveness,Left/Right,Confidence-inspiring,9,A,game-improvement
+13.4,92.7,225,Draw,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+17.0,86.9,194,Hook,Distance,Left/Right,No preference,10.5,R,players-distance
+15.5,84.5,200,Slice,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+20.0,81.2,210,Hook,Forgiveness,Left/Right,No preference,12,A,game-improvement
+29.7,72.6,160,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,S,super-game-improvement
+17.8,88.2,209,Slice,Distance,Inconsistent,Forged/Blade-like,10.5,L,players-distance
+22.8,86.0,200,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+0.0,115.6,271,Draw,Forgiveness,Left/Right,No preference,8,X,players-distance
+16.6,86.8,183,Draw,Forgiveness,Left/Right,No preference,12,R,game-improvement
+9.4,94.0,239,Draw,Distance,Consistent,No preference,10.5,R,players-distance
+6.0,104.2,235,Straight,Accuracy,Consistent,No preference,9,S,players-cb
+9.1,101.8,253,Draw,Distance,Fat/Thin,Forged/Blade-like,9,S,players-cb
+14.0,88.9,201,Draw,Accuracy,Consistent,Confidence-inspiring,10.5,R,players-distance
+25.2,84.6,191,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,X,game-improvement
+5.1,109.0,272,Slice,Distance,Left/Right,Forged/Blade-like,8,X,players-cb
+17.3,97.1,241,Straight,Accuracy,Fat/Thin,Forged/Blade-like,9,X,players-distance
+12.6,106.0,252,Fade,Forgiveness,Left/Right,Forged/Blade-like,8,S,players-distance
+14.1,85.7,211,Straight,Forgiveness,Inconsistent,No preference,12,R,game-improvement
+26.0,78.2,180,Hook,Forgiveness,Consistent,Forged/Blade-like,12,S,players-distance
+21.8,83.0,195,Draw,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+29.0,74.0,165,Straight,Distance,Left/Right,Confidence-inspiring,12,S,super-game-improvement
+15.6,85.5,213,Straight,Forgiveness,Left/Right,Forged/Blade-like,10.5,R,players-distance
+10.7,85.3,191,Fade,Forgiveness,Inconsistent,No preference,8,R,game-improvement
+15.0,91.4,234,Slice,Forgiveness,Inconsistent,Forged/Blade-like,12,R,players-distance
+19.2,80.5,185,Fade,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-distance
+18.6,87.2,205,Slice,Distance,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+7.2,94.2,231,Draw,Accuracy,Inconsistent,Confidence-inspiring,12,R,players-cb
+17.8,79.8,188,Straight,Distance,Fat/Thin,Forged/Blade-like,12,A,players-distance
+19.1,87.7,202,Straight,Accuracy,Left/Right,Confidence-inspiring,10.5,L,game-improvement
+36.0,67.7,159,Hook,Accuracy,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+33.9,73.1,183,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+9.3,112.6,256,Straight,Accuracy,Inconsistent,No preference,8,X,players-distance
+14.4,93.4,218,Fade,Accuracy,Left/Right,Confidence-inspiring,10.5,R,players-distance
+3.8,107.0,252,Draw,Distance,Consistent,Confidence-inspiring,8,X,game-improvement
+11.7,87.0,216,Draw,Accuracy,Consistent,No preference,10.5,R,players-distance
+19.8,76.2,178,Fade,Forgiveness,Consistent,Forged/Blade-like,12,A,players-distance
+27.9,87.0,228,Straight,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-distance
+10.4,89.6,209,Straight,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-cb
+11.1,87.9,203,Straight,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,players-distance
+0.0,107.7,251,Fade,Accuracy,Consistent,Forged/Blade-like,8,X,blade
+15.5,89.5,193,Straight,Distance,Inconsistent,Forged/Blade-like,10.5,R,players-cb
+7.4,93.2,206,Straight,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-cb
+12.2,91.8,209,Fade,Accuracy,Consistent,Confidence-inspiring,10.5,R,players-distance
+9.1,106.1,264,Draw,Accuracy,Left/Right,Forged/Blade-like,8,X,players-cb
+16.2,83.7,196,Fade,Accuracy,Consistent,Confidence-inspiring,10.5,A,game-improvement
+1.2,96.9,221,Straight,Accuracy,Inconsistent,Confidence-inspiring,9,R,blade
+3.8,110.2,275,Fade,Distance,Left/Right,Forged/Blade-like,8,X,blade
+36.0,70.0,185,Straight,Distance,Fat/Thin,No preference,12,L,super-game-improvement
+5.4,97.4,245,Hook,Accuracy,Inconsistent,No preference,9,S,players-cb
+7.1,88.8,198,Slice,Accuracy,Fat/Thin,Forged/Blade-like,10.5,R,players-cb
+33.5,64.3,145,Hook,Forgiveness,Consistent,Confidence-inspiring,10.5,L,super-game-improvement
+36.0,66.2,179,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,L,blade
+6.5,108.7,259,Fade,Accuracy,Left/Right,Forged/Blade-like,8,S,players-cb
+13.7,85.0,196,Slice,Accuracy,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+20.1,84.3,207,Fade,Distance,Consistent,Confidence-inspiring,10.5,R,players-cb
+32.6,75.2,190,Slice,Distance,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+8.1,82.0,185,Straight,Distance,Consistent,No preference,10.5,A,players-distance
+14.8,98.2,234,Fade,Distance,Fat/Thin,Forged/Blade-like,9,S,players-distance
+24.0,72.1,181,Straight,Forgiveness,Consistent,Confidence-inspiring,12,S,game-improvement
+20.9,86.3,188,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+13.6,94.1,221,Straight,Distance,Inconsistent,No preference,10.5,R,players-distance
+15.8,97.4,214,Draw,Forgiveness,Left/Right,Forged/Blade-like,9,S,players-distance
+4.6,106.6,238,Draw,Accuracy,Consistent,Forged/Blade-like,8,X,blade
+14.9,74.2,167,Fade,Accuracy,Inconsistent,No preference,12,X,players-distance
+14.6,85.7,208,Hook,Distance,Left/Right,Forged/Blade-like,10.5,R,blade
+19.1,87.0,200,Fade,Accuracy,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+12.0,92.8,210,Fade,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-cb
+21.2,87.0,205,Slice,Forgiveness,Inconsistent,No preference,12,R,blade
+26.1,83.5,181,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+18.4,91.1,220,Fade,Forgiveness,Fat/Thin,No preference,12,R,game-improvement
+20.2,83.3,210,Draw,Distance,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+17.5,75.0,175,Draw,Forgiveness,Consistent,Forged/Blade-like,12,A,players-distance
+17.0,85.3,198,Draw,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+10.5,98.8,237,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,9,R,game-improvement
+19.8,77.6,156,Hook,Forgiveness,Consistent,Confidence-inspiring,12,X,game-improvement
+16.1,93.9,228,Slice,Accuracy,Fat/Thin,No preference,12,R,super-game-improvement
+35.8,73.2,212,Straight,Accuracy,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+31.2,73.0,170,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+20.5,63.0,147,Fade,Distance,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+10.1,87.4,215,Slice,Forgiveness,Left/Right,Forged/Blade-like,12,R,players-cb
+7.0,113.2,287,Straight,Distance,Inconsistent,No preference,8,X,players-cb
+27.7,72.3,183,Hook,Accuracy,Left/Right,Confidence-inspiring,12,R,super-game-improvement
+19.4,71.8,141,Straight,Distance,Left/Right,Forged/Blade-like,12,A,players-distance
+21.3,92.2,224,Hook,Forgiveness,Fat/Thin,Confidence-inspiring,10.5,R,game-improvement
+1.3,106.6,284,Slice,Accuracy,Left/Right,Forged/Blade-like,8,X,blade
+25.3,86.6,212,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+21.1,85.7,186,Slice,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+7.0,103.2,246,Slice,Accuracy,Consistent,Confidence-inspiring,9,S,players-cb
+12.8,95.8,208,Draw,Accuracy,Left/Right,Confidence-inspiring,12,R,players-distance
+19.4,90.6,229,Fade,Distance,Fat/Thin,No preference,8,R,super-game-improvement
+17.5,103.8,232,Slice,Accuracy,Left/Right,Confidence-inspiring,9,S,game-improvement
+14.4,98.2,232,Draw,Forgiveness,Fat/Thin,No preference,9,S,game-improvement
+16.1,78.4,173,Straight,Accuracy,Inconsistent,Confidence-inspiring,12,X,super-game-improvement
+14.7,94.2,214,Fade,Forgiveness,Inconsistent,Confidence-inspiring,10.5,X,game-improvement
+18.4,94.8,242,Slice,Distance,Left/Right,Confidence-inspiring,10.5,R,players-cb
+30.2,81.7,193,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+0.0,105.0,239,Draw,Accuracy,Consistent,No preference,9,R,blade
+14.9,99.0,218,Slice,Forgiveness,Consistent,Confidence-inspiring,9,S,game-improvement
+18.6,93.1,194,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+19.7,103.4,227,Slice,Accuracy,Left/Right,Confidence-inspiring,9,S,game-improvement
+13.7,87.0,206,Hook,Accuracy,Left/Right,No preference,12,R,players-distance
+1.2,103.1,255,Draw,Distance,Fat/Thin,Confidence-inspiring,9,S,blade
+20.0,82.9,188,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+32.5,67.2,178,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+3.2,98.1,221,Straight,Accuracy,Consistent,Forged/Blade-like,8,R,blade
+24.8,60.1,138,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,L,game-improvement
+14.0,88.9,195,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,R,game-improvement
+16.4,91.7,228,Fade,Distance,Consistent,No preference,9,R,players-distance
+7.5,95.9,253,Straight,Accuracy,Consistent,Forged/Blade-like,9,R,players-cb
+14.0,105.4,225,Hook,Distance,Fat/Thin,Confidence-inspiring,9,X,players-distance
+28.7,75.1,172,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,players-distance
+22.2,91.5,231,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+32.6,72.3,151,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+27.6,82.0,200,Fade,Accuracy,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+21.0,85.8,218,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+32.7,80.0,189,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+21.0,84.2,205,Fade,Accuracy,Fat/Thin,No preference,12,R,super-game-improvement
+24.5,83.3,219,Slice,Forgiveness,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+14.3,94.1,246,Slice,Distance,Fat/Thin,Confidence-inspiring,10.5,R,players-distance
+17.6,85.7,201,Hook,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,players-distance
+10.7,98.5,225,Slice,Forgiveness,Fat/Thin,Forged/Blade-like,9,S,players-cb
+25.9,93.9,209,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+6.4,98.7,245,Slice,Distance,Fat/Thin,Forged/Blade-like,9,S,players-cb
+24.0,83.3,178,Hook,Forgiveness,Inconsistent,Confidence-inspiring,8,A,super-game-improvement
+15.3,99.2,230,Straight,Forgiveness,Left/Right,No preference,9,S,players-distance
+27.5,84.4,200,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+23.8,80.7,183,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+33.4,60.0,145,Hook,Forgiveness,Left/Right,Forged/Blade-like,12,L,players-distance
+23.6,84.5,232,Slice,Distance,Fat/Thin,No preference,10.5,A,super-game-improvement
+2.9,89.1,208,Fade,Accuracy,Consistent,Confidence-inspiring,10.5,R,blade
+16.4,99.4,228,Slice,Accuracy,Inconsistent,Confidence-inspiring,9,S,super-game-improvement
+6.5,101.7,252,Fade,Accuracy,Fat/Thin,Forged/Blade-like,9,S,players-cb
+12.3,100.9,240,Fade,Distance,Inconsistent,Forged/Blade-like,9,S,players-distance
+30.6,66.5,175,Hook,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,players-cb
+22.7,71.0,169,Slice,Forgiveness,Left/Right,Forged/Blade-like,12,L,players-distance
+10.7,97.5,226,Straight,Distance,Left/Right,Confidence-inspiring,8,S,players-distance
+7.9,98.7,209,Slice,Accuracy,Left/Right,Forged/Blade-like,9,S,players-cb
+17.3,84.7,178,Straight,Forgiveness,Left/Right,No preference,8,R,game-improvement
+6.1,101.6,215,Straight,Forgiveness,Left/Right,No preference,9,S,players-distance
+11.0,114.7,274,Slice,Forgiveness,Consistent,Confidence-inspiring,8,X,game-improvement
+19.8,91.1,196,Straight,Accuracy,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+27.4,83.8,213,Straight,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+22.5,88.0,207,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+0.0,118.4,275,Slice,Accuracy,Consistent,Forged/Blade-like,8,X,players-cb
+19.7,84.0,186,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,players-cb
+17.6,73.4,181,Straight,Forgiveness,Left/Right,Forged/Blade-like,12,A,players-distance
+20.7,82.9,184,Draw,Distance,Left/Right,Confidence-inspiring,10.5,A,players-distance
+31.5,77.5,169,Straight,Accuracy,Inconsistent,Forged/Blade-like,12,A,blade
+0.0,101.2,253,Straight,Distance,Consistent,Forged/Blade-like,9,S,players-cb
+11.7,93.3,224,Slice,Forgiveness,Fat/Thin,Forged/Blade-like,10.5,R,players-cb
+22.3,77.5,179,Draw,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+2.8,115.3,279,Straight,Accuracy,Left/Right,No preference,8,X,blade
+30.3,78.4,184,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+20.3,89.2,215,Fade,Distance,Fat/Thin,Confidence-inspiring,10.5,R,game-improvement
+24.6,84.1,187,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+11.9,94.1,248,Fade,Distance,Consistent,Confidence-inspiring,10.5,R,players-distance
+24.3,81.4,184,Fade,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+26.6,69.1,183,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,12,L,players-distance
+19.1,70.7,164,Fade,Distance,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+19.1,87.1,215,Straight,Distance,Inconsistent,No preference,10.5,R,super-game-improvement
+19.4,88.0,216,Draw,Forgiveness,Inconsistent,Forged/Blade-like,12,R,blade
+9.2,105.9,264,Straight,Forgiveness,Consistent,No preference,9,X,game-improvement
+15.7,100.9,226,Hook,Distance,Left/Right,Confidence-inspiring,9,S,players-distance
+15.6,101.0,251,Slice,Accuracy,Inconsistent,Confidence-inspiring,12,S,super-game-improvement
+20.5,77.4,206,Slice,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+26.0,75.6,174,Slice,Forgiveness,Left/Right,Confidence-inspiring,8,A,game-improvement
+7.5,102.7,242,Straight,Distance,Inconsistent,No preference,9,S,players-cb
+15.9,107.4,246,Draw,Distance,Inconsistent,No preference,8,X,super-game-improvement
+30.3,83.5,192,Draw,Accuracy,Fat/Thin,No preference,12,A,super-game-improvement
+10.3,104.0,267,Fade,Accuracy,Inconsistent,Forged/Blade-like,9,S,players-distance
+9.6,94.2,208,Draw,Distance,Consistent,No preference,10.5,R,players-distance
+18.8,80.2,176,Hook,Forgiveness,Consistent,Forged/Blade-like,12,A,players-distance
+24.6,85.2,221,Hook,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+17.1,80.6,198,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+29.0,73.0,199,Fade,Forgiveness,Fat/Thin,No preference,12,A,players-distance
+24.7,78.8,179,Slice,Distance,Fat/Thin,No preference,10.5,A,super-game-improvement
+24.6,90.9,215,Draw,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+22.0,80.2,180,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+36.0,60.0,143,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+15.2,94.1,198,Fade,Distance,Fat/Thin,No preference,10.5,R,super-game-improvement
+0.0,103.1,251,Fade,Distance,Left/Right,No preference,9,S,blade
+31.4,72.2,174,Hook,Forgiveness,Left/Right,No preference,8,A,super-game-improvement
+12.9,92.6,217,Fade,Forgiveness,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+18.0,85.4,196,Straight,Distance,Fat/Thin,No preference,10.5,S,super-game-improvement
+28.8,80.4,177,Slice,Forgiveness,Consistent,Confidence-inspiring,12,R,super-game-improvement
+2.6,94.3,231,Straight,Accuracy,Consistent,Forged/Blade-like,10.5,R,blade
+5.7,97.8,215,Fade,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+2.6,109.8,265,Straight,Forgiveness,Left/Right,Forged/Blade-like,8,X,blade
+9.9,92.3,244,Straight,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+21.0,72.6,190,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,X,super-game-improvement
+21.7,87.7,187,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+19.5,93.4,213,Draw,Forgiveness,Fat/Thin,No preference,10.5,S,super-game-improvement
+4.3,102.7,247,Draw,Distance,Fat/Thin,Confidence-inspiring,9,S,game-improvement
+0.0,94.3,221,Straight,Accuracy,Consistent,Forged/Blade-like,10.5,R,blade
+17.5,92.8,200,Fade,Forgiveness,Fat/Thin,No preference,9,R,super-game-improvement
+12.8,81.7,197,Fade,Accuracy,Left/Right,Forged/Blade-like,10.5,A,players-distance
+21.1,85.9,202,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+23.3,75.0,201,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+18.2,79.0,182,Slice,Distance,Inconsistent,Confidence-inspiring,9,A,super-game-improvement
+23.8,77.5,197,Draw,Distance,Left/Right,Confidence-inspiring,12,A,game-improvement
+19.1,84.8,183,Fade,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+21.8,78.4,171,Slice,Accuracy,Inconsistent,Confidence-inspiring,12,A,game-improvement
+10.7,99.8,244,Slice,Distance,Fat/Thin,Forged/Blade-like,12,S,players-cb
+15.4,87.2,219,Straight,Distance,Left/Right,Forged/Blade-like,10.5,R,players-distance
+18.8,93.2,207,Fade,Distance,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+24.4,81.9,193,Straight,Accuracy,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+13.5,87.6,188,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,players-distance
+21.7,77.0,179,Fade,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+14.6,79.7,198,Slice,Distance,Fat/Thin,Confidence-inspiring,12,A,players-distance
+15.9,91.8,210,Draw,Forgiveness,Consistent,Confidence-inspiring,12,R,game-improvement
+24.5,77.3,178,Fade,Accuracy,Fat/Thin,No preference,12,A,super-game-improvement
+0.0,91.4,200,Straight,Accuracy,Consistent,No preference,12,R,blade
+5.3,98.2,222,Fade,Accuracy,Consistent,No preference,9,A,players-cb
+3.7,97.4,252,Slice,Distance,Inconsistent,No preference,9,S,blade
+0.0,119.0,281,Hook,Accuracy,Left/Right,Forged/Blade-like,8,X,game-improvement
+10.9,83.5,183,Straight,Distance,Left/Right,No preference,10.5,A,players-distance
+23.7,70.7,162,Fade,Accuracy,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+14.4,99.2,212,Straight,Accuracy,Fat/Thin,Forged/Blade-like,9,S,players-distance
+18.8,95.9,212,Slice,Forgiveness,Inconsistent,Confidence-inspiring,9,R,super-game-improvement
+26.8,72.0,187,Fade,Distance,Left/Right,Forged/Blade-like,12,A,players-distance
+28.9,70.3,163,Hook,Distance,Left/Right,Forged/Blade-like,10.5,L,players-distance
+16.4,93.5,244,Draw,Distance,Consistent,Forged/Blade-like,10.5,R,players-distance
+29.2,60.0,140,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,X,super-game-improvement
+17.8,74.5,175,Fade,Forgiveness,Consistent,Forged/Blade-like,12,A,players-distance
+9.5,95.1,232,Straight,Distance,Left/Right,Confidence-inspiring,9,R,players-distance
+11.7,105.4,213,Fade,Distance,Consistent,No preference,9,X,players-distance
+3.7,100.7,239,Draw,Distance,Consistent,Forged/Blade-like,9,S,blade
+9.0,98.4,231,Straight,Distance,Consistent,Forged/Blade-like,9,S,players-cb
+13.8,100.1,255,Draw,Forgiveness,Inconsistent,Confidence-inspiring,9,S,game-improvement
+24.2,94.9,236,Hook,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+32.5,66.6,142,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+4.6,102.6,257,Draw,Distance,Consistent,Forged/Blade-like,9,S,blade
+20.5,97.2,225,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,9,S,super-game-improvement
+7.6,88.6,196,Fade,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-cb
+21.3,90.7,216,Draw,Accuracy,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+15.8,82.7,192,Slice,Distance,Consistent,Confidence-inspiring,12,A,super-game-improvement
+0.5,108.1,274,Slice,Accuracy,Consistent,Forged/Blade-like,8,R,blade
+25.4,77.1,186,Straight,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+11.6,88.0,209,Fade,Distance,Left/Right,No preference,10.5,R,players-distance
+12.2,87.1,216,Straight,Forgiveness,Fat/Thin,No preference,12,R,game-improvement
+7.4,101.4,252,Straight,Distance,Fat/Thin,No preference,9,S,players-cb
+11.1,102.2,250,Fade,Accuracy,Left/Right,Forged/Blade-like,9,S,super-game-improvement
+20.9,83.1,214,Hook,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+15.3,90.9,222,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+20.0,89.0,211,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+20.3,77.9,199,Hook,Distance,Fat/Thin,Confidence-inspiring,9,A,super-game-improvement
+28.9,79.9,187,Straight,Distance,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+13.9,97.8,230,Slice,Forgiveness,Left/Right,Confidence-inspiring,9,S,players-distance
+3.7,120.0,304,Fade,Accuracy,Consistent,Forged/Blade-like,8,X,blade
+26.6,74.8,197,Slice,Accuracy,Fat/Thin,No preference,12,A,super-game-improvement
+14.0,88.7,208,Straight,Accuracy,Consistent,No preference,10.5,S,players-distance
+27.0,82.3,188,Draw,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+20.5,90.2,231,Slice,Accuracy,Fat/Thin,Confidence-inspiring,9,R,super-game-improvement
+15.8,86.1,213,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+20.1,82.1,197,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+34.6,72.0,165,Slice,Accuracy,Fat/Thin,Confidence-inspiring,12,S,super-game-improvement
+35.7,61.2,148,Hook,Distance,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+17.6,84.9,199,Straight,Distance,Fat/Thin,No preference,10.5,R,super-game-improvement
+18.4,87.5,197,Slice,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+26.7,84.3,200,Straight,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+9.4,93.0,222,Hook,Distance,Left/Right,No preference,10.5,R,players-distance
+20.0,72.1,165,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+16.8,75.3,189,Draw,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+19.8,76.4,196,Hook,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+9.5,87.9,219,Straight,Distance,Inconsistent,Confidence-inspiring,10.5,R,players-distance
+2.7,103.8,240,Straight,Distance,Inconsistent,Confidence-inspiring,8,S,players-distance
+0.0,99.7,244,Straight,Forgiveness,Consistent,Forged/Blade-like,9,S,blade
+6.9,95.1,224,Slice,Accuracy,Inconsistent,No preference,9,R,super-game-improvement
+12.9,87.7,190,Slice,Distance,Left/Right,No preference,10.5,R,players-distance
+14.4,88.4,216,Hook,Forgiveness,Left/Right,No preference,12,R,game-improvement
+34.4,77.7,184,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+27.0,81.6,225,Hook,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+8.3,98.6,251,Draw,Distance,Consistent,Forged/Blade-like,9,S,players-cb
+20.1,81.7,201,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+13.3,89.7,214,Straight,Accuracy,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+14.4,93.7,222,Hook,Forgiveness,Inconsistent,Confidence-inspiring,10.5,R,game-improvement
+18.7,90.6,200,Draw,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+22.6,75.7,155,Slice,Distance,Left/Right,No preference,12,A,game-improvement
+13.9,92.3,206,Straight,Distance,Consistent,Forged/Blade-like,9,R,players-distance
+26.6,63.2,148,Slice,Forgiveness,Inconsistent,No preference,12,L,super-game-improvement
+6.7,101.8,212,Draw,Accuracy,Left/Right,Forged/Blade-like,9,S,players-cb
+17.1,93.7,213,Hook,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+36.0,64.6,149,Slice,Accuracy,Inconsistent,Forged/Blade-like,8,L,players-distance
+19.0,98.9,230,Fade,Forgiveness,Left/Right,Confidence-inspiring,9,S,game-improvement
+29.9,67.4,150,Slice,Distance,Fat/Thin,Forged/Blade-like,12,L,players-distance
+17.8,89.1,205,Slice,Distance,Left/Right,Forged/Blade-like,10.5,R,players-distance
+22.2,82.2,216,Hook,Distance,Fat/Thin,No preference,10.5,A,super-game-improvement
+16.5,88.3,216,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+15.5,89.4,203,Slice,Forgiveness,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+10.0,97.2,228,Slice,Distance,Inconsistent,Confidence-inspiring,9,S,players-distance
+20.9,89.9,211,Slice,Forgiveness,Inconsistent,Forged/Blade-like,12,R,players-distance
+9.3,106.9,241,Slice,Accuracy,Consistent,Forged/Blade-like,12,X,players-cb
+23.0,81.5,182,Draw,Distance,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+26.8,82.9,208,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+20.3,79.7,182,Straight,Distance,Left/Right,Confidence-inspiring,12,A,players-distance
+14.4,96.8,213,Straight,Distance,Consistent,No preference,9,R,players-distance
+21.1,78.4,184,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+14.2,99.3,235,Fade,Forgiveness,Fat/Thin,Forged/Blade-like,9,S,players-distance
+25.4,94.3,196,Straight,Distance,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+0.5,106.6,250,Straight,Forgiveness,Consistent,Forged/Blade-like,8,X,blade
+14.0,76.6,191,Slice,Distance,Fat/Thin,Confidence-inspiring,12,R,players-distance
+0.0,104.2,251,Straight,Distance,Left/Right,No preference,9,S,blade
+3.5,112.6,294,Fade,Distance,Inconsistent,Forged/Blade-like,8,X,blade
+29.3,78.2,200,Hook,Distance,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+25.1,80.9,209,Draw,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+10.5,103.0,278,Straight,Forgiveness,Left/Right,Confidence-inspiring,9,S,game-improvement
+3.5,107.4,262,Fade,Distance,Inconsistent,Forged/Blade-like,8,R,blade
+0.0,116.5,276,Straight,Distance,Consistent,No preference,8,X,blade
+12.1,100.5,249,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,9,S,players-distance
+36.0,77.3,174,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+20.9,86.5,205,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,R,players-distance
+12.0,100.5,228,Slice,Distance,Left/Right,Confidence-inspiring,9,S,players-distance
+21.2,81.5,197,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,players-cb
+3.0,100.3,227,Fade,Forgiveness,Left/Right,Forged/Blade-like,9,S,blade
+14.3,103.5,234,Fade,Distance,Fat/Thin,Forged/Blade-like,9,S,players-distance
+17.9,88.9,214,Fade,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+16.2,95.0,221,Fade,Distance,Consistent,No preference,9,R,players-distance
+24.1,81.2,166,Hook,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+20.1,80.8,171,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+23.0,81.6,177,Draw,Forgiveness,Consistent,Forged/Blade-like,12,A,players-distance
+10.8,105.6,237,Fade,Accuracy,Left/Right,Confidence-inspiring,9,X,players-distance
+25.1,83.0,200,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+31.7,60.0,144,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+8.3,96.9,242,Fade,Accuracy,Inconsistent,Forged/Blade-like,9,R,players-cb
+9.0,110.1,269,Hook,Accuracy,Consistent,Forged/Blade-like,8,X,players-cb
+29.0,73.2,186,Hook,Distance,Fat/Thin,No preference,12,S,super-game-improvement
+15.3,77.8,191,Draw,Accuracy,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+29.6,87.2,208,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,players-distance
+13.0,97.8,244,Straight,Forgiveness,Left/Right,Confidence-inspiring,9,S,players-cb
+30.1,72.9,183,Hook,Accuracy,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+18.2,84.5,203,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+19.3,93.4,236,Slice,Forgiveness,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+31.1,68.4,130,Fade,Forgiveness,Consistent,Confidence-inspiring,8,L,super-game-improvement
+13.7,100.3,232,Draw,Accuracy,Left/Right,No preference,9,L,players-distance
+8.5,102.0,236,Straight,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+13.0,94.8,238,Straight,Distance,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+21.1,84.8,220,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+2.9,103.4,224,Draw,Accuracy,Fat/Thin,Forged/Blade-like,9,R,game-improvement
+22.7,89.2,228,Hook,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+12.2,87.9,191,Straight,Forgiveness,Consistent,Forged/Blade-like,12,R,super-game-improvement
+27.3,65.3,139,Hook,Accuracy,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+0.0,112.3,261,Straight,Accuracy,Consistent,Forged/Blade-like,8,X,blade
+9.9,101.0,233,Straight,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+1.8,109.3,237,Draw,Accuracy,Consistent,Confidence-inspiring,8,X,blade
+9.6,99.8,243,Draw,Forgiveness,Consistent,Forged/Blade-like,9,S,players-cb
+19.2,83.7,206,Straight,Distance,Fat/Thin,No preference,10.5,A,super-game-improvement
+15.4,95.8,239,Fade,Accuracy,Consistent,Forged/Blade-like,9,R,players-distance
+14.7,90.8,208,Slice,Distance,Fat/Thin,No preference,8,R,players-distance
+15.6,86.7,203,Draw,Accuracy,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+18.8,84.2,197,Slice,Forgiveness,Inconsistent,Forged/Blade-like,12,R,players-distance
+7.9,113.1,288,Draw,Accuracy,Left/Right,Confidence-inspiring,8,X,players-cb
+23.4,68.9,130,Straight,Distance,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+23.0,85.0,187,Hook,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+20.5,72.7,171,Fade,Distance,Fat/Thin,No preference,12,A,super-game-improvement
+22.0,81.9,178,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+19.7,82.3,190,Straight,Distance,Fat/Thin,No preference,10.5,A,players-distance
+35.3,60.0,139,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+16.2,92.1,208,Slice,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+14.2,89.0,210,Hook,Accuracy,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+10.2,81.6,200,Straight,Distance,Fat/Thin,Confidence-inspiring,9,A,players-distance
+7.7,105.0,244,Fade,Accuracy,Inconsistent,Forged/Blade-like,9,X,players-cb
+5.8,111.4,256,Draw,Accuracy,Consistent,Forged/Blade-like,8,X,players-cb
+9.0,108.1,252,Straight,Distance,Inconsistent,Forged/Blade-like,9,X,players-cb
+16.4,91.7,215,Hook,Distance,Consistent,No preference,10.5,R,players-distance
+20.0,85.3,178,Fade,Accuracy,Fat/Thin,No preference,10.5,R,super-game-improvement
+17.5,97.2,234,Straight,Accuracy,Fat/Thin,No preference,9,S,super-game-improvement
+10.1,108.2,248,Slice,Distance,Left/Right,Confidence-inspiring,8,X,players-distance
+25.1,87.1,221,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,blade
+23.7,74.2,182,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+15.6,91.5,230,Straight,Forgiveness,Inconsistent,Forged/Blade-like,12,R,players-distance
+11.1,98.3,218,Straight,Distance,Consistent,Confidence-inspiring,9,S,players-distance
+21.9,70.1,160,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+18.7,89.8,195,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+4.0,119.3,271,Slice,Accuracy,Inconsistent,Forged/Blade-like,12,X,blade
+16.4,93.6,236,Draw,Forgiveness,Fat/Thin,No preference,10.5,X,super-game-improvement
+19.4,96.0,245,Straight,Distance,Inconsistent,Forged/Blade-like,9,R,blade
+8.9,99.0,218,Slice,Forgiveness,Consistent,Forged/Blade-like,9,S,players-cb
+18.7,86.0,196,Straight,Forgiveness,Left/Right,No preference,12,R,game-improvement
+3.9,106.2,249,Draw,Accuracy,Consistent,Confidence-inspiring,8,X,blade
+29.0,68.9,170,Straight,Accuracy,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+28.2,68.8,139,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+14.7,100.0,214,Slice,Distance,Inconsistent,Confidence-inspiring,9,S,super-game-improvement
+20.3,94.3,228,Straight,Distance,Left/Right,No preference,10.5,R,players-distance
+0.0,101.1,212,Fade,Distance,Consistent,Forged/Blade-like,9,S,blade
+6.6,107.2,246,Hook,Forgiveness,Consistent,Forged/Blade-like,8,X,players-cb
+14.4,90.8,215,Straight,Forgiveness,Left/Right,No preference,12,R,game-improvement
+7.4,101.9,245,Straight,Distance,Consistent,Confidence-inspiring,9,S,players-cb
+23.4,84.3,196,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+35.0,74.7,171,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,blade
+6.4,101.2,249,Hook,Forgiveness,Inconsistent,Forged/Blade-like,9,S,players-cb
+9.5,106.9,255,Draw,Distance,Consistent,Forged/Blade-like,8,R,players-cb
+19.1,88.2,199,Fade,Accuracy,Left/Right,No preference,10.5,R,game-improvement
+31.5,76.1,179,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+6.0,95.3,229,Draw,Accuracy,Fat/Thin,No preference,9,R,players-cb
+19.2,101.0,260,Draw,Accuracy,Left/Right,No preference,9,R,game-improvement
+33.4,72.9,182,Slice,Forgiveness,Left/Right,Confidence-inspiring,8,A,super-game-improvement
+2.1,110.6,276,Draw,Distance,Consistent,Forged/Blade-like,8,X,super-game-improvement
+5.5,90.4,205,Straight,Accuracy,Inconsistent,No preference,10.5,R,players-cb
+13.2,87.1,198,Straight,Forgiveness,Left/Right,Forged/Blade-like,12,R,players-distance
+12.3,102.5,238,Slice,Forgiveness,Left/Right,Confidence-inspiring,9,S,game-improvement
+24.3,82.1,191,Fade,Accuracy,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+19.2,72.5,157,Hook,Distance,Left/Right,Forged/Blade-like,12,A,players-distance
+1.0,114.1,285,Draw,Accuracy,Inconsistent,No preference,8,X,blade
+21.6,79.4,198,Fade,Accuracy,Left/Right,Forged/Blade-like,12,A,players-distance
+11.8,104.3,241,Draw,Forgiveness,Inconsistent,No preference,9,S,game-improvement
+28.5,74.6,184,Straight,Accuracy,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+11.4,96.3,229,Hook,Forgiveness,Inconsistent,Forged/Blade-like,9,R,players-cb
+11.3,103.3,252,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,9,S,game-improvement
+21.9,76.5,162,Slice,Accuracy,Left/Right,No preference,12,A,game-improvement
+23.9,73.6,171,Straight,Forgiveness,Left/Right,No preference,12,A,game-improvement
+21.0,82.5,193,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+1.8,111.7,271,Slice,Forgiveness,Consistent,Forged/Blade-like,8,X,blade
+21.8,73.6,165,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+7.7,87.5,173,Slice,Forgiveness,Consistent,Forged/Blade-like,12,R,players-cb
+19.1,91.8,202,Fade,Forgiveness,Inconsistent,No preference,12,X,super-game-improvement
+4.2,98.9,232,Hook,Accuracy,Left/Right,Forged/Blade-like,9,S,blade
+21.0,81.1,191,Draw,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+9.7,83.8,219,Straight,Accuracy,Left/Right,Forged/Blade-like,10.5,A,players-cb
+5.5,96.9,235,Fade,Accuracy,Consistent,Forged/Blade-like,9,R,players-cb
+23.4,81.0,191,Fade,Distance,Inconsistent,No preference,10.5,A,blade
+19.2,92.4,217,Draw,Distance,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+11.5,89.4,224,Slice,Distance,Fat/Thin,Forged/Blade-like,10.5,R,players-cb
+30.1,85.0,192,Straight,Accuracy,Inconsistent,No preference,10.5,R,super-game-improvement
+13.0,88.3,206,Straight,Accuracy,Inconsistent,Forged/Blade-like,10.5,L,players-distance
+17.3,83.3,182,Fade,Accuracy,Inconsistent,No preference,10.5,A,super-game-improvement
+19.4,96.5,245,Draw,Forgiveness,Left/Right,No preference,9,R,game-improvement
+11.4,96.4,232,Draw,Accuracy,Consistent,No preference,9,S,players-distance
+21.2,79.8,178,Fade,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+12.2,92.9,217,Slice,Accuracy,Inconsistent,No preference,10.5,R,players-distance
+13.3,102.2,247,Draw,Forgiveness,Left/Right,Forged/Blade-like,9,S,players-distance
+29.3,84.6,196,Straight,Distance,Left/Right,No preference,10.5,A,super-game-improvement
+7.6,93.5,213,Straight,Accuracy,Consistent,No preference,10.5,R,players-cb
+0.0,107.7,245,Straight,Accuracy,Left/Right,Confidence-inspiring,8,X,blade
+31.5,72.4,175,Slice,Forgiveness,Inconsistent,Forged/Blade-like,12,A,blade
+36.0,60.0,136,Straight,Distance,Fat/Thin,Forged/Blade-like,12,L,players-distance
+13.4,92.2,211,Slice,Forgiveness,Consistent,No preference,10.5,R,game-improvement
+0.0,108.0,236,Straight,Accuracy,Consistent,Forged/Blade-like,8,X,blade
+14.2,99.7,235,Slice,Forgiveness,Consistent,Forged/Blade-like,9,S,players-distance
+14.4,99.9,232,Straight,Accuracy,Left/Right,No preference,9,S,players-distance
+15.3,88.1,203,Fade,Forgiveness,Inconsistent,Forged/Blade-like,12,R,players-distance
+7.0,98.5,234,Draw,Accuracy,Consistent,Forged/Blade-like,9,L,super-game-improvement
+22.2,87.1,214,Draw,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+21.7,78.9,195,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,game-improvement
+3.6,108.0,261,Straight,Forgiveness,Inconsistent,No preference,8,X,players-distance
+23.3,80.6,186,Draw,Distance,Left/Right,Confidence-inspiring,8,A,game-improvement
+35.5,60.4,135,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+18.5,80.0,174,Fade,Forgiveness,Inconsistent,Forged/Blade-like,12,A,players-distance
+14.0,102.0,232,Fade,Accuracy,Left/Right,Forged/Blade-like,9,S,players-distance
+15.7,88.9,209,Fade,Forgiveness,Left/Right,No preference,12,R,game-improvement
+22.5,93.6,210,Fade,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,blade
+1.4,102.8,243,Fade,Forgiveness,Consistent,No preference,9,L,game-improvement
+18.5,88.8,196,Slice,Distance,Fat/Thin,No preference,10.5,R,super-game-improvement
+13.5,109.2,235,Draw,Accuracy,Consistent,Forged/Blade-like,8,X,players-distance
+33.6,62.0,156,Fade,Distance,Fat/Thin,No preference,12,L,players-cb
+15.4,77.0,175,Draw,Distance,Fat/Thin,Confidence-inspiring,9,A,super-game-improvement
+32.0,80.2,178,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+7.1,94.0,207,Fade,Distance,Consistent,Forged/Blade-like,10.5,R,players-cb
+22.3,82.2,199,Straight,Accuracy,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+19.9,81.0,208,Slice,Forgiveness,Inconsistent,Forged/Blade-like,12,A,players-distance
+9.2,99.3,228,Straight,Forgiveness,Left/Right,Forged/Blade-like,9,S,players-cb
+18.6,80.0,185,Fade,Distance,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+27.9,74.7,189,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+14.1,94.9,199,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,players-distance
+1.8,98.9,258,Slice,Accuracy,Consistent,Forged/Blade-like,9,S,players-distance
+16.8,83.8,229,Straight,Forgiveness,Inconsistent,Forged/Blade-like,12,A,players-distance
+8.9,95.3,189,Draw,Distance,Consistent,No preference,9,R,players-distance
+13.9,82.0,191,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+16.3,86.3,193,Fade,Accuracy,Inconsistent,No preference,10.5,R,super-game-improvement
+1.6,107.0,248,Fade,Accuracy,Consistent,Confidence-inspiring,8,X,blade
+2.5,102.3,235,Straight,Accuracy,Consistent,Forged/Blade-like,9,X,blade
+21.3,81.6,202,Slice,Forgiveness,Fat/Thin,Forged/Blade-like,12,A,players-distance
+12.3,93.7,219,Slice,Forgiveness,Consistent,Confidence-inspiring,10.5,R,game-improvement
+0.0,103.4,231,Fade,Accuracy,Left/Right,No preference,9,S,blade
+24.1,85.1,198,Straight,Accuracy,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+19.5,95.6,231,Draw,Distance,Consistent,No preference,9,R,players-distance
+10.6,92.6,202,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,10.5,R,game-improvement
+5.1,105.5,227,Draw,Accuracy,Fat/Thin,Forged/Blade-like,9,X,players-cb
+24.5,78.1,209,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+20.1,87.4,197,Hook,Accuracy,Inconsistent,Forged/Blade-like,9,S,players-distance
+36.0,77.6,181,Slice,Distance,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+20.8,87.6,201,Fade,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+20.5,72.0,176,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+15.5,93.4,243,Straight,Forgiveness,Inconsistent,No preference,10.5,R,game-improvement
+24.4,88.6,216,Hook,Accuracy,Left/Right,No preference,10.5,R,game-improvement
+22.6,80.5,169,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+28.3,82.4,176,Slice,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+12.3,89.0,204,Draw,Forgiveness,Left/Right,Forged/Blade-like,12,R,players-distance
+13.1,82.5,190,Draw,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+12.7,94.4,199,Slice,Forgiveness,Inconsistent,Confidence-inspiring,10.5,R,game-improvement
+24.1,68.0,170,Draw,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+30.5,71.2,153,Fade,Forgiveness,Consistent,No preference,12,L,super-game-improvement
+12.9,102.2,260,Draw,Accuracy,Fat/Thin,Confidence-inspiring,10.5,S,players-distance
+13.2,79.5,210,Hook,Accuracy,Inconsistent,No preference,12,A,players-distance
+19.8,76.3,176,Hook,Forgiveness,Left/Right,Confidence-inspiring,8,A,game-improvement
+14.8,83.8,203,Hook,Distance,Fat/Thin,No preference,10.5,A,players-distance
+25.6,78.1,168,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,9,A,super-game-improvement
+0.0,105.4,256,Hook,Accuracy,Inconsistent,Forged/Blade-like,9,X,players-distance
+9.6,106.8,245,Draw,Forgiveness,Inconsistent,Confidence-inspiring,8,X,game-improvement
+10.0,103.2,228,Fade,Accuracy,Fat/Thin,Confidence-inspiring,9,S,players-distance
+0.0,111.5,258,Straight,Distance,Left/Right,Forged/Blade-like,9,X,blade
+8.3,99.5,228,Fade,Accuracy,Left/Right,Forged/Blade-like,9,S,players-cb
+8.8,100.6,232,Hook,Distance,Consistent,Confidence-inspiring,9,S,players-cb
+15.2,84.5,211,Straight,Accuracy,Fat/Thin,No preference,10.5,R,super-game-improvement
+27.0,83.0,185,Draw,Accuracy,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+14.8,83.2,218,Draw,Forgiveness,Fat/Thin,No preference,12,A,game-improvement
+7.7,105.0,230,Hook,Accuracy,Left/Right,No preference,9,X,players-cb
+16.5,97.3,250,Straight,Accuracy,Consistent,Confidence-inspiring,12,S,game-improvement
+26.4,79.1,173,Draw,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+8.2,97.3,229,Straight,Accuracy,Inconsistent,Forged/Blade-like,9,S,players-cb
+8.8,100.7,230,Draw,Accuracy,Consistent,No preference,8,L,players-distance
+22.0,62.7,143,Straight,Accuracy,Inconsistent,Forged/Blade-like,12,L,players-distance
+15.0,92.9,229,Draw,Accuracy,Consistent,Confidence-inspiring,10.5,S,players-distance
+22.8,81.0,210,Slice,Forgiveness,Left/Right,No preference,12,A,players-distance
+16.9,88.2,223,Draw,Accuracy,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+23.3,86.2,197,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+7.7,98.6,234,Fade,Accuracy,Consistent,No preference,9,S,players-cb
+16.9,80.6,179,Straight,Accuracy,Left/Right,Forged/Blade-like,10.5,A,players-distance
+15.1,89.6,198,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+6.1,101.5,224,Draw,Distance,Left/Right,No preference,9,S,players-cb
+2.9,105.5,242,Slice,Accuracy,Consistent,Forged/Blade-like,12,X,players-distance
+23.2,82.5,197,Slice,Accuracy,Fat/Thin,No preference,10.5,A,super-game-improvement
+13.8,99.4,209,Fade,Accuracy,Left/Right,No preference,9,S,players-distance
+7.8,91.4,214,Fade,Forgiveness,Left/Right,No preference,12,R,players-distance
+16.1,90.7,233,Fade,Distance,Left/Right,Forged/Blade-like,10.5,R,players-distance
+27.2,85.7,216,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,R,super-game-improvement
+0.0,95.9,218,Draw,Distance,Consistent,No preference,9,R,blade
+3.5,105.2,229,Straight,Forgiveness,Consistent,Forged/Blade-like,10.5,X,blade
+8.7,93.9,227,Fade,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-cb
+30.2,70.7,136,Draw,Distance,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+19.5,79.2,201,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+23.9,79.3,184,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+6.7,113.2,290,Straight,Accuracy,Inconsistent,Forged/Blade-like,8,X,players-cb
+6.9,91.2,192,Straight,Distance,Inconsistent,Confidence-inspiring,10.5,R,players-cb
+21.0,75.7,190,Fade,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+17.5,78.8,184,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,L,game-improvement
+21.9,94.9,219,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,10.5,X,super-game-improvement
+15.3,87.2,187,Fade,Distance,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+19.5,85.4,208,Fade,Distance,Consistent,No preference,10.5,R,players-distance
+18.4,84.0,206,Hook,Forgiveness,Consistent,Confidence-inspiring,12,R,game-improvement
+24.0,73.8,197,Slice,Accuracy,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+24.3,78.4,197,Slice,Distance,Left/Right,Confidence-inspiring,12,A,game-improvement
+2.4,120.0,274,Slice,Distance,Consistent,Forged/Blade-like,8,X,blade
+0.0,117.7,264,Fade,Distance,Consistent,Forged/Blade-like,8,X,blade
+26.0,72.1,152,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,blade
+27.7,80.7,209,Slice,Distance,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+7.8,93.2,209,Hook,Forgiveness,Consistent,Forged/Blade-like,10.5,R,players-cb
+0.3,95.2,243,Draw,Accuracy,Consistent,Forged/Blade-like,12,R,blade
+17.9,94.6,229,Straight,Forgiveness,Consistent,Confidence-inspiring,9,R,super-game-improvement
+25.4,86.9,209,Fade,Accuracy,Inconsistent,No preference,10.5,R,super-game-improvement
+33.2,77.1,177,Straight,Accuracy,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+21.6,79.9,196,Draw,Distance,Fat/Thin,No preference,12,A,super-game-improvement
+13.7,91.1,214,Straight,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+9.0,102.9,237,Fade,Accuracy,Consistent,Confidence-inspiring,9,S,players-distance
+17.1,91.1,223,Straight,Distance,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+14.3,88.8,207,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,game-improvement
+7.9,87.6,195,Fade,Distance,Left/Right,Forged/Blade-like,10.5,R,players-cb
+35.4,68.1,168,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+33.1,77.5,181,Straight,Accuracy,Fat/Thin,Confidence-inspiring,8,A,super-game-improvement
+27.2,68.3,167,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+8.7,102.5,235,Draw,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+24.7,81.9,177,Fade,Distance,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+22.8,87.0,227,Straight,Forgiveness,Inconsistent,Forged/Blade-like,12,S,players-distance
+21.0,90.0,232,Hook,Distance,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+28.2,70.7,178,Straight,Accuracy,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+22.7,70.6,161,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,S,blade
+23.7,77.0,177,Straight,Forgiveness,Left/Right,Confidence-inspiring,9,A,game-improvement
+22.7,88.1,225,Fade,Accuracy,Left/Right,Confidence-inspiring,10.5,A,blade
+20.1,81.1,186,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+0.9,102.1,232,Slice,Distance,Inconsistent,Forged/Blade-like,9,S,blade
+17.8,74.8,200,Fade,Accuracy,Consistent,Confidence-inspiring,12,A,blade
+12.0,106.5,250,Fade,Distance,Fat/Thin,Confidence-inspiring,8,X,players-distance
+5.5,107.5,276,Draw,Distance,Left/Right,Forged/Blade-like,8,X,players-cb
+32.1,76.5,162,Slice,Forgiveness,Fat/Thin,Forged/Blade-like,12,A,players-distance
+32.6,77.3,188,Slice,Distance,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+29.2,78.5,211,Slice,Distance,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+19.3,84.1,198,Slice,Forgiveness,Left/Right,No preference,9,R,game-improvement
+29.2,73.3,169,Hook,Accuracy,Fat/Thin,No preference,12,A,super-game-improvement
+17.1,85.3,185,Fade,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+18.8,104.8,260,Draw,Forgiveness,Consistent,No preference,9,S,blade
+7.2,103.6,233,Straight,Accuracy,Consistent,No preference,9,S,players-cb
+20.6,81.1,189,Draw,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+17.5,91.1,198,Draw,Distance,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+5.3,94.8,243,Straight,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-cb
+16.5,99.6,249,Fade,Accuracy,Fat/Thin,Confidence-inspiring,9,S,super-game-improvement
+16.3,84.6,198,Fade,Accuracy,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+33.2,73.3,157,Draw,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+25.0,86.7,224,Slice,Forgiveness,Consistent,Confidence-inspiring,12,L,game-improvement
+17.1,91.0,209,Hook,Accuracy,Left/Right,Forged/Blade-like,10.5,A,players-distance
+19.2,86.6,189,Slice,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+17.4,88.1,184,Slice,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+15.2,90.1,203,Slice,Forgiveness,Left/Right,No preference,12,R,game-improvement
+7.3,95.6,206,Slice,Accuracy,Consistent,Forged/Blade-like,9,R,players-cb
+15.6,86.9,196,Fade,Distance,Fat/Thin,Confidence-inspiring,8,R,super-game-improvement
+10.3,106.5,260,Slice,Accuracy,Consistent,Forged/Blade-like,8,X,players-cb
+5.7,100.7,232,Fade,Forgiveness,Inconsistent,No preference,10.5,S,players-distance
+21.6,77.7,187,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+20.5,80.8,180,Draw,Forgiveness,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+0.9,114.7,270,Straight,Distance,Consistent,Forged/Blade-like,8,X,blade
+15.9,94.4,247,Slice,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+26.0,82.0,188,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+26.5,75.7,183,Fade,Accuracy,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+26.2,81.9,172,Straight,Distance,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+17.4,83.5,216,Straight,Forgiveness,Left/Right,No preference,12,A,game-improvement
+9.4,95.4,218,Straight,Forgiveness,Consistent,Forged/Blade-like,9,R,super-game-improvement
+7.2,106.5,264,Hook,Accuracy,Consistent,Forged/Blade-like,8,X,players-cb
+20.1,91.0,212,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+20.4,77.7,191,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+28.6,69.1,171,Slice,Forgiveness,Left/Right,No preference,12,S,super-game-improvement
+26.9,77.8,177,Straight,Forgiveness,Left/Right,No preference,12,A,super-game-improvement
+15.8,101.9,254,Hook,Forgiveness,Fat/Thin,Confidence-inspiring,9,S,super-game-improvement
+5.8,87.9,197,Fade,Distance,Consistent,No preference,10.5,R,players-cb
+14.1,93.7,230,Slice,Distance,Consistent,Forged/Blade-like,9,R,players-distance
+19.0,76.5,175,Slice,Forgiveness,Inconsistent,Confidence-inspiring,8,A,game-improvement
+15.2,86.1,207,Straight,Accuracy,Fat/Thin,No preference,10.5,R,super-game-improvement
+11.8,91.9,210,Draw,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-cb
+19.3,82.9,195,Slice,Distance,Fat/Thin,No preference,10.5,A,super-game-improvement
+12.5,89.9,197,Fade,Forgiveness,Left/Right,No preference,12,A,blade
+11.3,95.1,227,Hook,Accuracy,Fat/Thin,No preference,9,R,players-distance
+19.8,81.5,192,Slice,Distance,Fat/Thin,No preference,10.5,A,players-distance
+13.4,82.4,187,Slice,Accuracy,Left/Right,Confidence-inspiring,10.5,A,players-distance
+19.2,91.4,214,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+19.5,90.8,215,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+6.7,106.2,242,Straight,Distance,Fat/Thin,Forged/Blade-like,8,X,players-cb
+12.7,82.6,192,Slice,Distance,Consistent,No preference,10.5,A,players-distance
+29.9,75.7,165,Draw,Forgiveness,Left/Right,Confidence-inspiring,12,S,super-game-improvement
+6.5,105.3,278,Draw,Distance,Consistent,No preference,9,X,players-distance
+0.0,100.8,251,Draw,Distance,Consistent,Forged/Blade-like,9,S,blade
+0.2,107.8,257,Slice,Distance,Left/Right,Confidence-inspiring,9,X,blade
+17.3,87.3,220,Fade,Distance,Consistent,Confidence-inspiring,10.5,R,players-distance
+17.3,101.0,212,Fade,Accuracy,Left/Right,Confidence-inspiring,9,S,game-improvement
+15.9,103.2,209,Straight,Forgiveness,Left/Right,Confidence-inspiring,9,S,game-improvement
+27.9,64.3,146,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,X,super-game-improvement
+0.0,120.0,264,Hook,Accuracy,Left/Right,Forged/Blade-like,8,X,blade
+20.6,77.9,180,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,X,game-improvement
+31.1,79.1,189,Straight,Accuracy,Fat/Thin,No preference,12,A,super-game-improvement
+6.8,107.0,263,Slice,Forgiveness,Consistent,Forged/Blade-like,12,X,players-cb
+13.6,85.4,186,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,L,game-improvement
+10.2,99.7,239,Slice,Distance,Inconsistent,Forged/Blade-like,9,S,players-cb
+9.0,96.9,228,Fade,Accuracy,Left/Right,No preference,9,R,players-distance
+14.1,95.7,229,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,9,R,game-improvement
+29.8,75.3,170,Draw,Accuracy,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+33.5,77.8,201,Slice,Accuracy,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+14.0,92.4,216,Draw,Accuracy,Fat/Thin,No preference,10.5,S,players-distance
+34.1,67.6,182,Fade,Accuracy,Consistent,Confidence-inspiring,10.5,L,super-game-improvement
+17.3,95.8,215,Straight,Forgiveness,Left/Right,Confidence-inspiring,9,R,game-improvement
+32.8,74.3,184,Slice,Distance,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+16.2,94.5,221,Straight,Accuracy,Left/Right,No preference,10.5,R,game-improvement
+18.2,82.4,189,Hook,Accuracy,Consistent,No preference,10.5,A,game-improvement
+20.3,77.3,190,Slice,Accuracy,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+36.0,62.6,143,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+24.7,75.2,142,Fade,Forgiveness,Consistent,Confidence-inspiring,12,A,game-improvement
+10.6,101.3,198,Slice,Distance,Fat/Thin,Confidence-inspiring,9,S,players-distance
+25.7,85.3,217,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+13.7,91.2,230,Fade,Accuracy,Left/Right,No preference,10.5,R,game-improvement
+12.6,103.5,268,Slice,Forgiveness,Fat/Thin,Forged/Blade-like,9,S,players-cb
+25.2,88.6,208,Hook,Distance,Fat/Thin,Confidence-inspiring,9,L,super-game-improvement
+17.3,89.8,194,Fade,Distance,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+19.5,79.8,182,Straight,Distance,Inconsistent,No preference,12,A,super-game-improvement
+17.1,99.4,234,Slice,Accuracy,Fat/Thin,Forged/Blade-like,9,S,players-distance
+20.0,84.6,186,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+20.8,85.0,221,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+0.0,105.6,277,Hook,Distance,Consistent,Confidence-inspiring,9,X,blade
+23.0,75.3,183,Fade,Accuracy,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+8.2,88.3,207,Straight,Accuracy,Consistent,No preference,10.5,R,players-distance
+4.0,107.8,236,Hook,Accuracy,Fat/Thin,Forged/Blade-like,8,X,super-game-improvement
+16.5,83.5,216,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,blade
+17.8,108.9,257,Fade,Accuracy,Inconsistent,Confidence-inspiring,8,X,super-game-improvement
+10.8,88.0,203,Straight,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-cb
+24.5,71.0,173,Straight,Accuracy,Left/Right,Confidence-inspiring,12,X,game-improvement
+4.9,105.9,241,Hook,Accuracy,Inconsistent,Forged/Blade-like,10.5,X,blade
+13.3,103.4,245,Fade,Forgiveness,Inconsistent,No preference,9,S,game-improvement
+11.7,95.0,204,Draw,Accuracy,Inconsistent,Confidence-inspiring,9,R,players-distance
+16.6,92.9,232,Straight,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+19.5,72.7,169,Slice,Distance,Consistent,Confidence-inspiring,12,A,players-distance
+7.9,94.2,236,Straight,Accuracy,Inconsistent,No preference,10.5,R,players-cb
+23.5,73.5,170,Hook,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+17.6,74.5,173,Fade,Accuracy,Inconsistent,Forged/Blade-like,12,A,players-distance
+0.0,108.8,240,Draw,Distance,Left/Right,Forged/Blade-like,8,X,blade
+0.0,92.3,227,Draw,Accuracy,Consistent,No preference,10.5,R,blade
+16.9,79.3,175,Draw,Accuracy,Inconsistent,Forged/Blade-like,12,A,super-game-improvement
+15.0,87.0,198,Straight,Distance,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+16.1,83.7,197,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+16.7,91.6,217,Slice,Distance,Left/Right,No preference,10.5,R,players-distance
+19.0,88.3,185,Draw,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+25.5,84.9,197,Hook,Distance,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+7.0,105.2,258,Fade,Distance,Fat/Thin,Forged/Blade-like,9,X,blade
+6.5,108.5,250,Draw,Accuracy,Left/Right,No preference,8,X,players-cb
+7.2,99.7,231,Straight,Forgiveness,Left/Right,No preference,9,S,players-distance
+19.6,87.6,208,Draw,Forgiveness,Inconsistent,Confidence-inspiring,12,R,blade
+28.2,79.2,184,Straight,Forgiveness,Left/Right,No preference,8,A,game-improvement
+13.1,93.9,207,Fade,Accuracy,Consistent,Forged/Blade-like,10.5,R,players-distance
+0.0,105.2,247,Fade,Distance,Consistent,No preference,9,X,blade
+1.7,103.7,257,Fade,Accuracy,Consistent,Confidence-inspiring,9,S,blade
+9.5,91.4,201,Straight,Forgiveness,Left/Right,Forged/Blade-like,12,R,players-cb
+12.0,97.2,224,Straight,Accuracy,Left/Right,Forged/Blade-like,9,R,players-distance
+13.3,92.0,198,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,10.5,R,game-improvement
+17.3,83.5,208,Draw,Distance,Fat/Thin,Confidence-inspiring,10.5,A,game-improvement
+14.2,87.0,203,Straight,Accuracy,Inconsistent,Forged/Blade-like,10.5,L,players-distance
+26.4,69.2,152,Slice,Distance,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+10.9,102.3,242,Hook,Distance,Left/Right,Confidence-inspiring,9,S,players-distance
+9.2,98.0,215,Draw,Accuracy,Fat/Thin,Confidence-inspiring,9,S,players-distance
+21.3,77.5,169,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+3.2,110.0,240,Straight,Accuracy,Left/Right,Confidence-inspiring,8,R,blade
+20.5,80.5,175,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,9,A,super-game-improvement
+17.9,77.6,200,Fade,Forgiveness,Left/Right,No preference,12,A,game-improvement
+15.7,97.1,219,Draw,Forgiveness,Inconsistent,Confidence-inspiring,9,S,super-game-improvement
+31.3,68.2,166,Fade,Distance,Inconsistent,No preference,12,L,super-game-improvement
+11.4,92.0,205,Straight,Forgiveness,Consistent,Confidence-inspiring,10.5,R,game-improvement
+35.5,67.5,168,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,12,L,players-distance
+15.0,98.7,219,Straight,Forgiveness,Left/Right,No preference,9,S,game-improvement
+5.5,101.8,240,Straight,Accuracy,Left/Right,Forged/Blade-like,9,S,players-cb
+17.6,79.4,187,Slice,Distance,Fat/Thin,Forged/Blade-like,12,X,players-distance
+7.3,103.4,273,Fade,Accuracy,Inconsistent,Forged/Blade-like,9,S,players-cb
+10.2,92.9,227,Draw,Accuracy,Consistent,Confidence-inspiring,10.5,R,players-distance
+20.6,97.5,221,Slice,Forgiveness,Inconsistent,Confidence-inspiring,9,S,super-game-improvement
+22.0,82.7,203,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+11.4,79.2,214,Straight,Distance,Fat/Thin,Forged/Blade-like,12,A,players-cb
+25.9,80.7,168,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+27.4,90.1,201,Slice,Accuracy,Left/Right,Confidence-inspiring,10.5,S,super-game-improvement
+29.9,84.6,196,Fade,Forgiveness,Consistent,No preference,9,R,super-game-improvement
+21.8,95.7,219,Draw,Accuracy,Left/Right,Confidence-inspiring,9,R,game-improvement
+29.3,67.2,154,Straight,Distance,Fat/Thin,Forged/Blade-like,12,L,players-distance
+0.1,114.3,252,Straight,Accuracy,Fat/Thin,Forged/Blade-like,8,X,blade
+14.1,86.7,222,Fade,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,players-cb
+9.2,99.0,214,Straight,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+18.1,78.3,181,Hook,Accuracy,Left/Right,No preference,12,S,game-improvement
+11.9,89.8,225,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,8,R,game-improvement
+15.5,85.4,200,Slice,Accuracy,Inconsistent,Forged/Blade-like,9,R,players-distance
+33.9,75.3,164,Slice,Accuracy,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+15.5,95.8,208,Hook,Distance,Left/Right,Confidence-inspiring,9,R,players-distance
+20.7,86.1,199,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+14.9,81.4,181,Draw,Accuracy,Inconsistent,No preference,10.5,A,players-distance
+17.7,85.5,204,Draw,Forgiveness,Left/Right,No preference,12,R,game-improvement
+17.1,83.1,177,Draw,Forgiveness,Inconsistent,No preference,8,A,super-game-improvement
+21.0,89.9,222,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+27.5,84.6,200,Straight,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+31.8,78.8,188,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+19.8,79.9,206,Straight,Distance,Inconsistent,No preference,12,A,super-game-improvement
+22.3,63.2,143,Straight,Forgiveness,Consistent,Confidence-inspiring,10.5,L,game-improvement
+6.6,88.0,197,Draw,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-cb
+16.2,99.3,226,Fade,Distance,Inconsistent,Forged/Blade-like,9,S,players-distance
+25.5,75.9,176,Fade,Forgiveness,Left/Right,No preference,12,A,game-improvement
+24.8,74.2,173,Fade,Distance,Consistent,No preference,12,A,game-improvement
+18.9,97.8,219,Straight,Forgiveness,Fat/Thin,No preference,9,S,super-game-improvement
+25.0,88.1,181,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+21.4,83.6,189,Slice,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+27.8,74.0,179,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+19.6,84.5,200,Fade,Forgiveness,Left/Right,Forged/Blade-like,12,R,players-distance
+13.8,93.7,236,Fade,Distance,Left/Right,Forged/Blade-like,10.5,R,players-distance
+20.0,96.2,251,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,9,R,super-game-improvement
+0.0,111.0,271,Fade,Distance,Left/Right,Forged/Blade-like,8,X,blade
+20.4,89.6,229,Slice,Forgiveness,Left/Right,No preference,12,R,game-improvement
+0.0,116.2,283,Fade,Forgiveness,Inconsistent,Forged/Blade-like,8,X,blade
+1.5,98.1,253,Draw,Distance,Inconsistent,No preference,9,S,blade
+21.1,89.0,233,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,players-distance
+21.3,81.4,204,Hook,Distance,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+6.5,82.9,204,Draw,Accuracy,Inconsistent,No preference,10.5,A,players-cb
+10.6,80.9,187,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,game-improvement
+29.3,67.2,157,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+12.6,97.2,224,Slice,Distance,Left/Right,Confidence-inspiring,9,S,players-distance
+36.0,67.4,166,Slice,Forgiveness,Left/Right,No preference,12,S,super-game-improvement
+17.0,89.7,201,Straight,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-distance
+20.7,97.9,228,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,9,S,super-game-improvement
+31.6,62.8,130,Draw,Forgiveness,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+18.2,86.9,227,Straight,Distance,Inconsistent,No preference,10.5,R,super-game-improvement
+8.0,100.9,234,Slice,Distance,Consistent,Confidence-inspiring,9,X,players-cb
+16.0,84.4,204,Fade,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,players-cb
+16.7,89.0,228,Slice,Distance,Left/Right,No preference,10.5,R,players-distance
+4.7,91.4,219,Straight,Accuracy,Consistent,Forged/Blade-like,10.5,R,blade
+14.7,101.0,256,Straight,Distance,Inconsistent,No preference,9,S,game-improvement
+10.3,91.4,199,Draw,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-cb
+25.3,93.1,250,Hook,Distance,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+17.3,87.9,221,Slice,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+14.5,98.5,234,Hook,Accuracy,Consistent,Forged/Blade-like,12,S,players-distance
+16.0,89.2,228,Fade,Forgiveness,Consistent,Confidence-inspiring,12,R,game-improvement
+19.0,85.9,187,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+22.6,77.9,179,Slice,Distance,Left/Right,Confidence-inspiring,9,A,game-improvement
+8.0,99.6,253,Fade,Distance,Inconsistent,Forged/Blade-like,9,S,players-cb
+7.6,101.5,214,Straight,Accuracy,Left/Right,No preference,9,S,players-distance
+26.9,71.6,176,Straight,Distance,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+13.3,91.8,223,Straight,Accuracy,Inconsistent,Confidence-inspiring,10.5,A,blade
+4.2,98.9,258,Fade,Distance,Fat/Thin,Forged/Blade-like,9,S,blade
+21.0,99.9,214,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,S,super-game-improvement
+21.2,83.0,216,Slice,Accuracy,Inconsistent,Forged/Blade-like,10.5,A,players-distance
+3.2,115.1,263,Straight,Accuracy,Consistent,Forged/Blade-like,8,X,blade
+19.1,84.7,193,Hook,Forgiveness,Inconsistent,Forged/Blade-like,12,R,players-distance
+23.6,82.7,178,Straight,Distance,Inconsistent,Confidence-inspiring,10.5,A,blade
+20.4,75.3,163,Slice,Accuracy,Inconsistent,No preference,12,A,players-distance
+22.7,78.8,190,Fade,Forgiveness,Inconsistent,No preference,12,A,super-game-improvement
+4.4,104.4,231,Draw,Accuracy,Consistent,No preference,9,S,players-cb
+20.0,96.1,235,Slice,Accuracy,Fat/Thin,Confidence-inspiring,9,R,super-game-improvement
+14.3,93.1,210,Draw,Distance,Left/Right,Forged/Blade-like,10.5,R,players-distance
+12.7,103.1,227,Draw,Forgiveness,Left/Right,No preference,9,S,game-improvement
+24.8,84.0,191,Slice,Forgiveness,Inconsistent,Confidence-inspiring,8,R,super-game-improvement
+30.3,84.5,203,Hook,Distance,Left/Right,Confidence-inspiring,10.5,R,super-game-improvement
+33.1,69.5,160,Straight,Distance,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+28.8,91.6,216,Hook,Accuracy,Left/Right,Confidence-inspiring,10.5,R,super-game-improvement
+16.0,86.2,212,Draw,Distance,Left/Right,No preference,10.5,R,players-distance
+20.2,79.4,201,Slice,Accuracy,Inconsistent,Confidence-inspiring,8,X,super-game-improvement
+23.9,72.0,165,Fade,Accuracy,Inconsistent,No preference,12,A,super-game-improvement
+18.1,103.5,230,Straight,Accuracy,Left/Right,Forged/Blade-like,9,S,players-distance
+18.2,92.8,219,Slice,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+24.4,77.6,188,Slice,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+16.5,97.8,211,Slice,Distance,Left/Right,Confidence-inspiring,9,S,players-distance
+10.4,100.9,226,Draw,Forgiveness,Inconsistent,Confidence-inspiring,9,S,game-improvement
+13.3,106.5,241,Draw,Accuracy,Inconsistent,Confidence-inspiring,10.5,X,players-distance
+22.7,71.1,164,Slice,Accuracy,Fat/Thin,Confidence-inspiring,10.5,L,super-game-improvement
+17.0,86.6,194,Slice,Forgiveness,Consistent,Confidence-inspiring,12,A,blade
+20.1,81.6,201,Slice,Accuracy,Fat/Thin,No preference,10.5,A,super-game-improvement
+23.0,67.7,138,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,L,game-improvement
+13.6,99.8,214,Straight,Distance,Fat/Thin,Forged/Blade-like,12,S,players-distance
+23.8,78.7,181,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+20.4,89.7,209,Hook,Distance,Fat/Thin,No preference,10.5,R,super-game-improvement
+5.9,117.7,258,Draw,Accuracy,Left/Right,No preference,8,X,players-cb
+30.0,71.0,159,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+12.5,90.7,208,Draw,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+2.1,106.4,245,Draw,Accuracy,Inconsistent,Forged/Blade-like,8,S,blade
+7.6,106.2,252,Fade,Accuracy,Fat/Thin,Forged/Blade-like,8,X,players-cb
+7.8,95.1,215,Draw,Accuracy,Fat/Thin,Forged/Blade-like,9,R,players-cb
+17.5,83.5,215,Draw,Accuracy,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+14.5,98.7,238,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,9,X,game-improvement
+14.0,94.6,212,Slice,Distance,Fat/Thin,No preference,10.5,R,players-distance
+22.6,67.7,160,Slice,Accuracy,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+20.1,76.3,181,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+19.8,95.7,241,Straight,Distance,Consistent,No preference,9,R,players-distance
+20.7,87.0,197,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+22.5,76.8,190,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+0.0,106.8,252,Draw,Distance,Consistent,Confidence-inspiring,8,X,blade
+13.7,92.3,236,Draw,Forgiveness,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+0.0,113.2,283,Fade,Distance,Inconsistent,No preference,8,X,super-game-improvement
+17.3,78.6,187,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+17.0,82.6,191,Draw,Forgiveness,Left/Right,No preference,12,A,game-improvement
+26.4,79.6,194,Fade,Distance,Left/Right,Confidence-inspiring,10.5,A,super-game-improvement
+27.7,75.4,175,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+18.8,90.4,234,Draw,Accuracy,Left/Right,Forged/Blade-like,10.5,X,players-distance
+12.5,85.0,201,Fade,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,players-distance
+21.4,85.9,197,Slice,Accuracy,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+12.2,101.6,233,Straight,Forgiveness,Left/Right,Forged/Blade-like,9,S,blade
+17.0,91.9,200,Straight,Distance,Left/Right,No preference,10.5,R,players-distance
+25.9,79.2,193,Straight,Accuracy,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+12.0,93.5,209,Draw,Forgiveness,Left/Right,Forged/Blade-like,10.5,R,super-game-improvement
+24.3,74.2,189,Slice,Forgiveness,Fat/Thin,No preference,12,X,super-game-improvement
+23.1,80.9,173,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+8.4,107.2,254,Straight,Forgiveness,Left/Right,No preference,8,X,game-improvement
+25.8,77.5,197,Hook,Distance,Left/Right,Confidence-inspiring,12,A,players-distance
+23.3,75.0,148,Straight,Forgiveness,Inconsistent,No preference,12,A,super-game-improvement
+17.9,84.0,224,Slice,Accuracy,Fat/Thin,No preference,10.5,R,super-game-improvement
+10.1,97.8,224,Slice,Distance,Fat/Thin,Forged/Blade-like,8,S,players-cb
+9.3,94.7,224,Fade,Distance,Consistent,No preference,10.5,R,players-distance
+12.2,97.4,236,Fade,Forgiveness,Left/Right,No preference,9,S,game-improvement
+21.9,86.5,213,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+8.4,104.6,249,Straight,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+20.9,93.9,234,Fade,Forgiveness,Fat/Thin,Forged/Blade-like,8,R,players-distance
+5.8,108.3,261,Straight,Distance,Inconsistent,Forged/Blade-like,8,S,players-cb
+15.2,84.0,220,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+18.0,81.0,197,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+36.0,66.1,181,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+4.6,99.6,246,Draw,Forgiveness,Consistent,Confidence-inspiring,9,S,players-distance
+30.2,65.3,130,Hook,Forgiveness,Fat/Thin,Confidence-inspiring,12,S,super-game-improvement
+18.3,83.9,231,Slice,Distance,Left/Right,Confidence-inspiring,10.5,A,players-distance
+20.7,80.9,183,Slice,Accuracy,Fat/Thin,Confidence-inspiring,8,A,super-game-improvement
+18.1,82.5,213,Draw,Forgiveness,Left/Right,Forged/Blade-like,12,A,players-distance
+21.0,81.6,192,Draw,Distance,Consistent,Confidence-inspiring,10.5,A,players-distance
+15.6,98.3,245,Straight,Distance,Fat/Thin,Confidence-inspiring,9,S,super-game-improvement
+30.1,74.8,167,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+12.9,110.5,268,Fade,Accuracy,Fat/Thin,Confidence-inspiring,8,A,game-improvement
+27.2,77.9,180,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+11.2,93.1,239,Draw,Forgiveness,Inconsistent,Confidence-inspiring,10.5,R,game-improvement
+16.5,89.1,215,Draw,Distance,Left/Right,No preference,10.5,R,super-game-improvement
+7.4,101.3,250,Fade,Accuracy,Inconsistent,Forged/Blade-like,12,S,players-cb
+21.1,86.8,176,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,R,game-improvement
+30.0,88.0,206,Slice,Accuracy,Fat/Thin,Confidence-inspiring,10.5,X,players-distance
+16.3,83.3,201,Slice,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+15.2,96.5,230,Straight,Forgiveness,Left/Right,No preference,9,R,game-improvement
+7.0,101.4,251,Straight,Forgiveness,Consistent,Forged/Blade-like,9,S,players-cb
+14.9,79.9,183,Draw,Accuracy,Inconsistent,Forged/Blade-like,12,A,players-distance
+2.7,110.3,260,Straight,Forgiveness,Left/Right,Forged/Blade-like,8,X,blade
+8.8,106.8,266,Fade,Accuracy,Consistent,Confidence-inspiring,8,S,players-distance
+19.0,80.1,159,Draw,Accuracy,Left/Right,Forged/Blade-like,10.5,A,players-distance
+28.9,74.7,183,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+36.0,60.0,137,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+11.7,85.7,190,Straight,Forgiveness,Inconsistent,Forged/Blade-like,8,R,players-cb
+29.9,81.0,195,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+19.2,82.7,210,Draw,Accuracy,Left/Right,Forged/Blade-like,10.5,A,players-distance
+15.6,82.3,207,Slice,Accuracy,Left/Right,No preference,10.5,A,game-improvement
+20.9,85.6,199,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,players-distance
+17.6,84.1,209,Slice,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,players-distance
+18.0,84.0,209,Straight,Accuracy,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+13.3,97.9,229,Hook,Distance,Left/Right,No preference,9,S,players-distance
+4.4,94.8,214,Straight,Distance,Consistent,Forged/Blade-like,10.5,R,blade
+3.1,98.1,222,Straight,Accuracy,Consistent,No preference,9,S,blade
+22.9,82.7,205,Slice,Distance,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+14.5,98.1,230,Fade,Accuracy,Left/Right,No preference,10.5,L,players-distance
+11.6,103.3,229,Fade,Distance,Left/Right,Confidence-inspiring,9,S,players-distance
+17.1,83.7,175,Fade,Distance,Left/Right,No preference,10.5,A,players-distance
+24.2,86.7,215,Hook,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+18.6,81.1,183,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+11.1,108.0,258,Draw,Accuracy,Fat/Thin,Confidence-inspiring,8,X,players-distance
+28.0,67.9,176,Fade,Accuracy,Consistent,Confidence-inspiring,12,S,super-game-improvement
+31.2,81.4,174,Fade,Distance,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+21.5,78.7,184,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,8,A,players-distance
+25.8,92.4,215,Fade,Forgiveness,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+28.2,79.7,192,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+27.2,69.6,180,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+22.5,78.5,167,Fade,Forgiveness,Inconsistent,No preference,12,A,super-game-improvement
+22.4,87.7,214,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+21.7,90.4,226,Draw,Accuracy,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+7.1,99.3,231,Fade,Distance,Consistent,Forged/Blade-like,9,S,players-cb
+23.3,81.5,190,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+4.8,107.8,259,Hook,Accuracy,Consistent,No preference,8,X,players-cb
+9.8,97.7,234,Straight,Forgiveness,Consistent,Forged/Blade-like,9,S,players-cb
+28.7,65.9,162,Slice,Accuracy,Inconsistent,Confidence-inspiring,12,L,blade
+24.6,74.0,181,Straight,Forgiveness,Left/Right,Forged/Blade-like,12,A,players-distance
+30.4,74.7,163,Straight,Distance,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+14.6,99.7,247,Straight,Accuracy,Left/Right,Confidence-inspiring,9,S,players-distance
+6.6,111.7,278,Fade,Accuracy,Consistent,Forged/Blade-like,8,A,game-improvement
+14.8,96.4,229,Fade,Distance,Left/Right,Forged/Blade-like,9,R,players-distance
+17.9,89.4,191,Draw,Distance,Inconsistent,Forged/Blade-like,9,R,players-distance
+17.7,92.9,217,Straight,Distance,Inconsistent,No preference,10.5,R,super-game-improvement
+27.2,72.1,172,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,blade
+13.7,91.2,199,Straight,Distance,Left/Right,Forged/Blade-like,10.5,R,players-distance
+20.2,79.0,181,Straight,Accuracy,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+8.1,89.9,193,Hook,Distance,Consistent,Forged/Blade-like,10.5,R,players-cb
+21.1,86.1,210,Slice,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+17.0,89.7,213,Straight,Forgiveness,Left/Right,Forged/Blade-like,12,R,players-distance
+10.3,101.0,216,Slice,Distance,Left/Right,No preference,10.5,S,players-distance
+14.9,94.7,227,Fade,Distance,Inconsistent,Confidence-inspiring,10.5,R,players-distance
+15.3,92.1,216,Straight,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+14.6,95.1,230,Draw,Forgiveness,Inconsistent,No preference,9,R,game-improvement
+32.9,69.9,159,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+16.1,92.4,207,Straight,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+14.8,85.9,192,Slice,Accuracy,Left/Right,Confidence-inspiring,10.5,R,players-distance
+0.0,110.6,253,Fade,Accuracy,Consistent,Forged/Blade-like,8,S,blade
+9.0,102.3,241,Fade,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+14.6,86.5,205,Fade,Distance,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+10.8,95.9,223,Hook,Distance,Fat/Thin,No preference,9,R,players-distance
+29.4,69.8,159,Straight,Accuracy,Left/Right,No preference,12,L,super-game-improvement
+15.5,86.5,199,Slice,Distance,Consistent,No preference,10.5,R,players-distance
+28.6,67.2,191,Hook,Accuracy,Inconsistent,Confidence-inspiring,12,S,super-game-improvement
+17.6,96.6,217,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,10.5,R,game-improvement
+17.3,95.6,217,Straight,Forgiveness,Fat/Thin,No preference,9,R,super-game-improvement
+16.2,93.1,262,Fade,Accuracy,Left/Right,No preference,12,R,game-improvement
+17.0,102.3,246,Slice,Accuracy,Fat/Thin,No preference,9,S,blade
+32.5,69.3,145,Straight,Accuracy,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+0.0,120.0,293,Straight,Accuracy,Consistent,Forged/Blade-like,8,X,blade
+0.0,106.4,238,Draw,Accuracy,Left/Right,Forged/Blade-like,8,X,players-cb
+12.1,95.9,237,Fade,Accuracy,Fat/Thin,Confidence-inspiring,9,R,players-distance
+17.1,85.6,198,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+23.2,83.9,191,Slice,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+21.3,89.4,231,Straight,Distance,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+13.5,91.7,223,Straight,Accuracy,Left/Right,No preference,10.5,R,players-distance
+26.2,90.3,225,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+26.3,79.4,192,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,8,A,super-game-improvement
+18.7,88.4,202,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+25.7,72.1,177,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,A,players-distance
+19.5,88.5,224,Slice,Accuracy,Fat/Thin,No preference,10.5,R,super-game-improvement
+11.9,93.4,221,Hook,Forgiveness,Left/Right,No preference,10.5,R,game-improvement
+23.3,76.9,204,Straight,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+18.0,81.9,204,Fade,Forgiveness,Inconsistent,Forged/Blade-like,12,A,players-distance
+17.0,107.2,255,Straight,Distance,Left/Right,Forged/Blade-like,8,X,players-distance
+30.3,71.3,171,Straight,Forgiveness,Inconsistent,No preference,12,L,super-game-improvement
+0.0,97.8,232,Fade,Accuracy,Left/Right,Forged/Blade-like,9,S,blade
+4.2,98.3,215,Straight,Distance,Left/Right,Forged/Blade-like,9,S,blade
+6.3,100.4,235,Fade,Forgiveness,Left/Right,Forged/Blade-like,9,S,players-cb
+13.7,96.1,229,Hook,Accuracy,Left/Right,No preference,9,R,players-distance
+14.7,95.0,218,Fade,Distance,Left/Right,Confidence-inspiring,9,R,players-distance
+3.4,108.8,260,Draw,Distance,Consistent,No preference,8,X,blade
+8.1,94.2,222,Hook,Distance,Left/Right,No preference,10.5,A,players-distance
+9.3,99.7,244,Straight,Distance,Fat/Thin,No preference,9,S,players-distance
+36.0,60.5,151,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+33.2,65.5,156,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+13.3,86.3,185,Straight,Distance,Fat/Thin,No preference,10.5,R,players-distance
+13.7,83.9,220,Slice,Distance,Inconsistent,Confidence-inspiring,10.5,A,players-distance
+6.7,107.7,251,Straight,Accuracy,Left/Right,Confidence-inspiring,8,X,players-cb
+0.0,112.8,264,Fade,Distance,Consistent,Forged/Blade-like,8,R,blade
+15.9,96.6,223,Draw,Forgiveness,Inconsistent,Confidence-inspiring,9,X,super-game-improvement
+8.0,99.1,227,Fade,Forgiveness,Inconsistent,No preference,9,S,players-distance
+16.2,94.8,243,Draw,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+2.6,92.7,236,Straight,Distance,Consistent,No preference,10.5,R,blade
+10.1,102.4,246,Fade,Distance,Inconsistent,No preference,9,A,players-distance
+18.3,88.2,206,Hook,Distance,Consistent,No preference,10.5,R,players-distance
+20.3,89.0,217,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+20.8,86.7,205,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+5.1,95.2,221,Hook,Accuracy,Consistent,Forged/Blade-like,9,X,players-cb
+24.7,69.1,167,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+9.8,91.7,210,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,9,R,super-game-improvement
+22.7,85.8,205,Slice,Distance,Left/Right,Confidence-inspiring,12,R,game-improvement
+16.9,93.4,222,Straight,Accuracy,Inconsistent,No preference,10.5,L,super-game-improvement
+4.6,93.1,227,Fade,Distance,Left/Right,No preference,10.5,R,players-cb
+14.2,84.8,191,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,R,players-distance
+20.3,79.6,196,Draw,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+22.5,79.6,175,Fade,Accuracy,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+15.7,80.4,181,Slice,Distance,Left/Right,No preference,10.5,A,players-distance
+30.8,62.6,140,Slice,Accuracy,Left/Right,No preference,12,R,super-game-improvement
+26.1,72.2,156,Draw,Distance,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+14.7,91.7,229,Draw,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,players-distance
+23.8,72.4,158,Slice,Distance,Fat/Thin,Forged/Blade-like,12,A,players-distance
+34.4,67.6,150,Fade,Forgiveness,Inconsistent,Forged/Blade-like,9,L,game-improvement
+34.6,75.6,194,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+5.9,92.1,209,Draw,Distance,Fat/Thin,No preference,10.5,R,players-cb
+8.7,96.5,224,Straight,Accuracy,Consistent,No preference,9,X,players-distance
+30.4,80.2,175,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+7.5,96.4,237,Straight,Accuracy,Left/Right,No preference,9,R,players-cb
+5.1,98.1,242,Straight,Forgiveness,Inconsistent,No preference,9,S,players-distance
+12.6,101.7,249,Straight,Accuracy,Inconsistent,No preference,9,S,players-distance
+20.8,81.9,199,Fade,Accuracy,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+16.1,97.2,229,Fade,Forgiveness,Left/Right,Confidence-inspiring,9,S,game-improvement
+11.1,98.2,224,Straight,Forgiveness,Left/Right,Forged/Blade-like,9,S,players-cb
+10.9,93.1,208,Slice,Forgiveness,Left/Right,Confidence-inspiring,10.5,X,game-improvement
+10.6,99.2,250,Slice,Forgiveness,Left/Right,Confidence-inspiring,9,S,game-improvement
+9.1,99.8,244,Fade,Distance,Fat/Thin,Forged/Blade-like,9,S,players-cb
+36.0,73.7,164,Fade,Accuracy,Fat/Thin,Forged/Blade-like,12,A,game-improvement
+19.7,81.5,192,Fade,Distance,Fat/Thin,Forged/Blade-like,10.5,A,players-distance
+25.0,79.5,183,Straight,Forgiveness,Left/Right,Forged/Blade-like,12,A,players-distance
+12.6,93.1,204,Hook,Forgiveness,Left/Right,Forged/Blade-like,9,R,players-distance
+15.3,95.3,226,Straight,Forgiveness,Inconsistent,Confidence-inspiring,9,A,super-game-improvement
+10.6,88.6,203,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,players-cb
+0.0,115.1,258,Draw,Distance,Inconsistent,Forged/Blade-like,8,X,blade
+4.6,106.0,230,Fade,Distance,Consistent,Forged/Blade-like,8,A,blade
+0.7,98.0,210,Straight,Distance,Consistent,Forged/Blade-like,9,S,blade
+0.0,116.5,269,Hook,Accuracy,Fat/Thin,No preference,8,X,blade
+6.2,116.5,273,Draw,Distance,Consistent,Confidence-inspiring,8,X,players-cb
+28.9,81.8,181,Slice,Forgiveness,Fat/Thin,Forged/Blade-like,12,A,players-distance
+16.6,98.9,241,Draw,Accuracy,Inconsistent,No preference,9,S,super-game-improvement
+28.6,75.7,177,Hook,Accuracy,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+20.7,72.6,178,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+24.0,67.5,156,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+8.9,99.6,224,Draw,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+21.7,78.9,187,Fade,Distance,Fat/Thin,Confidence-inspiring,10.5,A,players-distance
+23.6,74.5,159,Fade,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+11.8,94.0,228,Straight,Accuracy,Inconsistent,No preference,10.5,X,super-game-improvement
+22.0,87.0,192,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+22.1,72.4,182,Slice,Distance,Fat/Thin,Confidence-inspiring,12,A,blade
+12.1,90.9,209,Draw,Accuracy,Consistent,Confidence-inspiring,10.5,R,players-distance
+6.9,110.6,274,Straight,Distance,Consistent,Forged/Blade-like,8,X,players-cb
+6.3,93.2,204,Hook,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+17.8,93.6,211,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+19.9,81.7,197,Draw,Accuracy,Left/Right,Forged/Blade-like,10.5,A,players-distance
+9.9,100.4,251,Hook,Distance,Left/Right,Forged/Blade-like,9,S,players-cb
+17.2,95.9,247,Draw,Forgiveness,Fat/Thin,Forged/Blade-like,9,R,players-distance
+22.1,87.8,207,Straight,Accuracy,Fat/Thin,No preference,10.5,L,super-game-improvement
+22.6,88.4,232,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,8,R,super-game-improvement
+31.0,64.3,147,Straight,Accuracy,Left/Right,No preference,12,X,super-game-improvement
+28.5,83.0,209,Draw,Accuracy,Left/Right,No preference,10.5,A,super-game-improvement
+8.0,92.8,206,Slice,Distance,Left/Right,No preference,10.5,R,players-cb
+32.2,72.8,177,Slice,Accuracy,Left/Right,Confidence-inspiring,12,X,super-game-improvement
+12.2,95.8,195,Fade,Accuracy,Fat/Thin,No preference,9,R,players-distance
+26.4,81.0,176,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+17.6,90.1,218,Slice,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-distance
+13.3,86.8,187,Hook,Accuracy,Consistent,Forged/Blade-like,10.5,R,players-distance
+0.7,97.7,235,Fade,Accuracy,Left/Right,Forged/Blade-like,9,S,blade
+15.5,96.3,238,Slice,Distance,Inconsistent,Forged/Blade-like,9,S,players-distance
+3.0,105.9,242,Hook,Distance,Inconsistent,Forged/Blade-like,9,X,blade
+25.7,86.5,191,Fade,Forgiveness,Inconsistent,Forged/Blade-like,12,R,blade
+30.7,72.4,164,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+9.8,86.9,192,Fade,Accuracy,Inconsistent,Forged/Blade-like,9,R,players-cb
+19.7,92.1,215,Draw,Accuracy,Consistent,No preference,12,R,game-improvement
+10.5,93.3,221,Fade,Accuracy,Left/Right,No preference,12,R,players-distance
+11.3,97.4,225,Slice,Forgiveness,Left/Right,Confidence-inspiring,9,S,game-improvement
+24.0,75.9,200,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+16.7,100.3,226,Slice,Accuracy,Left/Right,Confidence-inspiring,9,S,game-improvement
+32.7,64.3,169,Fade,Distance,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+12.7,91.0,200,Straight,Forgiveness,Inconsistent,No preference,12,R,players-cb
+26.0,78.9,186,Slice,Distance,Left/Right,Confidence-inspiring,12,A,game-improvement
+17.9,79.8,203,Slice,Distance,Left/Right,No preference,12,A,players-distance
+24.2,82.5,209,Slice,Accuracy,Inconsistent,No preference,10.5,A,super-game-improvement
+13.0,104.3,240,Fade,Forgiveness,Fat/Thin,No preference,9,S,game-improvement
+16.6,85.5,208,Slice,Accuracy,Fat/Thin,No preference,10.5,R,super-game-improvement
+16.0,92.4,223,Slice,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+9.5,77.8,176,Draw,Accuracy,Left/Right,Forged/Blade-like,12,A,players-cb
+23.0,81.3,199,Slice,Distance,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+22.9,79.5,211,Fade,Accuracy,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+22.3,76.6,186,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+30.8,80.2,196,Hook,Forgiveness,Consistent,Confidence-inspiring,9,A,super-game-improvement
+30.0,71.2,176,Straight,Accuracy,Fat/Thin,No preference,12,L,super-game-improvement
+13.6,91.1,195,Fade,Forgiveness,Inconsistent,No preference,12,R,game-improvement
+20.4,81.9,198,Hook,Forgiveness,Consistent,Confidence-inspiring,12,A,game-improvement
+11.4,81.5,178,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,12,A,game-improvement
+17.2,80.3,181,Fade,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+11.6,101.4,266,Straight,Forgiveness,Consistent,No preference,9,S,game-improvement
+31.6,60.0,138,Draw,Forgiveness,Fat/Thin,No preference,12,S,super-game-improvement
+20.3,79.3,177,Slice,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+15.0,88.0,222,Straight,Distance,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+27.7,88.4,195,Slice,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+0.0,113.4,261,Slice,Distance,Fat/Thin,No preference,8,X,blade
+0.0,104.1,261,Hook,Accuracy,Consistent,No preference,9,S,blade
+24.2,89.3,210,Slice,Distance,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+17.5,82.7,174,Straight,Accuracy,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+19.3,92.9,225,Fade,Distance,Consistent,No preference,10.5,X,players-distance
+5.1,92.6,212,Slice,Distance,Fat/Thin,Forged/Blade-like,10.5,S,players-cb
+16.8,96.2,246,Slice,Distance,Inconsistent,No preference,9,R,super-game-improvement
+35.0,64.9,145,Straight,Forgiveness,Inconsistent,Confidence-inspiring,9,L,super-game-improvement
+24.4,72.7,185,Draw,Forgiveness,Inconsistent,No preference,12,A,super-game-improvement
+18.5,85.2,223,Straight,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+13.0,95.0,212,Slice,Distance,Fat/Thin,Confidence-inspiring,9,R,players-distance
+13.4,89.1,207,Hook,Accuracy,Fat/Thin,Confidence-inspiring,9,X,players-distance
+0.0,111.9,268,Fade,Accuracy,Consistent,Forged/Blade-like,8,X,players-distance
+19.3,81.7,181,Straight,Distance,Inconsistent,No preference,10.5,A,super-game-improvement
+24.6,84.1,201,Draw,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+2.8,107.9,251,Draw,Distance,Inconsistent,Forged/Blade-like,9,X,blade
+11.0,94.9,220,Slice,Forgiveness,Left/Right,Forged/Blade-like,9,R,players-cb
+6.6,97.3,229,Draw,Accuracy,Consistent,No preference,9,S,players-cb
+8.3,99.5,235,Draw,Accuracy,Left/Right,Forged/Blade-like,9,S,players-cb
+17.5,91.7,218,Draw,Distance,Left/Right,Confidence-inspiring,9,L,players-distance
+0.0,120.0,274,Fade,Distance,Inconsistent,Forged/Blade-like,8,X,blade
+22.5,88.7,201,Straight,Distance,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+23.8,87.5,204,Straight,Distance,Fat/Thin,No preference,10.5,R,super-game-improvement
+14.7,112.7,264,Fade,Forgiveness,Left/Right,Forged/Blade-like,8,X,players-distance
+0.0,111.6,257,Fade,Forgiveness,Inconsistent,Forged/Blade-like,8,A,blade
+8.0,102.2,244,Straight,Accuracy,Consistent,No preference,9,S,players-cb
+28.1,80.6,166,Fade,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+0.0,100.9,228,Straight,Distance,Consistent,No preference,9,S,blade
+13.9,88.9,205,Fade,Accuracy,Inconsistent,No preference,10.5,R,players-distance
+6.4,97.1,217,Straight,Distance,Left/Right,Forged/Blade-like,9,S,players-cb
+24.2,84.7,220,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+10.9,94.2,222,Draw,Accuracy,Left/Right,No preference,9,R,players-distance
+20.6,85.3,203,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+22.1,90.2,206,Straight,Accuracy,Left/Right,Confidence-inspiring,10.5,R,blade
+33.5,75.5,177,Straight,Distance,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+15.2,89.4,194,Straight,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+20.4,79.9,186,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+3.6,111.8,251,Draw,Distance,Left/Right,Confidence-inspiring,10.5,X,blade
+27.7,81.6,188,Straight,Distance,Fat/Thin,Confidence-inspiring,12,X,super-game-improvement
+10.2,85.0,166,Straight,Accuracy,Inconsistent,No preference,10.5,R,players-distance
+12.0,92.0,202,Hook,Accuracy,Fat/Thin,Forged/Blade-like,8,R,players-distance
+16.8,89.8,230,Slice,Accuracy,Consistent,Confidence-inspiring,10.5,R,game-improvement
+2.9,110.1,270,Fade,Accuracy,Consistent,Forged/Blade-like,8,A,blade
+19.1,92.4,234,Draw,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+25.7,80.4,207,Fade,Accuracy,Left/Right,Forged/Blade-like,10.5,A,players-distance
+19.6,89.6,219,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+2.7,105.3,242,Fade,Distance,Consistent,Forged/Blade-like,9,X,blade
+15.9,85.0,186,Draw,Distance,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+23.7,78.9,200,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+0.1,108.0,255,Draw,Accuracy,Left/Right,Forged/Blade-like,8,X,blade
+7.3,99.4,266,Straight,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+24.9,66.2,151,Slice,Accuracy,Fat/Thin,Confidence-inspiring,12,L,blade
+19.4,82.9,220,Slice,Accuracy,Left/Right,No preference,10.5,A,game-improvement
+20.7,84.6,197,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,X,super-game-improvement
+33.7,67.3,176,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+21.2,81.9,215,Draw,Distance,Consistent,Confidence-inspiring,10.5,A,players-distance
+22.9,85.1,187,Slice,Distance,Inconsistent,No preference,8,R,super-game-improvement
+36.0,60.0,135,Slice,Accuracy,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+15.1,79.2,173,Draw,Distance,Consistent,No preference,12,A,players-distance
+9.8,94.3,206,Fade,Accuracy,Consistent,No preference,10.5,R,players-distance
+20.9,89.3,219,Straight,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+21.0,95.7,222,Slice,Forgiveness,Inconsistent,Confidence-inspiring,9,R,super-game-improvement
+12.3,99.3,234,Slice,Accuracy,Consistent,Confidence-inspiring,8,S,players-distance
+7.7,88.9,216,Slice,Forgiveness,Consistent,Forged/Blade-like,12,R,players-cb
+36.0,65.0,130,Draw,Accuracy,Consistent,No preference,12,L,super-game-improvement
+19.9,86.9,221,Fade,Accuracy,Left/Right,Confidence-inspiring,10.5,L,game-improvement
+10.4,97.3,224,Straight,Accuracy,Consistent,Confidence-inspiring,9,S,players-distance
+25.2,82.8,202,Straight,Forgiveness,Left/Right,Forged/Blade-like,12,A,players-distance
+16.0,83.2,204,Straight,Accuracy,Fat/Thin,No preference,10.5,A,super-game-improvement
+14.7,91.5,233,Straight,Accuracy,Inconsistent,Confidence-inspiring,10.5,X,players-distance
+22.1,85.5,200,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+5.4,107.6,225,Fade,Distance,Consistent,Forged/Blade-like,8,X,players-cb
+20.2,79.1,187,Hook,Accuracy,Fat/Thin,No preference,12,A,super-game-improvement
+34.2,66.3,158,Fade,Forgiveness,Left/Right,No preference,12,S,super-game-improvement
+21.2,64.7,139,Slice,Distance,Consistent,Forged/Blade-like,12,L,game-improvement
+13.6,88.0,209,Straight,Accuracy,Left/Right,No preference,10.5,R,players-distance
+12.4,90.1,207,Hook,Distance,Inconsistent,No preference,10.5,R,players-distance
+13.3,85.6,184,Fade,Forgiveness,Left/Right,Forged/Blade-like,12,R,players-distance
+14.7,92.3,226,Draw,Forgiveness,Fat/Thin,No preference,10.5,R,game-improvement
+13.6,92.0,209,Slice,Distance,Left/Right,No preference,12,R,players-distance
+25.2,63.2,143,Slice,Distance,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+1.4,107.9,248,Fade,Distance,Consistent,Confidence-inspiring,8,X,blade
+24.8,73.0,188,Straight,Distance,Left/Right,Confidence-inspiring,12,A,game-improvement
+13.6,95.8,225,Fade,Distance,Left/Right,Confidence-inspiring,9,R,players-distance
+20.4,75.6,179,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+6.9,100.3,230,Fade,Accuracy,Consistent,No preference,10.5,S,players-cb
+29.0,72.7,177,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+28.2,77.7,200,Hook,Forgiveness,Inconsistent,No preference,12,A,super-game-improvement
+25.6,79.4,195,Hook,Accuracy,Fat/Thin,Confidence-inspiring,12,X,super-game-improvement
+3.4,102.3,249,Hook,Accuracy,Left/Right,Forged/Blade-like,9,S,blade
+24.5,69.1,170,Slice,Distance,Fat/Thin,Forged/Blade-like,12,L,players-distance
+20.6,74.0,156,Straight,Accuracy,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+2.6,100.9,226,Straight,Accuracy,Left/Right,Forged/Blade-like,9,S,blade
+16.8,88.6,206,Straight,Distance,Fat/Thin,Forged/Blade-like,10.5,S,players-distance
+20.3,80.4,180,Slice,Distance,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+22.0,87.1,191,Slice,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,players-distance
+18.6,84.7,175,Straight,Distance,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+19.6,78.7,167,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,players-distance
+30.3,71.2,164,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+28.0,77.4,181,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+0.0,110.3,249,Slice,Accuracy,Left/Right,Confidence-inspiring,8,X,players-cb
+14.1,104.9,248,Draw,Forgiveness,Consistent,Confidence-inspiring,9,S,game-improvement
+15.5,85.5,195,Straight,Distance,Consistent,Confidence-inspiring,10.5,R,game-improvement
+1.2,106.1,264,Straight,Accuracy,Consistent,No preference,8,X,blade
+17.8,90.5,211,Draw,Accuracy,Left/Right,No preference,10.5,R,game-improvement
+28.2,75.4,186,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+7.2,96.2,229,Draw,Accuracy,Consistent,No preference,9,R,players-cb
+20.0,74.2,156,Fade,Distance,Left/Right,Confidence-inspiring,12,S,players-distance
+8.8,94.3,220,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,10.5,R,super-game-improvement
+11.0,87.8,190,Draw,Forgiveness,Left/Right,Forged/Blade-like,12,A,players-cb
+30.3,61.1,142,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+12.1,88.5,198,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,R,game-improvement
+21.2,76.3,184,Slice,Accuracy,Fat/Thin,No preference,12,A,players-distance
+0.2,111.9,246,Straight,Accuracy,Consistent,No preference,8,X,blade
+33.8,73.3,172,Slice,Accuracy,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+22.4,75.9,186,Straight,Accuracy,Consistent,Confidence-inspiring,12,A,game-improvement
+15.4,88.5,220,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+22.2,69.5,153,Slice,Distance,Left/Right,Confidence-inspiring,8,L,game-improvement
+4.3,99.6,234,Draw,Distance,Consistent,Forged/Blade-like,9,S,blade
+27.6,79.1,188,Straight,Distance,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+14.1,97.6,249,Straight,Accuracy,Inconsistent,Forged/Blade-like,9,S,players-distance
+15.2,85.5,182,Straight,Accuracy,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+12.6,100.9,225,Fade,Accuracy,Consistent,Forged/Blade-like,9,S,players-distance
+11.8,83.8,233,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,A,game-improvement
+23.3,72.5,167,Hook,Forgiveness,Inconsistent,Confidence-inspiring,12,X,game-improvement
+19.3,90.8,189,Draw,Forgiveness,Consistent,Confidence-inspiring,12,R,game-improvement
+22.9,93.4,212,Draw,Distance,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+16.9,92.0,180,Straight,Accuracy,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+21.6,82.9,198,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+13.2,77.5,193,Draw,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+36.0,60.0,130,Fade,Distance,Left/Right,Confidence-inspiring,12,L,game-improvement
+2.9,105.6,242,Straight,Accuracy,Left/Right,No preference,9,X,blade
+28.3,72.9,183,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+29.3,66.6,134,Fade,Accuracy,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+9.3,97.8,213,Straight,Forgiveness,Left/Right,Forged/Blade-like,9,S,blade
+36.0,67.4,155,Draw,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+26.0,84.7,189,Fade,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+25.7,79.4,183,Draw,Distance,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+17.3,96.7,211,Fade,Forgiveness,Consistent,Confidence-inspiring,9,R,game-improvement
+15.0,90.8,216,Fade,Distance,Left/Right,No preference,9,X,players-distance
+15.1,89.8,209,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+20.5,91.9,223,Slice,Forgiveness,Left/Right,No preference,12,R,game-improvement
+29.6,67.1,160,Draw,Forgiveness,Fat/Thin,No preference,12,L,super-game-improvement
+18.6,106.3,252,Draw,Forgiveness,Left/Right,Forged/Blade-like,12,X,players-distance
+8.8,100.5,217,Draw,Accuracy,Left/Right,Forged/Blade-like,9,S,players-cb
+24.4,82.6,201,Fade,Accuracy,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+25.3,82.6,190,Fade,Distance,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+22.9,94.8,221,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+23.7,86.3,216,Slice,Forgiveness,Fat/Thin,No preference,12,R,super-game-improvement
+14.6,80.0,179,Straight,Distance,Left/Right,Confidence-inspiring,10.5,A,players-distance
+8.6,107.9,271,Hook,Accuracy,Consistent,Forged/Blade-like,8,X,players-cb
+9.2,95.0,242,Hook,Accuracy,Consistent,Forged/Blade-like,9,R,players-cb
+2.3,106.1,259,Straight,Accuracy,Consistent,No preference,8,X,blade
+19.1,77.1,168,Straight,Accuracy,Left/Right,No preference,9,A,game-improvement
+16.2,93.1,190,Fade,Forgiveness,Left/Right,Confidence-inspiring,10.5,S,game-improvement
+13.0,88.5,222,Draw,Forgiveness,Left/Right,No preference,12,A,game-improvement
+0.0,108.7,257,Fade,Distance,Consistent,No preference,8,X,blade
+5.8,99.3,224,Slice,Forgiveness,Inconsistent,No preference,9,S,players-distance
+27.1,90.3,227,Straight,Forgiveness,Inconsistent,No preference,12,R,super-game-improvement
+11.0,109.2,245,Straight,Distance,Left/Right,No preference,8,X,players-distance
+20.2,85.1,194,Slice,Forgiveness,Fat/Thin,No preference,12,R,super-game-improvement
+4.5,103.3,250,Straight,Forgiveness,Consistent,Forged/Blade-like,9,S,blade
+29.9,71.0,152,Straight,Accuracy,Inconsistent,No preference,12,L,super-game-improvement
+15.7,97.7,228,Fade,Distance,Left/Right,Forged/Blade-like,9,S,players-distance
+19.6,83.2,210,Draw,Distance,Consistent,No preference,10.5,A,players-distance
+36.0,63.7,152,Draw,Forgiveness,Fat/Thin,No preference,8,L,super-game-improvement
+30.6,79.7,204,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,12,A,players-distance
+14.2,87.9,221,Hook,Forgiveness,Fat/Thin,No preference,9,R,game-improvement
+11.7,94.3,222,Slice,Accuracy,Left/Right,Confidence-inspiring,10.5,R,players-distance
+14.1,80.7,159,Fade,Distance,Left/Right,Forged/Blade-like,10.5,A,players-distance
+21.6,88.1,193,Fade,Forgiveness,Inconsistent,Confidence-inspiring,10.5,X,super-game-improvement
+16.1,103.1,252,Fade,Distance,Inconsistent,No preference,9,S,super-game-improvement
+13.4,97.6,209,Hook,Forgiveness,Inconsistent,No preference,9,S,game-improvement
+30.2,83.5,192,Fade,Forgiveness,Consistent,Confidence-inspiring,12,A,super-game-improvement
+16.0,83.7,201,Fade,Accuracy,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+36.0,68.3,180,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+17.8,80.9,183,Fade,Accuracy,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+33.1,68.3,152,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+20.2,90.2,211,Straight,Accuracy,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+25.7,79.2,191,Straight,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+10.5,86.0,200,Fade,Accuracy,Inconsistent,No preference,9,R,players-distance
+9.3,88.1,221,Draw,Accuracy,Left/Right,No preference,10.5,R,players-distance
+21.1,74.1,164,Hook,Accuracy,Fat/Thin,Confidence-inspiring,12,A,game-improvement
+25.9,81.7,194,Draw,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+17.4,102.4,246,Slice,Accuracy,Left/Right,Forged/Blade-like,9,S,players-distance
+5.4,111.3,256,Fade,Distance,Left/Right,No preference,8,X,players-cb
+4.8,89.2,221,Straight,Accuracy,Consistent,No preference,10.5,R,players-cb
+4.2,113.1,268,Draw,Accuracy,Consistent,No preference,8,X,players-cb
+1.1,113.3,277,Draw,Accuracy,Consistent,Forged/Blade-like,8,X,blade
+18.0,76.5,182,Fade,Distance,Left/Right,Confidence-inspiring,12,A,players-distance
+27.1,74.7,180,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+16.9,96.2,218,Fade,Forgiveness,Left/Right,Forged/Blade-like,8,R,players-distance
+0.0,111.9,255,Slice,Accuracy,Left/Right,Forged/Blade-like,8,X,blade
+15.3,81.2,207,Straight,Forgiveness,Inconsistent,Forged/Blade-like,12,S,players-distance
+15.5,94.5,230,Fade,Forgiveness,Left/Right,No preference,10.5,R,game-improvement
+35.9,60.0,130,Fade,Distance,Fat/Thin,No preference,12,L,super-game-improvement
+3.9,102.0,242,Hook,Forgiveness,Left/Right,No preference,9,S,players-distance
+13.5,100.4,205,Fade,Accuracy,Inconsistent,No preference,9,S,players-distance
+32.4,70.9,159,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,8,L,super-game-improvement
+21.0,80.4,201,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+22.1,88.8,207,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+18.0,94.1,223,Straight,Accuracy,Consistent,Confidence-inspiring,10.5,A,game-improvement
+20.0,94.2,182,Straight,Forgiveness,Fat/Thin,No preference,10.5,R,super-game-improvement
+24.0,86.5,198,Hook,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+9.7,104.4,250,Straight,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+24.9,84.5,205,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+4.6,104.6,258,Draw,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+20.0,85.6,198,Draw,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+18.6,84.9,197,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+11.5,86.3,185,Draw,Forgiveness,Consistent,No preference,12,S,game-improvement
+16.8,82.0,190,Hook,Accuracy,Inconsistent,No preference,10.5,A,super-game-improvement
+11.4,92.9,202,Straight,Distance,Left/Right,Confidence-inspiring,10.5,R,blade
+7.4,101.2,214,Draw,Accuracy,Consistent,No preference,9,R,players-cb
+13.8,102.2,226,Fade,Accuracy,Left/Right,Forged/Blade-like,9,L,players-distance
+7.1,99.5,253,Straight,Accuracy,Consistent,Forged/Blade-like,9,S,super-game-improvement
+19.9,92.1,213,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+6.6,108.0,257,Fade,Forgiveness,Left/Right,Forged/Blade-like,8,X,players-cb
+23.4,79.5,180,Fade,Forgiveness,Inconsistent,Forged/Blade-like,9,A,players-distance
+6.4,104.8,223,Draw,Accuracy,Consistent,No preference,8,S,players-cb
+11.9,92.6,230,Draw,Distance,Left/Right,No preference,10.5,R,players-distance
+11.4,104.1,216,Straight,Accuracy,Consistent,No preference,9,S,players-distance
+28.9,79.2,179,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+20.0,76.7,180,Hook,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+15.1,91.8,219,Straight,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+21.5,94.8,213,Slice,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+0.0,106.7,227,Slice,Accuracy,Left/Right,No preference,8,X,blade
+16.6,92.0,206,Hook,Accuracy,Consistent,Forged/Blade-like,10.5,R,players-distance
+35.0,71.6,159,Slice,Forgiveness,Fat/Thin,No preference,12,X,super-game-improvement
+18.2,79.8,177,Slice,Forgiveness,Fat/Thin,Forged/Blade-like,12,X,players-distance
+17.6,91.3,227,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,X,game-improvement
+21.9,73.1,156,Slice,Distance,Fat/Thin,No preference,12,A,super-game-improvement
+25.1,74.8,180,Slice,Accuracy,Left/Right,Confidence-inspiring,12,A,game-improvement
+0.0,115.5,273,Straight,Distance,Inconsistent,No preference,8,X,blade
+1.9,108.3,267,Fade,Accuracy,Fat/Thin,No preference,8,A,blade
+18.9,84.1,196,Hook,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+10.6,98.9,243,Draw,Accuracy,Inconsistent,Forged/Blade-like,9,S,blade
+28.8,74.5,173,Slice,Forgiveness,Left/Right,No preference,12,A,super-game-improvement
+14.2,91.8,221,Draw,Accuracy,Left/Right,No preference,10.5,R,players-distance
+0.0,112.6,245,Draw,Forgiveness,Consistent,Forged/Blade-like,8,X,blade
+5.6,96.5,192,Draw,Accuracy,Left/Right,Confidence-inspiring,9,R,players-cb
+0.0,108.3,259,Straight,Accuracy,Left/Right,No preference,8,X,blade
+14.9,88.7,214,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,players-distance
+15.3,79.3,193,Slice,Accuracy,Left/Right,No preference,12,A,game-improvement
+13.2,86.4,196,Fade,Accuracy,Consistent,Confidence-inspiring,10.5,R,players-distance
+26.7,88.3,227,Draw,Distance,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+27.8,78.7,179,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+15.5,80.9,196,Fade,Forgiveness,Left/Right,Forged/Blade-like,12,A,players-distance
+0.0,97.2,236,Hook,Accuracy,Inconsistent,Forged/Blade-like,9,S,blade
+22.6,81.2,213,Slice,Forgiveness,Left/Right,No preference,12,A,game-improvement
+22.0,93.6,216,Slice,Forgiveness,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+19.8,83.9,189,Straight,Accuracy,Inconsistent,No preference,10.5,A,super-game-improvement
+25.8,87.5,186,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+6.5,103.0,262,Fade,Forgiveness,Left/Right,Forged/Blade-like,9,S,players-cb
+35.1,70.9,172,Straight,Distance,Fat/Thin,Forged/Blade-like,12,L,players-distance
+8.4,89.0,215,Fade,Accuracy,Consistent,Forged/Blade-like,9,R,players-cb
+23.7,87.3,246,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,9,R,super-game-improvement
+1.8,103.6,248,Straight,Accuracy,Inconsistent,Forged/Blade-like,9,S,blade
+8.6,104.2,228,Draw,Forgiveness,Consistent,Forged/Blade-like,9,S,players-cb
+30.6,67.1,155,Straight,Forgiveness,Fat/Thin,No preference,12,L,super-game-improvement
+14.7,92.3,204,Draw,Distance,Consistent,Forged/Blade-like,10.5,R,players-distance
+24.6,82.2,188,Fade,Distance,Fat/Thin,No preference,10.5,A,super-game-improvement
+19.1,85.0,195,Straight,Distance,Inconsistent,No preference,9,R,super-game-improvement
+16.1,92.3,209,Draw,Forgiveness,Consistent,Confidence-inspiring,10.5,R,players-distance
+29.3,72.4,152,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+14.9,86.3,224,Fade,Distance,Inconsistent,No preference,10.5,R,super-game-improvement
+1.0,118.1,281,Straight,Accuracy,Inconsistent,No preference,8,X,blade
+9.8,104.1,242,Fade,Distance,Consistent,Forged/Blade-like,9,L,players-cb
+22.0,77.4,192,Fade,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+20.6,88.3,214,Fade,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+2.9,99.5,237,Fade,Accuracy,Left/Right,Forged/Blade-like,9,S,blade
+10.5,87.6,215,Straight,Distance,Left/Right,No preference,10.5,R,players-distance
+11.8,101.7,241,Straight,Forgiveness,Consistent,Confidence-inspiring,9,S,game-improvement
+13.7,80.3,197,Straight,Accuracy,Inconsistent,Confidence-inspiring,10.5,A,players-distance
+4.6,109.2,266,Slice,Distance,Consistent,Forged/Blade-like,8,X,blade
+11.3,93.2,221,Straight,Forgiveness,Inconsistent,Confidence-inspiring,8,R,game-improvement
+10.4,94.6,219,Slice,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+23.9,83.4,216,Hook,Accuracy,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+24.3,84.1,191,Slice,Accuracy,Left/Right,Confidence-inspiring,12,R,game-improvement
+15.7,84.2,203,Straight,Forgiveness,Consistent,Forged/Blade-like,12,R,game-improvement
+13.5,97.5,235,Draw,Distance,Inconsistent,Confidence-inspiring,9,S,players-distance
+18.3,87.7,198,Straight,Distance,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+9.7,88.1,197,Fade,Accuracy,Left/Right,No preference,10.5,R,game-improvement
+6.7,99.1,228,Draw,Accuracy,Consistent,No preference,9,S,players-cb
+8.5,107.9,247,Draw,Distance,Consistent,No preference,8,X,players-distance
+11.3,106.7,232,Slice,Distance,Left/Right,Confidence-inspiring,8,X,players-cb
+6.5,105.5,239,Straight,Accuracy,Consistent,Confidence-inspiring,9,X,players-cb
+18.5,78.4,188,Fade,Forgiveness,Inconsistent,Forged/Blade-like,12,A,players-distance
+23.6,84.3,215,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+2.7,110.9,268,Slice,Distance,Fat/Thin,Forged/Blade-like,8,X,blade
+17.2,93.3,185,Draw,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,super-game-improvement
+15.0,96.2,234,Straight,Forgiveness,Inconsistent,No preference,12,R,players-cb
+20.1,87.4,198,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+16.9,88.1,213,Draw,Accuracy,Fat/Thin,No preference,10.5,R,super-game-improvement
+3.9,99.3,233,Draw,Forgiveness,Consistent,Forged/Blade-like,9,S,blade
+5.6,88.3,205,Straight,Forgiveness,Left/Right,Forged/Blade-like,12,R,players-cb
+17.3,90.5,211,Draw,Distance,Consistent,Confidence-inspiring,10.5,X,players-distance
+26.3,79.1,186,Draw,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+0.0,111.9,280,Slice,Accuracy,Consistent,No preference,8,X,blade
+20.1,75.5,177,Hook,Forgiveness,Left/Right,Confidence-inspiring,12,A,blade
+27.7,80.7,204,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,12,A,players-distance
+15.6,104.4,258,Straight,Accuracy,Left/Right,Forged/Blade-like,10.5,S,super-game-improvement
+22.0,83.2,204,Draw,Forgiveness,Left/Right,No preference,12,A,game-improvement
+10.7,95.3,201,Draw,Distance,Fat/Thin,Forged/Blade-like,9,R,players-cb
+15.9,91.9,230,Slice,Accuracy,Left/Right,No preference,10.5,R,game-improvement
+2.4,119.5,275,Straight,Accuracy,Consistent,No preference,8,X,blade
+0.0,100.8,246,Draw,Accuracy,Consistent,Confidence-inspiring,9,S,blade
+25.5,80.1,176,Draw,Distance,Left/Right,Confidence-inspiring,10.5,A,game-improvement
+8.1,93.1,203,Slice,Distance,Fat/Thin,Forged/Blade-like,10.5,A,players-cb
+12.9,89.3,236,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,players-distance
+4.5,102.5,228,Straight,Distance,Consistent,Forged/Blade-like,9,S,super-game-improvement
+4.3,112.5,279,Fade,Accuracy,Consistent,No preference,8,X,players-cb
+15.4,102.9,243,Draw,Forgiveness,Left/Right,Confidence-inspiring,8,S,game-improvement
+10.4,99.2,228,Slice,Distance,Consistent,No preference,9,S,players-distance
+20.4,81.9,192,Slice,Accuracy,Fat/Thin,Confidence-inspiring,9,A,super-game-improvement
+21.1,101.2,221,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,9,S,players-cb
+19.9,82.1,193,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,S,game-improvement
+19.1,82.0,179,Straight,Forgiveness,Left/Right,No preference,12,A,game-improvement
+31.2,60.0,136,Slice,Forgiveness,Left/Right,No preference,12,L,super-game-improvement
+7.4,109.3,269,Hook,Accuracy,Consistent,Forged/Blade-like,8,X,players-cb
+16.5,95.8,228,Straight,Distance,Left/Right,Confidence-inspiring,9,A,players-distance
+27.2,93.6,201,Straight,Forgiveness,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+28.4,65.6,165,Hook,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+4.2,113.4,266,Straight,Accuracy,Consistent,Forged/Blade-like,8,X,blade
+14.2,92.2,210,Fade,Accuracy,Left/Right,No preference,10.5,R,players-distance
+29.2,80.1,198,Slice,Accuracy,Inconsistent,Confidence-inspiring,10.5,S,super-game-improvement
+21.6,71.6,166,Slice,Forgiveness,Left/Right,No preference,12,L,game-improvement
+18.8,96.7,212,Draw,Forgiveness,Fat/Thin,No preference,9,A,super-game-improvement
+15.0,96.3,250,Straight,Forgiveness,Left/Right,Forged/Blade-like,9,R,players-distance
+13.5,92.2,216,Slice,Forgiveness,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+19.6,90.0,210,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+14.7,85.7,196,Draw,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,blade
+16.6,84.9,215,Straight,Distance,Consistent,Forged/Blade-like,10.5,R,players-distance
+17.7,84.4,192,Draw,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+10.9,82.5,174,Slice,Accuracy,Inconsistent,Forged/Blade-like,10.5,A,players-cb
+21.8,89.0,200,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+36.0,74.9,193,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+1.0,101.9,250,Straight,Distance,Inconsistent,Forged/Blade-like,10.5,S,blade
+19.9,87.6,203,Draw,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+10.2,94.4,240,Slice,Accuracy,Left/Right,No preference,10.5,L,players-distance
+22.2,84.8,209,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+17.4,83.6,193,Straight,Forgiveness,Inconsistent,No preference,12,A,super-game-improvement
+23.9,74.3,172,Straight,Accuracy,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+27.6,83.6,201,Straight,Forgiveness,Inconsistent,No preference,12,A,players-cb
+18.7,86.0,191,Slice,Forgiveness,Fat/Thin,No preference,12,R,super-game-improvement
+27.2,90.9,214,Straight,Distance,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+0.0,108.3,259,Straight,Forgiveness,Consistent,Forged/Blade-like,8,X,blade
+31.3,65.5,132,Slice,Distance,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+20.4,93.1,216,Slice,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+26.7,81.7,188,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,X,super-game-improvement
+6.0,106.2,263,Slice,Accuracy,Consistent,Forged/Blade-like,8,X,players-cb
+9.5,105.4,224,Straight,Forgiveness,Left/Right,No preference,9,X,game-improvement
+18.3,82.4,189,Straight,Distance,Inconsistent,Confidence-inspiring,10.5,A,super-game-improvement
+16.8,87.8,200,Slice,Forgiveness,Left/Right,No preference,12,R,game-improvement
+19.5,84.4,211,Slice,Distance,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+26.8,68.1,159,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,L,players-distance
+1.1,104.9,270,Draw,Accuracy,Consistent,No preference,9,S,game-improvement
+25.8,87.7,215,Fade,Forgiveness,Inconsistent,Confidence-inspiring,9,R,super-game-improvement
+17.1,90.0,206,Straight,Forgiveness,Consistent,Forged/Blade-like,10.5,R,players-distance
+15.2,81.1,194,Fade,Accuracy,Consistent,No preference,10.5,A,game-improvement
+3.8,92.7,213,Draw,Distance,Consistent,Forged/Blade-like,10.5,R,blade
+21.5,94.9,234,Fade,Accuracy,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+0.0,107.4,235,Fade,Distance,Consistent,Forged/Blade-like,8,X,blade
+22.8,77.2,171,Fade,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+3.6,101.9,245,Draw,Accuracy,Left/Right,No preference,9,S,blade
+17.5,77.5,198,Slice,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+15.9,99.7,206,Slice,Accuracy,Inconsistent,Confidence-inspiring,9,S,super-game-improvement
+27.5,73.6,191,Draw,Distance,Left/Right,No preference,12,A,super-game-improvement
+15.4,99.9,233,Draw,Accuracy,Left/Right,No preference,9,S,game-improvement
+10.8,95.9,201,Draw,Forgiveness,Inconsistent,Confidence-inspiring,9,R,game-improvement
+12.4,103.7,205,Straight,Accuracy,Fat/Thin,No preference,9,X,players-distance
+28.5,77.0,161,Straight,Distance,Left/Right,Confidence-inspiring,8,A,super-game-improvement
+21.8,88.9,209,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,R,players-cb
+13.5,97.5,228,Slice,Accuracy,Fat/Thin,No preference,9,S,players-distance
+14.9,95.2,232,Fade,Forgiveness,Fat/Thin,Forged/Blade-like,9,R,players-distance
+2.9,107.1,245,Straight,Accuracy,Consistent,Forged/Blade-like,8,X,blade
+20.5,82.8,180,Slice,Distance,Left/Right,Confidence-inspiring,10.5,A,players-distance
+1.2,120.0,277,Draw,Accuracy,Consistent,No preference,8,X,blade
+23.8,74.3,175,Slice,Accuracy,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+18.2,87.1,208,Straight,Forgiveness,Fat/Thin,No preference,12,R,blade
+36.0,66.7,146,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,players-cb
+7.1,102.7,253,Slice,Distance,Inconsistent,Forged/Blade-like,9,S,players-cb
+16.1,86.5,195,Straight,Distance,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+33.2,72.0,158,Fade,Accuracy,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+27.7,75.0,169,Straight,Forgiveness,Fat/Thin,No preference,10.5,A,blade
+10.7,84.6,213,Straight,Accuracy,Fat/Thin,Forged/Blade-like,10.5,R,players-cb
+19.0,86.2,201,Straight,Distance,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+17.0,80.7,181,Slice,Distance,Fat/Thin,Confidence-inspiring,10.5,X,super-game-improvement
+19.5,73.4,185,Slice,Accuracy,Left/Right,Confidence-inspiring,12,A,game-improvement
+10.7,96.7,255,Hook,Forgiveness,Left/Right,Confidence-inspiring,9,R,game-improvement
+16.2,92.8,221,Straight,Forgiveness,Left/Right,Forged/Blade-like,12,R,players-distance
+2.6,108.7,271,Draw,Distance,Consistent,Forged/Blade-like,8,X,blade
+18.2,91.0,227,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+21.1,70.2,157,Draw,Forgiveness,Left/Right,No preference,8,L,game-improvement
+15.0,81.2,191,Fade,Distance,Inconsistent,Confidence-inspiring,10.5,A,players-distance
+2.5,118.9,263,Draw,Distance,Left/Right,Forged/Blade-like,8,X,blade
+25.9,70.9,164,Straight,Forgiveness,Left/Right,Forged/Blade-like,12,X,players-distance
+20.3,88.9,201,Slice,Accuracy,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+10.5,91.1,209,Slice,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-cb
+14.5,91.9,206,Fade,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-distance
+3.5,99.5,230,Fade,Accuracy,Left/Right,No preference,9,S,blade
+7.8,103.0,249,Straight,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+12.2,94.9,221,Fade,Distance,Inconsistent,Confidence-inspiring,10.5,R,players-distance
+28.1,72.5,146,Draw,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+11.2,87.8,197,Slice,Forgiveness,Fat/Thin,No preference,12,R,game-improvement
+22.8,83.7,177,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+12.2,85.5,204,Slice,Accuracy,Consistent,Confidence-inspiring,10.5,R,players-distance
+19.2,88.9,215,Slice,Forgiveness,Left/Right,Forged/Blade-like,12,R,players-distance
+15.7,108.3,258,Straight,Forgiveness,Left/Right,No preference,8,X,game-improvement
+24.9,88.8,198,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+12.2,99.0,236,Fade,Distance,Left/Right,No preference,9,S,players-distance
+2.8,104.2,239,Fade,Distance,Left/Right,Forged/Blade-like,9,S,blade
+4.6,89.1,195,Hook,Accuracy,Consistent,No preference,10.5,R,players-cb
+12.2,84.7,209,Fade,Forgiveness,Consistent,No preference,12,R,game-improvement
+5.8,110.3,270,Draw,Accuracy,Consistent,Forged/Blade-like,8,X,players-cb
+20.7,78.7,197,Straight,Accuracy,Left/Right,No preference,12,A,players-distance
+12.8,88.4,200,Straight,Distance,Inconsistent,No preference,8,R,game-improvement
+36.0,65.4,169,Straight,Forgiveness,Inconsistent,No preference,8,A,super-game-improvement
+1.4,99.0,226,Straight,Accuracy,Consistent,No preference,9,S,blade
+18.8,77.8,191,Slice,Distance,Left/Right,No preference,12,A,players-distance
+6.8,99.8,228,Draw,Accuracy,Left/Right,Forged/Blade-like,9,S,players-cb
+12.6,87.3,202,Draw,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,players-distance
+18.3,81.8,161,Draw,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+0.0,102.5,237,Hook,Accuracy,Inconsistent,Forged/Blade-like,9,S,blade
+19.1,89.7,212,Fade,Forgiveness,Inconsistent,Confidence-inspiring,12,R,super-game-improvement
+34.1,67.2,153,Draw,Accuracy,Inconsistent,Forged/Blade-like,12,L,players-distance
+12.9,91.9,239,Fade,Forgiveness,Consistent,No preference,12,R,game-improvement
+19.3,90.0,196,Straight,Forgiveness,Inconsistent,Forged/Blade-like,12,R,players-distance
+26.2,76.9,173,Fade,Forgiveness,Left/Right,No preference,12,A,game-improvement
+15.5,88.2,196,Straight,Distance,Fat/Thin,No preference,10.5,R,super-game-improvement
+11.8,97.7,222,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,10.5,S,game-improvement
+0.0,112.7,278,Draw,Accuracy,Consistent,Forged/Blade-like,10.5,X,blade
+22.8,80.8,209,Fade,Forgiveness,Inconsistent,Forged/Blade-like,12,X,players-distance
+16.0,90.2,203,Fade,Forgiveness,Consistent,No preference,12,R,game-improvement
+7.9,93.4,210,Draw,Accuracy,Consistent,No preference,10.5,R,players-cb
+18.1,81.2,176,Draw,Forgiveness,Inconsistent,No preference,12,A,super-game-improvement
+11.7,99.9,252,Slice,Distance,Consistent,Confidence-inspiring,9,S,players-distance
+12.2,97.1,243,Slice,Accuracy,Inconsistent,No preference,9,S,players-distance
+22.5,85.3,199,Draw,Distance,Left/Right,Forged/Blade-like,10.5,A,players-distance
+5.0,104.2,227,Draw,Distance,Consistent,Forged/Blade-like,9,S,blade
+26.4,78.0,166,Straight,Forgiveness,Inconsistent,Confidence-inspiring,8,A,super-game-improvement
+4.4,107.8,256,Slice,Accuracy,Consistent,Forged/Blade-like,8,X,blade
+11.0,101.9,247,Draw,Accuracy,Inconsistent,Forged/Blade-like,12,S,players-cb
+34.3,74.9,149,Straight,Distance,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+27.1,76.1,175,Straight,Accuracy,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+17.9,97.1,249,Hook,Forgiveness,Inconsistent,No preference,9,S,super-game-improvement
+8.5,99.8,232,Fade,Accuracy,Inconsistent,No preference,9,S,players-distance
+12.2,98.4,251,Slice,Accuracy,Inconsistent,Confidence-inspiring,9,S,players-distance
+17.7,89.6,219,Fade,Accuracy,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+17.3,89.8,197,Fade,Forgiveness,Consistent,Forged/Blade-like,10.5,R,players-distance
+16.2,84.2,194,Straight,Distance,Consistent,Confidence-inspiring,12,R,players-distance
+16.7,93.7,219,Fade,Distance,Left/Right,Forged/Blade-like,10.5,R,players-distance
+15.1,110.6,248,Draw,Accuracy,Left/Right,No preference,8,X,game-improvement
+4.0,100.8,224,Fade,Distance,Inconsistent,No preference,9,S,blade
+12.4,94.2,241,Slice,Forgiveness,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+25.2,75.9,166,Straight,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+4.7,99.2,247,Straight,Accuracy,Consistent,Forged/Blade-like,9,S,blade
+15.3,101.2,232,Straight,Accuracy,Fat/Thin,No preference,9,S,super-game-improvement
+9.6,92.2,216,Hook,Distance,Consistent,Forged/Blade-like,10.5,R,players-cb
+18.0,84.0,205,Hook,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+13.5,81.4,184,Draw,Accuracy,Left/Right,Confidence-inspiring,9,A,players-distance
+30.3,67.9,167,Slice,Distance,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+21.6,71.2,141,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+5.2,106.4,256,Straight,Distance,Consistent,Forged/Blade-like,8,X,players-cb
+23.0,101.1,205,Straight,Accuracy,Inconsistent,Forged/Blade-like,9,S,players-distance
+10.0,93.9,218,Draw,Distance,Fat/Thin,Confidence-inspiring,10.5,R,players-distance
+11.8,82.8,206,Fade,Accuracy,Inconsistent,No preference,10.5,A,players-distance
+19.8,91.5,223,Straight,Forgiveness,Left/Right,Forged/Blade-like,12,R,players-distance
+12.6,88.4,191,Draw,Distance,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+25.0,88.3,192,Slice,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+10.0,94.5,213,Draw,Forgiveness,Fat/Thin,Forged/Blade-like,10.5,R,players-cb
+11.4,90.5,215,Straight,Distance,Left/Right,Confidence-inspiring,10.5,R,players-distance
+11.1,94.0,194,Draw,Distance,Inconsistent,Confidence-inspiring,10.5,R,players-distance
+11.9,99.6,234,Draw,Accuracy,Inconsistent,No preference,9,S,players-distance
+26.9,75.5,181,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+22.7,78.4,181,Fade,Accuracy,Inconsistent,Forged/Blade-like,12,A,players-cb
+32.4,69.3,170,Fade,Distance,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+36.0,60.0,144,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+7.7,101.9,232,Draw,Distance,Consistent,Confidence-inspiring,9,S,players-cb
+17.6,75.3,152,Draw,Distance,Left/Right,Forged/Blade-like,10.5,A,game-improvement
+6.4,97.5,231,Draw,Accuracy,Consistent,No preference,9,S,super-game-improvement
+10.0,101.8,227,Fade,Accuracy,Inconsistent,Forged/Blade-like,9,S,players-cb
+11.3,97.1,221,Hook,Forgiveness,Consistent,No preference,9,S,game-improvement
+7.5,103.5,249,Fade,Accuracy,Left/Right,No preference,9,S,players-cb
+7.5,98.9,251,Fade,Forgiveness,Left/Right,Forged/Blade-like,9,L,players-cb
+15.7,98.1,230,Slice,Forgiveness,Fat/Thin,Forged/Blade-like,9,S,players-distance
+6.0,107.6,260,Fade,Distance,Consistent,Forged/Blade-like,8,X,players-cb
+24.6,82.8,176,Slice,Distance,Fat/Thin,Confidence-inspiring,10.5,S,super-game-improvement
+8.7,104.5,249,Fade,Distance,Left/Right,Forged/Blade-like,9,S,players-cb
+36.0,71.9,168,Straight,Distance,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+12.9,90.1,228,Draw,Distance,Inconsistent,No preference,10.5,R,players-distance
+17.6,78.4,177,Hook,Forgiveness,Fat/Thin,No preference,12,X,super-game-improvement
+5.3,104.8,243,Draw,Distance,Left/Right,No preference,9,S,players-cb
+32.4,74.6,189,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+27.1,84.5,197,Slice,Forgiveness,Left/Right,No preference,12,R,super-game-improvement
+19.7,78.8,171,Slice,Distance,Fat/Thin,Forged/Blade-like,12,A,players-distance
+4.9,96.0,259,Hook,Distance,Left/Right,No preference,9,R,players-cb
+18.9,89.5,196,Fade,Distance,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+6.9,99.6,233,Draw,Accuracy,Left/Right,Forged/Blade-like,9,S,players-cb
+30.2,60.1,146,Draw,Accuracy,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+24.3,82.7,198,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+17.9,74.4,172,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+0.0,101.4,236,Slice,Forgiveness,Left/Right,Forged/Blade-like,9,S,blade
+8.1,108.1,251,Fade,Accuracy,Left/Right,No preference,9,X,players-distance
+23.2,94.1,207,Straight,Distance,Left/Right,Confidence-inspiring,10.5,R,game-improvement
+27.9,67.4,186,Slice,Forgiveness,Fat/Thin,No preference,12,L,super-game-improvement
+27.0,74.6,172,Straight,Accuracy,Consistent,Confidence-inspiring,9,A,super-game-improvement
+2.7,105.2,255,Fade,Accuracy,Consistent,Forged/Blade-like,9,X,game-improvement
+19.7,97.8,225,Fade,Accuracy,Left/Right,Forged/Blade-like,10.5,S,game-improvement
+26.1,74.5,170,Straight,Forgiveness,Inconsistent,Forged/Blade-like,12,A,players-distance
+2.1,102.2,234,Straight,Distance,Left/Right,Confidence-inspiring,9,S,blade
+16.9,99.4,213,Fade,Forgiveness,Left/Right,Confidence-inspiring,9,S,game-improvement
+19.5,83.0,193,Draw,Forgiveness,Consistent,No preference,12,A,game-improvement
+14.3,96.6,222,Straight,Distance,Left/Right,No preference,9,R,players-distance
+0.3,97.3,244,Slice,Forgiveness,Left/Right,No preference,10.5,S,players-distance
+14.1,90.6,197,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,game-improvement
+14.1,80.2,181,Draw,Distance,Left/Right,No preference,10.5,A,players-distance
+15.7,82.6,182,Draw,Distance,Left/Right,Forged/Blade-like,10.5,A,players-distance
+11.9,100.2,254,Slice,Accuracy,Fat/Thin,Confidence-inspiring,9,S,players-distance
+13.0,92.7,207,Fade,Forgiveness,Left/Right,Forged/Blade-like,10.5,R,players-distance
+16.6,86.7,211,Hook,Forgiveness,Left/Right,No preference,12,R,game-improvement
+21.0,78.6,197,Slice,Accuracy,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+14.3,90.0,210,Straight,Accuracy,Consistent,Forged/Blade-like,10.5,R,players-distance
+13.3,94.8,205,Slice,Accuracy,Fat/Thin,No preference,10.5,R,players-distance
+17.8,94.4,204,Straight,Forgiveness,Inconsistent,Forged/Blade-like,10.5,R,players-distance
+0.0,89.6,222,Fade,Accuracy,Consistent,Forged/Blade-like,10.5,R,blade
+21.3,77.7,166,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+17.0,89.6,216,Slice,Accuracy,Left/Right,No preference,10.5,R,game-improvement
+17.4,87.3,207,Straight,Distance,Inconsistent,No preference,10.5,R,super-game-improvement
+25.6,81.4,196,Straight,Forgiveness,Inconsistent,Confidence-inspiring,12,L,super-game-improvement
+0.0,109.9,264,Straight,Accuracy,Consistent,No preference,8,X,blade
+0.0,105.9,237,Straight,Distance,Consistent,No preference,9,X,blade
+19.5,81.9,180,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+16.9,86.8,213,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+18.5,94.8,215,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,10.5,R,blade
+12.8,88.2,172,Hook,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+23.0,81.1,199,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,S,game-improvement
+25.4,80.1,175,Slice,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+21.4,94.3,228,Slice,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+14.7,89.0,227,Fade,Forgiveness,Consistent,Confidence-inspiring,12,R,players-cb
+0.0,114.7,270,Straight,Distance,Consistent,Forged/Blade-like,8,X,blade
+23.9,89.1,222,Slice,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+28.0,75.4,179,Slice,Distance,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+22.8,80.3,209,Straight,Accuracy,Inconsistent,Confidence-inspiring,9,A,players-distance
+9.1,95.2,210,Slice,Forgiveness,Inconsistent,Forged/Blade-like,9,R,players-cb
+23.1,79.6,187,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+24.7,85.6,210,Slice,Forgiveness,Consistent,Confidence-inspiring,12,R,game-improvement
+31.0,74.0,171,Hook,Distance,Inconsistent,No preference,12,A,super-game-improvement
+9.1,99.2,248,Draw,Distance,Left/Right,Forged/Blade-like,9,S,players-cb
+15.0,82.9,189,Straight,Forgiveness,Left/Right,Forged/Blade-like,12,A,players-distance
+23.7,74.0,201,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+17.5,102.9,269,Draw,Distance,Inconsistent,Confidence-inspiring,9,S,players-distance
+6.9,98.8,236,Fade,Accuracy,Consistent,Forged/Blade-like,9,S,players-cb
+20.7,78.8,192,Straight,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+22.2,92.5,233,Hook,Distance,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+17.8,89.5,195,Slice,Accuracy,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+19.0,90.2,195,Hook,Accuracy,Left/Right,Forged/Blade-like,10.5,X,players-distance
+14.7,90.1,228,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,game-improvement
+30.3,70.9,170,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+8.9,96.6,224,Straight,Accuracy,Consistent,Confidence-inspiring,12,R,blade
+11.7,84.9,200,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,9,R,blade
+17.1,87.7,175,Hook,Distance,Consistent,Confidence-inspiring,10.5,R,players-distance
+24.9,81.4,189,Draw,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+3.5,116.9,265,Straight,Accuracy,Fat/Thin,Forged/Blade-like,8,X,blade
+5.2,102.6,253,Hook,Distance,Consistent,Forged/Blade-like,8,S,players-cb
+0.0,91.7,228,Fade,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,blade
+17.3,87.4,213,Straight,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+6.9,119.2,285,Fade,Accuracy,Consistent,Forged/Blade-like,8,X,players-cb
+13.5,98.5,212,Fade,Distance,Inconsistent,Confidence-inspiring,12,S,players-distance
+23.0,75.9,186,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+11.2,99.3,242,Slice,Distance,Left/Right,Confidence-inspiring,9,S,players-distance
+19.1,80.8,206,Straight,Distance,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+14.3,82.1,220,Slice,Accuracy,Left/Right,Forged/Blade-like,10.5,A,players-distance
+23.0,79.1,164,Fade,Accuracy,Left/Right,Confidence-inspiring,12,A,game-improvement
+21.3,84.1,193,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+10.8,82.5,184,Draw,Forgiveness,Fat/Thin,Forged/Blade-like,12,A,players-cb
+15.5,82.1,195,Fade,Forgiveness,Left/Right,Confidence-inspiring,12,A,blade
+26.4,77.7,183,Straight,Distance,Left/Right,Confidence-inspiring,12,R,super-game-improvement
+20.5,81.6,189,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+4.4,105.7,262,Straight,Distance,Consistent,No preference,9,X,players-cb
+22.9,73.2,158,Hook,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+7.2,104.7,233,Straight,Distance,Inconsistent,Forged/Blade-like,9,S,players-cb
+29.7,65.6,141,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,super-game-improvement
+26.2,89.4,205,Straight,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+19.6,73.4,157,Draw,Forgiveness,Left/Right,Forged/Blade-like,12,A,players-distance
+18.4,79.2,185,Straight,Distance,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+15.1,93.6,218,Draw,Forgiveness,Left/Right,No preference,10.5,R,game-improvement
+23.1,93.1,209,Straight,Distance,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+13.7,94.5,233,Hook,Distance,Left/Right,No preference,10.5,R,players-distance
+19.1,90.0,211,Slice,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-distance
+24.8,79.6,201,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+11.9,87.1,202,Straight,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-cb
+11.5,91.3,214,Draw,Distance,Left/Right,No preference,10.5,R,players-distance
+6.3,92.3,210,Fade,Distance,Consistent,Forged/Blade-like,10.5,R,players-cb
+7.4,90.5,213,Fade,Accuracy,Consistent,No preference,10.5,R,players-cb
+0.5,110.2,268,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,8,X,players-cb
+23.6,73.0,166,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+33.3,71.9,176,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,12,L,game-improvement
+29.8,64.6,141,Hook,Accuracy,Fat/Thin,No preference,12,L,super-game-improvement
+2.4,107.3,262,Straight,Accuracy,Consistent,Confidence-inspiring,12,X,blade
+23.5,77.6,175,Slice,Distance,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+29.8,83.6,208,Straight,Forgiveness,Fat/Thin,No preference,12,A,super-game-improvement
+12.9,95.4,225,Draw,Forgiveness,Fat/Thin,Confidence-inspiring,9,R,super-game-improvement
+17.9,96.1,246,Straight,Forgiveness,Consistent,Confidence-inspiring,9,A,game-improvement
+0.0,102.7,226,Straight,Distance,Consistent,No preference,9,S,blade
+19.4,86.1,183,Draw,Accuracy,Consistent,Forged/Blade-like,10.5,R,players-distance
+7.4,92.6,210,Straight,Accuracy,Consistent,No preference,10.5,R,players-cb
+18.8,83.5,178,Straight,Distance,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+2.9,102.8,224,Draw,Accuracy,Inconsistent,Forged/Blade-like,9,S,blade
+21.9,77.7,191,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+26.2,69.4,163,Slice,Accuracy,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+10.0,86.6,197,Fade,Distance,Consistent,Confidence-inspiring,10.5,R,players-distance
+6.8,83.8,192,Straight,Accuracy,Left/Right,Forged/Blade-like,10.5,A,players-cb
+0.0,100.6,229,Draw,Accuracy,Consistent,No preference,10.5,S,blade
+14.6,95.6,246,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,9,R,game-improvement
+11.8,83.2,186,Draw,Distance,Consistent,Confidence-inspiring,10.5,A,players-distance
+3.0,95.0,206,Straight,Distance,Consistent,Forged/Blade-like,9,R,blade
+21.1,96.3,237,Slice,Forgiveness,Fat/Thin,No preference,9,R,super-game-improvement
+13.0,88.6,205,Fade,Accuracy,Inconsistent,No preference,10.5,R,super-game-improvement
+7.3,101.9,266,Draw,Forgiveness,Left/Right,Forged/Blade-like,8,S,players-cb
+12.0,98.7,225,Straight,Distance,Inconsistent,Forged/Blade-like,9,S,players-distance
+26.6,82.0,204,Draw,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+22.4,71.6,182,Hook,Forgiveness,Inconsistent,No preference,12,R,super-game-improvement
+15.8,88.2,200,Slice,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+22.6,70.7,156,Straight,Accuracy,Consistent,Forged/Blade-like,12,R,blade
+6.6,117.5,286,Draw,Accuracy,Inconsistent,Forged/Blade-like,8,X,players-cb
+17.3,76.9,188,Straight,Forgiveness,Left/Right,Confidence-inspiring,8,A,game-improvement
+18.3,79.6,169,Straight,Accuracy,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+12.8,86.0,187,Draw,Forgiveness,Fat/Thin,No preference,12,R,game-improvement
+20.9,73.5,140,Slice,Forgiveness,Left/Right,Forged/Blade-like,12,L,players-distance
+10.0,106.0,257,Straight,Distance,Consistent,No preference,8,X,players-distance
+21.6,100.1,232,Straight,Forgiveness,Left/Right,Confidence-inspiring,9,S,game-improvement
+22.0,79.4,184,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+0.0,98.8,210,Fade,Forgiveness,Consistent,Forged/Blade-like,9,S,super-game-improvement
+27.7,60.5,130,Slice,Forgiveness,Left/Right,No preference,8,L,super-game-improvement
+0.0,106.3,244,Draw,Accuracy,Fat/Thin,No preference,8,A,blade
+11.5,92.6,209,Hook,Accuracy,Consistent,Confidence-inspiring,10.5,R,players-distance
+26.2,73.3,174,Hook,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+14.1,93.3,227,Slice,Accuracy,Consistent,Forged/Blade-like,10.5,R,players-distance
+3.8,106.4,280,Hook,Distance,Consistent,No preference,8,X,blade
+7.2,102.0,239,Straight,Forgiveness,Consistent,Confidence-inspiring,9,S,players-distance
+26.2,75.7,192,Straight,Distance,Left/Right,Confidence-inspiring,12,X,super-game-improvement
+0.0,100.3,225,Draw,Accuracy,Consistent,No preference,9,S,blade
+27.2,81.4,170,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+16.5,89.1,205,Straight,Accuracy,Inconsistent,No preference,10.5,R,super-game-improvement
+6.3,107.0,231,Draw,Distance,Left/Right,Forged/Blade-like,9,X,players-cb
+11.8,100.0,235,Straight,Distance,Left/Right,No preference,9,S,players-distance
+7.8,89.1,199,Hook,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,players-cb
+24.8,69.4,138,Slice,Accuracy,Left/Right,No preference,12,L,game-improvement
+23.6,75.6,200,Straight,Accuracy,Left/Right,No preference,12,A,game-improvement
+1.5,98.9,225,Slice,Accuracy,Left/Right,Forged/Blade-like,9,S,blade
+13.4,97.9,209,Draw,Distance,Inconsistent,Forged/Blade-like,9,S,blade
+9.2,99.9,246,Straight,Accuracy,Consistent,No preference,9,S,players-distance
+28.6,82.8,185,Straight,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+4.8,105.3,262,Straight,Distance,Consistent,Forged/Blade-like,9,S,game-improvement
+31.4,73.4,163,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,A,super-game-improvement
+16.7,97.2,221,Slice,Accuracy,Inconsistent,Forged/Blade-like,9,S,players-distance
+6.5,103.8,248,Draw,Distance,Left/Right,Forged/Blade-like,9,S,players-cb
+10.9,95.9,233,Fade,Distance,Inconsistent,Confidence-inspiring,9,R,super-game-improvement
+9.8,107.1,262,Fade,Accuracy,Left/Right,Forged/Blade-like,8,X,players-cb
+5.5,102.5,240,Draw,Accuracy,Consistent,Forged/Blade-like,9,L,players-cb
+17.9,85.3,207,Slice,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+5.9,95.4,234,Hook,Accuracy,Consistent,Forged/Blade-like,9,R,players-cb
+0.0,112.9,268,Fade,Distance,Consistent,Forged/Blade-like,8,X,blade
+13.6,101.0,235,Straight,Forgiveness,Left/Right,Confidence-inspiring,9,S,game-improvement
+0.8,106.7,232,Straight,Accuracy,Consistent,Forged/Blade-like,8,X,super-game-improvement
+10.2,105.4,255,Hook,Distance,Fat/Thin,No preference,9,X,players-distance
+8.8,84.1,198,Slice,Distance,Left/Right,No preference,10.5,R,players-distance
+9.2,97.0,223,Straight,Distance,Inconsistent,Forged/Blade-like,9,S,players-cb
+35.0,67.5,175,Hook,Distance,Left/Right,Confidence-inspiring,12,L,super-game-improvement
+17.5,82.8,176,Straight,Forgiveness,Left/Right,No preference,12,A,game-improvement
+19.2,102.6,262,Straight,Forgiveness,Left/Right,Forged/Blade-like,9,S,players-distance
+1.0,106.4,250,Slice,Distance,Consistent,No preference,12,X,blade
+11.1,92.4,221,Fade,Accuracy,Inconsistent,Confidence-inspiring,10.5,R,players-distance
+18.9,86.4,198,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,R,super-game-improvement
+7.8,85.0,178,Fade,Distance,Consistent,No preference,10.5,R,players-cb
+25.2,73.7,171,Hook,Distance,Inconsistent,No preference,12,A,super-game-improvement
+6.2,107.8,258,Straight,Forgiveness,Consistent,No preference,8,X,players-distance
+14.4,87.0,213,Hook,Accuracy,Left/Right,No preference,10.5,R,players-distance
+11.7,88.7,206,Draw,Distance,Left/Right,Forged/Blade-like,10.5,R,players-cb
+18.5,95.9,197,Draw,Distance,Left/Right,Confidence-inspiring,12,R,players-distance
+11.2,104.5,226,Slice,Forgiveness,Left/Right,Forged/Blade-like,9,S,players-cb
+14.6,94.8,249,Fade,Forgiveness,Inconsistent,Confidence-inspiring,10.5,R,game-improvement
+14.9,87.7,192,Fade,Forgiveness,Inconsistent,No preference,12,R,game-improvement
+10.4,94.4,240,Straight,Forgiveness,Inconsistent,Confidence-inspiring,10.5,R,game-improvement
+21.4,77.8,171,Hook,Forgiveness,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+19.1,79.1,184,Fade,Accuracy,Fat/Thin,Confidence-inspiring,9,A,players-distance
+16.2,82.1,201,Fade,Accuracy,Consistent,Forged/Blade-like,10.5,A,players-distance
+13.1,88.6,198,Draw,Distance,Fat/Thin,Forged/Blade-like,10.5,R,players-distance
+24.2,72.9,192,Fade,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+14.9,79.9,189,Straight,Distance,Left/Right,Forged/Blade-like,12,A,players-distance
+14.2,93.2,225,Slice,Distance,Inconsistent,Confidence-inspiring,10.5,R,players-distance
+17.9,89.1,206,Draw,Forgiveness,Left/Right,Confidence-inspiring,12,R,game-improvement
+32.3,82.8,203,Slice,Forgiveness,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+4.9,97.7,250,Hook,Distance,Fat/Thin,No preference,9,S,players-cb
+23.9,82.6,192,Slice,Accuracy,Fat/Thin,Confidence-inspiring,10.5,A,super-game-improvement
+0.0,110.2,281,Hook,Accuracy,Inconsistent,Forged/Blade-like,8,X,players-cb
+19.0,84.4,190,Fade,Accuracy,Left/Right,Forged/Blade-like,10.5,R,players-distance
+31.2,77.3,192,Straight,Forgiveness,Inconsistent,No preference,12,A,super-game-improvement
+21.4,88.8,215,Fade,Forgiveness,Inconsistent,Forged/Blade-like,12,R,players-distance
+18.5,89.0,195,Fade,Distance,Consistent,No preference,10.5,R,players-distance
+12.0,92.4,220,Draw,Distance,Consistent,Forged/Blade-like,10.5,R,players-distance
+17.3,85.6,201,Slice,Accuracy,Inconsistent,No preference,10.5,R,super-game-improvement
+14.7,81.5,180,Fade,Accuracy,Left/Right,Forged/Blade-like,8,A,super-game-improvement
+9.9,91.0,219,Draw,Distance,Left/Right,Forged/Blade-like,10.5,R,players-cb
+14.4,87.1,207,Straight,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,players-distance
+18.8,78.5,184,Hook,Accuracy,Left/Right,Forged/Blade-like,12,A,players-distance
+10.1,99.5,233,Hook,Forgiveness,Fat/Thin,Forged/Blade-like,9,X,players-cb
+9.7,105.2,246,Fade,Distance,Left/Right,Forged/Blade-like,9,X,super-game-improvement
+4.8,96.1,221,Fade,Accuracy,Inconsistent,Forged/Blade-like,8,R,blade
+20.5,86.4,205,Draw,Accuracy,Inconsistent,No preference,10.5,R,super-game-improvement
+21.9,75.6,169,Hook,Distance,Fat/Thin,Confidence-inspiring,12,A,super-game-improvement
+19.1,83.9,232,Slice,Distance,Fat/Thin,Confidence-inspiring,12,A,blade
+25.7,73.6,155,Draw,Accuracy,Inconsistent,Confidence-inspiring,12,A,super-game-improvement
+17.8,91.7,208,Slice,Accuracy,Fat/Thin,No preference,10.5,R,super-game-improvement
+20.5,79.7,181,Straight,Forgiveness,Left/Right,Confidence-inspiring,12,A,game-improvement
+19.7,92.4,244,Hook,Forgiveness,Inconsistent,Confidence-inspiring,10.5,R,super-game-improvement
+16.2,87.6,189,Slice,Distance,Fat/Thin,Confidence-inspiring,10.5,R,super-game-improvement
+12.2,89.4,216,Draw,Forgiveness,Fat/Thin,Forged/Blade-like,12,R,players-distance
+36.0,60.0,144,Slice,Forgiveness,Inconsistent,Confidence-inspiring,12,L,players-distance

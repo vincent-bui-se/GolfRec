@@ -1,0 +1,609 @@
+{
+  "_meta": {
+    "name": "Golf Equipment Database",
+    "source": "https://golfequipmentdatabase.com",
+    "license": {
+      "name": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "attribution": "Golf Equipment Database by GolferX, Inc. (https://golferx.io), licensed CC BY-SA 4.0",
+    "generatedAt": "2026-06-30",
+    "recordCount": 14,
+    "counts": {
+      "drivers": 41,
+      "fairway-woods": 29,
+      "hybrids": 20,
+      "iron-sets": 40,
+      "wedges": 20,
+      "putters": 31,
+      "driver-shafts": 61,
+      "fairway-shafts": 13,
+      "hybrid-shafts": 12,
+      "iron-shafts": 14
+    },
+    "note": "Expert-curated catalog. Community contributions layer per-record on the live site. Free to use, adapt, and share — including commercially — with attribution; keep derivatives open.",
+    "category": "iron-shafts"
+  },
+  "records": [
+    {
+      "id": "true-temper-dynamic-gold",
+      "brand": "True Temper",
+      "model": "Dynamic Gold",
+      "year": 1991,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.355,
+      "tipType": "taper",
+      "stepStyle": "stepped",
+      "lengthDifferentialModel": "ascending-weight",
+      "weightClasses": [
+        {
+          "weightClass": "R300",
+          "weightG": 128,
+          "flexOptions": [
+            "R"
+          ]
+        },
+        {
+          "weightClass": "S200",
+          "weightG": 128,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "S300",
+          "weightG": 130,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "S400",
+          "weightG": 132,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "X100",
+          "weightG": 130,
+          "flexOptions": [
+            "X"
+          ]
+        },
+        {
+          "weightClass": "X300",
+          "weightG": 132,
+          "flexOptions": [
+            "X"
+          ]
+        }
+      ],
+      "family": "mid-low-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "true-temper-dynamic-gold-tour-issue",
+      "brand": "True Temper",
+      "model": "Dynamic Gold Tour Issue",
+      "year": 2015,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.355,
+      "tipType": "taper",
+      "stepStyle": "stepless",
+      "lengthDifferentialModel": "ascending-weight",
+      "weightClasses": [
+        {
+          "weightClass": "S400",
+          "weightG": 130,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "X100",
+          "weightG": 130,
+          "flexOptions": [
+            "X"
+          ]
+        },
+        {
+          "weightClass": "X100 TI",
+          "weightG": 130,
+          "flexOptions": [
+            "X"
+          ]
+        }
+      ],
+      "family": "mid-low-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "true-temper-dynamic-gold-120",
+      "brand": "True Temper",
+      "model": "Dynamic Gold 120",
+      "year": 2018,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.355,
+      "tipType": "taper",
+      "stepStyle": "stepped",
+      "weightClasses": [
+        {
+          "weightClass": "R300",
+          "weightG": 117,
+          "flexOptions": [
+            "R"
+          ]
+        },
+        {
+          "weightClass": "S300",
+          "weightG": 120,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "X100",
+          "weightG": 122,
+          "flexOptions": [
+            "X"
+          ]
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "true-temper-dynamic-gold-105",
+      "brand": "True Temper",
+      "model": "Dynamic Gold 105",
+      "year": 2017,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.355,
+      "tipType": "taper",
+      "stepStyle": "stepped",
+      "weightClasses": [
+        {
+          "weightClass": "R300",
+          "weightG": 100,
+          "flexOptions": [
+            "R"
+          ]
+        },
+        {
+          "weightClass": "S300",
+          "weightG": 103,
+          "flexOptions": [
+            "S"
+          ]
+        }
+      ],
+      "family": "mid-high-smooth",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "true-temper-dynamic-gold-95",
+      "brand": "True Temper",
+      "model": "Dynamic Gold 95",
+      "year": 2016,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.355,
+      "tipType": "taper",
+      "stepStyle": "stepped",
+      "weightClasses": [
+        {
+          "weightClass": "R300",
+          "weightG": 92,
+          "flexOptions": [
+            "R"
+          ]
+        },
+        {
+          "weightClass": "S300",
+          "weightG": 96,
+          "flexOptions": [
+            "S"
+          ]
+        }
+      ],
+      "family": "mid-high-smooth",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "projectx-iron-rifle",
+      "brand": "Project X",
+      "model": "Rifle (iron)",
+      "year": 2012,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.37,
+      "tipType": "parallel",
+      "stepStyle": "stepless",
+      "lengthDifferentialModel": "ascending-weight",
+      "weightClasses": [
+        {
+          "weightClass": "5.0",
+          "weightG": 115,
+          "flexOptions": [
+            "R"
+          ]
+        },
+        {
+          "weightClass": "5.5",
+          "weightG": 117,
+          "flexOptions": [
+            "R-S"
+          ]
+        },
+        {
+          "weightClass": "6.0",
+          "weightG": 120,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "6.5",
+          "weightG": 122,
+          "flexOptions": [
+            "S-X"
+          ]
+        },
+        {
+          "weightClass": "7.0",
+          "weightG": 125,
+          "flexOptions": [
+            "X"
+          ]
+        }
+      ],
+      "family": "low-low-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "projectx-lz",
+      "brand": "Project X",
+      "model": "LZ",
+      "year": 2020,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.37,
+      "tipType": "parallel",
+      "stepStyle": "stepless",
+      "weightClasses": [
+        {
+          "weightClass": "5.5",
+          "weightG": 105,
+          "flexOptions": [
+            "R-S"
+          ]
+        },
+        {
+          "weightClass": "6.0",
+          "weightG": 108,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "6.5",
+          "weightG": 112,
+          "flexOptions": [
+            "S-X"
+          ]
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "kbs-tour",
+      "brand": "KBS",
+      "model": "Tour",
+      "year": 2010,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.355,
+      "tipType": "taper",
+      "stepStyle": "stepped",
+      "lengthDifferentialModel": "ascending-weight",
+      "weightClasses": [
+        {
+          "weightClass": "90",
+          "weightG": 92,
+          "flexOptions": [
+            "R"
+          ]
+        },
+        {
+          "weightClass": "105",
+          "weightG": 106,
+          "flexOptions": [
+            "R",
+            "S"
+          ]
+        },
+        {
+          "weightClass": "120",
+          "weightG": 119,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "130",
+          "weightG": 130,
+          "flexOptions": [
+            "S",
+            "X"
+          ]
+        }
+      ],
+      "family": "mid-mid-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "kbs-tour-c-taper",
+      "brand": "KBS",
+      "model": "Tour C-Taper",
+      "year": 2014,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.355,
+      "tipType": "taper",
+      "stepStyle": "stepless",
+      "weightClasses": [
+        {
+          "weightClass": "110",
+          "weightG": 110,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "120",
+          "weightG": 120,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "125",
+          "weightG": 125,
+          "flexOptions": [
+            "X"
+          ]
+        },
+        {
+          "weightClass": "130",
+          "weightG": 130,
+          "flexOptions": [
+            "X",
+            "TX"
+          ]
+        }
+      ],
+      "family": "low-low-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "kbs-tour-lite",
+      "brand": "KBS",
+      "model": "Tour Lite",
+      "year": 2017,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.355,
+      "tipType": "taper",
+      "weightClasses": [
+        {
+          "weightClass": "80",
+          "weightG": 80,
+          "flexOptions": [
+            "R"
+          ]
+        },
+        {
+          "weightClass": "90",
+          "weightG": 92,
+          "flexOptions": [
+            "R",
+            "S"
+          ]
+        }
+      ],
+      "family": "mid-high-smooth",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "nippon-modus3-tour-120",
+      "brand": "Nippon",
+      "model": "NS Pro Modus³ Tour 120",
+      "year": 2014,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.355,
+      "tipType": "taper",
+      "weightClasses": [
+        {
+          "weightClass": "120",
+          "weightG": 116,
+          "flexOptions": [
+            "R"
+          ]
+        },
+        {
+          "weightClass": "120 S",
+          "weightG": 121,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "120 X",
+          "weightG": 122,
+          "flexOptions": [
+            "X"
+          ]
+        }
+      ],
+      "family": "mid-low-versatile",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "nippon-ns-pro-950gh",
+      "brand": "Nippon",
+      "model": "NS Pro 950 GH",
+      "year": 2009,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.355,
+      "tipType": "taper",
+      "weightClasses": [
+        {
+          "weightClass": "950 R",
+          "weightG": 95,
+          "flexOptions": [
+            "R"
+          ]
+        },
+        {
+          "weightClass": "950 S",
+          "weightG": 98,
+          "flexOptions": [
+            "S"
+          ]
+        }
+      ],
+      "family": "mid-high-smooth",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ust-recoil",
+      "brand": "UST Mamiya",
+      "model": "Recoil",
+      "year": 2016,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 41,
+      "tipDiameter": 0.37,
+      "tipType": "parallel",
+      "lengthDifferentialModel": "constant-weight",
+      "weightClasses": [
+        {
+          "weightClass": "660",
+          "weightG": 65,
+          "flexOptions": [
+            "A",
+            "R"
+          ]
+        },
+        {
+          "weightClass": "760",
+          "weightG": 75,
+          "flexOptions": [
+            "R",
+            "S"
+          ]
+        },
+        {
+          "weightClass": "780",
+          "weightG": 78,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "95",
+          "weightG": 95,
+          "flexOptions": [
+            "S",
+            "X"
+          ]
+        }
+      ],
+      "family": "mid-mid-smooth",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "aerotech-steelfiber",
+      "brand": "Aerotech",
+      "model": "SteelFiber",
+      "year": 2013,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 41,
+      "tipDiameter": 0.37,
+      "tipType": "parallel",
+      "lengthDifferentialModel": "ascending-weight",
+      "weightClasses": [
+        {
+          "weightClass": "i70",
+          "weightG": 73,
+          "flexOptions": [
+            "R",
+            "S"
+          ]
+        },
+        {
+          "weightClass": "i80",
+          "weightG": 83,
+          "flexOptions": [
+            "R",
+            "S"
+          ]
+        },
+        {
+          "weightClass": "i95",
+          "weightG": 96,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ]
+        },
+        {
+          "weightClass": "i110",
+          "weightG": 110,
+          "flexOptions": [
+            "S",
+            "X"
+          ]
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "engineEligible": true,
+      "seededFromCurated": true
+    }
+  ]
+}

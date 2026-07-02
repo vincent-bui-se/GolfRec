@@ -1,0 +1,2753 @@
+{
+  "_meta": {
+    "name": "Golf Equipment Database",
+    "source": "https://golfequipmentdatabase.com",
+    "license": {
+      "name": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "attribution": "Golf Equipment Database by GolferX, Inc. (https://golferx.io), licensed CC BY-SA 4.0",
+    "generatedAt": "2026-06-30",
+    "recordCount": 61,
+    "counts": {
+      "drivers": 41,
+      "fairway-woods": 29,
+      "hybrids": 20,
+      "iron-sets": 40,
+      "wedges": 20,
+      "putters": 31,
+      "driver-shafts": 61,
+      "fairway-shafts": 13,
+      "hybrid-shafts": 12,
+      "iron-shafts": 14
+    },
+    "note": "Expert-curated catalog. Community contributions layer per-record on the live site. Free to use, adapt, and share — including commercially — with attribution; keep derivatives open.",
+    "category": "driver-shafts"
+  },
+  "records": [
+    {
+      "id": "fujikura-ventus-black",
+      "brand": "Fujikura",
+      "model": "Ventus Black VeloCore+",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "6",
+          "weightG": 65,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 2.8,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive",
+            "moderate"
+          ],
+          "speedMinMph": 100,
+          "speedMaxMph": 125,
+          "msrp": 375,
+          "bendProfileDescription": "ultra-stiff tip, stiff mid, active butt"
+        },
+        {
+          "weightClass": "7",
+          "weightG": 75,
+          "flexOptions": [
+            "X",
+            "TX"
+          ],
+          "torque": 2.6,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive"
+          ],
+          "speedMinMph": 108,
+          "speedMaxMph": 130,
+          "msrp": 400,
+          "bendProfileDescription": "ultra-stiff throughout"
+        }
+      ],
+      "family": "low-low-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "fujikura-ventus-tr-black",
+      "brand": "Fujikura",
+      "model": "Ventus TR Black VeloCore+",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "7",
+          "weightG": 75,
+          "flexOptions": [
+            "X",
+            "TX"
+          ],
+          "torque": 2.5,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive"
+          ],
+          "speedMinMph": 108,
+          "speedMaxMph": 135,
+          "msrp": 450,
+          "bendProfileDescription": "linear bend profile, ultra-low torque — stiffest Fujikura driver shaft"
+        }
+      ],
+      "family": "premium-tour",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "fujikura-ventus-blue",
+      "brand": "Fujikura",
+      "model": "Ventus Blue VeloCore+",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "6",
+          "weightG": 65,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.3,
+          "launchChar": "mid",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 115,
+          "msrp": 350,
+          "bendProfileDescription": "mid-stiff tip, stable mid, active butt"
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "fujikura-ventus-red",
+      "brand": "Fujikura",
+      "model": "Ventus Red VeloCore+",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "6",
+          "weightG": 60,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 4,
+          "launchChar": "high",
+          "spinChar": "mid-high",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 84,
+          "speedMaxMph": 104,
+          "msrp": 320,
+          "bendProfileDescription": "softest tip in Ventus line, active mid"
+        }
+      ],
+      "family": "high-launch-soft",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "fujikura-axiom",
+      "brand": "Fujikura",
+      "model": "Axiom",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "5",
+          "weightG": 55,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 3.7,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 80,
+          "speedMaxMph": 105,
+          "msrp": 300,
+          "bendProfileDescription": "softer tip, balanced mid, stiff butt"
+        },
+        {
+          "weightClass": "6",
+          "weightG": 65,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.4,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 90,
+          "speedMaxMph": 115,
+          "msrp": 300,
+          "bendProfileDescription": "smooth mid-stiff profile with balanced butt-mid-tip"
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "projectx-hzrdus-black-gen4",
+      "brand": "Project X",
+      "model": "HZRDUS Black Gen",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 60,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 2.9,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive",
+            "moderate"
+          ],
+          "speedMinMph": 97,
+          "speedMaxMph": 120,
+          "msrp": 350,
+          "bendProfileDescription": "stiff tip, stiff mid, stiff butt (Dual Torsional Design)"
+        }
+      ],
+      "family": "low-low-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "projectx-hzrdus-smoke-rdx-green",
+      "brand": "Project X",
+      "model": "HZRDUS Smoke RDX Green",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 60,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 2.7,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 100,
+          "speedMaxMph": 125,
+          "msrp": 300,
+          "bendProfileDescription": "ultra-stiff tip, stiff-through, counterbalanced"
+        }
+      ],
+      "family": "low-low-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "projectx-hzrdus-smoke-im10",
+      "brand": "Project X",
+      "model": "HZRDUS Smoke iM10",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "50",
+          "weightG": 50,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 4.1,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 80,
+          "speedMaxMph": 104,
+          "msrp": 275,
+          "bendProfileDescription": "mid-soft tip, moderate mid — more active than Black family"
+        }
+      ],
+      "family": "high-launch-soft",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "projectx-hzrdus-silver-gen4",
+      "brand": "Project X",
+      "model": "HZRDUS Silver Gen",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "50",
+          "weightG": 50,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.6,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "moderate",
+            "smooth"
+          ],
+          "speedMinMph": 84,
+          "speedMaxMph": 105,
+          "msrp": 300,
+          "bendProfileDescription": "gradual mid bend, moderate tip — more central than Black"
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "projectx-evenflow-riptide",
+      "brand": "Project X",
+      "model": "EvenFlow Riptide CB",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "50",
+          "weightG": 50,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 4.5,
+          "launchChar": "high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 75,
+          "speedMaxMph": 98,
+          "msrp": 200,
+          "bendProfileDescription": "soft mid-tip, active through impact"
+        }
+      ],
+      "family": "high-launch-soft",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mitsubishi-diamana-wb",
+      "brand": "Mitsubishi",
+      "model": "Diamana WB",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "63",
+          "weightG": 63,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ],
+          "torque": 3.1,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive",
+            "moderate"
+          ],
+          "speedMinMph": 97,
+          "speedMaxMph": 118,
+          "msrp": 360,
+          "bendProfileDescription": "stiff butt and mid, moderate tip (softer than PD)"
+        }
+      ],
+      "family": "low-mid-control",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mitsubishi-diamana-pd",
+      "brand": "Mitsubishi",
+      "model": "Diamana PD",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 60,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ],
+          "torque": 2.9,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive"
+          ],
+          "speedMinMph": 100,
+          "speedMaxMph": 120,
+          "msrp": 370,
+          "bendProfileDescription": "stiff butt and tip, stiff mid (stiffest profile in low/low Diamana family)"
+        }
+      ],
+      "family": "low-mid-control",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mitsubishi-diamana-bb",
+      "brand": "Mitsubishi",
+      "model": "Diamana BB",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 60,
+          "flexOptions": [
+            "R",
+            "S",
+            "X",
+            "TX"
+          ],
+          "torque": 3.2,
+          "launchChar": "mid",
+          "tempoFit": [
+            "moderate",
+            "smooth"
+          ],
+          "speedMinMph": 84,
+          "speedMaxMph": 108,
+          "msrp": 340,
+          "bendProfileDescription": "soft mid, stiff butt, stiff tip (classic Blue Board profile)"
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mitsubishi-kaili-white",
+      "brand": "Mitsubishi",
+      "model": "Kai'li White",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 60,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ],
+          "torque": 2.7,
+          "launchChar": "low-mid",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive",
+            "moderate"
+          ],
+          "speedMinMph": 97,
+          "speedMaxMph": 118,
+          "msrp": 350,
+          "bendProfileDescription": "stiff butt, stiff tip, soft mid"
+        }
+      ],
+      "family": "low-mid-control",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mitsubishi-tensei-1k-black",
+      "brand": "Mitsubishi",
+      "model": "TENSEI 1K Black",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "65",
+          "weightG": 65,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ],
+          "torque": 2.7,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive"
+          ],
+          "speedMinMph": 100,
+          "speedMaxMph": 120,
+          "msrp": 400,
+          "bendProfileDescription": "stiff butt, stiff tip — very similar to Kai'li White but slightly different feel"
+        }
+      ],
+      "family": "premium-tour",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "graphite-design-tour-ad-ub",
+      "brand": "Graphite Design",
+      "model": "Tour AD UB",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "6",
+          "weightG": 65,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ],
+          "torque": 3.4,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 90,
+          "speedMaxMph": 112,
+          "msrp": 380,
+          "bendProfileDescription": "medium+ butt, medium+ mid, stiff+ tip"
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "graphite-design-tour-ad-iz",
+      "brand": "Graphite Design",
+      "model": "Tour AD IZ",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "6",
+          "weightG": 65,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ],
+          "torque": 3.1,
+          "launchChar": "high",
+          "spinChar": "low",
+          "tempoFit": [
+            "moderate",
+            "smooth"
+          ],
+          "speedMinMph": 90,
+          "speedMaxMph": 115,
+          "msrp": 380,
+          "bendProfileDescription": "firm butt, medium mid, firm+ tip — promotes high launch while controlling spin"
+        }
+      ],
+      "family": "high-launch-soft",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "graphite-design-tour-ad-di",
+      "brand": "Graphite Design",
+      "model": "Tour AD DI",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "6",
+          "weightG": 65,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.2,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 88,
+          "speedMaxMph": 112,
+          "msrp": 380,
+          "bendProfileDescription": "medium butt and mid, stiff tip"
+        }
+      ],
+      "family": "premium-tour",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "aldila-rogue-white-130",
+      "brand": "Aldila",
+      "model": "Rogue White 130 MSI",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "70",
+          "weightG": 70,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3,
+          "launchChar": "mid",
+          "spinChar": "low",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 90,
+          "speedMaxMph": 112,
+          "msrp": 350,
+          "bendProfileDescription": "mid-stiff tip, mid, active butt — slots between Silver and Black"
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "aldila-rogue-silver-130",
+      "brand": "Aldila",
+      "model": "Rogue Silver 130 MSI",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "70",
+          "weightG": 70,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 2.8,
+          "launchChar": "low-mid",
+          "spinChar": "low",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 118,
+          "msrp": 350,
+          "bendProfileDescription": "stiff tip (stiffer than Black), active butt — counterbalanced"
+        }
+      ],
+      "family": "low-mid-control",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "aldila-ascent",
+      "brand": "Aldila",
+      "model": "Ascent PL",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "50",
+          "weightG": 50,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 4.5,
+          "launchChar": "high",
+          "spinChar": "mid-high",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 75,
+          "speedMaxMph": 98,
+          "msrp": 180,
+          "bendProfileDescription": "soft mid, moderate tip — accessible high-launch profile"
+        }
+      ],
+      "family": "high-launch-soft",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "aldila-ascent-red",
+      "brand": "Aldila",
+      "model": "Ascent Red",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "50",
+          "weightG": 50,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 4.3,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 78,
+          "speedMaxMph": 98,
+          "msrp": 175,
+          "bendProfileDescription": "mid-active, counterbalanced"
+        }
+      ],
+      "family": "lightweight-speed",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ust-helium-nanocore",
+      "brand": "UST Mamiya",
+      "model": "Helium Nanocore",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "5",
+          "weightG": 50,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 5.2,
+          "launchChar": "high",
+          "spinChar": "mid-high",
+          "tempoFit": [
+            "smooth"
+          ],
+          "speedMinMph": 72,
+          "speedMaxMph": 92,
+          "msrp": 200,
+          "bendProfileDescription": "counterbalanced, active mid, moderate tip"
+        },
+        {
+          "weightClass": "4",
+          "weightG": 43,
+          "flexOptions": [
+            "Senior",
+            "Ladies"
+          ],
+          "torque": 5.8,
+          "launchChar": "high",
+          "spinChar": "mid-high",
+          "tempoFit": [
+            "smooth"
+          ],
+          "speedMinMph": 60,
+          "speedMaxMph": 80,
+          "msrp": 185,
+          "bendProfileDescription": "counterbalanced, very active mid and tip"
+        }
+      ],
+      "family": "lightweight-speed",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "accra-tz5",
+      "brand": "Accra",
+      "model": "TZ5",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "70",
+          "weightG": 65,
+          "flexOptions": [
+            "M4",
+            "M5",
+            "T5"
+          ],
+          "torque": 3.2,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 120,
+          "msrp": 500,
+          "bendProfileDescription": "mid-stiff butt, stiff mid, responsive tip"
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "accra-tzp",
+      "brand": "Accra",
+      "model": "TZP",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "70",
+          "weightG": 65,
+          "flexOptions": [
+            "M5",
+            "T5",
+            "T6"
+          ],
+          "torque": 2.9,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive"
+          ],
+          "speedMinMph": 105,
+          "speedMaxMph": 130,
+          "msrp": 550,
+          "bendProfileDescription": "stiff throughout with tour tip stability"
+        }
+      ],
+      "family": "low-mid-control",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-alta-cb-blue",
+      "brand": "Ping",
+      "model": "ALTA CB Blue",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "50",
+          "weightG": 55,
+          "flexOptions": [
+            "Senior",
+            "R",
+            "S"
+          ],
+          "torque": 4.8,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 72,
+          "speedMaxMph": 95,
+          "msrp": 0,
+          "bendProfileDescription": "counterbalanced, softer throughout, mid-active tip"
+        }
+      ],
+      "family": "lightweight-speed",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "accra-tz6",
+      "brand": "Accra",
+      "model": "TZ6",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "55",
+          "weightG": 56,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 4.2,
+          "launchChar": "mid",
+          "spinChar": "low-mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 80,
+          "speedMaxMph": 105,
+          "msrp": 500,
+          "bendProfileDescription": "mid"
+        },
+        {
+          "weightClass": "65",
+          "weightG": 66,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.4,
+          "launchChar": "mid",
+          "spinChar": "low",
+          "tempoFit": [
+            "moderate"
+          ],
+          "speedMinMph": 90,
+          "speedMaxMph": 118,
+          "msrp": 500,
+          "bendProfileDescription": "mid"
+        },
+        {
+          "weightClass": "75",
+          "weightG": 76,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 2.9,
+          "launchChar": "low-mid",
+          "spinChar": "low",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 100,
+          "speedMaxMph": 130,
+          "msrp": 500,
+          "bendProfileDescription": "mid-stiff"
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "accra-fx-3",
+      "brand": "Accra",
+      "model": "FX 3.0",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "50",
+          "weightG": 52,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 4.8,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth"
+          ],
+          "speedMinMph": 70,
+          "speedMaxMph": 95,
+          "msrp": 400,
+          "bendProfileDescription": "mid-soft"
+        },
+        {
+          "weightClass": "60",
+          "weightG": 62,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.9,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 82,
+          "speedMaxMph": 110,
+          "msrp": 400,
+          "bendProfileDescription": "mid"
+        },
+        {
+          "weightClass": "70",
+          "weightG": 72,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.1,
+          "launchChar": "low-mid",
+          "spinChar": "low-mid",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 125,
+          "msrp": 400,
+          "bendProfileDescription": "mid-stiff"
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "la-golf-dj",
+      "brand": "LA Golf",
+      "model": "DJ Series",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 62,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.2,
+          "launchChar": "low-mid",
+          "spinChar": "low",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 125,
+          "msrp": 550,
+          "bendProfileDescription": "stiff-tip"
+        },
+        {
+          "weightClass": "70",
+          "weightG": 72,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 2.8,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive"
+          ],
+          "speedMinMph": 102,
+          "speedMaxMph": 132,
+          "msrp": 550,
+          "bendProfileDescription": "stiff-tip"
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "la-golf-malibu",
+      "brand": "LA Golf",
+      "model": "Malibu",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "50",
+          "weightG": 53,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 4.6,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth"
+          ],
+          "speedMinMph": 72,
+          "speedMaxMph": 98,
+          "msrp": 450,
+          "bendProfileDescription": "mid-soft"
+        },
+        {
+          "weightClass": "60",
+          "weightG": 63,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.8,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 84,
+          "speedMaxMph": 112,
+          "msrp": 450,
+          "bendProfileDescription": "mid"
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "autoflex-dream-7",
+      "brand": "AutoFlex",
+      "model": "SF405 Dream",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "44",
+          "weightG": 44,
+          "flexOptions": [
+            "SF405 (ultra-flex)"
+          ],
+          "torque": 6.2,
+          "launchChar": "high",
+          "spinChar": "mid-high",
+          "tempoFit": [
+            "smooth"
+          ],
+          "speedMinMph": 60,
+          "speedMaxMph": 90,
+          "msrp": 789,
+          "bendProfileDescription": "soft"
+        },
+        {
+          "weightClass": "47",
+          "weightG": 47,
+          "flexOptions": [
+            "SF505 (ultra-flex)"
+          ],
+          "torque": 5.8,
+          "launchChar": "high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth"
+          ],
+          "speedMinMph": 72,
+          "speedMaxMph": 100,
+          "msrp": 789,
+          "bendProfileDescription": "soft"
+        },
+        {
+          "weightClass": "51",
+          "weightG": 51,
+          "flexOptions": [
+            "SF505X (ultra-flex)"
+          ],
+          "torque": 5.4,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 85,
+          "speedMaxMph": 115,
+          "msrp": 789,
+          "bendProfileDescription": "soft"
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "tpt-15-series",
+      "brand": "TPT Golf",
+      "model": "15 Series LO",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "65",
+          "weightG": 65,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 98,
+          "speedMaxMph": 128,
+          "msrp": 499,
+          "bendProfileDescription": "stiff-tip"
+        },
+        {
+          "weightClass": "60",
+          "weightG": 60,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.5,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "moderate"
+          ],
+          "speedMinMph": 85,
+          "speedMaxMph": 115,
+          "msrp": 499,
+          "bendProfileDescription": "mid"
+        },
+        {
+          "weightClass": "55",
+          "weightG": 55,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 4.1,
+          "launchChar": "high",
+          "spinChar": "mid-high",
+          "tempoFit": [
+            "smooth"
+          ],
+          "speedMinMph": 70,
+          "speedMaxMph": 98,
+          "msrp": 499,
+          "bendProfileDescription": "mid-soft"
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "oban-kiyoshi-purple",
+      "brand": "Oban",
+      "model": "Kiyoshi Purple",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "65",
+          "weightG": 65,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.6,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 85,
+          "speedMaxMph": 115,
+          "msrp": 400,
+          "bendProfileDescription": "mid"
+        },
+        {
+          "weightClass": "75",
+          "weightG": 75,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "moderate"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 125,
+          "msrp": 400,
+          "bendProfileDescription": "mid"
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "oban-kiyoshi-black",
+      "brand": "Oban",
+      "model": "Kiyoshi Black",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "65",
+          "weightG": 66,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.2,
+          "launchChar": "low-mid",
+          "spinChar": "low",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 125,
+          "msrp": 400,
+          "bendProfileDescription": "stiff-tip"
+        },
+        {
+          "weightClass": "75",
+          "weightG": 76,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 2.7,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive"
+          ],
+          "speedMinMph": 102,
+          "speedMaxMph": 132,
+          "msrp": 400,
+          "bendProfileDescription": "stiff-tip"
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "va-nemesys",
+      "brand": "VA Composites",
+      "model": "Nemesys",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "55",
+          "weightG": 56,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 4.4,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth"
+          ],
+          "speedMinMph": 75,
+          "speedMaxMph": 100,
+          "msrp": 350,
+          "bendProfileDescription": "mid"
+        },
+        {
+          "weightClass": "65",
+          "weightG": 66,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.6,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "moderate"
+          ],
+          "speedMinMph": 87,
+          "speedMaxMph": 117,
+          "msrp": 350,
+          "bendProfileDescription": "mid"
+        },
+        {
+          "weightClass": "75",
+          "weightG": 76,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3,
+          "launchChar": "low-mid",
+          "spinChar": "low-mid",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 97,
+          "speedMaxMph": 127,
+          "msrp": 350,
+          "bendProfileDescription": "mid-stiff"
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mitsubishi-diamana-s-plus",
+      "brand": "Mitsubishi",
+      "model": "Diamana S+",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "TaylorMade",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 60,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.7,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 90,
+          "speedMaxMph": 115,
+          "msrp": 0,
+          "tipStiffness": "mid",
+          "buttStiffness": "stiff",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        },
+        {
+          "weightClass": "50",
+          "weightG": 50,
+          "flexOptions": [
+            "L",
+            "A",
+            "R"
+          ],
+          "torque": 4.2,
+          "launchChar": "high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 65,
+          "speedMaxMph": 95,
+          "msrp": 0,
+          "tipStiffness": "soft",
+          "buttStiffness": "mid",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "taylormade-qi4d",
+        "taylormade-qi4d-ls"
+      ]
+    },
+    {
+      "id": "mitsubishi-tensei-1k-blue",
+      "brand": "Mitsubishi",
+      "model": "Tensei 1K Blue",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Titleist",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "55",
+          "weightG": 55,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 4.2,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 80,
+          "speedMaxMph": 105,
+          "msrp": 0,
+          "tipStiffness": "mid",
+          "buttStiffness": "mid",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "titleist-gts2"
+      ]
+    },
+    {
+      "id": "mitsubishi-tensei-1k-black-stock",
+      "brand": "Mitsubishi",
+      "model": "Tensei 1K Black",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Titleist",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "65",
+          "weightG": 65,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.4,
+          "launchChar": "low-mid",
+          "spinChar": "low",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 120,
+          "msrp": 0,
+          "tipStiffness": "firm",
+          "buttStiffness": "stiff",
+          "kickPoint": "high",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "titleist-gts3",
+        "titleist-gts4"
+      ]
+    },
+    {
+      "id": "callaway-cypher",
+      "brand": "Callaway",
+      "model": "Cypher 2.0",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Callaway",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "50",
+          "weightG": 50,
+          "flexOptions": [
+            "L",
+            "A",
+            "R"
+          ],
+          "torque": 5.4,
+          "launchChar": "high",
+          "spinChar": "mid-high",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 60,
+          "speedMaxMph": 90,
+          "msrp": 0,
+          "tipStiffness": "soft",
+          "buttStiffness": "soft",
+          "kickPoint": "low",
+          "counterBalanced": false
+        },
+        {
+          "weightClass": "60",
+          "weightG": 60,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 4.3,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 80,
+          "speedMaxMph": 105,
+          "msrp": 0,
+          "tipStiffness": "soft",
+          "buttStiffness": "mid",
+          "kickPoint": "low",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "callaway-quantum-max-fast",
+        "callaway-quantum-max-d"
+      ]
+    },
+    {
+      "id": "projectx-hzrdus-cb",
+      "brand": "Project X",
+      "model": "HZRDUS CB",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Callaway",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 60,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.5,
+          "launchChar": "mid",
+          "spinChar": "low-mid",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 120,
+          "msrp": 0,
+          "tipStiffness": "firm",
+          "buttStiffness": "stiff",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "callaway-quantum-triple-diamond",
+        "callaway-quantum-triple-diamond-max"
+      ]
+    },
+    {
+      "id": "ping-alta-cb",
+      "brand": "Ping",
+      "model": "ALTA CB 55 Black",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Ping",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "55",
+          "weightG": 55,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 4.4,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 80,
+          "speedMaxMph": 110,
+          "msrp": 0,
+          "tipStiffness": "mid",
+          "buttStiffness": "mid",
+          "kickPoint": "low",
+          "counterBalanced": true
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "ping-g440-max",
+        "ping-g440-sft",
+        "ping-g440-k"
+      ]
+    },
+    {
+      "id": "ping-tour-2-0-chrome",
+      "brand": "Ping",
+      "model": "Tour 2.0 Chrome",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Ping",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "65",
+          "weightG": 65,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.2,
+          "launchChar": "low-mid",
+          "spinChar": "low",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 120,
+          "msrp": 0,
+          "tipStiffness": "extra-firm",
+          "buttStiffness": "stiff",
+          "kickPoint": "high",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "upgrade",
+      "compatibleHeads": [
+        "ping-g440-lst",
+        "ping-g440-max"
+      ]
+    },
+    {
+      "id": "ping-tour-2-0-black",
+      "brand": "Ping",
+      "model": "Tour 2.0 Black",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Ping",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "75",
+          "weightG": 75,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ],
+          "torque": 2.8,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive"
+          ],
+          "speedMinMph": 105,
+          "speedMaxMph": 130,
+          "msrp": 0,
+          "tipStiffness": "extra-firm",
+          "buttStiffness": "stiff",
+          "kickPoint": "high",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "upgrade",
+      "compatibleHeads": [
+        "ping-g440-lst"
+      ]
+    },
+    {
+      "id": "ping-alta-distanza-black",
+      "brand": "Ping",
+      "model": "ALTA Distanza Black",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Ping",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "40",
+          "weightG": 42,
+          "flexOptions": [
+            "Senior",
+            "R"
+          ],
+          "torque": 5.8,
+          "launchChar": "high",
+          "spinChar": "mid-high",
+          "tempoFit": [
+            "smooth"
+          ],
+          "speedMinMph": 60,
+          "speedMaxMph": 85,
+          "msrp": 0,
+          "tipStiffness": "soft",
+          "buttStiffness": "soft",
+          "kickPoint": "low",
+          "counterBalanced": true
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "ping-g440-max",
+        "ping-g440-sft",
+        "ping-g440-k"
+      ]
+    },
+    {
+      "id": "ping-alta-quick",
+      "brand": "Ping",
+      "model": "ALTA Quick",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Ping",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "35",
+          "weightG": 37,
+          "flexOptions": [
+            "Ladies",
+            "Senior"
+          ],
+          "torque": 6.2,
+          "launchChar": "high",
+          "spinChar": "high",
+          "tempoFit": [
+            "smooth"
+          ],
+          "speedMinMph": 55,
+          "speedMaxMph": 80,
+          "msrp": 0,
+          "tipStiffness": "soft",
+          "buttStiffness": "soft",
+          "kickPoint": "low",
+          "counterBalanced": true
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "ping-g440-max",
+        "ping-g440-sft"
+      ]
+    },
+    {
+      "id": "mitsubishi-kaili-white-stock",
+      "brand": "Mitsubishi",
+      "model": "Mitsubishi Kai'li White",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "TaylorMade",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 63,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.6,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 90,
+          "speedMaxMph": 115,
+          "msrp": 0,
+          "tipStiffness": "mid",
+          "buttStiffness": "mid",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "taylormade-qi4d",
+        "taylormade-qi4d-ls"
+      ]
+    },
+    {
+      "id": "mitsubishi-kaili-blue-stock",
+      "brand": "Mitsubishi",
+      "model": "Mitsubishi Kai'li Blue",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Ping",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 62,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.6,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 90,
+          "speedMaxMph": 115,
+          "msrp": 0,
+          "tipStiffness": "mid",
+          "buttStiffness": "mid",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "ping-g440-max",
+        "ping-g440-k",
+        "ping-g440-lst"
+      ]
+    },
+    {
+      "id": "fujikura-motore-xf3",
+      "brand": "Fujikura",
+      "model": "Fujikura Motore X F3",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "TaylorMade",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 55,
+          "flexOptions": [
+            "R",
+            "S"
+          ],
+          "torque": 4.5,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 80,
+          "speedMaxMph": 100,
+          "msrp": 0,
+          "tipStiffness": "soft",
+          "buttStiffness": "mid",
+          "kickPoint": "low",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "taylormade-qi4d-max",
+        "taylormade-qi4d-max-lite"
+      ]
+    },
+    {
+      "id": "mca-denali",
+      "brand": "Mitsubishi",
+      "model": "MCA Denali",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Cobra",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "50",
+          "weightG": 50,
+          "flexOptions": [
+            "L",
+            "A",
+            "R"
+          ],
+          "torque": 5.1,
+          "launchChar": "high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 60,
+          "speedMaxMph": 90,
+          "msrp": 0,
+          "tipStiffness": "soft",
+          "buttStiffness": "mid",
+          "kickPoint": "low",
+          "counterBalanced": false
+        },
+        {
+          "weightClass": "50",
+          "weightG": 52,
+          "flexOptions": [
+            "A",
+            "R",
+            "S"
+          ],
+          "torque": 5.2,
+          "launchChar": "high",
+          "spinChar": "high",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 65,
+          "speedMaxMph": 90,
+          "msrp": 0,
+          "tipStiffness": "soft",
+          "buttStiffness": "soft",
+          "kickPoint": "low",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "cobra-optm-max-k",
+        "cobra-optm-max-d"
+      ]
+    },
+    {
+      "id": "mca-tensei-av-blue-stock",
+      "brand": "Mitsubishi",
+      "model": "MCA Tensei AV Blue",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Cobra",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 60,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 4.1,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 85,
+          "speedMaxMph": 115,
+          "msrp": 0,
+          "tipStiffness": "mid",
+          "buttStiffness": "mid",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        },
+        {
+          "weightClass": "65",
+          "weightG": 65,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.6,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "aggressive"
+          ],
+          "speedMinMph": 100,
+          "speedMaxMph": 120,
+          "msrp": 0,
+          "tipStiffness": "mid",
+          "buttStiffness": "stiff",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "cobra-optm-x",
+        "cobra-optm-ls"
+      ]
+    },
+    {
+      "id": "la-golf-axs-blue",
+      "brand": "LA Golf",
+      "model": "LA Golf AXS Blue",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Cobra",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 62,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.5,
+          "launchChar": "mid",
+          "spinChar": "low-mid",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 120,
+          "msrp": 0,
+          "tipStiffness": "firm",
+          "buttStiffness": "stiff",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "upcharge",
+      "compatibleHeads": [
+        "cobra-optm-x",
+        "cobra-optm-ls"
+      ]
+    },
+    {
+      "id": "fujikura-ventus-blue-tm",
+      "brand": "Fujikura",
+      "model": "Ventus Blue 6 (TM Edition)",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "TaylorMade",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "6",
+          "weightG": 62,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.3,
+          "launchChar": "mid",
+          "spinChar": "low-mid",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 120,
+          "msrp": 0,
+          "tipStiffness": "firm",
+          "buttStiffness": "stiff",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "upgrade",
+      "compatibleHeads": [
+        "taylormade-qi4d",
+        "taylormade-qi4d-ls"
+      ]
+    },
+    {
+      "id": "fujikura-ventus-tr-black-stock",
+      "brand": "Fujikura",
+      "model": "Ventus TR Black",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "TaylorMade",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "6",
+          "weightG": 66,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ],
+          "torque": 3,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive"
+          ],
+          "speedMinMph": 105,
+          "speedMaxMph": 130,
+          "msrp": 0,
+          "tipStiffness": "extra-firm",
+          "buttStiffness": "stiff",
+          "kickPoint": "high",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "upgrade",
+      "compatibleHeads": [
+        "taylormade-qi4d-ls",
+        "taylormade-qi4d"
+      ]
+    },
+    {
+      "id": "fujikura-ventus-tr-blue-stock",
+      "brand": "Fujikura",
+      "model": "Ventus TR Blue",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "TaylorMade",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "6",
+          "weightG": 62,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.4,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 90,
+          "speedMaxMph": 120,
+          "msrp": 0,
+          "tipStiffness": "firm",
+          "buttStiffness": "mid",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "upgrade",
+      "compatibleHeads": [
+        "taylormade-qi4d",
+        "taylormade-qi4d-max"
+      ]
+    },
+    {
+      "id": "callaway-ventus-tr-blue",
+      "brand": "Fujikura",
+      "model": "Ventus TR Blue",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Callaway",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "6",
+          "weightG": 62,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.4,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 90,
+          "speedMaxMph": 120,
+          "msrp": 0,
+          "tipStiffness": "firm",
+          "buttStiffness": "mid",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "upgrade",
+      "compatibleHeads": [
+        "callaway-quantum-max",
+        "callaway-quantum-triple-diamond",
+        "callaway-quantum-triple-diamond-max"
+      ]
+    },
+    {
+      "id": "titleist-ventus-tr-blue",
+      "brand": "Fujikura",
+      "model": "Ventus TR Blue",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Titleist",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "6",
+          "weightG": 62,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.4,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 90,
+          "speedMaxMph": 120,
+          "msrp": 0,
+          "tipStiffness": "firm",
+          "buttStiffness": "mid",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "titleist-gts2",
+        "titleist-gts3"
+      ]
+    },
+    {
+      "id": "projectx-denali-blue",
+      "brand": "Project X",
+      "model": "Project X Denali Blue",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Callaway",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 61,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.8,
+          "launchChar": "mid",
+          "spinChar": "mid",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 90,
+          "speedMaxMph": 115,
+          "msrp": 0,
+          "tipStiffness": "mid",
+          "buttStiffness": "stiff",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "callaway-quantum-max",
+        "callaway-quantum-max-d"
+      ]
+    },
+    {
+      "id": "projectx-denali-red",
+      "brand": "Project X",
+      "model": "Project X Denali Red",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Callaway",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "50",
+          "weightG": 52,
+          "flexOptions": [
+            "A",
+            "R",
+            "S"
+          ],
+          "torque": 5,
+          "launchChar": "high",
+          "spinChar": "mid-high",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 65,
+          "speedMaxMph": 95,
+          "msrp": 0,
+          "tipStiffness": "soft",
+          "buttStiffness": "mid",
+          "kickPoint": "low",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "callaway-quantum-max-fast",
+        "callaway-quantum-max-d"
+      ]
+    },
+    {
+      "id": "projectx-hzrdus-black-4g",
+      "brand": "Project X",
+      "model": "HZRDUS Black 4G",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Titleist",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 63,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ],
+          "torque": 3.2,
+          "launchChar": "low",
+          "spinChar": "low",
+          "tempoFit": [
+            "aggressive"
+          ],
+          "speedMinMph": 105,
+          "speedMaxMph": 130,
+          "msrp": 0,
+          "tipStiffness": "extra-firm",
+          "buttStiffness": "stiff",
+          "kickPoint": "high",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "titleist-gts3",
+        "titleist-gts4"
+      ]
+    },
+    {
+      "id": "mitsubishi-kuro-kage-ltd",
+      "brand": "Mitsubishi",
+      "model": "Kuro Kage LTD",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Titleist",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "60",
+          "weightG": 62,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ],
+          "torque": 3.9,
+          "launchChar": "mid-high",
+          "spinChar": "mid",
+          "tempoFit": [
+            "smooth",
+            "moderate"
+          ],
+          "speedMinMph": 85,
+          "speedMaxMph": 110,
+          "msrp": 0,
+          "tipStiffness": "mid",
+          "buttStiffness": "mid",
+          "kickPoint": "low",
+          "counterBalanced": true
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "premium",
+      "compatibleHeads": [
+        "titleist-gts2",
+        "titleist-gts3"
+      ]
+    },
+    {
+      "id": "graphite-design-tour-ad-di-stock",
+      "brand": "Graphite Design",
+      "model": "Graphite Design Tour AD DI",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Titleist",
+      "material": "graphite",
+      "rawLength": 46,
+      "tipDiameter": 0.335,
+      "weightClasses": [
+        {
+          "weightClass": "70",
+          "weightG": 66,
+          "flexOptions": [
+            "S",
+            "X"
+          ],
+          "torque": 3.3,
+          "launchChar": "mid",
+          "spinChar": "low-mid",
+          "tempoFit": [
+            "moderate",
+            "aggressive"
+          ],
+          "speedMinMph": 95,
+          "speedMaxMph": 120,
+          "msrp": 0,
+          "tipStiffness": "firm",
+          "buttStiffness": "stiff",
+          "kickPoint": "mid",
+          "counterBalanced": false
+        }
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true,
+      "stockTier": "upgrade",
+      "compatibleHeads": [
+        "titleist-gts3",
+        "titleist-gts4"
+      ]
+    }
+  ]
+}
