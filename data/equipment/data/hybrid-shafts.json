@@ -1,0 +1,447 @@
+{
+  "_meta": {
+    "name": "Golf Equipment Database",
+    "source": "https://golfequipmentdatabase.com",
+    "license": {
+      "name": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "attribution": "Golf Equipment Database by GolferX, Inc. (https://golferx.io), licensed CC BY-SA 4.0",
+    "generatedAt": "2026-06-30",
+    "recordCount": 12,
+    "counts": {
+      "drivers": 41,
+      "fairway-woods": 29,
+      "hybrids": 20,
+      "iron-sets": 40,
+      "wedges": 20,
+      "putters": 31,
+      "driver-shafts": 61,
+      "fairway-shafts": 13,
+      "hybrid-shafts": 12,
+      "iron-shafts": 14
+    },
+    "note": "Expert-curated catalog. Community contributions layer per-record on the live site. Free to use, adapt, and share — including commercially — with attribution; keep derivatives open.",
+    "category": "hybrid-shafts"
+  },
+  "records": [
+    {
+      "id": "fujikura-ventus-blue-hy",
+      "brand": "Fujikura",
+      "model": "Ventus Blue VeloCore+",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 40.5,
+      "tipDiameter": 0.37,
+      "weightClasses": [
+        {
+          "weightClass": "8",
+          "weightG": 86,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ]
+        },
+        {
+          "weightClass": "9",
+          "weightG": 96,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ]
+        },
+        {
+          "weightClass": "10",
+          "weightG": 106,
+          "flexOptions": [
+            "X",
+            "TX"
+          ]
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "siblingIds": [
+        "fujikura-ventus-blue",
+        "fujikura-ventus-blue-fw"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "fujikura-ventus-black-hy",
+      "brand": "Fujikura",
+      "model": "Ventus Black VeloCore+",
+      "year": 2024,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 40.5,
+      "tipDiameter": 0.37,
+      "weightClasses": [
+        {
+          "weightClass": "9",
+          "weightG": 96,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ]
+        },
+        {
+          "weightClass": "10",
+          "weightG": 106,
+          "flexOptions": [
+            "X",
+            "TX"
+          ]
+        }
+      ],
+      "family": "low-low-aggressive",
+      "siblingIds": [
+        "fujikura-ventus-black",
+        "fujikura-ventus-black-fw"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mitsubishi-tensei-av-raw-blue-hy",
+      "brand": "Mitsubishi",
+      "model": "TENSEI AV Raw Blue",
+      "year": 2023,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 40.5,
+      "tipDiameter": 0.37,
+      "weightClasses": [
+        {
+          "weightClass": "85",
+          "weightG": 87,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ]
+        },
+        {
+          "weightClass": "95",
+          "weightG": 97,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ]
+        },
+        {
+          "weightClass": "105",
+          "weightG": 107,
+          "flexOptions": [
+            "X",
+            "TX"
+          ]
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mitsubishi-diamana-zx-hy",
+      "brand": "Mitsubishi",
+      "model": "Diamana ZX",
+      "year": 2022,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 40.5,
+      "tipDiameter": 0.37,
+      "weightClasses": [
+        {
+          "weightClass": "85",
+          "weightG": 88,
+          "flexOptions": [
+            "S",
+            "X"
+          ]
+        },
+        {
+          "weightClass": "95",
+          "weightG": 98,
+          "flexOptions": [
+            "X",
+            "TX"
+          ]
+        }
+      ],
+      "family": "mid-mid-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "graphite-design-tour-ad-di-hy",
+      "brand": "Graphite Design",
+      "model": "Tour AD DI",
+      "year": 2017,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 40.5,
+      "tipDiameter": 0.37,
+      "weightClasses": [
+        {
+          "weightClass": "85",
+          "weightG": 88,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ]
+        },
+        {
+          "weightClass": "95",
+          "weightG": 98,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ]
+        }
+      ],
+      "family": "mid-mid-versatile",
+      "siblingIds": [
+        "graphite-design-tour-ad-di",
+        "graphite-design-tour-ad-di-fw"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "graphite-design-tour-ad-hy",
+      "brand": "Graphite Design",
+      "model": "Tour AD HY",
+      "year": 2020,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 40.5,
+      "tipDiameter": 0.37,
+      "weightClasses": [
+        {
+          "weightClass": "85",
+          "weightG": 87,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ]
+        },
+        {
+          "weightClass": "95",
+          "weightG": 97,
+          "flexOptions": [
+            "S",
+            "X"
+          ]
+        }
+      ],
+      "family": "mid-high-smooth",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "projectx-hzrdus-smoke-black-rdx-hy",
+      "brand": "Project X",
+      "model": "HZRDUS Smoke Black RDX",
+      "year": 2022,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 40.5,
+      "tipDiameter": 0.37,
+      "weightClasses": [
+        {
+          "weightClass": "80",
+          "weightG": 82,
+          "flexOptions": [
+            "S",
+            "X"
+          ]
+        },
+        {
+          "weightClass": "90",
+          "weightG": 92,
+          "flexOptions": [
+            "X",
+            "TX"
+          ]
+        }
+      ],
+      "family": "low-low-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "aldila-rogue-white-130-hy",
+      "brand": "Aldila",
+      "model": "Rogue White 130 MSI",
+      "year": 2018,
+      "region": "global",
+      "material": "graphite",
+      "rawLength": 40.5,
+      "tipDiameter": 0.37,
+      "weightClasses": [
+        {
+          "weightClass": "90",
+          "weightG": 94,
+          "flexOptions": [
+            "S",
+            "X"
+          ]
+        },
+        {
+          "weightClass": "100",
+          "weightG": 104,
+          "flexOptions": [
+            "X",
+            "TX"
+          ]
+        }
+      ],
+      "family": "low-low-aggressive",
+      "siblingIds": [
+        "aldila-rogue-white-130",
+        "aldila-rogue-white-130-fw"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "kbs-tour-hybrid",
+      "brand": "KBS",
+      "model": "Tour Hybrid",
+      "year": 2018,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 41,
+      "tipDiameter": 0.37,
+      "weightClasses": [
+        {
+          "weightClass": "85",
+          "weightG": 85,
+          "flexOptions": [
+            "R",
+            "S",
+            "X"
+          ]
+        },
+        {
+          "weightClass": "95",
+          "weightG": 95,
+          "flexOptions": [
+            "S",
+            "X"
+          ]
+        },
+        {
+          "weightClass": "105",
+          "weightG": 105,
+          "flexOptions": [
+            "S",
+            "X",
+            "TX"
+          ]
+        }
+      ],
+      "family": "mid-low-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "true-temper-dg-amt-hybrid",
+      "brand": "True Temper",
+      "model": "Dynamic Gold AMT Hybrid",
+      "year": 2020,
+      "region": "global",
+      "material": "steel",
+      "rawLength": 40,
+      "tipDiameter": 0.37,
+      "weightClasses": [
+        {
+          "weightClass": "R300",
+          "weightG": 95,
+          "flexOptions": [
+            "R"
+          ]
+        },
+        {
+          "weightClass": "S300",
+          "weightG": 99,
+          "flexOptions": [
+            "S"
+          ]
+        },
+        {
+          "weightClass": "X100",
+          "weightG": 105,
+          "flexOptions": [
+            "X"
+          ]
+        }
+      ],
+      "family": "low-low-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-tour-2-0-chrome-hy",
+      "brand": "Ping",
+      "model": "Tour 2.0 Chrome",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Ping",
+      "stockTier": "upcharge",
+      "material": "graphite",
+      "rawLength": 40.5,
+      "tipDiameter": 0.37,
+      "weightClasses": [
+        {
+          "weightClass": "85",
+          "weightG": 87,
+          "flexOptions": [
+            "S",
+            "X"
+          ]
+        }
+      ],
+      "family": "mid-mid-aggressive",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-alta-cb-hy",
+      "brand": "Ping",
+      "model": "ALTA CB",
+      "year": 2024,
+      "region": "global",
+      "isStock": true,
+      "bundledByOem": "Ping",
+      "stockTier": "value",
+      "material": "graphite",
+      "rawLength": 40.5,
+      "tipDiameter": 0.37,
+      "weightClasses": [
+        {
+          "weightClass": "70",
+          "weightG": 71,
+          "flexOptions": [
+            "SR",
+            "R",
+            "S"
+          ]
+        }
+      ],
+      "family": "high-mid-smooth",
+      "engineEligible": true,
+      "seededFromCurated": true
+    }
+  ]
+}

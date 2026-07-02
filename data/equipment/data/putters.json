@@ -1,0 +1,1627 @@
+{
+  "_meta": {
+    "name": "Golf Equipment Database",
+    "source": "https://golfequipmentdatabase.com",
+    "license": {
+      "name": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "attribution": "Golf Equipment Database by GolferX, Inc. (https://golferx.io), licensed CC BY-SA 4.0",
+    "generatedAt": "2026-06-30",
+    "recordCount": 31,
+    "counts": {
+      "drivers": 41,
+      "fairway-woods": 29,
+      "hybrids": 20,
+      "iron-sets": 40,
+      "wedges": 20,
+      "putters": 31,
+      "driver-shafts": 61,
+      "fairway-shafts": 13,
+      "hybrid-shafts": 12,
+      "iron-shafts": 14
+    },
+    "note": "Expert-curated catalog. Community contributions layer per-record on the live site. Free to use, adapt, and share — including commercially — with attribution; keep derivatives open.",
+    "category": "putters"
+  },
+  "records": [
+    {
+      "id": "scotty-cameron-phantom-x-5-2024",
+      "brand": "Titleist",
+      "model": "Scotty Cameron Phantom X 5 (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "mid-mallet",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "small-slant",
+      "hoselOemName": "Small slant neck",
+      "toeHang": "slight",
+      "toeHangDeg": 20,
+      "strokeArcFit": [
+        "slight-arc"
+      ],
+      "faceMaterial": "milled-aluminum",
+      "faceTechnology": [
+        "Solid milled aluminum face"
+      ],
+      "headWeightG": 360,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 2,
+        "weights": [
+          10,
+          15,
+          20
+        ],
+        "positions": "heel + toe"
+      },
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3.5,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "silver-mist"
+      ],
+      "family": "players-mallet",
+      "forgivenessTier": 3,
+      "workability": "mid",
+      "feelChar": "mid-firm",
+      "msrp": 599,
+      "siblingIds": [
+        "scotty-cameron-phantom-x-11-2024",
+        "scotty-cameron-phantom-x-7-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "scotty-cameron-phantom-x-7-2024",
+      "brand": "Titleist",
+      "model": "Scotty Cameron Phantom X 7 (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "mallet",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "flow-neck",
+      "hoselOemName": "Flow neck",
+      "toeHang": "moderate",
+      "toeHangDeg": 30,
+      "strokeArcFit": [
+        "slight-arc",
+        "strong-arc"
+      ],
+      "faceMaterial": "milled-aluminum",
+      "faceTechnology": [
+        "Solid milled aluminum face"
+      ],
+      "headWeightG": 365,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 2,
+        "weights": [
+          10,
+          15,
+          20
+        ],
+        "positions": "heel + toe"
+      },
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3.5,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-triple",
+      "finishOptions": [
+        "silver-mist"
+      ],
+      "family": "tour-mallet",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "feelChar": "mid-firm",
+      "msrp": 599,
+      "siblingIds": [
+        "scotty-cameron-phantom-x-5-2024",
+        "scotty-cameron-phantom-x-11-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "scotty-cameron-phantom-x-11-2024",
+      "brand": "Titleist",
+      "model": "Scotty Cameron Phantom X 11 (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "high-moi-mallet",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "double-bend",
+      "hoselOemName": "Double bend",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight"
+      ],
+      "faceMaterial": "milled-aluminum",
+      "faceTechnology": [
+        "Solid milled aluminum face"
+      ],
+      "headWeightG": 370,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 2,
+        "weights": [
+          10,
+          15,
+          20
+        ],
+        "positions": "heel + toe"
+      },
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3.5,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "alignmentNote": "Single sightline on raised flange",
+      "finishOptions": [
+        "silver-mist"
+      ],
+      "family": "max-moi",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "feelChar": "mid-firm",
+      "msrp": 599,
+      "siblingIds": [
+        "scotty-cameron-phantom-x-5-2024",
+        "scotty-cameron-phantom-x-7-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "scotty-cameron-newport-2-special-select-2023",
+      "brand": "Titleist",
+      "model": "Scotty Cameron Newport 2 Special Select (2023)",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "blade",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "plumber-neck",
+      "hoselOemName": "Plumbing neck",
+      "toeHang": "strong",
+      "toeHangDeg": 38,
+      "strokeArcFit": [
+        "strong-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "faceTechnology": [
+        "Solid 303 stainless milled face"
+      ],
+      "headWeightG": 350,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3.5,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "satin-silver"
+      ],
+      "family": "tour-blade",
+      "forgivenessTier": 2,
+      "workability": "high",
+      "feelChar": "mid-firm",
+      "msrp": 549,
+      "siblingIds": [
+        "scotty-cameron-newport-special-select-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "scotty-cameron-newport-special-select-2023",
+      "brand": "Titleist",
+      "model": "Scotty Cameron Newport Special Select (2023)",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "blade",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "plumber-neck",
+      "toeHang": "strong",
+      "toeHangDeg": 40,
+      "strokeArcFit": [
+        "strong-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "headWeightG": 350,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3.5,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightdot",
+      "finishOptions": [
+        "satin-silver"
+      ],
+      "family": "tour-blade",
+      "forgivenessTier": 1,
+      "workability": "high",
+      "feelChar": "mid-firm",
+      "msrp": 549,
+      "siblingIds": [
+        "scotty-cameron-newport-2-special-select-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "odyssey-ai-one-seven-2024",
+      "brand": "Odyssey",
+      "model": "Ai-ONE Seven (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "mallet",
+      "construction": "multi-material",
+      "lengthClass": "standard",
+      "hoselType": "double-bend",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight"
+      ],
+      "faceMaterial": "multi-material-insert",
+      "faceTechnology": [
+        "Ai-ONE insert",
+        "White Hot urethane core",
+        "Aluminum face plate"
+      ],
+      "headWeightG": 365,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-triple",
+      "finishOptions": [
+        "black-pvd"
+      ],
+      "family": "tour-mallet",
+      "forgivenessTier": 4,
+      "workability": "low",
+      "feelChar": "soft",
+      "msrp": 299,
+      "siblingIds": [
+        "odyssey-ai-one-jailbird-cruiser-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "odyssey-white-hot-og-1-2023",
+      "brand": "Odyssey",
+      "model": "White Hot OG #1 (2023)",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "blade",
+      "construction": "cast-stainless",
+      "lengthClass": "standard",
+      "hoselType": "plumber-neck",
+      "toeHang": "strong",
+      "toeHangDeg": 35,
+      "strokeArcFit": [
+        "strong-arc"
+      ],
+      "faceMaterial": "polymer-insert",
+      "faceTechnology": [
+        "White Hot 2-piece urethane insert"
+      ],
+      "headWeightG": 340,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "silver"
+      ],
+      "family": "players-blade",
+      "forgivenessTier": 2,
+      "workability": "mid",
+      "feelChar": "soft",
+      "msrp": 249,
+      "siblingIds": [],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "taylormade-spider-tour-x-2024",
+      "brand": "TaylorMade",
+      "model": "Spider Tour X (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "mallet",
+      "construction": "multi-material",
+      "lengthClass": "standard",
+      "hoselType": "short-slant",
+      "hoselOemName": "Short slant",
+      "toeHang": "slight",
+      "toeHangDeg": 15,
+      "strokeArcFit": [
+        "slight-arc"
+      ],
+      "faceMaterial": "groove-insert",
+      "faceTechnology": [
+        "Pure Roll Insert",
+        "45° grooves"
+      ],
+      "headWeightG": 355,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 2,
+        "weights": [
+          2,
+          6,
+          12
+        ],
+        "positions": "heel + toe"
+      },
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-triple",
+      "alignmentNote": "True Path white channel",
+      "finishOptions": [
+        "chrome",
+        "black-pvd"
+      ],
+      "family": "tour-mallet",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "feelChar": "mid-soft",
+      "msrp": 399,
+      "siblingIds": [
+        "taylormade-spider-tour-x-arm-lock-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "taylormade-spider-tour-x-arm-lock-2024",
+      "brand": "TaylorMade",
+      "model": "Spider Tour X Arm Lock (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "mallet",
+      "construction": "multi-material",
+      "lengthClass": "arm-lock",
+      "hoselType": "single-bend",
+      "hoselOemName": "Arm-lock single bend",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight"
+      ],
+      "faceMaterial": "groove-insert",
+      "faceTechnology": [
+        "Pure Roll Insert",
+        "45° grooves"
+      ],
+      "headWeightG": 415,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 2,
+        "weights": [
+          6,
+          12,
+          20
+        ],
+        "positions": "heel + toe"
+      },
+      "lengthsOffered": [
+        38,
+        40,
+        42
+      ],
+      "lieAngle": 70,
+      "loft": 7,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-triple",
+      "finishOptions": [
+        "chrome"
+      ],
+      "family": "tour-mallet",
+      "forgivenessTier": 4,
+      "workability": "low",
+      "feelChar": "mid-soft",
+      "msrp": 449,
+      "siblingIds": [
+        "taylormade-spider-tour-x-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-pld-anser-2-2024",
+      "brand": "Ping",
+      "model": "PLD Milled Anser 2 (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "blade",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "plumber-neck",
+      "toeHang": "strong",
+      "toeHangDeg": 38,
+      "strokeArcFit": [
+        "strong-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "faceTechnology": [
+        "Precision milled 303 stainless"
+      ],
+      "headWeightG": 350,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "satin-platinum",
+        "mid-night"
+      ],
+      "family": "tour-blade",
+      "forgivenessTier": 2,
+      "workability": "high",
+      "feelChar": "mid-firm",
+      "msrp": 590,
+      "siblingIds": [],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "lab-mezz-1-max-2024",
+      "brand": "L.A.B. Golf",
+      "model": "MEZZ.1 Max (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "high-moi-mallet",
+      "construction": "multi-material",
+      "lengthClass": "standard",
+      "hoselType": "no-hosel",
+      "hoselOemName": "Lie Angle Balance (LAB)",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight",
+        "slight-arc"
+      ],
+      "faceMaterial": "milled-aluminum",
+      "faceTechnology": [
+        "Press-fit polymer pellet face insert"
+      ],
+      "headWeightG": 365,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 2,
+        "weights": [
+          2,
+          5,
+          8,
+          10
+        ],
+        "positions": "sole — heel + toe"
+      },
+      "lengthsOffered": [
+        33,
+        34,
+        35,
+        36
+      ],
+      "lieAngle": 67,
+      "loft": 4,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "t-line",
+      "alignmentNote": "Centered T-line across crown",
+      "finishOptions": [
+        "black-pvd",
+        "natural"
+      ],
+      "family": "max-moi",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "feelChar": "mid",
+      "msrp": 599,
+      "siblingIds": [
+        "lab-df3-2024",
+        "lab-link-1-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "lab-df3-2024",
+      "brand": "L.A.B. Golf",
+      "model": "DF3 (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "high-moi-mallet",
+      "construction": "milled-aluminum",
+      "lengthClass": "standard",
+      "hoselType": "no-hosel",
+      "hoselOemName": "Lie Angle Balance (LAB)",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight",
+        "slight-arc"
+      ],
+      "faceMaterial": "milled-aluminum",
+      "headWeightG": 392,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 12,
+        "weights": [
+          1,
+          2.5
+        ],
+        "positions": "perimeter screw ring"
+      },
+      "lengthsOffered": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "lieAngle": 69,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "black",
+        "silver",
+        "white"
+      ],
+      "family": "max-moi",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "feelChar": "mid",
+      "msrp": 549,
+      "siblingIds": [
+        "lab-mezz-1-max-2024",
+        "lab-link-1-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "lab-link-1-2024",
+      "brand": "L.A.B. Golf",
+      "model": "Link.1 (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "blade",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "no-hosel",
+      "hoselOemName": "Lie Angle Balance (LAB)",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight",
+        "slight-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "headWeightG": 360,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 6,
+        "weights": [
+          1,
+          2.5
+        ],
+        "positions": "sole screw ring"
+      },
+      "lengthsOffered": [
+        33,
+        34,
+        35,
+        36
+      ],
+      "lieAngle": 69,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "satin-silver"
+      ],
+      "family": "players-blade",
+      "forgivenessTier": 3,
+      "workability": "mid",
+      "feelChar": "mid-firm",
+      "msrp": 449,
+      "siblingIds": [
+        "lab-mezz-1-max-2024",
+        "lab-df3-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "odyssey-white-hot-og-7-2023",
+      "brand": "Odyssey",
+      "model": "White Hot OG #7 (2023)",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "mallet",
+      "construction": "cast-stainless",
+      "lengthClass": "standard",
+      "hoselType": "slant-neck",
+      "toeHang": "moderate",
+      "toeHangDeg": 25,
+      "strokeArcFit": [
+        "slight-arc",
+        "strong-arc"
+      ],
+      "faceMaterial": "polymer-insert",
+      "faceTechnology": [
+        "White Hot 2-piece urethane insert"
+      ],
+      "headWeightG": 355,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "wings",
+      "alignmentNote": "Fang-style wings frame the ball",
+      "finishOptions": [
+        "silver"
+      ],
+      "family": "players-mallet",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "feelChar": "soft",
+      "msrp": 249,
+      "siblingIds": [
+        "odyssey-white-hot-og-1-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "odyssey-ai-one-jailbird-cruiser-2024",
+      "brand": "Odyssey",
+      "model": "Ai-ONE Jailbird Cruiser (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "high-moi-mallet",
+      "construction": "multi-material",
+      "lengthClass": "counterbalanced",
+      "hoselType": "double-bend",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight"
+      ],
+      "faceMaterial": "multi-material-insert",
+      "faceTechnology": [
+        "Ai-ONE insert",
+        "White Hot urethane core"
+      ],
+      "headWeightG": 400,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        38
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-triple",
+      "alignmentNote": "Jailbird cage graphic with triple lines",
+      "finishOptions": [
+        "navy-white"
+      ],
+      "family": "max-moi",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "feelChar": "soft",
+      "msrp": 399,
+      "siblingIds": [
+        "odyssey-ai-one-seven-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "odyssey-jailbird-380-2023",
+      "brand": "Odyssey",
+      "model": "Tri-Hot 5K Jailbird (2023)",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "high-moi-mallet",
+      "construction": "multi-material",
+      "lengthClass": "standard",
+      "hoselType": "double-bend",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight"
+      ],
+      "faceMaterial": "polymer-insert",
+      "faceTechnology": [
+        "White Hot insert",
+        "Tungsten front weighting"
+      ],
+      "headWeightG": 380,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-triple",
+      "finishOptions": [
+        "navy-white"
+      ],
+      "family": "max-moi",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "feelChar": "soft",
+      "msrp": 349,
+      "siblingIds": [
+        "odyssey-ai-one-jailbird-cruiser-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "taylormade-spider-tour-2024",
+      "brand": "TaylorMade",
+      "model": "Spider Tour (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "mallet",
+      "construction": "multi-material",
+      "lengthClass": "standard",
+      "hoselType": "double-bend",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight"
+      ],
+      "faceMaterial": "groove-insert",
+      "faceTechnology": [
+        "Pure Roll Insert",
+        "45° grooves"
+      ],
+      "headWeightG": 360,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 2,
+        "weights": [
+          2,
+          6,
+          12
+        ],
+        "positions": "heel + toe"
+      },
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-triple",
+      "alignmentNote": "True Path white channel",
+      "finishOptions": [
+        "black-white"
+      ],
+      "family": "tour-mallet",
+      "forgivenessTier": 4,
+      "workability": "low",
+      "feelChar": "mid-soft",
+      "msrp": 399,
+      "siblingIds": [
+        "taylormade-spider-tour-x-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "taylormade-tp-reserve-b11-2023",
+      "brand": "TaylorMade",
+      "model": "TP Reserve B11 (2023)",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "blade",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "plumber-neck",
+      "toeHang": "strong",
+      "toeHangDeg": 35,
+      "strokeArcFit": [
+        "strong-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "faceTechnology": [
+        "Milled 303 stainless"
+      ],
+      "headWeightG": 350,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "satin-silver"
+      ],
+      "family": "tour-blade",
+      "forgivenessTier": 2,
+      "workability": "high",
+      "feelChar": "mid-firm",
+      "msrp": 350,
+      "siblingIds": [],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "scotty-cameron-squareback-2-2023",
+      "brand": "Titleist",
+      "model": "Scotty Cameron Super Select Squareback 2 (2023)",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "mid-mallet",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "plumber-neck",
+      "toeHang": "moderate",
+      "toeHangDeg": 30,
+      "strokeArcFit": [
+        "slight-arc",
+        "strong-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "faceTechnology": [
+        "Dual-milled 303 stainless face"
+      ],
+      "headWeightG": 355,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3.5,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "satin-silver"
+      ],
+      "family": "players-mallet",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "feelChar": "mid-firm",
+      "msrp": 599,
+      "siblingIds": [
+        "scotty-cameron-fastback-1-5-2023",
+        "scotty-cameron-newport-2-special-select-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "scotty-cameron-fastback-1-5-2023",
+      "brand": "Titleist",
+      "model": "Scotty Cameron Super Select Fastback 1.5 (2023)",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "mid-mallet",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "small-slant",
+      "toeHang": "slight",
+      "toeHangDeg": 20,
+      "strokeArcFit": [
+        "slight-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "faceTechnology": [
+        "Dual-milled 303 stainless face"
+      ],
+      "headWeightG": 360,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3.5,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "satin-silver"
+      ],
+      "family": "players-mallet",
+      "forgivenessTier": 3,
+      "workability": "mid",
+      "feelChar": "mid-firm",
+      "msrp": 599,
+      "siblingIds": [
+        "scotty-cameron-squareback-2-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-pld-ds72-2024",
+      "brand": "Ping",
+      "model": "PLD Milled DS72 (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "mallet",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "short-slant",
+      "toeHang": "slight",
+      "toeHangDeg": 18,
+      "strokeArcFit": [
+        "slight-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "faceTechnology": [
+        "Precision milled 303 stainless"
+      ],
+      "headWeightG": 365,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "satin-platinum",
+        "mid-night"
+      ],
+      "family": "players-mallet",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "feelChar": "mid-firm",
+      "msrp": 590,
+      "siblingIds": [
+        "ping-pld-anser-2-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-2023-anser-2024",
+      "brand": "Ping",
+      "model": "Anser 2023",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "blade",
+      "construction": "multi-material",
+      "lengthClass": "standard",
+      "hoselType": "plumber-neck",
+      "toeHang": "moderate",
+      "toeHangDeg": 28,
+      "strokeArcFit": [
+        "slight-arc",
+        "strong-arc"
+      ],
+      "faceMaterial": "polymer-insert",
+      "faceTechnology": [
+        "PEBAX Dual-durometer insert"
+      ],
+      "headWeightG": 350,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 1,
+        "weights": [
+          5,
+          10,
+          15
+        ],
+        "positions": "sole — shaft-axis weight"
+      },
+      "lengthsOffered": [
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "black-nickel"
+      ],
+      "family": "players-blade",
+      "forgivenessTier": 3,
+      "workability": "mid",
+      "feelChar": "soft",
+      "msrp": 285,
+      "siblingIds": [
+        "ping-pld-anser-2-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "bettinardi-studio-stock-9-2023",
+      "brand": "Bettinardi",
+      "model": "Studio Stock 9 (2023)",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "blade",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "plumber-neck",
+      "toeHang": "strong",
+      "toeHangDeg": 33,
+      "strokeArcFit": [
+        "strong-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "faceTechnology": [
+        "Roll Face milling",
+        "One-piece 303 stainless"
+      ],
+      "headWeightG": 352,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "diamond-blast"
+      ],
+      "family": "tour-blade",
+      "forgivenessTier": 2,
+      "workability": "high",
+      "feelChar": "mid",
+      "msrp": 450,
+      "siblingIds": [
+        "bettinardi-queen-b-6-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "bettinardi-queen-b-6-2023",
+      "brand": "Bettinardi",
+      "model": "Queen B #6 (2023)",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "mid-mallet",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "flow-neck",
+      "toeHang": "moderate",
+      "toeHangDeg": 28,
+      "strokeArcFit": [
+        "slight-arc",
+        "strong-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "faceTechnology": [
+        "Micro Honeycomb face milling"
+      ],
+      "headWeightG": 358,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightdot",
+      "finishOptions": [
+        "rose-gold"
+      ],
+      "family": "players-mallet",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "feelChar": "mid-soft",
+      "msrp": 475,
+      "siblingIds": [
+        "bettinardi-studio-stock-9-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "evnroll-er2-2023",
+      "brand": "Evnroll",
+      "model": "ER2 MidBlade (2023)",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "blade",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "plumber-neck",
+      "toeHang": "moderate",
+      "toeHangDeg": 25,
+      "strokeArcFit": [
+        "slight-arc",
+        "strong-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "faceTechnology": [
+        "Sweet Face groove technology — gear-effect milling normalises ball speed across the face"
+      ],
+      "headWeightG": 365,
+      "adjustableWeights": false,
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "satin-silver"
+      ],
+      "family": "players-blade",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "feelChar": "mid-soft",
+      "msrp": 399,
+      "siblingIds": [],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mizuno-mcraft-omoi-1-2023",
+      "brand": "Mizuno",
+      "model": "M.Craft OMOI Type I (2023)",
+      "year": 2023,
+      "region": "global",
+      "headStyle": "blade",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "plumber-neck",
+      "toeHang": "strong",
+      "toeHangDeg": 34,
+      "strokeArcFit": [
+        "strong-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "faceTechnology": [
+        "Forged + CNC milled 1025 carbon steel",
+        "Heavyweight head"
+      ],
+      "headWeightG": 380,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 2,
+        "weights": [
+          3,
+          8,
+          13
+        ],
+        "positions": "heel + toe sole"
+      },
+      "lengthsOffered": [
+        33,
+        34,
+        35
+      ],
+      "lieAngle": 70,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "white-satin",
+        "blue-ion"
+      ],
+      "family": "tour-blade",
+      "forgivenessTier": 2,
+      "workability": "high",
+      "feelChar": "soft",
+      "msrp": 400,
+      "siblingIds": [],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "lab-mezz-1-max-broomstick-2024",
+      "brand": "L.A.B. Golf",
+      "model": "MEZZ.1 Max Broomstick (2024)",
+      "year": 2024,
+      "region": "global",
+      "headStyle": "high-moi-mallet",
+      "construction": "multi-material",
+      "lengthClass": "broomstick",
+      "hoselType": "no-hosel",
+      "hoselOemName": "Lie Angle Balance (LAB) — broomstick build",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight"
+      ],
+      "faceMaterial": "milled-aluminum",
+      "faceTechnology": [
+        "Press-fit polymer pellet face insert"
+      ],
+      "headWeightG": 330,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 2,
+        "weights": [
+          2,
+          5,
+          8
+        ],
+        "positions": "sole — heel + toe"
+      },
+      "lengthsOffered": [
+        46,
+        48,
+        50
+      ],
+      "lieAngle": 78,
+      "loft": 4,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "t-line",
+      "alignmentNote": "Centered T-line; gripped split-hands, anchor-free per Rule 10.1b",
+      "finishOptions": [
+        "black-pvd"
+      ],
+      "family": "max-moi",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "feelChar": "mid",
+      "msrp": 649,
+      "siblingIds": [
+        "lab-mezz-1-max-2024",
+        "lab-df3-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "lab-df-2-1-2019",
+      "brand": "L.A.B. Golf",
+      "model": "Directed Force 2.1",
+      "year": 2019,
+      "region": "global",
+      "headStyle": "high-moi-mallet",
+      "construction": "milled-aluminum",
+      "lengthClass": "standard",
+      "hoselType": "no-hosel",
+      "hoselOemName": "Lie Angle Balance (LAB)",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight",
+        "slight-arc"
+      ],
+      "faceMaterial": "milled-aluminum",
+      "faceTechnology": [
+        "Press-fit polymer face insert"
+      ],
+      "headWeightG": 395,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 14,
+        "weights": [
+          1,
+          2.5
+        ],
+        "positions": "perimeter screw ring"
+      },
+      "lengthsOffered": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "lieAngle": 69,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "alignmentNote": "The original LAB head — wide-body round profile",
+      "finishOptions": [
+        "silver",
+        "black"
+      ],
+      "family": "max-moi",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "feelChar": "mid",
+      "msrp": 449,
+      "siblingIds": [
+        "lab-df3-2024",
+        "lab-mezz-1-max-2024"
+      ],
+      "successorId": "lab-df3-2024",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "lab-mezz-1-2022",
+      "brand": "L.A.B. Golf",
+      "model": "MEZZ.1 (2022)",
+      "year": 2022,
+      "region": "global",
+      "headStyle": "mallet",
+      "construction": "multi-material",
+      "lengthClass": "standard",
+      "hoselType": "no-hosel",
+      "hoselOemName": "Lie Angle Balance (LAB)",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight",
+        "slight-arc"
+      ],
+      "faceMaterial": "milled-aluminum",
+      "faceTechnology": [
+        "Press-fit polymer pellet face insert",
+        "Carbon-fiber sole plate"
+      ],
+      "headWeightG": 355,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 2,
+        "weights": [
+          2,
+          5,
+          8
+        ],
+        "positions": "sole — heel + toe"
+      },
+      "lengthsOffered": [
+        33,
+        34,
+        35,
+        36
+      ],
+      "lieAngle": 68,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-single",
+      "finishOptions": [
+        "black-pvd",
+        "natural"
+      ],
+      "family": "players-mallet",
+      "forgivenessTier": 4,
+      "workability": "low",
+      "feelChar": "mid",
+      "msrp": 499,
+      "siblingIds": [
+        "lab-mezz-1-max-2024",
+        "lab-df3-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "lab-oz-1-2025",
+      "brand": "L.A.B. Golf",
+      "model": "OZ.1 (2025)",
+      "year": 2025,
+      "region": "global",
+      "headStyle": "mallet",
+      "construction": "milled-aluminum",
+      "lengthClass": "standard",
+      "hoselType": "no-hosel",
+      "hoselOemName": "Lie Angle Balance (LAB)",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight",
+        "slight-arc"
+      ],
+      "faceMaterial": "milled-aluminum",
+      "faceTechnology": [
+        "Press-fit polymer pellet face insert"
+      ],
+      "headWeightG": 370,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 2,
+        "weights": [
+          2,
+          5,
+          8
+        ],
+        "positions": "sole — heel + toe"
+      },
+      "lengthsOffered": [
+        33,
+        34,
+        35,
+        36
+      ],
+      "lieAngle": 69,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-triple",
+      "alignmentNote": "Squared-off mallet with framed alignment window",
+      "finishOptions": [
+        "black",
+        "silver"
+      ],
+      "family": "players-mallet",
+      "forgivenessTier": 4,
+      "workability": "low",
+      "feelChar": "mid",
+      "msrp": 549,
+      "siblingIds": [
+        "lab-oz-1i-2025",
+        "lab-mezz-1-max-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "lab-oz-1i-2025",
+      "brand": "L.A.B. Golf",
+      "model": "OZ.1i (2025)",
+      "year": 2025,
+      "region": "global",
+      "headStyle": "mallet",
+      "construction": "milled-steel",
+      "lengthClass": "standard",
+      "hoselType": "no-hosel",
+      "hoselOemName": "Lie Angle Balance (LAB)",
+      "toeHang": "face-balanced",
+      "toeHangDeg": 0,
+      "strokeArcFit": [
+        "straight",
+        "slight-arc"
+      ],
+      "faceMaterial": "milled-steel",
+      "faceTechnology": [
+        "Fully milled stainless head — firmer feel than the insert OZ.1"
+      ],
+      "headWeightG": 375,
+      "adjustableWeights": true,
+      "movableWeights": {
+        "count": 2,
+        "weights": [
+          2,
+          5,
+          8
+        ],
+        "positions": "sole — heel + toe"
+      },
+      "lengthsOffered": [
+        33,
+        34,
+        35,
+        36
+      ],
+      "lieAngle": 69,
+      "loft": 3,
+      "hasRH": true,
+      "hasLH": true,
+      "alignmentAid": "sightline-triple",
+      "finishOptions": [
+        "silver",
+        "black"
+      ],
+      "family": "players-mallet",
+      "forgivenessTier": 4,
+      "workability": "low",
+      "feelChar": "mid-firm",
+      "msrp": 599,
+      "siblingIds": [
+        "lab-oz-1-2025"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    }
+  ]
+}

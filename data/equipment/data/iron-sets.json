@@ -1,0 +1,3325 @@
+{
+  "_meta": {
+    "name": "Golf Equipment Database",
+    "source": "https://golfequipmentdatabase.com",
+    "license": {
+      "name": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "attribution": "Golf Equipment Database by GolferX, Inc. (https://golferx.io), licensed CC BY-SA 4.0",
+    "generatedAt": "2026-06-30",
+    "recordCount": 40,
+    "counts": {
+      "drivers": 41,
+      "fairway-woods": 29,
+      "hybrids": 20,
+      "iron-sets": 40,
+      "wedges": 20,
+      "putters": 31,
+      "driver-shafts": 61,
+      "fairway-shafts": 13,
+      "hybrid-shafts": 12,
+      "iron-shafts": 14
+    },
+    "note": "Expert-curated catalog. Community contributions layer per-record on the live site. Free to use, adapt, and share — including commercially — with attribution; keep derivatives open.",
+    "category": "iron-sets"
+  },
+  "records": [
+    {
+      "id": "taylormade-p790-2024",
+      "brand": "TaylorMade",
+      "model": "P790",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-distance",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 19,
+          "lie": 60.5,
+          "length": 39,
+          "offsetMm": 3.5,
+          "swingWeight": "D2",
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 21,
+          "lie": 61,
+          "length": 38.5,
+          "offsetMm": 3.4,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "5",
+          "loft": 23.5,
+          "lie": 61.5,
+          "length": 38,
+          "offsetMm": 3.1,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "6",
+          "loft": 26.5,
+          "lie": 62,
+          "length": 37.5,
+          "offsetMm": 2.9,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "7",
+          "loft": 30.5,
+          "lie": 62.5,
+          "length": 37,
+          "offsetMm": 2.7,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "8",
+          "loft": 35,
+          "lie": 63,
+          "length": 36.5,
+          "offsetMm": 2.4,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "9",
+          "loft": 40,
+          "lie": 63.5,
+          "length": 36,
+          "offsetMm": 2.1,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "PW",
+          "loft": 45,
+          "lie": 64,
+          "length": 35.75,
+          "offsetMm": 1.8,
+          "swingWeight": "D3"
+        },
+        {
+          "position": "AW",
+          "loft": 50,
+          "lie": 64,
+          "length": 35.5,
+          "offsetMm": 1.6,
+          "swingWeight": "D3",
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "versatile",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "msrp": 1399,
+      "msrpNote": "with steel stock shaft (KBS Tour); 7-iron set",
+      "siblingIds": [
+        "taylormade-p770-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "taylormade-p770-2024",
+      "brand": "TaylorMade",
+      "model": "P770",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 23,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 2.8
+        },
+        {
+          "position": "5",
+          "loft": 26,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "6",
+          "loft": 29,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.3
+        },
+        {
+          "position": "7",
+          "loft": 33,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "8",
+          "loft": 37,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 1.9
+        },
+        {
+          "position": "9",
+          "loft": 41,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.7
+        },
+        {
+          "position": "PW",
+          "loft": 45,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 1.5
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 1399,
+      "siblingIds": [
+        "taylormade-p790-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "taylormade-p7mc-2024",
+      "brand": "TaylorMade",
+      "model": "P7MC",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 22,
+          "lie": 60,
+          "length": 39,
+          "offsetMm": 3,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 25,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 2.8
+        },
+        {
+          "position": "5",
+          "loft": 28,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "6",
+          "loft": 31,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.2
+        },
+        {
+          "position": "7",
+          "loft": 35,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2
+        },
+        {
+          "position": "8",
+          "loft": 39,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 1.8
+        },
+        {
+          "position": "9",
+          "loft": 43,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.6
+        },
+        {
+          "position": "PW",
+          "loft": 47,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 1.4
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "low-mid",
+      "spinChar": "mid",
+      "forgivenessTier": 2,
+      "workability": "high",
+      "msrp": 1599,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "titleist-t150-2024",
+      "brand": "Titleist",
+      "model": "T150",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 22,
+          "lie": 60,
+          "length": 39,
+          "offsetMm": 3.4,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 24,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 3
+        },
+        {
+          "position": "5",
+          "loft": 27,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 2.7
+        },
+        {
+          "position": "6",
+          "loft": 30,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.4
+        },
+        {
+          "position": "7",
+          "loft": 34,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "8",
+          "loft": 38,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 1.9
+        },
+        {
+          "position": "9",
+          "loft": 42,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.7
+        },
+        {
+          "position": "PW",
+          "loft": 46,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 1.5
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 1499,
+      "siblingIds": [
+        "titleist-t100-2023",
+        "titleist-t200-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "titleist-t200-2024",
+      "brand": "Titleist",
+      "model": "T200",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-distance",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 21.5,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 4
+        },
+        {
+          "position": "5",
+          "loft": 24.5,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 3.7
+        },
+        {
+          "position": "6",
+          "loft": 27.5,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 3.4
+        },
+        {
+          "position": "7",
+          "loft": 31,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 3.1
+        },
+        {
+          "position": "8",
+          "loft": 35,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 2.8
+        },
+        {
+          "position": "9",
+          "loft": 40,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "PW",
+          "loft": 45,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 2.3
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "versatile",
+      "launchChar": "mid-high",
+      "spinChar": "mid",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "msrp": 1499,
+      "siblingIds": [
+        "titleist-t150-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-i230-2023",
+      "brand": "Ping",
+      "model": "i230",
+      "year": 2023,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 19,
+          "lie": 59,
+          "length": 39,
+          "offsetMm": 5.1,
+          "bounce": 5,
+          "swingWeight": "D1",
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 22.5,
+          "lie": 59.8,
+          "length": 38.875,
+          "offsetMm": 4.3,
+          "bounce": 6,
+          "swingWeight": "D1"
+        },
+        {
+          "position": "5",
+          "loft": 26,
+          "lie": 60.5,
+          "length": 38.25,
+          "offsetMm": 3.6,
+          "bounce": 7,
+          "swingWeight": "D1"
+        },
+        {
+          "position": "6",
+          "loft": 29.5,
+          "lie": 61.3,
+          "length": 37.625,
+          "offsetMm": 3,
+          "bounce": 8,
+          "swingWeight": "D1"
+        },
+        {
+          "position": "7",
+          "loft": 33,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2.3,
+          "bounce": 9,
+          "swingWeight": "D1"
+        },
+        {
+          "position": "8",
+          "loft": 37,
+          "lie": 62.8,
+          "length": 36.5,
+          "offsetMm": 1.8,
+          "bounce": 10.5,
+          "swingWeight": "D1"
+        },
+        {
+          "position": "9",
+          "loft": 41,
+          "lie": 63.5,
+          "length": 36,
+          "offsetMm": 1.3,
+          "bounce": 12,
+          "swingWeight": "D1.5"
+        },
+        {
+          "position": "PW",
+          "loft": 45,
+          "lie": 64.1,
+          "length": 35.5,
+          "offsetMm": 0.8,
+          "bounce": 13,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "UW",
+          "loft": 50,
+          "lie": 64.1,
+          "length": 35.5,
+          "offsetMm": 0.5,
+          "bounce": 13,
+          "swingWeight": "D2",
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "mid",
+      "msrp": 1499,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-g440-irons-2024",
+      "brand": "Ping",
+      "model": "G440 Irons",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "game-improvement",
+      "construction": "cast-stainless",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 19,
+          "lie": 60.5,
+          "length": 39.25,
+          "offsetMm": 6.9,
+          "bounce": 6,
+          "swingWeight": "D0"
+        },
+        {
+          "position": "5",
+          "loft": 22,
+          "lie": 61,
+          "length": 38.5,
+          "offsetMm": 6.1,
+          "bounce": 7,
+          "swingWeight": "D0"
+        },
+        {
+          "position": "6",
+          "loft": 25.5,
+          "lie": 61.5,
+          "length": 37.75,
+          "offsetMm": 5.3,
+          "bounce": 8,
+          "swingWeight": "D0"
+        },
+        {
+          "position": "7",
+          "loft": 29,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 4.6,
+          "bounce": 9,
+          "swingWeight": "D0"
+        },
+        {
+          "position": "8",
+          "loft": 33,
+          "lie": 62.8,
+          "length": 36.5,
+          "offsetMm": 3.8,
+          "bounce": 10,
+          "swingWeight": "D0"
+        },
+        {
+          "position": "9",
+          "loft": 37,
+          "lie": 63.5,
+          "length": 36,
+          "offsetMm": 3.3,
+          "bounce": 11.5,
+          "swingWeight": "D0.5"
+        },
+        {
+          "position": "PW",
+          "loft": 42,
+          "lie": 64.1,
+          "length": 35.5,
+          "offsetMm": 2.8,
+          "bounce": 13,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "UW",
+          "loft": 47,
+          "lie": 64.1,
+          "length": 35.5,
+          "offsetMm": 2.8,
+          "bounce": 13,
+          "swingWeight": "D2",
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "max-forgiveness",
+      "launchChar": "high",
+      "spinChar": "mid",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "msrp": 1399,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "callaway-apex-pro-2024",
+      "brand": "Callaway",
+      "model": "Apex Pro",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 19,
+          "lie": 60,
+          "length": 39,
+          "offsetMm": 3.4,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 22,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 3.2
+        },
+        {
+          "position": "5",
+          "loft": 25,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 3
+        },
+        {
+          "position": "6",
+          "loft": 29,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.7
+        },
+        {
+          "position": "7",
+          "loft": 33,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "8",
+          "loft": 37,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 2.2
+        },
+        {
+          "position": "9",
+          "loft": 41,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.9
+        },
+        {
+          "position": "PW",
+          "loft": 45,
+          "lie": 63.25,
+          "length": 35.75,
+          "offsetMm": 1.7
+        },
+        {
+          "position": "AW",
+          "loft": 50,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 1.3,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 1499,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mizuno-jpx925-tour-2024",
+      "brand": "Mizuno",
+      "model": "JPX 925 Tour",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 24,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 2.7
+        },
+        {
+          "position": "5",
+          "loft": 27,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 2.4
+        },
+        {
+          "position": "6",
+          "loft": 30,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "7",
+          "loft": 34,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 1.9
+        },
+        {
+          "position": "8",
+          "loft": 38,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 1.7
+        },
+        {
+          "position": "9",
+          "loft": 42,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.5
+        },
+        {
+          "position": "PW",
+          "loft": 46,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 1.3
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 1399,
+      "siblingIds": [
+        "mizuno-jpx925-hot-metal-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mizuno-jpx925-hot-metal-2024",
+      "brand": "Mizuno",
+      "model": "JPX 925 Hot Metal",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "game-improvement",
+      "construction": "cast-stainless",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 19,
+          "lie": 60.5,
+          "length": 38.75,
+          "offsetMm": 5.7
+        },
+        {
+          "position": "5",
+          "loft": 22,
+          "lie": 61,
+          "length": 38.25,
+          "offsetMm": 5.4
+        },
+        {
+          "position": "6",
+          "loft": 25,
+          "lie": 61.5,
+          "length": 37.75,
+          "offsetMm": 5.1
+        },
+        {
+          "position": "7",
+          "loft": 28,
+          "lie": 62,
+          "length": 37.25,
+          "offsetMm": 4.8
+        },
+        {
+          "position": "8",
+          "loft": 32.5,
+          "lie": 62.5,
+          "length": 36.75,
+          "offsetMm": 4.4
+        },
+        {
+          "position": "9",
+          "loft": 37,
+          "lie": 63,
+          "length": 36.25,
+          "offsetMm": 3.9
+        },
+        {
+          "position": "PW",
+          "loft": 42,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 3.3
+        },
+        {
+          "position": "GW",
+          "loft": 48,
+          "lie": 64,
+          "length": 35.5,
+          "offsetMm": 2.7,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "max-forgiveness",
+      "launchChar": "high",
+      "spinChar": "mid",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "msrp": 1099,
+      "siblingIds": [
+        "mizuno-jpx925-tour-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "titleist-t100-2023",
+      "brand": "Titleist",
+      "model": "T100",
+      "year": 2023,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 21,
+          "lie": 60,
+          "length": 39,
+          "offsetMm": 3,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 24,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 2.7
+        },
+        {
+          "position": "5",
+          "loft": 27,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "6",
+          "loft": 30,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.3
+        },
+        {
+          "position": "7",
+          "loft": 34,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "8",
+          "loft": 38,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 1.9
+        },
+        {
+          "position": "9",
+          "loft": 42,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.7
+        },
+        {
+          "position": "PW",
+          "loft": 46,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 1.5
+        },
+        {
+          "position": "W",
+          "loft": 50,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 1.4,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 1499,
+      "msrpNote": "7-iron set, steel stock shaft",
+      "siblingIds": [
+        "titleist-t150-2024",
+        "titleist-t200-2024",
+        "titleist-t350-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "titleist-t350-2023",
+      "brand": "Titleist",
+      "model": "T350",
+      "year": 2023,
+      "region": "global",
+      "ironCategory": "game-improvement",
+      "construction": "multi-material",
+      "ironPositions": [
+        {
+          "position": "5",
+          "loft": 21,
+          "lie": 61,
+          "length": 38.5,
+          "offsetMm": 5.5
+        },
+        {
+          "position": "6",
+          "loft": 24,
+          "lie": 61.5,
+          "length": 38,
+          "offsetMm": 5
+        },
+        {
+          "position": "7",
+          "loft": 27,
+          "lie": 62,
+          "length": 37.5,
+          "offsetMm": 4.6
+        },
+        {
+          "position": "8",
+          "loft": 32,
+          "lie": 62.5,
+          "length": 37,
+          "offsetMm": 4.2
+        },
+        {
+          "position": "9",
+          "loft": 37,
+          "lie": 63,
+          "length": 36.5,
+          "offsetMm": 3.8
+        },
+        {
+          "position": "PW",
+          "loft": 42,
+          "lie": 63.5,
+          "length": 36,
+          "offsetMm": 3.4
+        },
+        {
+          "position": "W",
+          "loft": 47,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 3
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "max-forgiveness",
+      "launchChar": "high",
+      "spinChar": "mid",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "msrp": 1399,
+      "siblingIds": [
+        "titleist-t150-2024",
+        "titleist-t200-2024",
+        "titleist-t100-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "titleist-t400-2023",
+      "brand": "Titleist",
+      "model": "T400",
+      "year": 2023,
+      "region": "global",
+      "ironCategory": "super-game-improvement",
+      "construction": "multi-material",
+      "ironPositions": [
+        {
+          "position": "5",
+          "loft": 18,
+          "lie": 61.5,
+          "length": 38.5,
+          "offsetMm": 6.5
+        },
+        {
+          "position": "6",
+          "loft": 21,
+          "lie": 62,
+          "length": 38,
+          "offsetMm": 6
+        },
+        {
+          "position": "7",
+          "loft": 25,
+          "lie": 62.5,
+          "length": 37.5,
+          "offsetMm": 5.6
+        },
+        {
+          "position": "8",
+          "loft": 30,
+          "lie": 63,
+          "length": 37,
+          "offsetMm": 5.2
+        },
+        {
+          "position": "9",
+          "loft": 36,
+          "lie": 63.5,
+          "length": 36.5,
+          "offsetMm": 4.8
+        },
+        {
+          "position": "PW",
+          "loft": 41,
+          "lie": 64,
+          "length": 36,
+          "offsetMm": 4.4
+        },
+        {
+          "position": "W",
+          "loft": 46,
+          "lie": 64,
+          "length": 35.75,
+          "offsetMm": 4
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "max-forgiveness",
+      "launchChar": "high",
+      "spinChar": "high",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "msrp": 1399,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "taylormade-p7mb-2023",
+      "brand": "TaylorMade",
+      "model": "P7MB",
+      "year": 2023,
+      "region": "global",
+      "ironCategory": "blade",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 21,
+          "lie": 60.5,
+          "length": 39,
+          "offsetMm": 2.3,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 24,
+          "lie": 61,
+          "length": 38.5,
+          "offsetMm": 2
+        },
+        {
+          "position": "5",
+          "loft": 27,
+          "lie": 61.5,
+          "length": 38,
+          "offsetMm": 1.8
+        },
+        {
+          "position": "6",
+          "loft": 30,
+          "lie": 62,
+          "length": 37.5,
+          "offsetMm": 1.6
+        },
+        {
+          "position": "7",
+          "loft": 34,
+          "lie": 62.5,
+          "length": 37,
+          "offsetMm": 1.4
+        },
+        {
+          "position": "8",
+          "loft": 38,
+          "lie": 63,
+          "length": 36.5,
+          "offsetMm": 1.2
+        },
+        {
+          "position": "9",
+          "loft": 42,
+          "lie": 63.5,
+          "length": 36,
+          "offsetMm": 1
+        },
+        {
+          "position": "PW",
+          "loft": 46,
+          "lie": 64,
+          "length": 35.75,
+          "offsetMm": 0.8
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "low-mid",
+      "spinChar": "mid",
+      "forgivenessTier": 1,
+      "workability": "high",
+      "msrp": 1499,
+      "msrpNote": "7-iron set, steel stock shaft",
+      "siblingIds": [
+        "taylormade-p7mc-2024",
+        "taylormade-p770-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "taylormade-qi-irons-2024",
+      "brand": "TaylorMade",
+      "model": "Qi Irons",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "game-improvement",
+      "construction": "cast-cnc",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 18,
+          "lie": 60.5,
+          "length": 38.75,
+          "offsetMm": 5.5
+        },
+        {
+          "position": "5",
+          "loft": 21.5,
+          "lie": 61,
+          "length": 38.25,
+          "offsetMm": 5.1
+        },
+        {
+          "position": "6",
+          "loft": 25,
+          "lie": 61.5,
+          "length": 37.75,
+          "offsetMm": 4.7
+        },
+        {
+          "position": "7",
+          "loft": 28.5,
+          "lie": 62,
+          "length": 37.25,
+          "offsetMm": 4.3
+        },
+        {
+          "position": "8",
+          "loft": 33,
+          "lie": 62.5,
+          "length": 36.75,
+          "offsetMm": 3.9
+        },
+        {
+          "position": "9",
+          "loft": 38,
+          "lie": 63,
+          "length": 36.25,
+          "offsetMm": 3.5
+        },
+        {
+          "position": "PW",
+          "loft": 43,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 3.1
+        },
+        {
+          "position": "AW",
+          "loft": 48,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 2.8,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "max-forgiveness",
+      "launchChar": "high",
+      "spinChar": "mid",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "msrp": 999,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-blueprint-s-2024",
+      "brand": "Ping",
+      "model": "Blueprint S",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "blade",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 19,
+          "lie": 59,
+          "length": 39,
+          "offsetMm": 4.3,
+          "bounce": 4,
+          "swingWeight": "D2",
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 22.5,
+          "lie": 59.8,
+          "length": 38.5,
+          "offsetMm": 3.8,
+          "bounce": 5,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "5",
+          "loft": 26,
+          "lie": 60.5,
+          "length": 38,
+          "offsetMm": 3,
+          "bounce": 6,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "6",
+          "loft": 29.5,
+          "lie": 61.3,
+          "length": 37.5,
+          "offsetMm": 2.5,
+          "bounce": 7,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "7",
+          "loft": 33,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2,
+          "bounce": 8,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "8",
+          "loft": 37,
+          "lie": 62.8,
+          "length": 36.5,
+          "offsetMm": 1.5,
+          "bounce": 9,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "9",
+          "loft": 41,
+          "lie": 63.5,
+          "length": 36,
+          "offsetMm": 1,
+          "bounce": 10.5,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "PW",
+          "loft": 45,
+          "lie": 64.1,
+          "length": 35.5,
+          "offsetMm": 0.5,
+          "bounce": 11.5,
+          "swingWeight": "D3"
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "low-mid",
+      "spinChar": "mid",
+      "forgivenessTier": 1,
+      "workability": "high",
+      "msrp": 2275,
+      "msrpNote": "7-iron set, Ping s159 steel",
+      "siblingIds": [
+        "ping-blueprint-t-2024",
+        "ping-i230-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-blueprint-t-2024",
+      "brand": "Ping",
+      "model": "Blueprint T",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 22.5,
+          "lie": 60.4,
+          "length": 38.5,
+          "offsetMm": 2.4
+        },
+        {
+          "position": "5",
+          "loft": 25.5,
+          "lie": 61.1,
+          "length": 38,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "6",
+          "loft": 29,
+          "lie": 61.8,
+          "length": 37.5,
+          "offsetMm": 1.9
+        },
+        {
+          "position": "7",
+          "loft": 33,
+          "lie": 62.5,
+          "length": 37,
+          "offsetMm": 1.7
+        },
+        {
+          "position": "8",
+          "loft": 37.5,
+          "lie": 63.2,
+          "length": 36.5,
+          "offsetMm": 1.5
+        },
+        {
+          "position": "9",
+          "loft": 42,
+          "lie": 63.9,
+          "length": 36,
+          "offsetMm": 1.3
+        },
+        {
+          "position": "PW",
+          "loft": 46.5,
+          "lie": 64.1,
+          "length": 35.5,
+          "offsetMm": 1.1
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 2275,
+      "siblingIds": [
+        "ping-blueprint-s-2024",
+        "ping-i230-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-i530-2024",
+      "brand": "Ping",
+      "model": "i530",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-distance",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 19,
+          "lie": 60.5,
+          "length": 38.875,
+          "offsetMm": 5.1,
+          "bounce": 6,
+          "swingWeight": "D1"
+        },
+        {
+          "position": "5",
+          "loft": 22,
+          "lie": 61,
+          "length": 38.25,
+          "offsetMm": 4.3,
+          "bounce": 7,
+          "swingWeight": "D1"
+        },
+        {
+          "position": "6",
+          "loft": 25.5,
+          "lie": 61.5,
+          "length": 37.625,
+          "offsetMm": 3.6,
+          "bounce": 8,
+          "swingWeight": "D1"
+        },
+        {
+          "position": "7",
+          "loft": 29,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 3,
+          "bounce": 9,
+          "swingWeight": "D1"
+        },
+        {
+          "position": "8",
+          "loft": 33,
+          "lie": 62.8,
+          "length": 36.5,
+          "offsetMm": 2.3,
+          "bounce": 10.5,
+          "swingWeight": "D1"
+        },
+        {
+          "position": "9",
+          "loft": 37,
+          "lie": 63.5,
+          "length": 36,
+          "offsetMm": 1.8,
+          "bounce": 12,
+          "swingWeight": "D1.5"
+        },
+        {
+          "position": "PW",
+          "loft": 42,
+          "lie": 64.1,
+          "length": 35.5,
+          "offsetMm": 1.3,
+          "bounce": 13,
+          "swingWeight": "D2"
+        },
+        {
+          "position": "UW",
+          "loft": 47,
+          "lie": 64.1,
+          "length": 35.5,
+          "offsetMm": 0.8,
+          "bounce": 13,
+          "swingWeight": "D2",
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "low-spin",
+      "launchChar": "mid",
+      "spinChar": "low-mid",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "msrp": 1400,
+      "siblingIds": [
+        "ping-i230-2023",
+        "ping-g440-irons-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "callaway-apex-cb-24",
+      "brand": "Callaway",
+      "model": "Apex CB (2024)",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 20.5,
+          "lie": 60,
+          "length": 39,
+          "offsetMm": 3.3,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 23,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 3.1
+        },
+        {
+          "position": "5",
+          "loft": 26,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 2.8
+        },
+        {
+          "position": "6",
+          "loft": 30,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "7",
+          "loft": 34,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2.3
+        },
+        {
+          "position": "8",
+          "loft": 38,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "9",
+          "loft": 42,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.9
+        },
+        {
+          "position": "PW",
+          "loft": 46,
+          "lie": 63.25,
+          "length": 35.75,
+          "offsetMm": 1.6
+        },
+        {
+          "position": "AW",
+          "loft": 50,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 1399,
+      "siblingIds": [
+        "callaway-apex-mb-24",
+        "callaway-apex-pro-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "callaway-apex-mb-24",
+      "brand": "Callaway",
+      "model": "Apex MB (2024)",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "blade",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 20.5,
+          "lie": 60,
+          "length": 39,
+          "offsetMm": 2.2,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 23,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "5",
+          "loft": 26,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 1.9
+        },
+        {
+          "position": "6",
+          "loft": 30,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 1.7
+        },
+        {
+          "position": "7",
+          "loft": 34,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 1.5
+        },
+        {
+          "position": "8",
+          "loft": 38,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 1.3
+        },
+        {
+          "position": "9",
+          "loft": 42,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.1
+        },
+        {
+          "position": "PW",
+          "loft": 46,
+          "lie": 63.25,
+          "length": 35.75,
+          "offsetMm": 0.8
+        },
+        {
+          "position": "AW",
+          "loft": 50,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 0.6,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "low-mid",
+      "spinChar": "mid",
+      "forgivenessTier": 1,
+      "workability": "high",
+      "msrp": 1399,
+      "siblingIds": [
+        "callaway-apex-cb-24",
+        "callaway-apex-pro-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "callaway-apex-ai300-24",
+      "brand": "Callaway",
+      "model": "Apex Ai300",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "game-improvement",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 20,
+          "lie": 60.375,
+          "length": 39.125,
+          "offsetMm": 5.1
+        },
+        {
+          "position": "5",
+          "loft": 22,
+          "lie": 61,
+          "length": 38.5,
+          "offsetMm": 4.8
+        },
+        {
+          "position": "6",
+          "loft": 25,
+          "lie": 61.625,
+          "length": 37.875,
+          "offsetMm": 4.5
+        },
+        {
+          "position": "7",
+          "loft": 29,
+          "lie": 62.25,
+          "length": 37.25,
+          "offsetMm": 4
+        },
+        {
+          "position": "8",
+          "loft": 33,
+          "lie": 62.875,
+          "length": 36.625,
+          "offsetMm": 3.6
+        },
+        {
+          "position": "9",
+          "loft": 37,
+          "lie": 63.5,
+          "length": 36,
+          "offsetMm": 3
+        },
+        {
+          "position": "PW",
+          "loft": 42,
+          "lie": 63.75,
+          "length": 35.75,
+          "offsetMm": 2.4
+        },
+        {
+          "position": "AW",
+          "loft": 47,
+          "lie": 64,
+          "length": 35.5,
+          "offsetMm": 1.8
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "low-spin",
+      "launchChar": "mid-high",
+      "spinChar": "low-mid",
+      "forgivenessTier": 4,
+      "workability": "low",
+      "msrp": 1399,
+      "siblingIds": [
+        "callaway-paradym-ai-smoke-hl-24"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "callaway-paradym-ai-smoke-hl-24",
+      "brand": "Callaway",
+      "model": "Paradym Ai Smoke HL",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "super-game-improvement",
+      "construction": "cast-cnc",
+      "ironPositions": [
+        {
+          "position": "5",
+          "loft": 22,
+          "lie": 61.5,
+          "length": 38.375,
+          "offsetMm": 6.2
+        },
+        {
+          "position": "6",
+          "loft": 25,
+          "lie": 62,
+          "length": 37.875,
+          "offsetMm": 5.8
+        },
+        {
+          "position": "7",
+          "loft": 28.5,
+          "lie": 62.5,
+          "length": 37.375,
+          "offsetMm": 5.4
+        },
+        {
+          "position": "8",
+          "loft": 33,
+          "lie": 63,
+          "length": 36.875,
+          "offsetMm": 5
+        },
+        {
+          "position": "9",
+          "loft": 38,
+          "lie": 63.5,
+          "length": 36.375,
+          "offsetMm": 4.6
+        },
+        {
+          "position": "PW",
+          "loft": 43,
+          "lie": 64,
+          "length": 35.875,
+          "offsetMm": 4.2
+        },
+        {
+          "position": "AW",
+          "loft": 48,
+          "lie": 64,
+          "length": 35.5,
+          "offsetMm": 3.8
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "max-forgiveness",
+      "launchChar": "high",
+      "spinChar": "mid",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "msrp": 1199,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mizuno-pro-241-2024",
+      "brand": "Mizuno",
+      "model": "Mizuno Pro 241",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "blade",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 21,
+          "lie": 60,
+          "length": 39,
+          "offsetMm": 2.3,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 24,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "5",
+          "loft": 27,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 1.9
+        },
+        {
+          "position": "6",
+          "loft": 30,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 1.7
+        },
+        {
+          "position": "7",
+          "loft": 34,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 1.5
+        },
+        {
+          "position": "8",
+          "loft": 38,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 1.3
+        },
+        {
+          "position": "9",
+          "loft": 42,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.1
+        },
+        {
+          "position": "PW",
+          "loft": 46,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 0.9
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "low-mid",
+      "spinChar": "mid",
+      "forgivenessTier": 1,
+      "workability": "high",
+      "msrp": 1500,
+      "msrpNote": "7-iron set, grain flow forged HD 1025E",
+      "siblingIds": [
+        "mizuno-pro-243-2024",
+        "mizuno-pro-245-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mizuno-pro-243-2024",
+      "brand": "Mizuno",
+      "model": "Mizuno Pro 243",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "multi-material",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 22,
+          "lie": 60,
+          "length": 38.75,
+          "offsetMm": 3.5,
+          "bounce": 2
+        },
+        {
+          "position": "5",
+          "loft": 25,
+          "lie": 60.5,
+          "length": 38.25,
+          "offsetMm": 3.4,
+          "bounce": 3
+        },
+        {
+          "position": "6",
+          "loft": 28,
+          "lie": 61,
+          "length": 37.75,
+          "offsetMm": 3.3
+        },
+        {
+          "position": "7",
+          "loft": 32,
+          "lie": 61.5,
+          "length": 37.25,
+          "offsetMm": 3.1
+        },
+        {
+          "position": "8",
+          "loft": 36,
+          "lie": 62,
+          "length": 36.75,
+          "offsetMm": 2.9
+        },
+        {
+          "position": "9",
+          "loft": 40,
+          "lie": 62.5,
+          "length": 36.25,
+          "offsetMm": 2.7
+        },
+        {
+          "position": "PW",
+          "loft": 44,
+          "lie": 63,
+          "length": 35.75,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "GW",
+          "loft": 48,
+          "lie": 63,
+          "length": 35.5,
+          "offsetMm": 2.4,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 1500,
+      "siblingIds": [
+        "mizuno-pro-241-2024",
+        "mizuno-pro-245-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mizuno-pro-245-2024",
+      "brand": "Mizuno",
+      "model": "Mizuno Pro 245",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-distance",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "2",
+          "loft": 16.5,
+          "lie": 59,
+          "length": 39.75,
+          "offsetMm": 3.8,
+          "bounce": 1,
+          "individuallySold": true
+        },
+        {
+          "position": "3",
+          "loft": 19,
+          "lie": 59.5,
+          "length": 39.25,
+          "offsetMm": 3.6,
+          "bounce": 1,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 21.5,
+          "lie": 60,
+          "length": 38.75,
+          "offsetMm": 3.5,
+          "bounce": 2
+        },
+        {
+          "position": "5",
+          "loft": 24,
+          "lie": 60.5,
+          "length": 38.25,
+          "offsetMm": 3.4,
+          "bounce": 3
+        },
+        {
+          "position": "6",
+          "loft": 27,
+          "lie": 61,
+          "length": 37.75,
+          "offsetMm": 3.3,
+          "bounce": 4
+        },
+        {
+          "position": "7",
+          "loft": 30,
+          "lie": 61.5,
+          "length": 37.25,
+          "offsetMm": 3.1,
+          "bounce": 5
+        },
+        {
+          "position": "8",
+          "loft": 34,
+          "lie": 62,
+          "length": 36.75,
+          "offsetMm": 2.9,
+          "bounce": 6
+        },
+        {
+          "position": "9",
+          "loft": 38,
+          "lie": 62.5,
+          "length": 36.25,
+          "offsetMm": 2.7,
+          "bounce": 7
+        },
+        {
+          "position": "PW",
+          "loft": 43,
+          "lie": 63,
+          "length": 35.75,
+          "offsetMm": 2.5,
+          "bounce": 8
+        },
+        {
+          "position": "GW",
+          "loft": 48,
+          "lie": 63,
+          "length": 35.5,
+          "offsetMm": 2.4,
+          "bounce": 9,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "versatile",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "msrp": 1500,
+      "siblingIds": [
+        "mizuno-pro-241-2024",
+        "mizuno-pro-243-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "srixon-zx5-mk-ii-2023",
+      "brand": "Srixon",
+      "model": "ZX5 Mk II",
+      "year": 2023,
+      "region": "global",
+      "ironCategory": "players-distance",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 20,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 3.4
+        },
+        {
+          "position": "5",
+          "loft": 23,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 3.1
+        },
+        {
+          "position": "6",
+          "loft": 26,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.8
+        },
+        {
+          "position": "7",
+          "loft": 30,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "8",
+          "loft": 34,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 2.3
+        },
+        {
+          "position": "9",
+          "loft": 39,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "PW",
+          "loft": 44,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 1.9
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "low-spin",
+      "launchChar": "mid",
+      "spinChar": "low-mid",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "msrp": 1100,
+      "siblingIds": [
+        "srixon-zx7-mk-ii-2023",
+        "srixon-zx4-mk-ii-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "srixon-zx7-mk-ii-2023",
+      "brand": "Srixon",
+      "model": "ZX7 Mk II",
+      "year": 2023,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 21,
+          "lie": 60,
+          "length": 39,
+          "offsetMm": 2.6,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 24,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 2.4
+        },
+        {
+          "position": "5",
+          "loft": 27,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 2.2
+        },
+        {
+          "position": "6",
+          "loft": 30,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2
+        },
+        {
+          "position": "7",
+          "loft": 34,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 1.8
+        },
+        {
+          "position": "8",
+          "loft": 38,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 1.6
+        },
+        {
+          "position": "9",
+          "loft": 42,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.4
+        },
+        {
+          "position": "PW",
+          "loft": 46,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 1.2
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 1300,
+      "siblingIds": [
+        "srixon-zx5-mk-ii-2023",
+        "srixon-zx4-mk-ii-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "srixon-zx4-mk-ii-2023",
+      "brand": "Srixon",
+      "model": "ZX4 Mk II",
+      "year": 2023,
+      "region": "global",
+      "ironCategory": "game-improvement",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "5",
+          "loft": 22,
+          "lie": 61,
+          "length": 38.5,
+          "offsetMm": 4.8
+        },
+        {
+          "position": "6",
+          "loft": 25,
+          "lie": 61.5,
+          "length": 38,
+          "offsetMm": 4.4
+        },
+        {
+          "position": "7",
+          "loft": 28,
+          "lie": 62,
+          "length": 37.5,
+          "offsetMm": 4
+        },
+        {
+          "position": "8",
+          "loft": 33,
+          "lie": 62.5,
+          "length": 37,
+          "offsetMm": 3.7
+        },
+        {
+          "position": "9",
+          "loft": 38,
+          "lie": 63,
+          "length": 36.5,
+          "offsetMm": 3.4
+        },
+        {
+          "position": "PW",
+          "loft": 43,
+          "lie": 63.5,
+          "length": 36,
+          "offsetMm": 3.1
+        },
+        {
+          "position": "AW",
+          "loft": 48,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 2.8,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "max-forgiveness",
+      "launchChar": "high",
+      "spinChar": "mid",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "msrp": 1000,
+      "siblingIds": [
+        "srixon-zx5-mk-ii-2023",
+        "srixon-zx7-mk-ii-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "cobra-king-tour-2024",
+      "brand": "Cobra",
+      "model": "King Tour",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 23,
+          "lie": 61,
+          "length": 38.5,
+          "offsetMm": 2.8
+        },
+        {
+          "position": "5",
+          "loft": 26,
+          "lie": 61.5,
+          "length": 38,
+          "offsetMm": 2.6
+        },
+        {
+          "position": "6",
+          "loft": 29,
+          "lie": 62,
+          "length": 37.5,
+          "offsetMm": 2.4
+        },
+        {
+          "position": "7",
+          "loft": 33,
+          "lie": 62.5,
+          "length": 37,
+          "offsetMm": 2.2
+        },
+        {
+          "position": "8",
+          "loft": 37,
+          "lie": 63,
+          "length": 36.5,
+          "offsetMm": 2
+        },
+        {
+          "position": "9",
+          "loft": 41,
+          "lie": 63.5,
+          "length": 36,
+          "offsetMm": 1.8
+        },
+        {
+          "position": "PW",
+          "loft": 45,
+          "lie": 64,
+          "length": 35.75,
+          "offsetMm": 1.6
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 1300,
+      "msrpNote": "7-iron set, KBS Tour stock",
+      "siblingIds": [
+        "cobra-darkspeed-irons-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "cobra-darkspeed-irons-2024",
+      "brand": "Cobra",
+      "model": "DARKSPEED Irons",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "game-improvement",
+      "construction": "multi-material",
+      "ironPositions": [
+        {
+          "position": "5",
+          "loft": 21.5,
+          "lie": 61.25,
+          "length": 38.5,
+          "offsetMm": 5.2
+        },
+        {
+          "position": "6",
+          "loft": 24.5,
+          "lie": 61.75,
+          "length": 38,
+          "offsetMm": 4.8
+        },
+        {
+          "position": "7",
+          "loft": 28,
+          "lie": 62.25,
+          "length": 37.5,
+          "offsetMm": 4.4
+        },
+        {
+          "position": "8",
+          "loft": 32.5,
+          "lie": 62.75,
+          "length": 37,
+          "offsetMm": 4
+        },
+        {
+          "position": "9",
+          "loft": 37,
+          "lie": 63.25,
+          "length": 36.5,
+          "offsetMm": 3.6
+        },
+        {
+          "position": "PW",
+          "loft": 42,
+          "lie": 63.75,
+          "length": 36,
+          "offsetMm": 3.2
+        },
+        {
+          "position": "GW",
+          "loft": 47,
+          "lie": 63.75,
+          "length": 35.75,
+          "offsetMm": 2.8,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "max-forgiveness",
+      "launchChar": "high",
+      "spinChar": "mid",
+      "forgivenessTier": 4,
+      "workability": "low",
+      "msrp": 999,
+      "siblingIds": [
+        "cobra-king-tour-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "pxg-0317-t-2023",
+      "brand": "PXG",
+      "model": "0317 T",
+      "year": 2023,
+      "region": "global",
+      "ironCategory": "blade",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 21,
+          "lie": 60,
+          "length": 39,
+          "offsetMm": 2,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 24,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 1.8
+        },
+        {
+          "position": "5",
+          "loft": 27,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 1.6
+        },
+        {
+          "position": "6",
+          "loft": 30,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 1.4
+        },
+        {
+          "position": "7",
+          "loft": 34,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 1.2
+        },
+        {
+          "position": "8",
+          "loft": 38,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 1
+        },
+        {
+          "position": "9",
+          "loft": 42,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 0.8
+        },
+        {
+          "position": "PW",
+          "loft": 46,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 0.6
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "low-mid",
+      "spinChar": "mid",
+      "forgivenessTier": 1,
+      "workability": "high",
+      "msrp": 1750,
+      "msrpNote": "7-iron set, 8620 carbon steel",
+      "siblingIds": [
+        "pxg-0311-black-ops-gen6-xp-2024"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "pxg-0311-black-ops-gen6-xp-2024",
+      "brand": "PXG",
+      "model": "0311 Black Ops GEN6 XP",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "players-distance",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 19,
+          "lie": 60.5,
+          "length": 38.625,
+          "offsetMm": 3.6
+        },
+        {
+          "position": "5",
+          "loft": 22,
+          "lie": 61,
+          "length": 38.125,
+          "offsetMm": 3.3
+        },
+        {
+          "position": "6",
+          "loft": 25,
+          "lie": 61.5,
+          "length": 37.625,
+          "offsetMm": 3
+        },
+        {
+          "position": "7",
+          "loft": 28.5,
+          "lie": 62,
+          "length": 37.125,
+          "offsetMm": 2.8
+        },
+        {
+          "position": "8",
+          "loft": 33,
+          "lie": 62.5,
+          "length": 36.625,
+          "offsetMm": 2.6
+        },
+        {
+          "position": "9",
+          "loft": 38,
+          "lie": 63,
+          "length": 36.125,
+          "offsetMm": 2.4
+        },
+        {
+          "position": "PW",
+          "loft": 43,
+          "lie": 63.5,
+          "length": 35.625,
+          "offsetMm": 2.2
+        },
+        {
+          "position": "GW",
+          "loft": 48,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 2,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "low-spin",
+      "launchChar": "mid",
+      "spinChar": "low-mid",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "msrp": 1750,
+      "siblingIds": [
+        "pxg-0317-t-2023"
+      ],
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "wilson-staff-model-cb-2023",
+      "brand": "Wilson",
+      "model": "Staff Model CB",
+      "year": 2023,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 24,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "5",
+          "loft": 27,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 2.3
+        },
+        {
+          "position": "6",
+          "loft": 30,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "7",
+          "loft": 34,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 1.9
+        },
+        {
+          "position": "8",
+          "loft": 38,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 1.7
+        },
+        {
+          "position": "9",
+          "loft": 42,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.5
+        },
+        {
+          "position": "PW",
+          "loft": 46,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 1.3
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 1200,
+      "msrpNote": "7-iron set, KBS Tour stock",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "cleveland-halo-xl-full-face-2024",
+      "brand": "Cleveland",
+      "model": "HALO XL Full-Face",
+      "year": 2024,
+      "region": "global",
+      "ironCategory": "super-game-improvement",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "5",
+          "loft": 21,
+          "lie": 61,
+          "length": 38.625,
+          "offsetMm": 6.5
+        },
+        {
+          "position": "6",
+          "loft": 24,
+          "lie": 61.5,
+          "length": 38.125,
+          "offsetMm": 6
+        },
+        {
+          "position": "7",
+          "loft": 27,
+          "lie": 62,
+          "length": 37.625,
+          "offsetMm": 5.6
+        },
+        {
+          "position": "8",
+          "loft": 32,
+          "lie": 62.5,
+          "length": 37.125,
+          "offsetMm": 5.2
+        },
+        {
+          "position": "9",
+          "loft": 37,
+          "lie": 63,
+          "length": 36.625,
+          "offsetMm": 4.8
+        },
+        {
+          "position": "PW",
+          "loft": 42,
+          "lie": 63.5,
+          "length": 36.125,
+          "offsetMm": 4.4
+        },
+        {
+          "position": "DW",
+          "loft": 47,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 4
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "max-forgiveness",
+      "launchChar": "high",
+      "spinChar": "mid-high",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "msrp": 800,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "honma-tw757-vx-2023",
+      "brand": "Honma",
+      "model": "T//World 757 Vx",
+      "year": 2023,
+      "region": "jdm",
+      "ironCategory": "players-distance",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 20,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 3.2
+        },
+        {
+          "position": "5",
+          "loft": 23,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 3
+        },
+        {
+          "position": "6",
+          "loft": 26,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.7
+        },
+        {
+          "position": "7",
+          "loft": 30,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "8",
+          "loft": 34.5,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 2.3
+        },
+        {
+          "position": "9",
+          "loft": 39.5,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "10",
+          "loft": 44.5,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 1.9
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "versatile",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "msrp": 1600,
+      "msrpNote": "JDM 7-iron set, Honma Vizard stock graphite",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "taylormade-p790-2021",
+      "brand": "TaylorMade",
+      "model": "P790 (2021)",
+      "year": 2021,
+      "region": "global",
+      "ironCategory": "players-distance",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 19,
+          "lie": 60,
+          "length": 39,
+          "offsetMm": 3.9,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 21,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 3.5
+        },
+        {
+          "position": "5",
+          "loft": 23.5,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 3.2
+        },
+        {
+          "position": "6",
+          "loft": 26.5,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.9
+        },
+        {
+          "position": "7",
+          "loft": 30.5,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2.7
+        },
+        {
+          "position": "8",
+          "loft": 35,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "9",
+          "loft": 40,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 2.3
+        },
+        {
+          "position": "PW",
+          "loft": 45,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "AW",
+          "loft": 50,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 2,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "versatile",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "msrp": 1299,
+      "msrpNote": "2021 launch MSRP, steel stock shaft",
+      "successorId": "taylormade-p790-2024",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "titleist-t100-2021",
+      "brand": "Titleist",
+      "model": "T100 (2021)",
+      "year": 2021,
+      "region": "global",
+      "ironCategory": "players-cb",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 21,
+          "lie": 60,
+          "length": 39,
+          "offsetMm": 3,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 24,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 2.7
+        },
+        {
+          "position": "5",
+          "loft": 27,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "6",
+          "loft": 30,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.3
+        },
+        {
+          "position": "7",
+          "loft": 34,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "8",
+          "loft": 38,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 1.9
+        },
+        {
+          "position": "9",
+          "loft": 42,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.7
+        },
+        {
+          "position": "PW",
+          "loft": 46,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 1.5
+        },
+        {
+          "position": "W",
+          "loft": 50,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 1.4,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 1399,
+      "successorId": "titleist-t100-2023",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mizuno-jpx923-hot-metal",
+      "brand": "Mizuno",
+      "model": "JPX923 Hot Metal",
+      "year": 2023,
+      "region": "global",
+      "ironCategory": "game-improvement",
+      "construction": "cast-stainless",
+      "ironPositions": [
+        {
+          "position": "4",
+          "loft": 20,
+          "lie": 60.5,
+          "length": 38.75,
+          "offsetMm": 4.7
+        },
+        {
+          "position": "5",
+          "loft": 22.5,
+          "lie": 61,
+          "length": 38.25,
+          "offsetMm": 4.3
+        },
+        {
+          "position": "6",
+          "loft": 25.5,
+          "lie": 61.5,
+          "length": 37.75,
+          "offsetMm": 3.9
+        },
+        {
+          "position": "7",
+          "loft": 29,
+          "lie": 62,
+          "length": 37.25,
+          "offsetMm": 3.6
+        },
+        {
+          "position": "8",
+          "loft": 33.5,
+          "lie": 62.5,
+          "length": 36.75,
+          "offsetMm": 3.3
+        },
+        {
+          "position": "9",
+          "loft": 38.5,
+          "lie": 63,
+          "length": 36.25,
+          "offsetMm": 3
+        },
+        {
+          "position": "PW",
+          "loft": 43.5,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 2.7
+        },
+        {
+          "position": "GW",
+          "loft": 49,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 2.4,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "max-forgiveness",
+      "launchChar": "high",
+      "spinChar": "mid",
+      "forgivenessTier": 5,
+      "workability": "low",
+      "msrp": 999,
+      "successorId": "mizuno-jpx925-hot-metal-2024",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "callaway-apex-21",
+      "brand": "Callaway",
+      "model": "Apex 21",
+      "year": 2021,
+      "region": "global",
+      "ironCategory": "players-distance",
+      "construction": "forged-carbon",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 19,
+          "lie": 60,
+          "length": 39,
+          "offsetMm": 3.2,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 20.5,
+          "lie": 60.5,
+          "length": 38.5,
+          "offsetMm": 3
+        },
+        {
+          "position": "5",
+          "loft": 23.5,
+          "lie": 61,
+          "length": 38,
+          "offsetMm": 2.8
+        },
+        {
+          "position": "6",
+          "loft": 26.5,
+          "lie": 61.5,
+          "length": 37.5,
+          "offsetMm": 2.5
+        },
+        {
+          "position": "7",
+          "loft": 30.5,
+          "lie": 62,
+          "length": 37,
+          "offsetMm": 2.3
+        },
+        {
+          "position": "8",
+          "loft": 34.5,
+          "lie": 62.5,
+          "length": 36.5,
+          "offsetMm": 2.1
+        },
+        {
+          "position": "9",
+          "loft": 38.5,
+          "lie": 63,
+          "length": 36,
+          "offsetMm": 1.9
+        },
+        {
+          "position": "PW",
+          "loft": 43,
+          "lie": 63.5,
+          "length": 35.75,
+          "offsetMm": 1.7
+        },
+        {
+          "position": "AW",
+          "loft": 48,
+          "lie": 63.5,
+          "length": 35.5,
+          "offsetMm": 1.5,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "versatile",
+      "launchChar": "mid",
+      "spinChar": "mid",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "msrp": 1299,
+      "successorId": "callaway-apex-ai300-24",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-i525",
+      "brand": "Ping",
+      "model": "i525",
+      "year": 2022,
+      "region": "global",
+      "ironCategory": "players-distance",
+      "construction": "hollow-body",
+      "ironPositions": [
+        {
+          "position": "3",
+          "loft": 18,
+          "lie": 60,
+          "length": 39.25,
+          "offsetMm": 3.5,
+          "individuallySold": true
+        },
+        {
+          "position": "4",
+          "loft": 20.5,
+          "lie": 60.4,
+          "length": 38.875,
+          "offsetMm": 3.2
+        },
+        {
+          "position": "5",
+          "loft": 23.5,
+          "lie": 61.1,
+          "length": 38.375,
+          "offsetMm": 2.9
+        },
+        {
+          "position": "6",
+          "loft": 26.5,
+          "lie": 61.8,
+          "length": 37.875,
+          "offsetMm": 2.6
+        },
+        {
+          "position": "7",
+          "loft": 30,
+          "lie": 62.5,
+          "length": 37.375,
+          "offsetMm": 2.4
+        },
+        {
+          "position": "8",
+          "loft": 34.5,
+          "lie": 63.2,
+          "length": 36.875,
+          "offsetMm": 2.2
+        },
+        {
+          "position": "9",
+          "loft": 39.5,
+          "lie": 63.9,
+          "length": 36.375,
+          "offsetMm": 2
+        },
+        {
+          "position": "PW",
+          "loft": 44.5,
+          "lie": 64.1,
+          "length": 35.875,
+          "offsetMm": 1.8
+        },
+        {
+          "position": "UW",
+          "loft": 49.5,
+          "lie": 64.1,
+          "length": 35.5,
+          "offsetMm": 1.6,
+          "individuallySold": true
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "low-spin",
+      "launchChar": "mid",
+      "spinChar": "low-mid",
+      "forgivenessTier": 3,
+      "workability": "mid",
+      "msrp": 1225,
+      "successorId": "ping-i530-2024",
+      "engineEligible": true,
+      "seededFromCurated": true
+    }
+  ]
+}
