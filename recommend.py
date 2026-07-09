@@ -15,6 +15,27 @@ class GolferInput:
     goal: str
     iron_miss: str
     iron_feel: str
+    shopping_for: str = "Both"
+    driver_trajectory: str = "About right"
+    iron_trajectory: str = "About right"
+    iron_shot_shape: str | None = None
+    iron_goal: str | None = None
+
+    @property
+    def driver_shot_shape(self) -> str:
+        return self.shot_shape
+
+    @property
+    def driver_goal(self) -> str:
+        return self.goal
+
+    @property
+    def effective_iron_shot_shape(self) -> str:
+        return self.iron_shot_shape or self.shot_shape
+
+    @property
+    def effective_iron_goal(self) -> str:
+        return self.iron_goal or self.goal
 
 
 @dataclass(frozen=True)
@@ -25,6 +46,7 @@ class ClubRecommendation:
     brand: str
     model: str
     msrp: float | None
+    year: int | None = None
     category: str = "Driver"
 
 
@@ -36,7 +58,7 @@ def _closest_loft(
     """Find the closest available head loft accounting for adjustable hosels.
 
     If the club has an adjustable hosel (adjustRangeDeg), the effective loft
-    range for each head extends by ±adjust_range_deg.  We report the gap after
+    range for each head extends by plus/minus adjust_range_deg. We report the gap after
     this adjustment, so a club that can be dialled in to the target loft shows
     a gap of 0 and earns full loft points.
     """
@@ -58,6 +80,21 @@ def _speed_score(club: dict[str, Any], speed: float) -> tuple[float, str]:
     return max(0, 25 - distance * 2), f"Close to your {speed:.0f} mph swing speed range."
 
 
+def filter_recommendations_by_budget(
+    recommendations: list[ClubRecommendation],
+    max_budget: float,
+    limit: int | None = None,
+) -> list[ClubRecommendation]:
+    """Keep recommendations with a known MSRP at or below the selected budget."""
+    affordable = [
+        recommendation
+        for recommendation in recommendations
+        if recommendation.msrp is not None and recommendation.msrp <= max_budget
+    ]
+    ordered = sorted(affordable, key=lambda rec: rec.score, reverse=True)
+    return ordered if limit is None else ordered[:limit]
+
+
 def score_driver(
     club: dict[str, Any],
     golfer: GolferInput,
@@ -65,7 +102,7 @@ def score_driver(
 ) -> ClubRecommendation:
     """Score one driver against the golfer and predicted ideal loft.
 
-    Scoring budget (max 100 pts):
+    Scoring weights (max 100 pts):
       - Swing speed range match : 25 pts
       - Loft match (+ adjustable): 25 pts
       - Forgiveness / goal       : 20 pts
@@ -82,17 +119,17 @@ def score_driver(
     reasons.append(speed_reason)
 
     # --- Loft match with adjustable hosel awareness (25 pts) ---
-    adjust_range = float(club.get("adjustRangeDeg", 0)) / 2  # total ÷ 2 → each direction
+    adjust_range = float(club.get("adjustRangeDeg", 0)) / 2  # total / 2 = each direction
     closest_loft, loft_gap = _closest_loft(club.get("lofts", []), predicted_loft, adjust_range)
     loft_points = max(0.0, 25.0 - loft_gap * 10)
     score += loft_points
     if closest_loft is not None:
         if loft_gap == 0 and adjust_range > 0:
             reasons.append(
-                f"Adjustable hosel can be set to the ideal {predicted_loft}° target."
+                f"Adjustable hosel can be set to the ideal {predicted_loft} deg target."
             )
         elif loft_gap <= 0.5:
-            reasons.append(f"Available loft {closest_loft:g}° closely matches the AI loft target.")
+            reasons.append(f"Available loft {closest_loft:g} deg closely matches the AI loft target.")
 
     # --- Forgiveness / goal fit (20 pts) ---
     forgiveness = float(club.get("forgivenessTier", 3))
@@ -117,8 +154,17 @@ def score_driver(
 
     # --- Launch characteristic (15 pts) ---
     launch = str(club.get("launchChar", "mid"))
-    if golfer.swing_speed < 85 and "high" in launch:
+    if golfer.driver_trajectory == "Too low" and "high" in launch:
         score += 15
+        reasons.append("Higher launch helps correct your low driver flight.")
+    elif golfer.driver_trajectory == "Too high" and launch in {"low", "mid-low"}:
+        score += 15
+        reasons.append("Lower launch helps bring down your driver flight.")
+    elif golfer.driver_trajectory == "About right" and "mid" in launch:
+        score += 14
+        reasons.append("Mid launch keeps your current trajectory stable.")
+    elif golfer.swing_speed < 85 and "high" in launch:
+        score += 13
         reasons.append("High launch helps slower swing speeds maximise carry.")
     elif golfer.swing_speed >= 100 and launch in {"low", "mid-low", "mid"}:
         score += 15
@@ -155,6 +201,7 @@ def score_driver(
         brand=str(club.get("brand", "Unknown")),
         model=str(club.get("model", "Unknown")),
         msrp=club.get("msrp") if isinstance(club.get("msrp"), (int, float)) else None,
+        year=club.get("year") if isinstance(club.get("year"), int) else None,
     )
 
 
@@ -165,7 +212,7 @@ def score_iron_set(
 ) -> ClubRecommendation:
     """Score one iron set against the golfer and predicted category.
 
-    Scoring budget (max 100 pts):
+    Scoring weights (max 100 pts):
       - Category match           : 30 pts
       - Forgiveness / miss type  : 25 pts
       - Construction / feel pref : 20 pts
@@ -199,7 +246,10 @@ def score_iron_set(
 
     # --- Forgiveness / miss type (25 pts) ---
     forgiveness = float(club.get("forgivenessTier", 3))
-    if golfer.iron_miss in {"Fat/Thin", "Inconsistent"}:
+    iron_goal = golfer.effective_iron_goal
+    iron_shape = golfer.effective_iron_shot_shape
+
+    if golfer.iron_miss in {"Fat/Thin", "Inconsistent"} or iron_goal == "Forgiveness":
         # Weight forgiveness heavily for inconsistent ball-strikers
         score += forgiveness * 5
         if forgiveness >= 4:
@@ -210,7 +260,7 @@ def score_iron_set(
         # Consistent ball-strikers earn flat points regardless of forgiveness
         score += 20
         if forgiveness >= 4:
-            reasons.append("High forgiveness — extra margin even for consistent players.")
+            reasons.append("High forgiveness gives extra margin even for consistent players.")
 
     # --- Construction / feel preference (20 pts) ---
     construction = str(club.get("construction", "")).lower()
@@ -225,12 +275,12 @@ def score_iron_set(
         else:
             score += 8
     elif golfer.iron_feel == "Confidence-inspiring":
-        if "hollow-body" in construction or forgiveness >= 4:
+        if "hollow-body" in construction:
             score += 20
-            reasons.append("Wide sole and cavity back inspire confidence at address.")
+            reasons.append("Hollow-body construction inspires confidence at address.")
         elif forgiveness >= 3:
-            score += 14
-            reasons.append("Cavity back design is confidence-inspiring.")
+            score += 16
+            reasons.append("Forgiving head design is confidence-inspiring.")
         else:
             score += 8
     else:  # No preference
@@ -238,11 +288,20 @@ def score_iron_set(
 
     # --- Launch characteristic vs. swing speed (15 pts) ---
     iron_launch = str(club.get("launchChar", "mid")).lower()
-    if golfer.swing_speed < 85 and "high" in iron_launch:
+    if golfer.iron_trajectory == "Too low" and "high" in iron_launch:
         score += 15
+        reasons.append("High-launching irons help correct your low iron flight.")
+    elif golfer.iron_trajectory == "Too high" and iron_launch in {"low", "mid-low"}:
+        score += 15
+        reasons.append("Lower-launching irons help bring down your iron flight.")
+    elif golfer.iron_trajectory == "About right" and "mid" in iron_launch:
+        score += 13
+        reasons.append("Mid-launch irons preserve your current trajectory.")
+    elif golfer.swing_speed < 85 and "high" in iron_launch:
+        score += 12
         reasons.append("High-launching irons help maximise carry for slower swing speeds.")
     elif golfer.swing_speed >= 100 and iron_launch in {"low", "mid-low"}:
-        score += 15
+        score += 12
         reasons.append("Lower-launching irons help control trajectory at faster speeds.")
     elif 85 <= golfer.swing_speed < 100 and "mid" in iron_launch:
         score += 12
@@ -251,10 +310,10 @@ def score_iron_set(
         score += 8
 
     # --- Shot shape bonus (5 pts) ---
-    if golfer.shot_shape == "Slice" and category in {"game-improvement", "super-game-improvement"}:
+    if iron_shape == "Slice" and category in {"game-improvement", "super-game-improvement"}:
         score += 5
         reasons.append("Upright lie and offset help mitigate a slice.")
-    elif golfer.shot_shape in {"Draw", "Hook"} and category in {"blade", "players-cb"}:
+    elif iron_shape in {"Draw", "Hook"} and category in {"blade", "players-cb"}:
         score += 4
         reasons.append("Players irons offer the workability to shape shots.")
 
@@ -270,6 +329,7 @@ def score_iron_set(
         brand=str(club.get("brand", "Unknown")),
         model=str(club.get("model", "Unknown")),
         msrp=club.get("msrp") if isinstance(club.get("msrp"), (int, float)) else None,
+        year=club.get("year") if isinstance(club.get("year"), int) else None,
         category="Iron Set",
     )
 

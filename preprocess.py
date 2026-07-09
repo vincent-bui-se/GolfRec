@@ -13,6 +13,8 @@ SHOT_SHAPES = ["Slice", "Fade", "Straight", "Draw", "Hook"]
 GOALS = ["Distance", "Accuracy", "Forgiveness"]
 IRON_MISSES = ["Fat/Thin", "Left/Right", "Inconsistent", "Consistent"]
 IRON_FEELS = ["Forged/Blade-like", "Confidence-inspiring", "No preference"]
+SHOPPING_TARGETS = ["Driver", "Irons", "Both"]
+TRAJECTORIES = ["Too low", "About right", "Too high"]
 INPUT_COLUMNS = [
     "handicap",
     "swing_speed",
@@ -69,6 +71,11 @@ def load_equipment_catalog(equipment_dir: str | Path) -> dict[str, list[dict[str
         if isinstance(records, list):
             catalog[category] = records
     return catalog
+
+
+def estimate_handicap_from_average_score(average_score: float, par: int = 72) -> int:
+    """Estimate handicap when the golfer knows score but not handicap."""
+    return int(max(0, min(36, round(float(average_score) - par))))
 
 
 def make_feature_frame(golfers: pd.DataFrame) -> pd.DataFrame:
