@@ -80,9 +80,103 @@ def build_model_row(
     )
 
 
+def render_recommendation_card(rec) -> None:
+    meta_parts = [f"Match Score: {rec.score}%"]
+    if rec.year is not None:
+        meta_parts.append(f"Model year: {rec.year}")
+    if rec.msrp is not None:
+        meta_parts.append(f"MSRP: ${rec.msrp:,.0f}")
+    reasons = "".join(f"<li>{reason}</li>" for reason in rec.reasons[:3])
+    st.markdown(
+        f"""
+        <div class="rec-card">
+            <div class="rec-card-header">
+                <div class="rec-title">{rec.name}</div>
+                <div class="rec-score">{rec.score}%</div>
+            </div>
+            <div class="rec-meta">{" | ".join(meta_parts)}</div>
+            <ul class="rec-reasons">{reasons}</ul>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 st.set_page_config(page_title="GolfRec", layout="wide")
 st.title("GolfRec")
 st.header("AI Golf Recommendation System")
+st.markdown(
+    """
+    <style>
+    div[data-testid="stVerticalBlock"] div[data-testid="stVerticalBlockBorderWrapper"] {
+        padding: 0.55rem 0.7rem;
+        border-radius: 0.45rem;
+    }
+    .rec-card {
+        --card-bg: #ffffff;
+        --card-border: #d7dde5;
+        --title-color: #111827;
+        --muted-color: #4b5563;
+        --score-bg: #e8f5ee;
+        --score-color: #11633a;
+        border: 1px solid var(--card-border);
+        border-radius: 8px;
+        padding: 0.6rem 0.75rem 0.5rem;
+        margin: 0.35rem 0;
+        background: var(--card-bg);
+        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+    }
+    .rec-card-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.75rem;
+    }
+    .rec-title {
+        font-weight: 700;
+        font-size: 1rem;
+        line-height: 1.2;
+        color: var(--title-color);
+    }
+    .rec-score {
+        font-weight: 700;
+        font-size: 0.92rem;
+        color: var(--score-color);
+        background: var(--score-bg);
+        border-radius: 999px;
+        padding: 0.12rem 0.48rem;
+        white-space: nowrap;
+    }
+    .rec-meta {
+        color: var(--muted-color);
+        font-size: 0.82rem;
+        margin-top: 0.15rem;
+    }
+    .rec-reasons {
+        margin: 0.28rem 0 0 1rem;
+        padding: 0;
+        font-size: 0.88rem;
+        line-height: 1.25;
+        color: var(--title-color);
+    }
+    .rec-reasons li {
+        margin: 0.08rem 0;
+    }
+    @media (prefers-color-scheme: dark) {
+        .rec-card {
+            --card-bg: #111827;
+            --card-border: #374151;
+            --title-color: #f9fafb;
+            --muted-color: #cbd5e1;
+            --score-bg: #123524;
+            --score-color: #8ee0b3;
+            box-shadow: none;
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 if "recommendation_result" not in st.session_state:
     st.session_state.recommendation_result = None
@@ -237,17 +331,7 @@ if result:
             if not filtered_recommendations:
                 st.info("No driver recommendations are within this budget.")
             for rec in filtered_recommendations:
-                with st.container(border=True):
-                    left, right = st.columns([3, 1])
-                    left.markdown(f"### {rec.name}")
-                    right.metric("Match Score", f"{rec.score}%")
-                    if rec.year is not None:
-                        left.write(f"Model year: {rec.year}")
-                    if rec.msrp is not None:
-                        left.write(f"MSRP: ${rec.msrp:,.0f}")
-                    left.markdown("**Reason:**")
-                    for reason in rec.reasons:
-                        left.write(f"- {reason}")
+                render_recommendation_card(rec)
 
     if wants_irons and tab2 is not None:
         with tab2:
@@ -259,16 +343,6 @@ if result:
             if not filtered_iron_recs:
                 st.info("No iron set recommendations are within this budget.")
             for rec in filtered_iron_recs:
-                with st.container(border=True):
-                    left, right = st.columns([3, 1])
-                    left.markdown(f"### {rec.name}")
-                    right.metric("Match Score", f"{rec.score}%")
-                    if rec.year is not None:
-                        left.write(f"Model year: {rec.year}")
-                    if rec.msrp is not None:
-                        left.write(f"MSRP: ${rec.msrp:,.0f}")
-                    left.markdown("**Reason:**")
-                    for reason in rec.reasons:
-                        left.write(f"- {reason}")
+                render_recommendation_card(rec)
 else:
     st.info("Enter a golfer profile in the sidebar and click Recommend Clubs.")
