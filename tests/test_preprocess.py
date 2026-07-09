@@ -2,7 +2,12 @@ from pathlib import Path
 
 import pandas as pd
 
-from preprocess import FEATURE_COLUMNS, load_equipment_catalog, make_feature_frame
+from preprocess import (
+    FEATURE_COLUMNS,
+    estimate_handicap_from_average_score,
+    load_equipment_catalog,
+    make_feature_frame,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -41,3 +46,9 @@ def test_make_feature_frame_encodes_expected_inputs():
     assert frame.loc[0, "shot_shape_Slice"] == 1
     assert frame.loc[0, "goal_Forgiveness"] == 1
     assert frame.loc[0, "swing_speed"] == 91
+
+
+def test_estimate_handicap_from_average_score_uses_par_72_baseline():
+    assert estimate_handicap_from_average_score(90) == 18
+    assert estimate_handicap_from_average_score(68) == 0
+    assert estimate_handicap_from_average_score(112) == 36

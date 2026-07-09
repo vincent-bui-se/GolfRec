@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-Golfers often buy clubs based on brand reputation, advertising, or simple rules of thumb. That approach ignores the interaction between swing speed, handicap, carry distance, shot shape, budget, and the golfer's main goal. This project builds a machine-learning web app that predicts fitting specifications for a golfer and then recommends real clubs from a golf equipment database.
+Golfers often buy clubs based on brand reputation, advertising, or simple rules of thumb. That approach ignores the interaction between swing speed, handicap, carry distance, shot shape, trajectory, budget, and the golfer's main goal. This project builds a machine-learning web app that predicts fitting specifications for a golfer and then recommends real clubs from a golf equipment database.
 
 The system predicts:
 
@@ -53,7 +53,6 @@ Each generated golfer includes:
 - Driver carry distance
 - Shot shape
 - Goal
-- Budget
 - Driver loft label
 - Shaft flex label
 - Iron category label
@@ -102,11 +101,37 @@ The AI models predict fitting specifications. Then `recommend.py` ranks equipmen
 - Loft match
 - Forgiveness
 - Golfer goal
-- Budget
+- Budget filter
 - Launch characteristics
 - Slice/draw-bias compatibility
+- Whether the golfer currently hits the ball too high, too low, or about right
+- Separate driver and iron shot-shape and goal answers
 
 The Streamlit app displays the top 5 recommendations with match scores and short explanations.
+
+## Streamlit Questionnaire
+
+The app asks shared questions first:
+
+- What the golfer is shopping for: driver, irons, or both
+- Handicap or average score
+
+Driver questions are shown only when driver recommendations are requested:
+
+- Swing speed or driver carry distance
+- Driver shot shape
+- Driver trajectory: too high, too low, or about right
+- Primary driver goal
+- Driver tab budget filter
+
+Iron questions are shown only when iron recommendations are requested:
+
+- Iron shot shape
+- Primary iron goal
+- Iron trajectory: too high, too low, or about right
+- Preferred feel or look
+- Typical iron miss
+- Iron tab budget filter
 
 ## Project Structure
 
