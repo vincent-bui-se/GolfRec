@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GolfRec</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="profile-panel">
+        <div class="brand-lockup">
+          <div>
+            <h1>GolfRec</h1>
+          </div>
+        </div>
+
+        <form id="profile-form" class="profile-form">
+          <section class="form-section">
+            <div class="section-heading">
+              <span>Profile</span>
+            </div>
+
+            <label class="field">
+              <span>Shopping for</span>
+              <select name="shopping_for" id="shopping-for">
+                {% for value in shopping_targets %}
+                <option value="{{ value }}" {% if value == "Both" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <div class="segmented" role="radiogroup" aria-label="Score type">
+              <label>
+                <input type="radio" name="score_mode" value="Handicap" checked>
+                <span>Handicap</span>
+              </label>
+              <label>
+                <input type="radio" name="score_mode" value="Average score">
+                <span>Average Score</span>
+              </label>
+            </div>
+
+            <label class="field score-field" data-score-mode="Handicap">
+              <span>Handicap</span>
+              <input type="number" name="handicap" min="0" max="36" step="0.5" value="16">
+            </label>
+
+            <label class="field score-field hidden" data-score-mode="Average score">
+              <span>Average 18-hole score</span>
+              <input type="number" name="average_score" min="68" max="112" step="1" value="90">
+            </label>
+          </section>
+
+          <section class="form-section driver-fields">
+            <div class="section-heading">
+              <span>Driver</span>
+            </div>
+
+            <div class="segmented" role="radiogroup" aria-label="Driver speed type">
+              <label>
+                <input type="radio" name="speed_mode" value="Swing speed" checked>
+                <span>Swing Speed</span>
+              </label>
+              <label>
+                <input type="radio" name="speed_mode" value="Carry distance">
+                <span>Carry Distance</span>
+              </label>
+            </div>
+
+            <label class="field speed-field" data-speed-mode="Swing speed">
+              <span>Swing speed mph</span>
+              <input type="number" name="swing_speed" min="60" max="120" step="1" value="92">
+            </label>
+
+            <label class="field speed-field hidden" data-speed-mode="Carry distance">
+              <span>Carry distance yards</span>
+              <input type="number" name="driver_carry" min="130" max="315" step="1" value="216">
+            </label>
+
+            <label class="field">
+              <span>Shot shape</span>
+              <select name="driver_shot_shape">
+                {% for value in shot_shapes %}
+                <option value="{{ value }}" {% if value == "Straight" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Ball flight</span>
+              <select name="driver_trajectory">
+                {% for value in trajectories %}
+                <option value="{{ value }}" {% if value == "About right" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Primary goal</span>
+              <select name="driver_goal">
+                {% for value in goals %}
+                <option value="{{ value }}" {% if value == "Accuracy" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+          </section>
+
+          <section class="form-section iron-fields">
+            <div class="section-heading">
+              <span>Irons</span>
+            </div>
+
+            <label class="field">
+              <span>Shot shape</span>
+              <select name="iron_shot_shape">
+                {% for value in shot_shapes %}
+                <option value="{{ value }}" {% if value == "Straight" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Primary goal</span>
+              <select name="iron_goal">
+                {% for value in goals %}
+                <option value="{{ value }}" {% if value == "Forgiveness" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Ball flight</span>
+              <select name="iron_trajectory">
+                {% for value in trajectories %}
+                <option value="{{ value }}" {% if value == "About right" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Feel or look</span>
+              <select name="iron_feel">
+                {% for value in iron_feels %}
+                <option value="{{ value }}" {% if value == "No preference" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Typical miss</span>
+              <select name="iron_miss">
+                {% for value in iron_misses %}
+                <option value="{{ value }}" {% if value == "Consistent" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+          </section>
+
+          <button class="primary-action" type="submit">
+            <span>Recommend Clubs</span>
+            <span aria-hidden="true">&gt;</span>
+          </button>
+        </form>
+      </aside>
+
+      <main class="results-panel">
+        <header class="page-header">
+          <div>
+            <p class="eyebrow">Golf equipment fitting</p>
+            <h2>Personalized club recommendations</h2>
+          </div>
+        </header>
+
+        <section class="spec-grid" id="spec-grid">
+          <article class="spec-tile">
+            <span>Driver Loft</span>
+            <strong>-</strong>
+          </article>
+          <article class="spec-tile">
+            <span>Shaft Flex</span>
+            <strong>-</strong>
+          </article>
+          <article class="spec-tile">
+            <span>Iron Type</span>
+            <strong>-</strong>
+          </article>
+        </section>
+
+        <section class="empty-state" id="empty-state">
+          <div class="empty-line"></div>
+          <h3>No recommendations yet</h3>
+          <p>Enter a golfer profile and run the model.</p>
+        </section>
+
+        <section class="recommendations hidden" id="recommendations">
+          <div class="tabs" id="tabs">
+            <button type="button" class="tab-button active" data-tab="drivers">Drivers</button>
+            <button type="button" class="tab-button" data-tab="irons">Irons</button>
+          </div>
+
+          <div class="tab-panel active" data-panel="drivers">
+            <div class="list-toolbar">
+              <div>
+                <h3>Driver Recommendations</h3>
+                <p id="driver-count">0 clubs</p>
+              </div>
+              <label class="budget-control">
+                <span>Budget</span>
+                <input type="range" id="driver-budget" min="300" max="2500" step="25" value="800">
+                <strong id="driver-budget-value">$800</strong>
+              </label>
+            </div>
+            <div class="club-list" id="driver-list"></div>
+          </div>
+
+          <div class="tab-panel" data-panel="irons">
+            <div class="list-toolbar">
+              <div>
+                <h3>Iron Set Recommendations</h3>
+                <p id="iron-count">0 clubs</p>
+              </div>
+              <label class="budget-control">
+                <span>Budget</span>
+                <input type="range" id="iron-budget" min="500" max="2500" step="25" value="1400">
+                <strong id="iron-budget-value">$1,400</strong>
+              </label>
+            </div>
+            <div class="club-list" id="iron-list"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
