@@ -6,6 +6,7 @@ from recommend import (
     GolferInput,
     filter_recommendations_by_budget,
     recommend_clubs,
+    select_recommendations_for_display,
     score_driver,
     score_iron_set,
 )
@@ -177,6 +178,28 @@ def test_filter_recommendations_by_budget_preserves_score_order():
     filtered = filter_recommendations_by_budget(recommendations, max_budget=800)
 
     assert [rec.name for rec in filtered] == ["First", "Second"]
+
+
+def test_select_recommendations_for_display_uses_default_when_top_score_is_clear():
+    recommendations = [
+        ClubRecommendation(f"Club {score}", score, [], "B", "M", 500, 2024)
+        for score in [98, 96, 95, 94, 93, 92, 91]
+    ]
+
+    selected = select_recommendations_for_display(recommendations, default_limit=5)
+
+    assert [rec.score for rec in selected] == [98, 96, 95, 94, 93]
+
+
+def test_select_recommendations_for_display_expands_flat_top_five_until_score_drops():
+    recommendations = [
+        ClubRecommendation(f"Club {index}", score, [], "B", "M", 500, 2024)
+        for index, score in enumerate([91, 91, 91, 91, 91, 91, 89, 88], start=1)
+    ]
+
+    selected = select_recommendations_for_display(recommendations, default_limit=5)
+
+    assert [rec.score for rec in selected] == [91, 91, 91, 91, 91, 91, 89]
 
 
 def test_driver_recommendations_include_all_years_when_budget_filter_is_separate():

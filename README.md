@@ -27,7 +27,7 @@ The project demonstrates common software engineering practices:
 - Model training and evaluation
 - Modular code organization
 - Automated tests
-- A usable Streamlit interface
+- A custom Flask web interface
 - Reproducible setup through `requirements.txt`
 - Separation between prediction logic and recommendation ranking
 
@@ -67,7 +67,7 @@ Sources:
 
 ## Machine Learning
 
-The primary algorithm is Random Forest classification. Four separate models are trained:
+The primary algorithm is Random Forest classification. Three separate models are trained:
 
 - `driver_loft_model.joblib`
 - `shaft_flex_model.joblib`
@@ -103,9 +103,9 @@ The AI models predict fitting specifications. Then `recommend.py` ranks equipmen
 - Whether the golfer currently hits the ball too high, too low, or about right
 - Separate driver and iron shot-shape and goal answers
 
-The Streamlit app displays the top 5 recommendations with match scores and short explanations.
+The web app displays the top recommendations with match scores and short explanations. If the top 5 clubs all share the same match score, the display expands until it reaches the next lower score so the ranking is clearer.
 
-## Streamlit Questionnaire
+## Web Questionnaire
 
 The app asks shared questions first:
 
@@ -138,6 +138,11 @@ golf-ai/
 |   `-- golfers.csv
 |-- models/
 |-- notebooks/
+|-- static/
+|   |-- app.js
+|   `-- styles.css
+|-- templates/
+|   `-- index.html
 |-- tests/
 |-- app.py
 |-- preprocess.py
@@ -167,8 +172,10 @@ python train.py
 Run the web application:
 
 ```bash
-streamlit run app.py
+python app.py
 ```
+
+Then open `http://localhost:8502`.
 
 Run tests:
 

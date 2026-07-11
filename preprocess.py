@@ -97,5 +97,5 @@ def make_feature_frame(golfers: pd.DataFrame) -> pd.DataFrame:
 
 
 def golfer_dict_to_frame(golfer: dict[str, Any]) -> pd.DataFrame:
-    """Build a one-row DataFrame from Streamlit or CLI input."""
+    """Build a one-row DataFrame from web or CLI input."""
     return pd.DataFrame([{column: golfer[column] for column in INPUT_COLUMNS}])

@@ -95,6 +95,27 @@ def filter_recommendations_by_budget(
     return ordered if limit is None else ordered[:limit]
 
 
+def select_recommendations_for_display(
+    recommendations: list[ClubRecommendation],
+    default_limit: int = 5,
+) -> list[ClubRecommendation]:
+    """Return default top recommendations, expanding flat top-score groups."""
+    if len(recommendations) <= default_limit:
+        return recommendations
+
+    default_slice = recommendations[:default_limit]
+    first_score = default_slice[0].score
+    if any(recommendation.score != first_score for recommendation in default_slice):
+        return default_slice
+
+    selected = list(default_slice)
+    for recommendation in recommendations[default_limit:]:
+        selected.append(recommendation)
+        if recommendation.score < first_score:
+            break
+    return selected
+
+
 def score_driver(
     club: dict[str, Any],
     golfer: GolferInput,
