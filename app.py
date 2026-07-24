@@ -203,14 +203,14 @@ def api_recommend():
             golfer=golfer,
             predicted_loft=specs["driver_loft"],
             predicted_iron_category=specs["iron_category"],
-            top_n=50,
+            top_n=len(catalog.get("drivers", [])),
         )
     if wants_irons:
         iron_recommendations = recommend_irons(
             catalog=catalog,
             golfer=golfer,
             predicted_iron_category=specs["iron_category"],
-            top_n=50,
+            top_n=len(catalog.get("iron-sets", [])),
         )
 
     return jsonify(

@@ -1,4 +1,4 @@
-from synthetic_data import generate_golfer_profiles
+from synthetic_data import _iron_category, generate_golfer_profiles
 
 
 def test_generate_golfer_profiles_creates_course_dataset_shape():
@@ -26,3 +26,28 @@ def test_generate_golfer_profiles_has_non_trivial_label_variety():
     assert golfers["driver_loft"].nunique() >= 4
     assert golfers["shaft_flex"].nunique() >= 4
     assert golfers["iron_category"].nunique() >= 3
+
+
+def test_iron_category_uses_more_than_handicap():
+    player_style = _iron_category(
+        handicap=14,
+        swing_speed=104,
+        driver_carry=252,
+        shot_shape="Draw",
+        goal="Distance",
+        iron_miss="Consistent",
+        iron_feel="Forged/Blade-like",
+    )
+    forgiveness_style = _iron_category(
+        handicap=14,
+        swing_speed=78,
+        driver_carry=178,
+        shot_shape="Slice",
+        goal="Forgiveness",
+        iron_miss="Fat/Thin",
+        iron_feel="Confidence-inspiring",
+    )
+
+    assert player_style in {"blade", "players-cb", "players-distance"}
+    assert forgiveness_style in {"game-improvement", "super-game-improvement"}
+    assert player_style != forgiveness_style

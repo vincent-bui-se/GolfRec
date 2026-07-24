@@ -57,32 +57,72 @@ def _shaft_flex(speed: float) -> str:
     return "X"
 
 
-def _iron_category(handicap: float, goal: str, iron_miss: str, iron_feel: str) -> str:
-    if iron_feel == "Forged/Blade-like" and handicap < 12:
-        return "players-cb" if handicap > 5 else "blade"
-    if iron_feel == "Forged/Blade-like":
-        return "players-distance"
-    if iron_miss in {"Fat/Thin", "Inconsistent"} and handicap > 15:
-        return "super-game-improvement"
-    
-    if handicap <= 4:
-        category = "blade"
-    elif handicap <= 8:
-        category = "players-cb"
-    elif handicap <= 15:
-        category = "players-distance"
-    elif handicap <= 26:
-        category = "game-improvement"
-    else:
-        category = "super-game-improvement"
+def _iron_category(
+    handicap: float,
+    swing_speed: float,
+    driver_carry: float,
+    shot_shape: str,
+    goal: str,
+    iron_miss: str,
+    iron_feel: str,
+) -> str:
+    """Choose iron category from multiple fitting signals, not handicap alone.
 
-    if goal == "Forgiveness" and category in {"blade", "players-cb"}:
+    Lower fit scores map to player-focused irons. Higher scores map to more
+    forgiving game-improvement irons. Handicap is intentionally only one input;
+    contact quality, speed, shot pattern, desired outcome, and preferred look
+    can move a golfer into a different category.
+    """
+    fit_score = 0.0
+
+    if handicap >= 28:
+        fit_score += 3.3
+    elif handicap >= 20:
+        fit_score += 2.6
+    elif handicap >= 12:
+        fit_score += 1.7
+    elif handicap >= 6:
+        fit_score += 0.9
+
+    if swing_speed < 78 or driver_carry < 185:
+        fit_score += 0.8
+    elif swing_speed > 102 or driver_carry > 245:
+        fit_score -= 0.6
+
+    miss_adjustments = {
+        "Fat/Thin": 1.2,
+        "Inconsistent": 1.0,
+        "Left/Right": 0.55,
+        "Consistent": -0.7,
+    }
+    fit_score += miss_adjustments.get(iron_miss, 0.0)
+
+    if goal == "Forgiveness":
+        fit_score += 1.0
+    elif goal == "Accuracy":
+        fit_score -= 0.25
+    elif goal == "Distance":
+        fit_score -= 0.35
+
+    if iron_feel == "Forged/Blade-like":
+        fit_score -= 1.5
+    elif iron_feel == "Confidence-inspiring":
+        fit_score += 0.8
+
+    if shot_shape == "Slice":
+        fit_score += 0.45
+    elif shot_shape in {"Draw", "Hook"}:
+        fit_score -= 0.25
+
+    if fit_score <= 0.3:
+        return "blade"
+    if fit_score <= 1.25:
+        return "players-cb"
+    if fit_score <= 2.35:
         return "players-distance"
-    if goal == "Forgiveness" and category == "players-distance":
+    if fit_score <= 3.65:
         return "game-improvement"
-    if goal == "Distance" and category == "game-improvement" and handicap < 22:
-        return "players-distance"
-    return category
+    return "super-game-improvement"
 
 
 def generate_golfer_profiles(
@@ -97,7 +137,6 @@ def generate_golfer_profiles(
     rng = np.random.default_rng(seed)
     handicaps = np.clip(rng.normal(17, 9, n), 0, 36).round(1)
     swing_speeds = np.clip(108 - 1.15 * handicaps + rng.normal(0, 7, n), 60, 120).round(1)
-    driver_carry = np.clip(swing_speeds * 2.35 + rng.normal(0, 13, n), 130, 315).round(0)
     driver_carry = np.clip(swing_speeds * 2.35 + rng.normal(0, 13, n), 130, 315).round(0)
 
     shot_shapes = []
@@ -131,7 +170,12 @@ def generate_golfer_profiles(
     ):
         loft = _with_noise(_driver_loft(speed, handicap, goal), DRIVER_LOFT_LABELS, rng, noise_rate)
         flex = _with_noise(_shaft_flex(speed), SHAFT_FLEX_LABELS, rng, noise_rate)
-        iron = _with_noise(_iron_category(handicap, goal, i_miss, i_feel), IRON_CATEGORY_LABELS, rng, noise_rate)
+        iron = _with_noise(
+            _iron_category(handicap, speed, carry, shape, goal, i_miss, i_feel),
+            IRON_CATEGORY_LABELS,
+            rng,
+            noise_rate,
+        )
         rows.append(
             {
                 "handicap": handicap,

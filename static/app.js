@@ -9,6 +9,9 @@ const recommendations = document.querySelector("#recommendations");
 const tabs = document.querySelector("#tabs");
 const driverBudget = document.querySelector("#driver-budget");
 const ironBudget = document.querySelector("#iron-budget");
+const driverCondition = document.querySelector("#driver-condition");
+const ironCondition = document.querySelector("#iron-condition");
+const USED_MAX_YEAR = new Date().getFullYear() - 4;
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -99,19 +102,51 @@ function selectForDisplay(clubs, defaultLimit = 5) {
   return selected;
 }
 
+function filterByCondition(clubs, condition) {
+  if (condition !== "used") {
+    return clubs;
+  }
+  return clubs.filter((club) => Number.isInteger(club.year) && club.year <= USED_MAX_YEAR);
+}
+
 function filterByBudget(clubs, budget) {
   return clubs
     .filter((club) => typeof club.msrp === "number" && club.msrp <= budget)
     .sort((a, b) => b.score - a.score);
 }
 
-function renderClubList(listElement, countElement, clubs, budget) {
-  const affordable = filterByBudget(clubs, budget);
+function maxMsrp(clubs, fallback) {
+  const prices = clubs
+    .map((club) => club.msrp)
+    .filter((price) => typeof price === "number" && Number.isFinite(price));
+  if (!prices.length) {
+    return fallback;
+  }
+  return Math.ceil(Math.max(...prices) / 25) * 25;
+}
+
+function setBudgetStart(slider, clubs, fallback) {
+  const highestPrice = maxMsrp(clubs, fallback);
+  slider.max = String(highestPrice);
+  slider.value = String(highestPrice);
+}
+
+function updateBudgetForCondition(slider, clubs, condition, fallback) {
+  setBudgetStart(slider, filterByCondition(clubs, condition), fallback);
+}
+
+function renderClubList(listElement, countElement, clubs, budget, condition) {
+  const conditionMatches = filterByCondition(clubs, condition);
+  const affordable = filterByBudget(conditionMatches, budget);
   const selected = selectForDisplay(affordable);
   countElement.textContent = `${selected.length} ${selected.length === 1 ? "club" : "clubs"}`;
 
   if (!selected.length) {
-    listElement.innerHTML = '<div class="notice">No clubs match this budget.</div>';
+    const message =
+      condition === "used"
+        ? `No clubs match this budget and used filter. Used means ${USED_MAX_YEAR} or older.`
+        : "No clubs match this budget.";
+    listElement.innerHTML = `<div class="notice">${escapeHtml(message)}</div>`;
     return;
   }
 
@@ -195,18 +230,39 @@ function renderRecommendations() {
     document.querySelector("#driver-count"),
     state.result.recommendations.drivers,
     Number(driverBudget.value),
+    driverCondition.value,
   );
   renderClubList(
     document.querySelector("#iron-list"),
     document.querySelector("#iron-count"),
     state.result.recommendations.irons,
     Number(ironBudget.value),
+    ironCondition.value,
   );
 }
 
 form.addEventListener("change", updateConditionalFields);
 driverBudget.addEventListener("input", renderRecommendations);
 ironBudget.addEventListener("input", renderRecommendations);
+driverCondition.addEventListener("change", () => {
+  if (!state.result) {
+    return;
+  }
+  updateBudgetForCondition(
+    driverBudget,
+    state.result.recommendations.drivers,
+    driverCondition.value,
+    2500,
+  );
+  renderRecommendations();
+});
+ironCondition.addEventListener("change", () => {
+  if (!state.result) {
+    return;
+  }
+  updateBudgetForCondition(ironBudget, state.result.recommendations.irons, ironCondition.value, 2500);
+  renderRecommendations();
+});
 
 document.querySelectorAll(".tab-button").forEach((button) => {
   button.addEventListener("click", () => setActiveTab(button.dataset.tab));
@@ -227,6 +283,10 @@ form.addEventListener("submit", async (event) => {
       throw new Error("Recommendation request failed");
     }
     state.result = await response.json();
+    driverCondition.value = "all";
+    ironCondition.value = "all";
+    setBudgetStart(driverBudget, state.result.recommendations.drivers, 2500);
+    setBudgetStart(ironBudget, state.result.recommendations.irons, 2500);
     updateSpecGrid(state.result.specs, state.result);
     updateTabAvailability(state.result);
     emptyState.classList.add("hidden");
