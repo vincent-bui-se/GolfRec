@@ -37,6 +37,7 @@ def test_score_driver_prefers_speed_loft_and_goal_matches():
         "speedMaxMph": 100,
         "msrp": 599,
         "family": "game-improvement",
+        "drawBiasBuiltIn": True,
     }
 
     scored = score_driver(club, golfer, predicted_loft="10.5")
@@ -84,7 +85,7 @@ def test_driver_trajectory_changes_launch_scoring():
         "msrp": 599,
         "family": "low-spin",
     }
-    high_launch_driver = {**low_launch_driver, "model": "High", "launchChar": "high"}
+    high_launch_driver = {**low_launch_driver, "model": "High", "launchChar": "high", "spinChar": "high"}
     golfer = GolferInput(
         handicap=12,
         swing_speed=95,
@@ -98,6 +99,36 @@ def test_driver_trajectory_changes_launch_scoring():
 
     high_score = score_driver(high_launch_driver, golfer, predicted_loft="10.5").score
     low_score = score_driver(low_launch_driver, golfer, predicted_loft="10.5").score
+
+    assert high_score > low_score
+
+
+def test_iron_trajectory_changes_spin_scoring():
+    low_spin_iron = {
+        "brand": "Test",
+        "model": "Low",
+        "ironCategory": "players-distance",
+        "construction": "hollow-body",
+        "forgivenessTier": 3,
+        "workability": "mid",
+        "launchChar": "mid",
+        "spinChar": "low",
+        "msrp": 999,
+    }
+    high_spin_iron = {**low_spin_iron, "model": "High", "spinChar": "high"}
+    golfer = GolferInput(
+        handicap=10,
+        swing_speed=95,
+        driver_carry=240,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        iron_trajectory="Too low",
+    )
+
+    high_score = score_iron_set(high_spin_iron, golfer, "players-distance").score
+    low_score = score_iron_set(low_spin_iron, golfer, "players-distance").score
 
     assert high_score > low_score
 
