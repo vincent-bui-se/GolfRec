@@ -205,11 +205,28 @@
                 <h3>Driver Recommendations</h3>
                 <p id="driver-count">0 clubs</p>
               </div>
-              <label class="budget-control">
-                <span>Budget</span>
-                <input type="range" id="driver-budget" min="300" max="2500" step="25" value="800">
-                <strong id="driver-budget-value">$800</strong>
-              </label>
+              <div class="toolbar-controls">
+                <div class="condition-control">
+                  <span class="control-label">
+                    Condition
+                    <span
+                      class="info-icon"
+                      tabindex="0"
+                      aria-label="Used shows clubs at least four model years old."
+                      data-tooltip="Used shows clubs at least four model years old. In 2026, that means 2022 or older."
+                    >i</span>
+                  </span>
+                  <select id="driver-condition">
+                    <option value="all" selected>All</option>
+                    <option value="used">Used</option>
+                  </select>
+                </div>
+                <label class="budget-control">
+                  <span>Budget</span>
+                  <input type="range" id="driver-budget" min="300" max="2500" step="25" value="2500">
+                  <strong id="driver-budget-value">$2,500</strong>
+                </label>
+              </div>
             </div>
             <div class="club-list" id="driver-list"></div>
           </div>
@@ -220,11 +237,28 @@
                 <h3>Iron Set Recommendations</h3>
                 <p id="iron-count">0 clubs</p>
               </div>
-              <label class="budget-control">
-                <span>Budget</span>
-                <input type="range" id="iron-budget" min="500" max="2500" step="25" value="1400">
-                <strong id="iron-budget-value">$1,400</strong>
-              </label>
+              <div class="toolbar-controls">
+                <div class="condition-control">
+                  <span class="control-label">
+                    Condition
+                    <span
+                      class="info-icon"
+                      tabindex="0"
+                      aria-label="Used shows clubs at least four model years old."
+                      data-tooltip="Used shows clubs at least four model years old. In 2026, that means 2022 or older."
+                    >i</span>
+                  </span>
+                  <select id="iron-condition">
+                    <option value="all" selected>All</option>
+                    <option value="used">Used</option>
+                  </select>
+                </div>
+                <label class="budget-control">
+                  <span>Budget</span>
+                  <input type="range" id="iron-budget" min="500" max="2500" step="25" value="2500">
+                  <strong id="iron-budget-value">$2,500</strong>
+                </label>
+              </div>
             </div>
             <div class="club-list" id="iron-list"></div>
           </div>

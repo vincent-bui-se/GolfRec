@@ -52,11 +52,13 @@ Each generated golfer includes:
 - Driver carry distance
 - Shot shape
 - Goal
+- Typical iron miss
+- Preferred iron feel or look
 - Driver loft label
 - Shaft flex label
 - Iron category label
 
-The label-generation rules are based on public fitting guidance from sources such as MyGolfSpy's driver shaft flex chart, LAZRUS Golf's driver loft guide, TaylorMade's game-improvement iron guidance, and PGA TOUR Superstore fitting education.
+The label-generation rules are based on public fitting guidance from sources such as MyGolfSpy's driver shaft flex chart, LAZRUS Golf's driver loft guide, TaylorMade's game-improvement iron guidance, and PGA TOUR Superstore fitting education. Iron category labels are not based on handicap alone; they combine handicap, swing speed, carry distance, shot shape, primary goal, typical miss, and preferred feel/look.
 
 Sources:
 
@@ -80,6 +82,12 @@ The training script evaluates each model using:
 - Accuracy
 - Confusion matrix
 - Classification report
+
+Current retrained model accuracy:
+
+- Driver loft: 0.890
+- Shaft flex: 0.893
+- Iron category: 0.787
 
 Metrics are saved to:
 
@@ -119,6 +127,7 @@ Driver questions are shown only when driver recommendations are requested:
 - Driver trajectory: too high, too low, or about right
 - Primary driver goal
 - Driver tab budget filter
+- Driver condition filter: All or Used
 
 Iron questions are shown only when iron recommendations are requested:
 
@@ -128,6 +137,9 @@ Iron questions are shown only when iron recommendations are requested:
 - Preferred feel or look
 - Typical iron miss
 - Iron tab budget filter
+- Iron condition filter: All or Used
+
+The Used option filters recommendations to clubs at least four model years old. In 2026, that means 2022 models or older.
 
 ## Project Structure
 

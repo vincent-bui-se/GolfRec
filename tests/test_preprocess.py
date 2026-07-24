@@ -25,6 +25,18 @@ def test_load_equipment_catalog_reads_category_records():
     )
 
 
+def test_driver_catalog_includes_callaway_rogue_st_family():
+    catalog = load_equipment_catalog(EQUIPMENT_DIR)
+    driver_ids = {driver["id"] for driver in catalog["drivers"]}
+
+    assert {
+        "callaway-rogue-st-max",
+        "callaway-rogue-st-max-d",
+        "callaway-rogue-st-max-ls",
+        "callaway-rogue-st-triple-diamond-ls",
+    }.issubset(driver_ids)
+
+
 def test_make_feature_frame_encodes_expected_inputs():
     golfers = pd.DataFrame(
         [
