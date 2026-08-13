@@ -12,10 +12,15 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, classification_report, confusion_matrix
-from sklearn.model_selection import GridSearchCV, train_test_split
-from sklearn.utils.class_weight import compute_sample_weight
+from sklearn.model_selection import (
+    GridSearchCV,
+    RepeatedStratifiedKFold,
+    cross_val_score,
+    train_test_split,
+)
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
+from sklearn.utils.class_weight import compute_sample_weight
 
 from preprocess import INPUT_COLUMNS, make_feature_frame
 from synthetic_data import save_dataset
@@ -66,7 +71,14 @@ PARAM_GRIDS: dict[str, dict[str, list[Any]]] = {
 
 
 def build_base_pipeline(random_state: int = 42) -> Pipeline:
-    """Create the shared preprocessing + Random Forest pipeline (untuned)."""
+    """Create the shared preprocessing + Random Forest pipeline (untuned).
+
+    Balancing is applied as per-sample weights at fit time, not via
+    class_weight. scikit-learn 1.9 mishandles class_weight when the labels are
+    numeric-looking strings - driver_loft's "8"/"9"/"10.5"/"12" raise
+    "The classes, [12, 8, 9], are not in class_weight" - while sample_weight
+    handles the same labels correctly.
+    """
     return Pipeline(
         steps=[
             ("features", FunctionTransformer(make_feature_frame, validate=False)),
@@ -88,9 +100,18 @@ def train_models(
     """Train one tuned model per target label and return models plus metrics.
 
     Uses GridSearchCV with 5-fold stratified cross-validation to find the best
-    Random Forest hyperparameters independently for each label.  class_weight
-    is set to 'balanced' so minority classes (e.g. X-flex, blade irons) are
-    not ignored in favour of the most common labels.
+    Random Forest hyperparameters independently for each label. Balanced sample
+    weights are passed into the search itself, so each candidate is scored under
+    the same weighting the winning model is refitted with. Previously the search
+    ran unweighted and only the final refit was weighted, which meant the chosen
+    hyperparameters were selected for a different objective than the model that
+    shipped.
+
+    A single 20% split of ~1 500 rows leaves only ~300 test rows, and the
+    smallest iron classes land ~30 rows in it, so that estimate swings by
+    several points on the split alone. The headline figure is therefore
+    repeated stratified CV over all rows; the held-out split is kept only to
+    produce a confusion matrix that is easy to read.
     """
     golfers = normalize_label_columns(golfers)
     models: dict[str, Pipeline] = {}
@@ -116,25 +137,29 @@ def train_models(
             n_jobs=-1,
             refit=True,
         )
-        grid.fit(x_train, y_train)
+        # Weight the search itself; GridSearchCV indexes the weights per fold.
+        train_weights = compute_sample_weight("balanced", y=y_train)
+        grid.fit(x_train, y_train, classifier__sample_weight=train_weights)
         best_model: Pipeline = grid.best_estimator_
-
-        # Apply balanced class weights computed from the FULL training set as
-        # per-sample weights so that the refit is not sensitive to fold subsets.
-        best_model.named_steps["classifier"].set_params(class_weight=None)
-        sample_weights = compute_sample_weight("balanced", y=y_train)
-        best_model.fit(x_train, y_train, classifier__sample_weight=sample_weights)
 
         y_pred = best_model.predict(x_test)
         labels = sorted(y.unique())
 
+        # Stable estimate: 5-fold x 4 repeats across the whole dataset.
+        tuned = build_base_pipeline(random_state=random_state).set_params(**grid.best_params_)
+        repeated = RepeatedStratifiedKFold(n_splits=5, n_repeats=4, random_state=random_state)
+        cv_scores = cross_val_score(tuned, x, y, cv=repeated, scoring="accuracy", n_jobs=-1)
+
         print(
             f"  [{label}] best params: {grid.best_params_}  "
-            f"CV balanced-acc: {grid.best_score_:.3f}"
+            f"CV balanced-acc: {grid.best_score_:.3f}  "
+            f"repeated-CV acc: {cv_scores.mean():.3f} +/- {cv_scores.std():.3f}"
         )
 
         metrics[label] = {
             "accuracy": float(accuracy_score(y_test, y_pred)),
+            "cv_accuracy_mean": float(cv_scores.mean()),
+            "cv_accuracy_std": float(cv_scores.std()),
             "best_params": grid.best_params_,
             "cv_balanced_accuracy": float(grid.best_score_),
             "labels": labels,
@@ -192,6 +217,7 @@ if __name__ == "__main__":
     _, run_metrics = train_from_csv()
     for target, values in run_metrics.items():
         print(
-            f"{target}: accuracy={values['accuracy']:.3f}  "
-            f"CV balanced-acc={values.get('cv_balanced_accuracy', 'n/a')}"
+            f"{target}: repeated-CV accuracy="
+            f"{values['cv_accuracy_mean']:.3f} +/- {values['cv_accuracy_std']:.3f}  "
+            f"(single-split={values['accuracy']:.3f})"
         )

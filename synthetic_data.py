@@ -21,38 +21,72 @@ IRON_CATEGORY_LABELS = [
 ]
 
 
-def _with_noise(label: str, labels: list[str], rng: np.random.Generator, rate: float) -> str:
+def _with_adjacent_noise(
+    label: str, ordered_labels: list[str], rng: np.random.Generator, rate: float
+) -> str:
+    """Flip a label to a neighbouring category at `rate`.
+
+    All three targets are ordinal (8 < 9 < 10.5 < 12 deg, L < A < R < S < X,
+    blade < ... < super-game-improvement). Real fitting disagreement is between
+    neighbouring categories, so flipping uniformly across the whole list would
+    manufacture impossible rows - a 12 deg golfer relabelled 8 deg, or a
+    super-game-improvement golfer relabelled into blades.
+
+    The flip rate is unchanged, so the Bayes-optimal ceiling stays at
+    1 - rate; only the *direction* of the disagreement becomes plausible.
+    """
     if rng.random() >= rate:
         return label
-    alternatives = [candidate for candidate in labels if candidate != label]
-    return str(rng.choice(alternatives))
+    index = ordered_labels.index(label)
+    neighbours = []
+    if index > 0:
+        neighbours.append(ordered_labels[index - 1])
+    if index < len(ordered_labels) - 1:
+        neighbours.append(ordered_labels[index + 1])
+    return str(rng.choice(neighbours))
 
 
 def _driver_loft(speed: float, handicap: float, goal: str) -> str:
-    if speed < 80:
+    """Pick a head loft from clubhead speed, then adjust for skill and intent.
+
+    Loft falls as speed rises. The retail market is dominated by 9 and 10.5 deg
+    heads, so the bands are set so those two cover the bulk of golfers rather
+    than pushing every slower swing to 12 deg.
+    """
+    if speed < 82:
         loft = "12"
-    elif speed < 95:
+    elif speed < 96:
         loft = "10.5"
-    elif speed < 106:
+    elif speed < 108:
         loft = "9"
     else:
         loft = "8"
 
+    # High handicaps need launch help, so they are not sold the lowest lofts.
     if handicap > 24 and loft in {"8", "9"}:
         loft = "10.5"
-    if goal == "Forgiveness" and speed < 92:
-        loft = "12"
+    # Forgiveness seekers step up one band rather than jumping straight to 12.
+    if goal == "Forgiveness":
+        if loft == "8":
+            loft = "9"
+        elif loft == "9" and speed < 102:
+            loft = "10.5"
     return loft
 
 
 def _shaft_flex(speed: float) -> str:
+    """Map clubhead speed to shaft flex using standard fitting bands.
+
+    X-flex starts at 110 mph; below that even quick swings are better served by
+    stiff, which keeps X-flex the small minority it is in the real market.
+    """
     if speed < 72:
         return "L"
     if speed < 84:
         return "A"
     if speed < 97:
         return "R"
-    if speed < 105:
+    if speed < 110:
         return "S"
     return "X"
 
@@ -114,13 +148,16 @@ def _iron_category(
     elif shot_shape in {"Draw", "Hook"}:
         fit_score -= 0.25
 
-    if fit_score <= 0.3:
+    # True blades are a niche: a low fit score alone is not enough, the golfer
+    # also has to have the handicap to justify them. Without the gate, wanting a
+    # forged look was enough to be sold blades, which put 1 in 5 golfers in them.
+    if fit_score <= -0.8 and handicap <= 7:
         return "blade"
-    if fit_score <= 1.25:
+    if fit_score <= 1.0:
         return "players-cb"
-    if fit_score <= 2.35:
+    if fit_score <= 2.3:
         return "players-distance"
-    if fit_score <= 3.65:
+    if fit_score <= 3.6:
         return "game-improvement"
     return "super-game-improvement"
 
@@ -136,8 +173,23 @@ def generate_golfer_profiles(
 
     rng = np.random.default_rng(seed)
     handicaps = np.clip(rng.normal(17, 9, n), 0, 36).round(1)
-    swing_speeds = np.clip(108 - 1.15 * handicaps + rng.normal(0, 7, n), 60, 120).round(1)
-    driver_carry = np.clip(swing_speeds * 2.35 + rng.normal(0, 13, n), 130, 315).round(0)
+
+    # Speed falls with handicap, but far more loosely than a tight line: plenty
+    # of high handicaps swing hard and wild, and plenty of low handicaps score
+    # by being straight rather than long. A shallow slope plus a wide spread
+    # keeps the correlation moderate and puts the bands near published figures
+    # (scratch ~106 mph, male amateur average ~93, 30+ handicap ~82).
+    swing_speeds = np.clip(
+        106 - 0.68 * handicaps + rng.normal(0, 10, n), 65, 120
+    ).round(1)
+
+    # Carry is not a fixed multiple of speed: better players compress the ball
+    # harder, so yards-per-mph rises as handicap falls. This stops carry being a
+    # near-duplicate of speed and lets it carry strike-quality information.
+    carry_ratio = 2.45 - 0.009 * handicaps
+    driver_carry = np.clip(
+        swing_speeds * carry_ratio + rng.normal(0, 9, n), 120, 330
+    ).round(0)
 
     shot_shapes = []
     goals = []
@@ -158,7 +210,9 @@ def generate_golfer_profiles(
             shot_probs = [0.10, 0.22, 0.36, 0.24, 0.08]
             goal_probs = [0.34, 0.48, 0.18]
             miss_probs = [0.1, 0.25, 0.15, 0.5]
-            feel_probs = [0.6, 0.1, 0.3]
+            # Even single-figure golfers mostly game cavity backs; a blade-like
+            # preference is a minority taste rather than the default.
+            feel_probs = [0.42, 0.18, 0.40]
         shot_shapes.append(str(rng.choice(SHOT_SHAPES, p=shot_probs)))
         goals.append(str(rng.choice(GOALS, p=goal_probs)))
         iron_misses.append(str(rng.choice(IRON_MISSES, p=miss_probs)))
@@ -168,9 +222,11 @@ def generate_golfer_profiles(
     for handicap, speed, carry, shape, goal, i_miss, i_feel in zip(
         handicaps, swing_speeds, driver_carry, shot_shapes, goals, iron_misses, iron_feels
     ):
-        loft = _with_noise(_driver_loft(speed, handicap, goal), DRIVER_LOFT_LABELS, rng, noise_rate)
-        flex = _with_noise(_shaft_flex(speed), SHAFT_FLEX_LABELS, rng, noise_rate)
-        iron = _with_noise(
+        loft = _with_adjacent_noise(
+            _driver_loft(speed, handicap, goal), DRIVER_LOFT_LABELS, rng, noise_rate
+        )
+        flex = _with_adjacent_noise(_shaft_flex(speed), SHAFT_FLEX_LABELS, rng, noise_rate)
+        iron = _with_adjacent_noise(
             _iron_category(handicap, speed, carry, shape, goal, i_miss, i_feel),
             IRON_CATEGORY_LABELS,
             rng,
