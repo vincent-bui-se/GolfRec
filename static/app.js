@@ -60,7 +60,9 @@ function updateSpecGrid(specs, result) {
   const tiles = document.querySelectorAll(".spec-tile strong");
   tiles[0].textContent = result.wants_driver ? `${specs.driver_loft} deg` : "-";
   tiles[1].textContent = result.wants_driver ? specs.shaft_flex : "-";
-  tiles[2].textContent = result.wants_irons ? titleCaseSpec(specs.iron_category) : "-";
+  tiles[2].textContent = result.wants_irons
+    ? titleCaseSpec(specs.iron_category)
+    : "-";
 }
 
 function updateConditionalFields() {
@@ -77,10 +79,14 @@ function updateConditionalFields() {
   const shoppingFor = formValue("shopping_for");
   document
     .querySelectorAll(".driver-fields")
-    .forEach((section) => section.classList.toggle("hidden", shoppingFor === "Irons"));
+    .forEach((section) =>
+      section.classList.toggle("hidden", shoppingFor === "Irons"),
+    );
   document
     .querySelectorAll(".iron-fields")
-    .forEach((section) => section.classList.toggle("hidden", shoppingFor === "Driver"));
+    .forEach((section) =>
+      section.classList.toggle("hidden", shoppingFor === "Driver"),
+    );
 }
 
 function selectForDisplay(clubs, defaultLimit = 5) {
@@ -106,7 +112,9 @@ function filterByCondition(clubs, condition) {
   if (condition !== "used") {
     return clubs;
   }
-  return clubs.filter((club) => Number.isInteger(club.year) && club.year <= USED_MAX_YEAR);
+  return clubs.filter(
+    (club) => Number.isInteger(club.year) && club.year <= USED_MAX_YEAR,
+  );
 }
 
 function filterByBudget(clubs, budget) {
@@ -154,7 +162,9 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
     .map((club) => {
       const meta = [
         club.year ? `${club.year} model` : null,
-        typeof club.msrp === "number" ? `MSRP ${currency.format(club.msrp)}` : null,
+        typeof club.msrp === "number"
+          ? `MSRP ${currency.format(club.msrp)}`
+          : null,
       ]
         .filter(Boolean)
         .join(" - ");
@@ -164,19 +174,25 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
         .join("");
 
       return `
-        <article class="club-card">
+        <article class="club-card ${scoreBand(club.score)}">
           <div>
             <div class="club-title">
               <h4>${escapeHtml(club.name)}</h4>
               <span class="club-meta">${escapeHtml(meta)}</span>
             </div>
           </div>
-          <div class="score-badge">${club.score}%</div>
+          <div class="score-badge ${scoreBand(club.score)}">${club.score}%</div>
           <ul class="reason-list">${reasons}</ul>
         </article>
       `;
     })
     .join("");
+}
+
+function scoreBand(score) {
+  if (score >= 85) return "band-high";
+  if (score >= 65) return "band-mid";
+  return "band-low";
 }
 
 function escapeHtml(value) {
@@ -222,8 +238,12 @@ function renderRecommendations() {
     return;
   }
 
-  document.querySelector("#driver-budget-value").textContent = currency.format(driverBudget.value);
-  document.querySelector("#iron-budget-value").textContent = currency.format(ironBudget.value);
+  document.querySelector("#driver-budget-value").textContent = currency.format(
+    driverBudget.value,
+  );
+  document.querySelector("#iron-budget-value").textContent = currency.format(
+    ironBudget.value,
+  );
 
   renderClubList(
     document.querySelector("#driver-list"),
@@ -260,7 +280,12 @@ ironCondition.addEventListener("change", () => {
   if (!state.result) {
     return;
   }
-  updateBudgetForCondition(ironBudget, state.result.recommendations.irons, ironCondition.value, 2500);
+  updateBudgetForCondition(
+    ironBudget,
+    state.result.recommendations.irons,
+    ironCondition.value,
+    2500,
+  );
   renderRecommendations();
 });
 
