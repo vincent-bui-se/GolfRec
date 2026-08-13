@@ -183,7 +183,12 @@ def save_artifacts(
     output.mkdir(parents=True, exist_ok=True)
 
     for label, model in models.items():
-        joblib.dump(model, output / f"{label}_model.joblib")
+        # Forests grown on 12,000 rows serialise to ~100 MB across the three
+        # labels, and iron_category alone passes GitHub's 50 MB warning mark.
+        # Since git keeps every version, each retrain would add that again.
+        # compress=3 cuts the set to roughly a fifth for ~1s of extra write
+        # time and ~0.6s to load, which the app pays once at startup.
+        joblib.dump(model, output / f"{label}_model.joblib", compress=3)
         label_names = metrics[label]["labels"]
         matrix = np.asarray(metrics[label]["confusion_matrix"])
         display = ConfusionMatrixDisplay(confusion_matrix=matrix, display_labels=label_names)
