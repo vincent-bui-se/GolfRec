@@ -179,6 +179,14 @@
           </div>
         </header>
 
+        <div class="form-error hidden" id="form-error" role="alert">
+          <strong>Couldn't generate recommendations</strong>
+          <p id="form-error-detail">The model didn't respond. Check that the server is running, then try again.</p>
+          <button type="button" class="retry-action" id="retry-action">Try again</button>
+        </div>
+
+        <p class="sr-only" role="status" aria-live="polite" id="result-status"></p>
+
         <section class="spec-grid" id="spec-grid">
           <article class="spec-tile">
             <span>Driver Loft</span>
@@ -200,13 +208,19 @@
           <p>Enter a golfer profile and run the model.</p>
         </section>
 
+        <section class="empty-state loading-state hidden" id="loading-state">
+          <div class="spinner" aria-hidden="true"></div>
+          <h3>Fitting your clubs</h3>
+          <p>Running the model against the catalog.</p>
+        </section>
+
         <section class="recommendations hidden" id="recommendations">
-          <div class="tabs" id="tabs">
-            <button type="button" class="tab-button active" data-tab="drivers">Drivers</button>
-            <button type="button" class="tab-button" data-tab="irons">Irons</button>
+          <div class="tabs" id="tabs" role="tablist" aria-label="Recommendation category">
+            <button type="button" class="tab-button active" data-tab="drivers" role="tab" id="tab-drivers" aria-controls="panel-drivers" aria-selected="true">Drivers</button>
+            <button type="button" class="tab-button" data-tab="irons" role="tab" id="tab-irons" aria-controls="panel-irons" aria-selected="false" tabindex="-1">Irons</button>
           </div>
 
-          <div class="tab-panel active" data-panel="drivers">
+          <div class="tab-panel active" data-panel="drivers" role="tabpanel" id="panel-drivers" aria-labelledby="tab-drivers" tabindex="0">
             <div class="list-toolbar">
               <div>
                 <h3>Driver Recommendations</h3>
@@ -238,7 +252,7 @@
             <div class="club-list" id="driver-list"></div>
           </div>
 
-          <div class="tab-panel" data-panel="irons">
+          <div class="tab-panel" data-panel="irons" role="tabpanel" id="panel-irons" aria-labelledby="tab-irons" tabindex="0">
             <div class="list-toolbar">
               <div>
                 <h3>Iron Set Recommendations</h3>

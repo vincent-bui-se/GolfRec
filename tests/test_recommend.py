@@ -5,6 +5,7 @@ from recommend import (
     ClubRecommendation,
     GolferInput,
     filter_recommendations_by_budget,
+    prioritise_distinctive_reasons,
     recommend_clubs,
     select_recommendations_for_display,
     score_driver,
@@ -43,7 +44,65 @@ def test_score_driver_prefers_speed_loft_and_goal_matches():
     scored = score_driver(club, golfer, predicted_loft="10.5")
 
     assert scored.score >= 90
-    assert "92 mph swing speed" in " ".join(scored.reasons)
+    # The speed reason names the golfer's speed and the head's fitted window,
+    # rather than a fixed phrase, so assert on the facts it must carry.
+    speed_reason = next(reason for reason in scored.reasons if "92 mph" in reason)
+    assert "80-100 mph" in speed_reason
+
+
+def test_reasons_lead_with_what_distinguishes_each_club():
+    """The displayed reasons must not read identically down the results list.
+
+    Reasons are appended in scoring order, which front-loads statements nearly
+    every club shares. Callers show only the first few, so those must be
+    reordered by how rare they are within the result set.
+    """
+    catalog = load_equipment_catalog(EQUIPMENT_DIR)
+    golfer = GolferInput(
+        handicap=16,
+        swing_speed=92,
+        driver_carry=216,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+    )
+
+    ranked = recommend_clubs(
+        catalog=catalog,
+        golfer=golfer,
+        predicted_loft="10.5",
+        predicted_iron_category="players-distance",
+        top_n=16,
+    )
+
+    shown = [tuple(rec.reasons[:3]) for rec in ranked]
+    assert len(set(shown)) >= 8, "top results still share the same leading reasons"
+
+    # No single reason may lead every club; that is the flattening this guards.
+    leads = {rec.reasons[0] for rec in ranked if rec.reasons}
+    assert len(leads) > 1
+
+
+def test_prioritise_distinctive_reasons_preserves_scores_and_content():
+    """Reordering is presentational: it must not add, drop, or rescore anything."""
+    before = [
+        ClubRecommendation(
+            name="A", score=90, reasons=["shared", "rare-a"], brand="A", model="A", msrp=1.0
+        ),
+        ClubRecommendation(
+            name="B", score=80, reasons=["shared", "rare-b"], brand="B", model="B", msrp=2.0
+        ),
+    ]
+
+    after = prioritise_distinctive_reasons(before)
+
+    assert [rec.score for rec in after] == [90, 80]
+    assert [rec.name for rec in after] == ["A", "B"]
+    assert [sorted(rec.reasons) for rec in after] == [sorted(rec.reasons) for rec in before]
+    # The reason unique to each club now leads.
+    assert after[0].reasons[0] == "rare-a"
+    assert after[1].reasons[0] == "rare-b"
 
 
 def test_recommend_clubs_returns_ranked_top_five_drivers():
