@@ -1,12 +1,14 @@
 {
   "driver_loft": {
-    "accuracy": 0.89,
+    "accuracy": 0.9133333333333333,
+    "cv_accuracy_mean": 0.9011666666666667,
+    "cv_accuracy_std": 0.017232882005695473,
     "best_params": {
-      "classifier__max_depth": 14,
+      "classifier__max_depth": 10,
       "classifier__min_samples_leaf": 2,
       "classifier__n_estimators": 200
     },
-    "cv_balanced_accuracy": 0.8852940118661342,
+    "cv_balanced_accuracy": 0.8724596563269333,
     "labels": [
       "10.5",
       "12",
@@ -15,40 +17,42 @@
     ],
     "confusion_matrix": [
       [
-        86,
-        3,
+        126,
         4,
-        2
+        0,
+        10
       ],
       [
         2,
-        108,
+        47,
         0,
-        2
+        0
       ],
       [
-        3,
-        4,
-        20,
-        1
+        0,
+        0,
+        25,
+        0
       ],
       [
-        6,
-        5,
-        1,
-        53
+        8,
+        0,
+        2,
+        76
       ]
     ],
-    "classification_report": "              precision    recall  f1-score   support\n\n        10.5       0.89      0.91      0.90        95\n          12       0.90      0.96      0.93       112\n           8       0.80      0.71      0.75        28\n           9       0.91      0.82      0.86        65\n\n    accuracy                           0.89       300\n   macro avg       0.88      0.85      0.86       300\nweighted avg       0.89      0.89      0.89       300\n"
+    "classification_report": "              precision    recall  f1-score   support\n\n        10.5       0.93      0.90      0.91       140\n          12       0.92      0.96      0.94        49\n           8       0.93      1.00      0.96        25\n           9       0.88      0.88      0.88        86\n\n    accuracy                           0.91       300\n   macro avg       0.91      0.94      0.92       300\nweighted avg       0.91      0.91      0.91       300\n"
   },
   "shaft_flex": {
-    "accuracy": 0.8933333333333333,
+    "accuracy": 0.94,
+    "cv_accuracy_mean": 0.8941666666666668,
+    "cv_accuracy_std": 0.01548745011650114,
     "best_params": {
-      "classifier__max_depth": 10,
+      "classifier__max_depth": null,
       "classifier__min_samples_leaf": 2,
       "classifier__n_estimators": 300
     },
-    "cv_balanced_accuracy": 0.8629679228398073,
+    "cv_balanced_accuracy": 0.8352124801266372,
     "labels": [
       "A",
       "L",
@@ -58,51 +62,53 @@
     ],
     "confusion_matrix": [
       [
-        72,
+        48,
         0,
+        4,
+        0,
+        0
+      ],
+      [
+        3,
+        9,
+        0,
+        0,
+        0
+      ],
+      [
         2,
-        1,
-        0
-      ],
-      [
-        1,
-        26,
-        3,
-        1,
-        0
-      ],
-      [
-        3,
         0,
         106,
         2,
-        3
-      ],
-      [
-        3,
-        1,
-        2,
-        42,
         0
       ],
       [
-        3,
         0,
-        6,
-        1,
-        22
+        0,
+        2,
+        94,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        2,
+        25
       ]
     ],
-    "classification_report": "              precision    recall  f1-score   support\n\n           A       0.88      0.96      0.92        75\n           L       0.96      0.84      0.90        31\n           R       0.89      0.93      0.91       114\n           S       0.89      0.88      0.88        48\n           X       0.88      0.69      0.77        32\n\n    accuracy                           0.89       300\n   macro avg       0.90      0.86      0.88       300\nweighted avg       0.89      0.89      0.89       300\n"
+    "classification_report": "              precision    recall  f1-score   support\n\n           A       0.91      0.92      0.91        52\n           L       1.00      0.75      0.86        12\n           R       0.95      0.96      0.95       110\n           S       0.96      0.95      0.95        99\n           X       0.89      0.93      0.91        27\n\n    accuracy                           0.94       300\n   macro avg       0.94      0.90      0.92       300\nweighted avg       0.94      0.94      0.94       300\n"
   },
   "iron_category": {
-    "accuracy": 0.7866666666666666,
+    "accuracy": 0.7333333333333333,
+    "cv_accuracy_mean": 0.7641666666666667,
+    "cv_accuracy_std": 0.022032173444003805,
     "best_params": {
       "classifier__max_depth": null,
       "classifier__min_samples_leaf": 1,
-      "classifier__n_estimators": 300
+      "classifier__n_estimators": 200
     },
-    "cv_balanced_accuracy": 0.7125621318594955,
+    "cv_balanced_accuracy": 0.7475943927298079,
     "labels": [
       "blade",
       "game-improvement",
@@ -112,41 +118,41 @@
     ],
     "confusion_matrix": [
       [
-        52,
-        3,
-        4,
+        13,
+        0,
+        9,
         1,
-        2
+        0
       ],
       [
-        2,
-        38,
-        2,
-        6,
-        6
+        0,
+        41,
+        0,
+        11,
+        13
       ],
       [
-        5,
-        2,
-        18,
-        5,
-        2
-      ],
-      [
-        2,
-        6,
-        4,
-        23,
-        4
-      ],
-      [
-        2,
-        3,
-        2,
+        8,
         1,
-        105
+        42,
+        5,
+        0
+      ],
+      [
+        1,
+        12,
+        10,
+        27,
+        0
+      ],
+      [
+        0,
+        9,
+        0,
+        0,
+        97
       ]
     ],
-    "classification_report": "                        precision    recall  f1-score   support\n\n                 blade       0.83      0.84      0.83        62\n      game-improvement       0.73      0.70      0.72        54\n            players-cb       0.60      0.56      0.58        32\n      players-distance       0.64      0.59      0.61        39\nsuper-game-improvement       0.88      0.93      0.91       113\n\n              accuracy                           0.79       300\n             macro avg       0.74      0.72      0.73       300\n          weighted avg       0.78      0.79      0.78       300\n"
+    "classification_report": "                        precision    recall  f1-score   support\n\n                 blade       0.59      0.57      0.58        23\n      game-improvement       0.65      0.63      0.64        65\n            players-cb       0.69      0.75      0.72        56\n      players-distance       0.61      0.54      0.57        50\nsuper-game-improvement       0.88      0.92      0.90       106\n\n              accuracy                           0.73       300\n             macro avg       0.69      0.68      0.68       300\n          weighted avg       0.73      0.73      0.73       300\n"
   }
 }
