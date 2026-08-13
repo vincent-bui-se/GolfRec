@@ -206,7 +206,7 @@ def train_from_csv(
     if path.exists():
         golfers = pd.read_csv(path)
     else:
-        golfers = save_dataset(path, n=2000, seed=random_state)
+        golfers = save_dataset(path, n=12_000, seed=random_state)
     models, metrics = train_models(golfers, random_state=random_state)
     save_artifacts(models, metrics, model_dir=model_dir)
     return models, metrics
