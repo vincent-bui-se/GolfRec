@@ -1,28 +1,23 @@
 :root {
   color-scheme: light;
 
-  /* Ink — sidebar ground, near-black turf at dusk */
   --ink: #17241c;
   --ink-soft: #223327;
 
-  /* Turf — primary green, the fairway */
   --turf: #3b6e4f;
   --turf-deep: #2a4f38;
 
-  /* Chalk / Paper — scorecard stock */
   --chalk: #f6f2e7;
   --paper: #fffdf8;
 
-  /* Stone — hairlines, Moss — quiet text */
   --stone: #e2d9c4;
   --stone-strong: #c9bd9c;
   --moss: #5b6b5a;
 
-  /* Ochre — sand, used for the mid band and focus accents */
   --ochre: #a8801f;
   --ochre-soft: #f1e3bd;
+  --ochre-deep: #7e6017;
 
-  /* Flag — brick red, spent only on the wordmark mark */
   --flag: #8b3a2b;
 
   --ink-text: #1c2620;
@@ -31,11 +26,7 @@
 
   --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-body:
-    "IBM Plex Sans",
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    "Segoe UI",
+    "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
@@ -67,7 +58,13 @@ select {
 
 /* ---------- Sidebar: fitting intake ---------- */
 
+/* Pinned to the viewport so a long results list doesn't stretch the panel
+   into a column of empty ink below the form. */
 .profile-panel {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
   background: var(--ink);
   border-right: 1px solid rgba(0, 0, 0, 0.3);
   color: var(--chalk);
@@ -203,6 +200,13 @@ select {
   background: var(--chalk);
   color: var(--ink);
   font-weight: 600;
+}
+
+/* The real radio is visually hidden, so the focus ring has to live on the
+   rendered span or keyboard users get no indication at all. */
+.segmented input:focus-visible + span {
+  outline: 2px solid var(--ochre);
+  outline-offset: 2px;
 }
 
 .primary-action {
@@ -390,6 +394,11 @@ select {
   color: var(--chalk);
 }
 
+.tab-button:focus-visible {
+  outline: 2px solid var(--turf);
+  outline-offset: 2px;
+}
+
 .tab-panel {
   display: none;
   padding: 18px;
@@ -500,6 +509,11 @@ select {
   transform: translateY(0);
 }
 
+.info-icon:focus-visible {
+  outline: 2px solid var(--turf);
+  outline-offset: 2px;
+}
+
 .budget-control {
   display: grid;
   grid-template-columns: auto minmax(140px, 220px) minmax(64px, auto);
@@ -599,7 +613,7 @@ select {
 .score-badge.band-mid {
   border-color: var(--ochre);
   background: var(--ochre-soft);
-  color: var(--ochre);
+  color: var(--ochre-deep);
 }
 
 .score-badge.band-low {
@@ -640,12 +654,109 @@ select {
   display: none !important;
 }
 
+/* Announced to screen readers only; results render silently otherwise. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.form-error {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  border: 1px solid var(--flag);
+  border-left: 3px solid var(--flag);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink-text);
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+.form-error strong {
+  color: var(--flag);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.form-error p {
+  margin: 0;
+  color: var(--moss);
+}
+
+.retry-action {
+  min-height: 36px;
+  border: 1px solid var(--flag);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--flag);
+  padding: 0 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.retry-action:hover {
+  background: var(--flag);
+  color: var(--paper);
+}
+
+.retry-action:focus-visible {
+  outline: 2px solid var(--flag);
+  outline-offset: 2px;
+}
+
+.loading-state {
+  gap: 14px;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--stone);
+  border-top-color: var(--turf);
+  border-radius: 999px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Touch pointers need 44px targets; leave mouse sizing untouched. */
+@media (pointer: coarse) {
+  .tab-button,
+  .retry-action {
+    min-height: 44px;
+  }
+
+  .condition-control select {
+    height: 44px;
+  }
+
+  .segmented span {
+    min-height: 44px;
+  }
+}
+
 @media (max-width: 920px) {
   .app-shell {
     grid-template-columns: 1fr;
   }
 
   .profile-panel {
+    position: static;
+    height: auto;
     border-right: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   }
@@ -709,5 +820,16 @@ select {
 @media (prefers-reduced-motion: reduce) {
   * {
     transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  /* Reduced motion should remove movement, not feedback. A small spinner in a
+     fixed spot signals a live request without the large-area motion this
+     setting guards against, so it keeps spinning; everything else stays still. */
+  .spinner {
+    animation: spin 0.8s linear infinite !important;
+    animation-duration: 0.8s !important;
+    animation-iteration-count: infinite !important;
   }
 }

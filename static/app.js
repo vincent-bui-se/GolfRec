@@ -11,6 +11,11 @@ const driverBudget = document.querySelector("#driver-budget");
 const ironBudget = document.querySelector("#iron-budget");
 const driverCondition = document.querySelector("#driver-condition");
 const ironCondition = document.querySelector("#iron-condition");
+const loadingState = document.querySelector("#loading-state");
+const formError = document.querySelector("#form-error");
+const formErrorDetail = document.querySelector("#form-error-detail");
+const retryAction = document.querySelector("#retry-action");
+const resultStatus = document.querySelector("#result-status");
 const USED_MAX_YEAR = new Date().getFullYear() - 4;
 
 const currency = new Intl.NumberFormat("en-US", {
@@ -207,7 +212,11 @@ function escapeHtml(value) {
 function setActiveTab(tabName) {
   state.activeTab = tabName;
   document.querySelectorAll(".tab-button").forEach((button) => {
-    button.classList.toggle("active", button.dataset.tab === tabName);
+    const selected = button.dataset.tab === tabName;
+    button.classList.toggle("active", selected);
+    button.setAttribute("aria-selected", String(selected));
+    // Roving tabindex: only the selected tab is a tab stop.
+    button.tabIndex = selected ? 0 : -1;
   });
   document.querySelectorAll(".tab-panel").forEach((panel) => {
     panel.classList.toggle("active", panel.dataset.panel === tabName);
@@ -261,6 +270,20 @@ function renderRecommendations() {
   );
 }
 
+// A focused number input treats the wheel as increment/decrement, so scrolling
+// the page over one silently rewrites the handicap or swing speed. Dropping
+// focus stops the edit and leaves the scroll itself untouched.
+document.addEventListener(
+  "wheel",
+  (event) => {
+    const active = document.activeElement;
+    if (active && active.type === "number" && active === event.target) {
+      active.blur();
+    }
+  },
+  { passive: true },
+);
+
 form.addEventListener("change", updateConditionalFields);
 driverBudget.addEventListener("input", renderRecommendations);
 ironBudget.addEventListener("input", renderRecommendations);
@@ -293,10 +316,77 @@ document.querySelectorAll(".tab-button").forEach((button) => {
   button.addEventListener("click", () => setActiveTab(button.dataset.tab));
 });
 
-form.addEventListener("submit", async (event) => {
+// Left/Right/Home/End move between tabs, per the ARIA tabs pattern.
+tabs.addEventListener("keydown", (event) => {
+  const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
+  if (!keys.includes(event.key)) {
+    return;
+  }
+  const available = [...document.querySelectorAll(".tab-button")].filter(
+    (button) => !button.classList.contains("hidden"),
+  );
+  if (available.length < 2) {
+    return;
+  }
   event.preventDefault();
+  const current = available.findIndex((button) => button.tabIndex === 0);
+  let next = current < 0 ? 0 : current;
+  if (event.key === "ArrowLeft") {
+    next = (current - 1 + available.length) % available.length;
+  } else if (event.key === "ArrowRight") {
+    next = (current + 1) % available.length;
+  } else if (event.key === "Home") {
+    next = 0;
+  } else {
+    next = available.length - 1;
+  }
+  setActiveTab(available[next].dataset.tab);
+  available[next].focus();
+});
+
+function revealResults() {
+  // On narrow screens the form stacks above the results, leaving the outcome a
+  // full screen below the fold; without this, submitting looks like a no-op.
+  const panel = document.querySelector(".results-panel");
+  if (!panel) {
+    return;
+  }
+  const { top } = panel.getBoundingClientRect();
+  const alreadyInView = top >= 0 && top < window.innerHeight * 0.5;
+  if (alreadyInView) {
+    return;
+  }
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  panel.scrollIntoView({
+    behavior: reduceMotion ? "auto" : "smooth",
+    block: "start",
+  });
+}
+
+function announceResults() {
+  const counts = [];
+  if (state.result.wants_driver) {
+    counts.push(document.querySelector("#driver-count").textContent.trim());
+  }
+  if (state.result.wants_irons) {
+    counts.push(document.querySelector("#iron-count").textContent.trim());
+  }
+  resultStatus.textContent = counts.length
+    ? `Recommendations ready: ${counts.join(" and ")}.`
+    : "Recommendations ready.";
+}
+
+async function requestRecommendations() {
   const submitButton = form.querySelector("button[type='submit']");
   submitButton.disabled = true;
+  submitButton.setAttribute("aria-busy", "true");
+  formError.classList.add("hidden");
+  emptyState.classList.add("hidden");
+  recommendations.classList.add("hidden");
+  loadingState.classList.remove("hidden");
+  resultStatus.textContent = "Running the model.";
+  // Move to the panel now so the spinner, and then the outcome, are on screen.
+  revealResults();
 
   try {
     const response = await fetch("/api/recommend", {
@@ -305,7 +395,7 @@ form.addEventListener("submit", async (event) => {
       body: JSON.stringify(collectPayload()),
     });
     if (!response.ok) {
-      throw new Error("Recommendation request failed");
+      throw new Error(`Server responded with ${response.status}`);
     }
     state.result = await response.json();
     driverCondition.value = "all";
@@ -314,15 +404,36 @@ form.addEventListener("submit", async (event) => {
     setBudgetStart(ironBudget, state.result.recommendations.irons, 2500);
     updateSpecGrid(state.result.specs, state.result);
     updateTabAvailability(state.result);
-    emptyState.classList.add("hidden");
+    loadingState.classList.add("hidden");
     recommendations.classList.remove("hidden");
     renderRecommendations();
+    announceResults();
   } catch (error) {
     console.error(error);
-    alert("Unable to generate recommendations. Please try again.");
+    loadingState.classList.add("hidden");
+    formErrorDetail.textContent =
+      error instanceof TypeError
+        ? "The server didn't respond. Check that it's still running, then try again."
+        : `${error.message}. Try again, or adjust the profile and rerun.`;
+    formError.classList.remove("hidden");
+    // Results are gone, so put the starting instruction back on screen.
+    if (!state.result) {
+      emptyState.classList.remove("hidden");
+    } else {
+      recommendations.classList.remove("hidden");
+    }
+    retryAction.focus();
   } finally {
     submitButton.disabled = false;
+    submitButton.removeAttribute("aria-busy");
   }
+}
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  requestRecommendations();
 });
+
+retryAction.addEventListener("click", requestRecommendations);
 
 updateConditionalFields();

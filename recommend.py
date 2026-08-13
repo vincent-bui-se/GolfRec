@@ -2,8 +2,19 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from collections import Counter
+from dataclasses import dataclass, replace
 from typing import Any
+
+# Head-character blurbs. These carry no points; they exist so two clubs with
+# identical fit scores still read differently in the results list.
+_DRIVER_FAMILY_NOTES = {
+    "low-spin": "Low-spin head trades help for speed.",
+    "max-forgiveness": "Max-forgiveness build for the widest usable face.",
+    "draw-bias": "Draw-bias build fights a left-to-right miss.",
+    "players": "Compact players head rewards centre contact.",
+    "versatile": "Versatile head balances help and workability.",
+}
 
 
 @dataclass(frozen=True)
@@ -75,8 +86,18 @@ def _speed_score(club: dict[str, Any], speed: float) -> tuple[float, str]:
     low = float(club.get("speedMinMph", 65))
     high = float(club.get("speedMaxMph", 120))
     if low <= speed <= high:
-        return 20.0, f"Fits your {speed:.0f} mph swing speed."
-    
+        # Say where in the head's window the golfer lands. Heads differ widely
+        # here, and sitting at an edge is real fitting information.
+        span = high - low
+        position = (speed - low) / span if span > 0 else 0.5
+        if position < 0.25:
+            note = f"{speed:.0f} mph is at the low end of this head's {low:.0f}-{high:.0f} mph range."
+        elif position > 0.75:
+            note = f"{speed:.0f} mph is at the top of this head's {low:.0f}-{high:.0f} mph range."
+        else:
+            note = f"{speed:.0f} mph sits mid-range for this head ({low:.0f}-{high:.0f} mph)."
+        return 20.0, note
+
     distance = min(abs(speed - low), abs(speed - high))
     # Provide a 2 mph buffer before penalizing
     effective_distance = max(0.0, distance - 2.0)
@@ -120,6 +141,35 @@ def select_recommendations_for_display(
     return selected
 
 
+def prioritise_distinctive_reasons(
+    recommendations: list[ClubRecommendation],
+) -> list[ClubRecommendation]:
+    """Reorder each club's reasons so the least common ones come first.
+
+    Reasons are appended in scoring order, which front-loads the statements
+    nearly every club shares ("fits your swing speed", "adjustable hosel").
+    Callers only show the first few, so without this the list reads identically
+    down the page. Ranking by how many clubs in the set share a reason surfaces
+    what actually separates this club, and ties keep their original order.
+    """
+    frequency = Counter(
+        reason for recommendation in recommendations for reason in recommendation.reasons
+    )
+    ranked: list[ClubRecommendation] = []
+    for recommendation in recommendations:
+        order = {reason: index for index, reason in enumerate(recommendation.reasons)}
+        ranked.append(
+            replace(
+                recommendation,
+                reasons=sorted(
+                    recommendation.reasons,
+                    key=lambda reason: (frequency[reason], order[reason]),
+                ),
+            )
+        )
+    return ranked
+
+
 def score_driver(
     club: dict[str, Any],
     golfer: GolferInput,
@@ -149,9 +199,15 @@ def score_driver(
     loft_points = max(0.0, 20.0 - loft_gap * 10)
     score += loft_points
     if closest_loft is not None:
-        if loft_gap == 0 and adjust_range > 0:
+        # Distinguish heads sold in the target loft from those that only reach it
+        # via the hosel; "adjustable hosel" alone is true of nearly every driver.
+        native_gap = abs(closest_loft - float(predicted_loft))
+        if native_gap < 0.01:
+            reasons.append(f"Sold in your {predicted_loft} deg target loft.")
+        elif loft_gap == 0 and adjust_range > 0:
             reasons.append(
-                f"Adjustable hosel can be set to the ideal {predicted_loft} deg target."
+                f"{closest_loft:g} deg head dials to your {predicted_loft} deg "
+                f"target (+/-{round(adjust_range, 1):g} deg hosel)."
             )
         elif loft_gap <= 0.5:
             reasons.append(f"Available loft {closest_loft:g} deg closely matches the AI loft target.")
@@ -166,8 +222,10 @@ def score_driver(
             reasons.append("High forgiveness maximises your margin for off-centre hits.")
     elif golfer.goal == "Accuracy":
         score += 8 + min(forgiveness, 4) * 3
-        if forgiveness >= 4:
-            reasons.append("High forgiveness.")
+        if forgiveness >= 5:
+            reasons.append("Top-tier stability holds your line on off-centre strikes.")
+        elif forgiveness >= 4:
+            reasons.append("Stable head keeps accuracy misses playable.")
     else:  # Distance
         if club.get("spinChar") in {"low", "low-mid"}:
             score += 20
@@ -233,6 +291,11 @@ def score_driver(
     elif golfer.shot_shape in {"Draw", "Hook"} and club.get("spinChar") in {"low", "low-mid"}:
         score += 3
         reasons.append("Low-spin design helps moderate a strong draw.")
+
+    # --- Head character (no points; describes what sets this head apart) ---
+    family_note = _DRIVER_FAMILY_NOTES.get(str(club.get("family", "")))
+    if family_note:
+        reasons.append(family_note)
 
     # --- Base score (5 pts) ---
     score += 5
@@ -421,7 +484,8 @@ def recommend_clubs(
             if rec.score >= 60 or "max" in rec.name.lower() or "draw" in rec.name.lower()
         ] or scored
 
-    return sorted(scored, key=lambda rec: rec.score, reverse=True)[:top_n]
+    ranked = sorted(scored, key=lambda rec: rec.score, reverse=True)[:top_n]
+    return prioritise_distinctive_reasons(ranked)
 
 
 def recommend_irons(
@@ -437,4 +501,5 @@ def recommend_irons(
     if golfer.iron_miss in {"Fat/Thin", "Inconsistent"}:
         scored = [rec for rec in scored if rec.score >= 50] or scored
 
-    return sorted(scored, key=lambda rec: rec.score, reverse=True)[:top_n]
+    ranked = sorted(scored, key=lambda rec: rec.score, reverse=True)[:top_n]
+    return prioritise_distinctive_reasons(ranked)
