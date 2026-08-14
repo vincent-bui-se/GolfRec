@@ -186,7 +186,10 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
               <span class="club-meta">${escapeHtml(meta)}</span>
             </div>
           </div>
-          <div class="score-badge ${scoreBand(club.score)}">${club.score}%</div>
+          <div class="score-block">
+            <span class="score-label">Stickly Score</span>
+            <div class="score-badge ${scoreBand(club.score)}">${club.score}%</div>
+          </div>
           <ul class="reason-list">${reasons}</ul>
         </article>
       `;
