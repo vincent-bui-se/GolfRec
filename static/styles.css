@@ -79,11 +79,13 @@ select {
   margin-bottom: 30px;
 }
 
+/* 44px, not the 30px the old vector mark used: the artwork is an illustration
+   with thin shafts and separate club heads, and below ~40px those details
+   collapse into an unreadable smudge. */
 .brand-mark {
   flex: none;
-  width: 22px;
-  height: 22px;
-  color: var(--flag);
+  width: 44px;
+  height: 44px;
 }
 
 .brand-lockup h1 {
@@ -856,7 +858,12 @@ select {
     column-gap: 16px;
   }
 
+  /* The mode switches carry no label of their own, so pairing one beside a
+     labelled field aligned it against that field's label rather than its
+     input, and halved its width until both options wrapped. Full width also
+     puts each switch directly above the field it controls. */
   .section-heading,
+  .segmented,
   .form-actions {
     grid-column: 1 / -1;
   }
@@ -868,7 +875,11 @@ select {
     padding: 20px;
   }
 
+  /* .form-section is the one that matters here: the 920px rule made it two
+     columns and this block used to reset only .profile-form, so phones kept
+     the two-column sections and every field was squeezed to ~150px. */
   .profile-form,
+  .form-section,
   .spec-grid {
     grid-template-columns: 1fr;
   }
