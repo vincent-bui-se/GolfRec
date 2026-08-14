@@ -97,6 +97,13 @@ select {
   letter-spacing: 0.01em;
 }
 
+.brand-tagline {
+  margin: 4px 0 0;
+  color: rgba(246, 242, 231, 0.6);
+  font-size: 0.72rem;
+  font-style: italic;
+}
+
 .eyebrow,
 .empty-state p,
 .list-toolbar p {
@@ -271,6 +278,14 @@ select {
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+.page-subtitle {
+  margin: 8px 0 0;
+  max-width: 480px;
+  color: var(--moss);
+  font-size: 0.85rem;
+  line-height: 1.4;
 }
 
 /* Spec grid rendered as a single fitting-sheet ticket, torn along the top */
@@ -589,8 +604,25 @@ select {
   font-size: 0.78rem;
 }
 
-.score-badge {
+.score-block {
   align-self: start;
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+}
+
+.score-label {
+  color: var(--moss);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  max-width: 60px;
+  line-height: 1.1;
+}
+
+.score-badge {
   display: grid;
   place-items: center;
   width: 52px;
@@ -622,24 +654,34 @@ select {
   color: var(--moss);
 }
 
+/* Full-sentence reasons read poorly crammed into rounded chips, so this is
+   a plain list with a small marker instead of a row of pill badges. */
 .reason-list {
   grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: 6px;
-  margin: -2px 0 0;
+  margin: 2px 0 0;
   padding: 0;
   list-style: none;
 }
 
 .reason-list li {
-  border: 1px solid var(--stone);
-  border-radius: 999px;
-  background: var(--paper);
+  position: relative;
+  padding-left: 16px;
   color: var(--ink);
-  padding: 4px 9px;
-  font-size: 0.8rem;
-  line-height: 1.2;
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.reason-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--turf);
 }
 
 .notice {
