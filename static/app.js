@@ -50,7 +50,6 @@ function collectPayload() {
     iron_shot_shape: formValue("iron_shot_shape"),
     iron_goal: formValue("iron_goal"),
     iron_trajectory: formValue("iron_trajectory"),
-    iron_feel: formValue("iron_feel"),
     iron_miss: formValue("iron_miss"),
   };
 }

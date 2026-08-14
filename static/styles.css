@@ -566,11 +566,6 @@ select {
   padding: 13px 14px 13px 12px;
 }
 
-.club-card:hover {
-  border-color: var(--stone-strong);
-  box-shadow: 0 8px 20px rgba(23, 36, 28, 0.08);
-}
-
 .club-card.band-high {
   border-left-color: var(--turf);
 }
