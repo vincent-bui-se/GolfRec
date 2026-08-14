@@ -9,6 +9,18 @@ from typing import Any
 
 _TRAILING_YEAR_RE = re.compile(r"\s*\(\d{4}\)\s*$")
 
+
+def _display_name(brand: str, model: str) -> str:
+    """Join brand and model without repeating a brand the model already carries.
+
+    Some records bake the brand into the model ("Mizuno" + "Mizuno Pro 245"),
+    which read as "Mizuno Mizuno Pro 245" when joined blindly.
+    """
+    if model.lower().startswith(brand.lower()):
+        return model
+    return f"{brand} {model}"
+
+
 # Head-character blurbs. These carry no points; they exist so two clubs with
 # identical fit scores still read differently in the results list.
 _DRIVER_FAMILY_NOTES = {
@@ -193,7 +205,7 @@ def score_driver(
     score = 0.0
     reasons: list[str] = []
 
-    # --- Swing speed (25 pts) ---
+    # --- Swing speed (20 pts) ---
     speed_points, speed_reason = _speed_score(club, golfer.swing_speed)
     score += speed_points
     reasons.append(speed_reason)
@@ -306,7 +318,7 @@ def score_driver(
     score += 5
 
     capped = int(round(max(0, min(score, 100))))
-    name = f"{club.get('brand', 'Unknown')} {club.get('model', 'Unknown')}"
+    name = _display_name(str(club.get("brand", "Unknown")), str(club.get("model", "Unknown")))
     return ClubRecommendation(
         name=name,
         score=capped,
@@ -459,7 +471,7 @@ def score_iron_set(
     score += 5
 
     capped = int(round(max(0, min(score, 100))))
-    name = f"{club.get('brand', 'Unknown')} {club.get('model', 'Unknown')}"
+    name = _display_name(str(club.get("brand", "Unknown")), str(club.get("model", "Unknown")))
     return ClubRecommendation(
         name=name,
         score=capped,
@@ -541,7 +553,7 @@ def merge_same_name_iron_sets(
                 replace(
                     representative,
                     model=normalized_model,
-                    name=f"{representative.brand} {normalized_model}",
+                    name=_display_name(representative.brand, normalized_model),
                     year=min(years) if years else representative.year,
                     years=years if len(years) > 1 else None,
                     msrp=min(msrps) if msrps else representative.msrp,

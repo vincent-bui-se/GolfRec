@@ -216,7 +216,35 @@ select {
   outline-offset: 2px;
 }
 
+/* The intake form is taller than a laptop viewport, so on wide screens the
+   submit button used to sit ~330px below the fold inside the panel's own
+   scroll area - the app's primary action was invisible until you scrolled.
+   Pinning it to the bottom of the panel keeps it reachable at any scroll
+   position. Only above the sidebar breakpoint: below it the panel is static
+   and a sticky bar would ride the viewport over the results. */
+@media (min-width: 921px) {
+  /* A sticky child cannot be pushed past its containing block, so the panel's
+     bottom padding would hold the bar 32px short of the floor. The bar's own
+     padding replaces it. */
+  .profile-panel {
+    padding-bottom: 0;
+  }
+
+  .form-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    /* Bleed over the panel's 28px side padding so the shelf reaches its
+       edges and no field scrolls through beside the button. */
+    margin: 0 -28px;
+    padding: 14px 28px 20px;
+    background: var(--ink);
+    border-top: 1px dashed rgba(246, 242, 231, 0.22);
+  }
+}
+
 .primary-action {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -344,10 +372,16 @@ select {
   line-height: 1.1;
 }
 
+/* align-content defaults to stretch, which grew the three auto rows to fill
+   340px and left the heading marooned between two bands of empty paper.
+   Centring the block and spacing it explicitly keeps it compact. */
 .empty-state {
   display: grid;
   place-items: center;
-  min-height: 340px;
+  align-content: center;
+  gap: 10px;
+  min-height: 260px;
+  padding: 32px 24px;
   border: 1px solid var(--stone);
   border-radius: var(--radius);
   background: var(--paper);
@@ -356,7 +390,7 @@ select {
 }
 
 .empty-state h3 {
-  margin: 16px 0 6px;
+  margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
   font-weight: 500;
@@ -529,14 +563,31 @@ select {
   outline-offset: 2px;
 }
 
+/* Label above the control, matching .condition-control - the two sat beside
+   each other with their labels on different lines, which read as ragged. */
 .budget-control {
   display: grid;
-  grid-template-columns: auto minmax(140px, 220px) minmax(64px, auto);
+  grid-template-columns: minmax(140px, 220px) minmax(64px, auto);
+  grid-template-areas:
+    "label label"
+    "slider value";
   align-items: center;
-  gap: 10px;
+  gap: 6px 10px;
   color: var(--moss);
   font-size: 0.82rem;
   font-weight: 500;
+}
+
+.budget-control > span {
+  grid-area: label;
+}
+
+.budget-control input {
+  grid-area: slider;
+}
+
+.budget-control strong {
+  grid-area: value;
 }
 
 .budget-control input {
@@ -558,7 +609,7 @@ select {
 .club-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 14px;
+  gap: 8px 16px;
   border: 1px solid var(--stone);
   border-left: 3px solid var(--stone-strong);
   border-radius: var(--radius);
@@ -599,15 +650,18 @@ select {
   font-size: 0.78rem;
 }
 
-/* Row, not stack: a label stacked above the badge made this grid cell
-   taller than the title needs, pushing the reason list down and leaving
-   dead space under the club name. Side-by-side keeps the row height equal
-   to the badge's own height, same as before the label was added. */
+/* The badge spans both card rows rather than sharing row 1 with the title.
+   A 52px badge next to a 19px title forced row 1 to badge height, leaving a
+   ~49px hole between the club name and the reasons below it. Spanning lets
+   the title and reasons stack at their own heights in column 1, so the gap
+   can't reopen no matter how tall the badge gets. */
 .score-block {
-  align-self: start;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
 }
 
 .score-label {
@@ -616,9 +670,9 @@ select {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  text-align: right;
-  max-width: 46px;
+  text-align: center;
   line-height: 1.15;
+  white-space: nowrap;
 }
 
 .score-badge {
@@ -656,10 +710,10 @@ select {
 /* Full-sentence reasons read poorly crammed into rounded chips, so this is
    a plain list with a small marker instead of a row of pill badges. */
 .reason-list {
-  grid-column: 1 / -1;
+  grid-column: 1;
   display: grid;
   gap: 6px;
-  margin: 2px 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -802,12 +856,22 @@ select {
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   }
 
+  /* Pairing the fields inside each full-width section, rather than putting
+     whole sections side by side. Sections have very different heights, so
+     column-per-section left a tall void beside the short Driver block. */
   .profile-form {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     align-items: start;
   }
 
-  .primary-action {
+  .form-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    column-gap: 16px;
+  }
+
+  .section-heading,
+  .form-actions {
     grid-column: 1 / -1;
   }
 }
@@ -838,8 +902,28 @@ select {
     display: grid;
   }
 
+  /* A phone can't spare a whole column for badge plus caption - the reasons
+     were wrapping inside 173px. The badge alone holds the title's row and the
+     reasons take the full width underneath; the caption is desktop-only. */
+  .score-block {
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .score-label {
+    display: none;
+  }
+
+  .reason-list {
+    grid-column: 1 / -1;
+  }
+
   .budget-control {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "label"
+      "slider"
+      "value";
     width: 100%;
   }
 
