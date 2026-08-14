@@ -147,6 +147,15 @@
             </label>
 
             <label class="field">
+              <span>Feel or look</span>
+              <select name="iron_feel">
+                {% for value in iron_feels %}
+                <option value="{{ value }}" {% if value == "No preference" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="field">
               <span>Typical miss</span>
               <select name="iron_miss">
                 {% for value in iron_misses %}

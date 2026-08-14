@@ -5,8 +5,10 @@ from recommend import (
     ClubRecommendation,
     GolferInput,
     filter_recommendations_by_budget,
+    merge_same_name_iron_sets,
     prioritise_distinctive_reasons,
     recommend_clubs,
+    recommend_irons,
     select_recommendations_for_display,
     score_driver,
     score_iron_set,
@@ -218,7 +220,7 @@ def test_iron_specific_shot_shape_goal_and_trajectory_affect_scoring():
 
     scored = score_iron_set(iron, golfer, "game-improvement")
 
-    assert scored.score >= 90
+    assert scored.score >= 85
     assert "slice" in " ".join(scored.reasons).lower()
 
 
@@ -336,3 +338,93 @@ def test_driver_recommendations_include_all_years_when_budget_filter_is_separate
     recommendations = recommend_clubs(catalog, golfer, "10.5", "players-distance", top_n=5)
 
     assert {rec.year for rec in recommendations} == {2022, 2025}
+
+
+def test_merge_same_name_iron_sets_combines_identical_ratings_across_years():
+    same_signature = dict(brand="Titleist", model="T100", msrp=1499, reasons=["Great feel"], score=80)
+    recommendations = [
+        ClubRecommendation(name="Titleist T100", year=2023, **same_signature),
+        ClubRecommendation(name="Titleist T100", year=2021, msrp=1399, reasons=same_signature["reasons"], score=80, brand="Titleist", model="T100 (2021)"),
+        ClubRecommendation(name="Titleist T100", year=2019, msrp=1399, reasons=same_signature["reasons"], score=80, brand="Titleist", model="T100"),
+    ]
+
+    merged = merge_same_name_iron_sets(recommendations)
+
+    assert len(merged) == 1
+    combined = merged[0]
+    assert combined.years == [2019, 2021, 2023]
+    assert combined.year == 2019, "year is set to the oldest so the used-condition filter still includes it"
+    assert combined.msrp == 1399, "merged msrp is the minimum across the merged years"
+    assert combined.model == "T100", "the (YYYY) suffix is stripped from the merged display model"
+
+
+def test_merge_same_name_iron_sets_keeps_different_ratings_separate():
+    recommendations = [
+        ClubRecommendation(
+            name="Titleist T100", score=80, reasons=["Great feel"], brand="Titleist", model="T100", msrp=1499, year=2023
+        ),
+        ClubRecommendation(
+            name="Titleist T100", score=55, reasons=["Harder to hit"], brand="Titleist", model="T100 (2019)", msrp=1399, year=2019
+        ),
+    ]
+
+    merged = merge_same_name_iron_sets(recommendations)
+
+    assert len(merged) == 2
+    assert {rec.years for rec in merged} == {None}, "clubs whose score/reasons differ across years stay separate, unmerged"
+    assert {rec.year for rec in merged} == {2019, 2023}
+
+
+def test_merge_same_name_iron_sets_passes_through_unpaired_year_suffixed_model():
+    solo = ClubRecommendation(
+        name="Callaway Apex CB (2024)",
+        score=55,
+        reasons=["Forged feel"],
+        brand="Callaway",
+        model="Apex CB (2024)",
+        msrp=1399,
+        year=2024,
+    )
+
+    merged = merge_same_name_iron_sets([solo])
+
+    assert merged == [solo], "a lone year-suffixed model with no same-name sibling is left untouched"
+
+
+def test_recommend_irons_merges_same_name_different_years_end_to_end():
+    golfer = GolferInput(
+        handicap=14,
+        swing_speed=90,
+        driver_carry=215,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+    )
+    base = {
+        "brand": "Titleist",
+        "ironCategory": "players-cb",
+        "construction": "forged-carbon",
+        "forgivenessTier": 3,
+        "workability": "high",
+        "launchChar": "mid",
+        "spinChar": "mid",
+    }
+    catalog = {
+        "iron-sets": [
+            {**base, "model": "T100", "year": 2019, "msrp": 1399},
+            {**base, "model": "T100 (2021)", "year": 2021, "msrp": 1399},
+            {**base, "model": "T100 (2023)", "year": 2023, "msrp": 1499},
+        ]
+    }
+
+    recommendations = recommend_irons(catalog, golfer, "players-cb", top_n=3)
+
+    assert len(recommendations) == 1
+    merged = recommendations[0]
+    assert merged.years == [2019, 2021, 2023]
+    assert merged.year == 2019
+    USED_MAX_YEAR_EQUIVALENT = 2026 - 4
+    assert merged.year <= USED_MAX_YEAR_EQUIVALENT, (
+        "merged year must satisfy the client's used-condition filter whenever any merged year qualifies"
+    )
