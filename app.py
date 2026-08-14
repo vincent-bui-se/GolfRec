@@ -8,7 +8,7 @@ from typing import Any
 
 import joblib
 import pandas as pd
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, send_from_directory
 
 from preprocess import (
     GOALS,
@@ -108,6 +108,14 @@ def _club_to_dict(recommendation: ClubRecommendation) -> dict[str, Any]:
         "category": recommendation.category,
         "years": recommendation.years,
     }
+
+
+@app.get("/favicon.ico")
+def favicon():
+    """Serve the icon at the root path browsers probe regardless of <link> tags."""
+    return send_from_directory(
+        app.static_folder, "favicon.ico", mimetype="image/vnd.microsoft.icon"
+    )
 
 
 @app.get("/")
