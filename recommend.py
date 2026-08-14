@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
-from collections import Counter
+import re
+from collections import Counter, defaultdict
 from dataclasses import dataclass, replace
 from typing import Any
+
+_TRAILING_YEAR_RE = re.compile(r"\s*\(\d{4}\)\s*$")
 
 # Head-character blurbs. These carry no points; they exist so two clubs with
 # identical fit scores still read differently in the results list.
@@ -59,6 +62,7 @@ class ClubRecommendation:
     msrp: float | None
     year: int | None = None
     category: str = "Driver"
+    years: list[int] | None = None
 
 
 def _closest_loft(
@@ -178,12 +182,13 @@ def score_driver(
     """Score one driver against the golfer and predicted ideal loft.
 
     Scoring weights (max 100 pts):
-      - Swing speed range match : 25 pts
-      - Loft match (+ adjustable): 25 pts
+      - Swing speed range match  : 20 pts
+      - Loft match (+ adjustable): 20 pts
       - Forgiveness / goal       : 20 pts
       - Launch characteristic    : 15 pts
-      - Draw-bias / distance fit :  8 pts
-      - Base score (always)      :  7 pts
+      - Spin characteristic      : 15 pts
+      - Shot shape / family bonus:  5 pts
+      - Base score (always)      :  5 pts
     """
     score = 0.0
     reasons: list[str] = []
@@ -320,11 +325,12 @@ def score_iron_set(
 ) -> ClubRecommendation:
     """Score one iron set against the golfer and predicted category.
 
-    Scoring weights (max 100 pts):
+    Scoring weights (max 93 pts; base score always applies):
       - Category match           : 30 pts
-      - Forgiveness / miss type  : 25 pts
-      - Construction / feel pref : 20 pts
+      - Forgiveness / miss type  : 20 pts
       - Launch (speed vs. iron)  : 15 pts
+      - Spin characteristic      : 10 pts
+      - Construction / feel pref :  8 pts (kept light; see the branch below)
       - Shot-shape bonus         :  5 pts
       - Base score               :  5 pts
     """
@@ -373,29 +379,32 @@ def score_iron_set(
         else:
             score += 5
 
-    # --- Construction / feel preference (15 pts) ---
+    # --- Construction / feel preference (8 pts) ---
+    # Kept deliberately light: this axis previously ran to 15 pts and swung
+    # which irons got recommended more than a golfer could reliably
+    # self-assess from a dropdown. It still counts, just as a lighter tiebreaker.
     construction = str(club.get("construction", "")).lower()
     workability = str(club.get("workability", "")).lower()
     if golfer.iron_feel == "Forged/Blade-like":
         if "forged" in construction:
-            score += 15
+            score += 8
             reasons.append("Forged construction delivers the preferred feel.")
         elif workability in {"high", "medium-high"}:
-            score += 10
+            score += 5
             reasons.append("High workability approximates a forged feel.")
         else:
-            score += 5
+            score += 2
     elif golfer.iron_feel == "Confidence-inspiring":
         if "hollow-body" in construction:
-            score += 15
+            score += 8
             reasons.append("Hollow-body construction inspires confidence at address.")
         elif forgiveness >= 3:
-            score += 12
+            score += 5
             reasons.append("Forgiving head design is confidence-inspiring.")
         else:
-            score += 6
+            score += 2
     else:  # No preference
-        score += 10
+        score += 4
 
     # --- Launch characteristic vs. swing speed (15 pts) ---
     iron_launch = str(club.get("launchChar", "mid")).lower()
@@ -488,6 +497,60 @@ def recommend_clubs(
     return prioritise_distinctive_reasons(ranked)
 
 
+def _normalize_iron_model(model: str) -> str:
+    """Strip a trailing " (YYYY)" year suffix some catalog entries bake into the model name."""
+    return _TRAILING_YEAR_RE.sub("", model).strip()
+
+
+def merge_same_name_iron_sets(
+    recommendations: list[ClubRecommendation],
+) -> list[ClubRecommendation]:
+    """Collapse same-brand/same-model iron sets that only differ by year into one entry.
+
+    Sets are merged only when their score and reasons are identical across years
+    (i.e. the years don't actually change the fit). The merged entry's `year` is
+    set to the oldest year in the group so the existing used-condition filter
+    (`year <= USED_MAX_YEAR`) still includes it correctly whenever any year in
+    the group qualifies.
+    """
+    groups: dict[tuple[str, str], list[ClubRecommendation]] = defaultdict(list)
+    for rec in recommendations:
+        key = (rec.brand, _normalize_iron_model(rec.model))
+        groups[key].append(rec)
+
+    merged: list[ClubRecommendation] = []
+    for group in groups.values():
+        if len(group) == 1:
+            merged.append(group[0])
+            continue
+
+        by_signature: dict[tuple[int, tuple[str, ...]], list[ClubRecommendation]] = defaultdict(list)
+        for rec in group:
+            by_signature[(rec.score, tuple(rec.reasons))].append(rec)
+
+        for signature_group in by_signature.values():
+            if len(signature_group) == 1:
+                merged.append(signature_group[0])
+                continue
+
+            years = sorted({rec.year for rec in signature_group if rec.year is not None})
+            msrps = [rec.msrp for rec in signature_group if rec.msrp is not None]
+            representative = signature_group[0]
+            normalized_model = _normalize_iron_model(representative.model)
+            merged.append(
+                replace(
+                    representative,
+                    model=normalized_model,
+                    name=f"{representative.brand} {normalized_model}",
+                    year=min(years) if years else representative.year,
+                    years=years if len(years) > 1 else None,
+                    msrp=min(msrps) if msrps else representative.msrp,
+                )
+            )
+
+    return merged
+
+
 def recommend_irons(
     catalog: dict[str, list[dict[str, Any]]],
     golfer: GolferInput,
@@ -501,5 +564,6 @@ def recommend_irons(
     if golfer.iron_miss in {"Fat/Thin", "Inconsistent"}:
         scored = [rec for rec in scored if rec.score >= 50] or scored
 
-    ranked = sorted(scored, key=lambda rec: rec.score, reverse=True)[:top_n]
+    merged = merge_same_name_iron_sets(scored)
+    ranked = sorted(merged, key=lambda rec: rec.score, reverse=True)[:top_n]
     return prioritise_distinctive_reasons(ranked)

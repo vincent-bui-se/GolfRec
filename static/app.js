@@ -50,6 +50,7 @@ function collectPayload() {
     iron_shot_shape: formValue("iron_shot_shape"),
     iron_goal: formValue("iron_goal"),
     iron_trajectory: formValue("iron_trajectory"),
+    iron_feel: formValue("iron_feel"),
     iron_miss: formValue("iron_miss"),
   };
 }
@@ -121,6 +122,19 @@ function filterByCondition(clubs, condition) {
   );
 }
 
+function displayYears(club, condition) {
+  const years =
+    Array.isArray(club.years) && club.years.length
+      ? club.years
+      : club.year
+        ? [club.year]
+        : [];
+  if (condition === "used") {
+    return years.filter((year) => year <= USED_MAX_YEAR);
+  }
+  return years;
+}
+
 function filterByBudget(clubs, budget) {
   return clubs
     .filter((club) => typeof club.msrp === "number" && club.msrp <= budget)
@@ -164,10 +178,17 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
 
   listElement.innerHTML = selected
     .map((club) => {
+      const years = displayYears(club, condition);
       const meta = [
-        club.year ? `${club.year} model` : null,
+        years.length > 1
+          ? `${years.join("/")} models`
+          : years.length === 1
+            ? `${years[0]} model`
+            : null,
         typeof club.msrp === "number"
-          ? `MSRP ${currency.format(club.msrp)}`
+          ? years.length > 1
+            ? `MSRP from ${currency.format(club.msrp)}`
+            : `MSRP ${currency.format(club.msrp)}`
           : null,
       ]
         .filter(Boolean)
