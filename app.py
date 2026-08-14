@@ -13,7 +13,6 @@ from flask import Flask, jsonify, render_template, request
 from preprocess import (
     GOALS,
     INPUT_COLUMNS,
-    IRON_FEELS,
     IRON_MISSES,
     SHOPPING_TARGETS,
     SHOT_SHAPES,
@@ -117,7 +116,6 @@ def index():
         shot_shapes=SHOT_SHAPES,
         goals=GOALS,
         trajectories=TRAJECTORIES,
-        iron_feels=IRON_FEELS,
         iron_misses=IRON_MISSES,
     )
 
@@ -149,7 +147,10 @@ def api_recommend():
     iron_shot_shape = str(payload.get("iron_shot_shape", driver_shot_shape))
     iron_goal = str(payload.get("iron_goal", driver_goal))
     iron_trajectory = str(payload.get("iron_trajectory", "About right"))
-    iron_feel = str(payload.get("iron_feel", "No preference"))
+    # Feel/look preference swung recommendations too much for how little
+    # golfers could reliably self-assess it, so the form no longer asks -
+    # every request scores as "No preference" regardless of client input.
+    iron_feel = "No preference"
     iron_miss = str(payload.get("iron_miss", "Consistent"))
 
     wants_driver = shopping_for in {"Driver", "Both"}
