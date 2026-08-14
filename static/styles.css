@@ -559,6 +559,10 @@ select {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 14px;
+  /* Without a cap, a short title stretches a single-column card to the full
+     results-panel width on wide screens, leaving a wide gap before the
+     score badge. */
+  max-width: 480px;
   border: 1px solid var(--stone);
   border-left: 3px solid var(--stone-strong);
   border-radius: var(--radius);
