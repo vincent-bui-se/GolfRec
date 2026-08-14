@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stickly</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 2v20' stroke='%238b3a2b' stroke-width='1.6' stroke-linecap='round' fill='none'/%3E%3Cpath d='M6 3.2c3.2-1.4 5.4-1.4 8.6 0 1.6.7 2.8.7 4.4 0v8.4c-1.6.7-2.8.7-4.4 0-3.2-1.4-5.4-1.4-8.6 0V3.2z' fill='%238b3a2b'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -165,10 +166,12 @@
             </label>
           </section>
 
-          <button class="primary-action" type="submit">
-            <span>Find My Sticks</span>
-            <span aria-hidden="true">&gt;</span>
-          </button>
+          <div class="form-actions">
+            <button class="primary-action" type="submit">
+              <span>Find My Sticks</span>
+              <span aria-hidden="true">&gt;</span>
+            </button>
+          </div>
         </form>
       </aside>
 
@@ -176,7 +179,7 @@
         <header class="page-header">
           <div>
             <p class="eyebrow">Golf equipment fitting</p>
-            <h2>Personalized club recommendations</h2>
+            <h2>Clubs matched to your game</h2>
             <p class="page-subtitle">Personalized recommendations built from your profile and thousands of real club specifications.</p>
           </div>
         </header>
@@ -207,13 +210,13 @@
         <section class="empty-state" id="empty-state">
           <div class="empty-line"></div>
           <h3>No recommendations yet</h3>
-          <p>Enter a golfer profile and run the model.</p>
+          <p>Fill in your profile, then hit Find My Sticks.</p>
         </section>
 
         <section class="empty-state loading-state hidden" id="loading-state">
           <div class="spinner" aria-hidden="true"></div>
           <h3>Fitting your clubs</h3>
-          <p>Running the model against the catalog.</p>
+          <p>Matching your profile against thousands of club specs.</p>
         </section>
 
         <section class="recommendations hidden" id="recommendations">
