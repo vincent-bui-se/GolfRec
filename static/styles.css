@@ -559,10 +559,6 @@ select {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 14px;
-  /* Without a cap, a short title stretches a single-column card to the full
-     results-panel width on wide screens, leaving a wide gap before the
-     score badge. */
-  max-width: 480px;
   border: 1px solid var(--stone);
   border-left: 3px solid var(--stone-strong);
   border-radius: var(--radius);
@@ -603,11 +599,15 @@ select {
   font-size: 0.78rem;
 }
 
+/* Row, not stack: a label stacked above the badge made this grid cell
+   taller than the title needs, pushing the reason list down and leaving
+   dead space under the club name. Side-by-side keeps the row height equal
+   to the badge's own height, same as before the label was added. */
 .score-block {
   align-self: start;
-  display: grid;
-  justify-items: center;
-  gap: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .score-label {
@@ -616,9 +616,9 @@ select {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  text-align: center;
-  max-width: 60px;
-  line-height: 1.1;
+  text-align: right;
+  max-width: 46px;
+  line-height: 1.15;
 }
 
 .score-badge {
