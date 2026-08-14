@@ -611,22 +611,9 @@ select {
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 8px 16px;
   border: 1px solid var(--stone);
-  border-left: 3px solid var(--stone-strong);
   border-radius: var(--radius);
   background: var(--chalk);
-  padding: 13px 14px 13px 12px;
-}
-
-.club-card.band-high {
-  border-left-color: var(--turf);
-}
-
-.club-card.band-mid {
-  border-left-color: var(--ochre);
-}
-
-.club-card.band-low {
-  border-left-color: var(--stone-strong);
+  padding: 13px 14px;
 }
 
 .club-title {
@@ -767,7 +754,6 @@ select {
   justify-items: start;
   gap: 10px;
   border: 1px solid var(--flag);
-  border-left: 3px solid var(--flag);
   border-radius: var(--radius);
   background: var(--paper);
   color: var(--ink-text);
