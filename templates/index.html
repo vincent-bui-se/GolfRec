@@ -18,7 +18,29 @@
   </head>
   <body>
     <div class="app-shell">
-      <aside class="profile-panel">
+      <!-- Mobile only. The sidebar becomes an off-canvas drawer below 920px, so
+           the brand needs a home that stays on screen while the drawer is shut,
+           and the drawer needs a control to open it. Exactly one of these two
+           <h1>s is ever rendered - this one below 920px, the sidebar's above -
+           so the page never carries a duplicate heading. -->
+      <header class="mobile-bar">
+        <div class="mobile-bar-brand">
+          <img class="brand-mark" src="{{ url_for('static', filename='brand-mark.png') }}" alt="" width="34" height="34" aria-hidden="true">
+          <h1>Stickly</h1>
+        </div>
+        <button type="button" class="drawer-toggle" id="drawer-toggle" aria-expanded="false" aria-controls="profile-panel">
+          <span class="drawer-toggle-icon" aria-hidden="true"></span>
+          <span>Profile</span>
+        </button>
+      </header>
+
+      <div class="drawer-scrim" id="drawer-scrim"></div>
+
+      <aside class="profile-panel" id="profile-panel" aria-label="Your profile">
+        <button type="button" class="drawer-close" id="drawer-close" aria-label="Close profile">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
         <div class="brand-lockup">
           <img class="brand-mark" src="{{ url_for('static', filename='brand-mark.png') }}" alt="" width="44" height="44" aria-hidden="true">
           <div>
@@ -181,9 +203,8 @@
       <main class="results-panel">
         <header class="page-header">
           <div>
-            <p class="eyebrow">Golf equipment fitting</p>
             <h2>Clubs matched to your game</h2>
-            <p class="page-subtitle">Personalized recommendations built from your profile and thousands of real club specifications.</p>
+            <p class="page-subtitle">Machine learning models trained on thousands of real club specifications turn your profile into personalized recommendations.</p>
           </div>
         </header>
 
