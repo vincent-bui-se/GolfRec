@@ -452,8 +452,101 @@ async function requestRecommendations() {
   }
 }
 
+/* ---------- Mobile profile drawer ----------
+   Below 920px the profile panel is an off-canvas overlay rather than a column
+   (see styles.css). The class on <body> is what the slide and the scroll lock
+   are keyed off, so what's left here is that state plus the focus handling any
+   overlay owes the keyboard. */
+
+const drawerToggle = document.querySelector("#drawer-toggle");
+const drawerClose = document.querySelector("#drawer-close");
+const drawerScrim = document.querySelector("#drawer-scrim");
+const profilePanel = document.querySelector("#profile-panel");
+const drawerBreakpoint = window.matchMedia("(max-width: 920px)");
+
+function drawerIsOpen() {
+  return document.body.classList.contains("drawer-open");
+}
+
+function setDrawer(open) {
+  document.body.classList.toggle("drawer-open", open);
+  drawerToggle.setAttribute("aria-expanded", String(open));
+}
+
+function openDrawer() {
+  setDrawer(true);
+  // The close button rather than the first field: it sits at the top of the
+  // panel, so focusing it can't scroll the form before it's been seen.
+  drawerClose.focus();
+}
+
+function closeDrawer({ returnFocus = true } = {}) {
+  if (!drawerIsOpen()) {
+    return;
+  }
+  setDrawer(false);
+  if (returnFocus) {
+    drawerToggle.focus();
+  }
+}
+
+function focusablesInDrawer() {
+  return Array.from(
+    profilePanel.querySelectorAll("button, input, select, textarea, [href]"),
+  ).filter((element) => !element.disabled && element.offsetParent !== null);
+}
+
+drawerToggle.addEventListener("click", () => {
+  if (drawerIsOpen()) {
+    closeDrawer();
+  } else {
+    openDrawer();
+  }
+});
+
+drawerClose.addEventListener("click", () => closeDrawer());
+drawerScrim.addEventListener("click", () => closeDrawer());
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeDrawer();
+    return;
+  }
+  // An overlay shouldn't leak the keyboard into the results sitting behind the
+  // scrim, so Tab wraps at both ends of the panel while it's open.
+  if (event.key !== "Tab" || !drawerIsOpen()) {
+    return;
+  }
+  const reachable = focusablesInDrawer();
+  if (!reachable.length) {
+    return;
+  }
+  const first = reachable[0];
+  const last = reachable[reachable.length - 1];
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+});
+
+// Past the breakpoint the panel is a plain sidebar again and the CSS follows
+// the media query by itself - but aria-expanded and the scroll lock hang off
+// the class, so a drawer left open while widening has to be cleared.
+drawerBreakpoint.addEventListener("change", (event) => {
+  if (!event.matches) {
+    setDrawer(false);
+  }
+});
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+  // The drawer covers the results on mobile, so leaving it open would hide the
+  // spinner and then the outcome behind it. Focus stays where the submit left
+  // it rather than snapping back to the toggle.
+  closeDrawer({ returnFocus: false });
   requestRecommendations();
 });
 

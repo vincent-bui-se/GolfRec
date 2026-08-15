@@ -106,7 +106,6 @@ select {
   font-style: italic;
 }
 
-.eyebrow,
 .empty-state p,
 .list-toolbar p {
   margin: 0;
@@ -292,7 +291,7 @@ select {
 }
 
 .page-header h2 {
-  margin: 4px 0 0;
+  margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
   font-weight: 500;
@@ -300,14 +299,6 @@ select {
   line-height: 1.15;
   letter-spacing: 0.01em;
   max-width: 640px;
-}
-
-.eyebrow {
-  color: var(--moss);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
 }
 
 .page-subtitle {
@@ -832,54 +823,228 @@ select {
   }
 }
 
+/* ---------- Mobile chrome: the profile drawer ---------- */
+
+/* Inert on desktop, where the profile panel is a permanent sidebar and none of
+   this chrome has anything to do. Everything that drives the drawer lives in
+   the 920px block below - the same breakpoint at which the panel stops being
+   a column of the grid. */
+.mobile-bar,
+.drawer-scrim,
+.drawer-close {
+  display: none;
+}
+
 @media (max-width: 920px) {
   .app-shell {
     grid-template-columns: 1fr;
   }
 
+  /* The bar is sticky, so anything scrolled to the top of the viewport comes
+     to rest underneath it - which is where revealResults() puts the results
+     panel after a submit made from the drawer. */
+  html {
+    scroll-padding-top: 68px;
+  }
+
+  /* The panel stops being a column of the page and becomes an overlay: fixed,
+     so opening it slides over the results instead of pushing them a screenful
+     further down, and off-canvas until body.drawer-open. Holding the
+     visibility change until the slide finishes keeps the shut panel out of the
+     tab order without cutting the transition short. dvh over vh because this
+     is a long form that scrolls inside a fixed box, which is exactly where a
+     retracting URL bar strands the last field. */
   .profile-panel {
-    position: static;
-    height: auto;
-    border-right: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 40;
+    width: min(370px, 86vw);
+    height: 100vh;
+    height: 100dvh;
+    padding-bottom: 0;
+    border-bottom: 0;
+    box-shadow: 16px 0 44px rgba(0, 0, 0, 0.38);
+    overscroll-behavior: contain;
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition:
+      transform 0.24s ease,
+      visibility 0s linear 0.24s;
+  }
+
+  body.drawer-open .profile-panel {
+    transform: translateX(0);
+    visibility: visible;
+    transition:
+      transform 0.24s ease,
+      visibility 0s;
+  }
+
+  /* Without this the results scroll under the open drawer, which reads as the
+     drawer itself drifting. */
+  body.drawer-open {
+    overflow: hidden;
+  }
+
+  .drawer-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    display: block;
+    background: rgba(12, 15, 13, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.24s ease,
+      visibility 0s linear 0.24s;
+  }
+
+  body.drawer-open .drawer-scrim {
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 0.24s ease,
+      visibility 0s;
+  }
+
+  .mobile-bar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--ink);
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
   }
 
-  /* Pairing the fields inside each full-width section, rather than putting
-     whole sections side by side. Sections have very different heights, so
-     column-per-section left a tall void beside the short Driver block. */
-  .profile-form {
-    grid-template-columns: 1fr;
-    align-items: start;
+  .mobile-bar-brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
   }
 
-  .form-section {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-    column-gap: 16px;
+  .mobile-bar h1 {
+    margin: 0;
+    color: var(--chalk);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-style: italic;
+    font-size: 1.45rem;
+    line-height: 1;
+    letter-spacing: 0.01em;
   }
 
-  /* The mode switches carry no label of their own, so pairing one beside a
-     labelled field aligned it against that field's label rather than its
-     input, and halved its width until both options wrapped. Full width also
-     puts each switch directly above the field it controls. */
-  .section-heading,
-  .segmented,
+  .mobile-bar .brand-mark {
+    width: 34px;
+    height: 34px;
+  }
+
+  /* The bar carries the brand at this width, so the lockup inside the drawer
+     would only ever be a second copy of it one swipe away. */
+  .profile-panel .brand-lockup {
+    display: none;
+  }
+
+  .drawer-toggle {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 40px;
+    border: 1px solid rgba(246, 242, 231, 0.3);
+    border-radius: 7px;
+    background: transparent;
+    color: var(--chalk);
+    padding: 0 14px;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .drawer-toggle:focus-visible,
+  .drawer-close:focus-visible {
+    outline: 2px solid var(--ochre);
+    outline-offset: 2px;
+  }
+
+  .drawer-toggle-icon {
+    position: relative;
+    width: 15px;
+    height: 11px;
+    border-top: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+  }
+
+  .drawer-toggle-icon::before {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    right: 0;
+    border-top: 2px solid currentColor;
+    content: "";
+  }
+
+  /* The toggle that opened the drawer is underneath it once it's open, so the
+     drawer carries its own way out rather than relying on the sliver of bar
+     left beside it. */
+  .drawer-close {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    margin: 0 0 12px auto;
+    border: 1px solid rgba(246, 242, 231, 0.3);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--chalk);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  /* The panel used to run the full width here, which left room to pair fields
+     two-up inside each section; at ~370px of drawer that pairing is back to
+     squeezing every field to ~150px, so the base single-column layout is what
+     applies now and the rules that arranged the two columns are gone with it.
+
+     The shelf matches the desktop one: the drawer scrolls internally and the
+     form is long, so the submit button stays on the floor instead of at the
+     end of a scroll. The negative margin bleeds it over the panel's 28px side
+     padding so it reaches the drawer's edges. */
   .form-actions {
-    grid-column: 1 / -1;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    margin: 0 -28px;
+    padding: 14px 28px 20px;
+    background: var(--ink);
+    border-top: 1px dashed rgba(246, 242, 231, 0.22);
   }
 }
 
 @media (max-width: 680px) {
-  .profile-panel,
   .results-panel {
     padding: 20px;
   }
 
-  /* .form-section is the one that matters here: the 920px rule made it two
-     columns and this block used to reset only .profile-form, so phones kept
-     the two-column sections and every field was squeezed to ~150px. */
-  .profile-form,
-  .form-section,
+  /* No bottom padding, for the same reason as the desktop panel: it would hold
+     the sticky submit shelf short of the drawer's floor. */
+  .profile-panel {
+    padding: 20px 20px 0;
+  }
+
+  /* Re-bled to match the 20px padding above - the 28px bleed inherited from
+     the wider drawer would overhang the edges by 8px on each side. */
+  .form-actions {
+    margin: 0 -20px;
+    padding: 14px 20px 20px;
+  }
+
   .spec-grid {
     grid-template-columns: 1fr;
   }
@@ -936,6 +1101,30 @@ select {
 
   .budget-control strong {
     text-align: left;
+  }
+
+  /* The tooltip hung off the 16px icon and grew sideways, so whichever edge it
+     grew toward landed wherever the icon happened to sit. On a full-width
+     mobile control that put it past the left of the card, where
+     .recommendations' overflow:hidden chopped the text off. Anchoring to
+     .condition-control instead pins both edges to a box that is already the
+     width of the toolbar, so the tooltip cannot reach either edge regardless
+     of where the icon sits or how narrow the phone is - no viewport
+     arithmetic to keep in sync with the icon's position. Absolute positioning
+     resolves against the nearest positioned ancestor, so taking .info-icon
+     out of that role is what hands the job to the control. */
+  .condition-control {
+    position: relative;
+  }
+
+  .info-icon {
+    position: static;
+  }
+
+  .info-icon::after {
+    left: 0;
+    right: 0;
+    width: auto;
   }
 }
 
