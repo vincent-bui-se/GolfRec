@@ -48,6 +48,8 @@ def test_make_feature_frame_encodes_expected_inputs():
                 "goal": "Forgiveness",
                 "iron_miss": "Fat/Thin",
                 "iron_feel": "Forged/Blade-like",
+                "wedge_turf": "Soft",
+                "divot_depth": "Deep",
             }
         ]
     )
@@ -58,6 +60,10 @@ def test_make_feature_frame_encodes_expected_inputs():
     assert frame.loc[0, "shot_shape_Slice"] == 1
     assert frame.loc[0, "goal_Forgiveness"] == 1
     assert frame.loc[0, "swing_speed"] == 91
+    assert frame.loc[0, "wedge_turf_Soft"] == 1
+    assert frame.loc[0, "wedge_turf_Firm"] == 0
+    assert frame.loc[0, "divot_depth_Deep"] == 1
+    assert frame.loc[0, "divot_depth_Shallow"] == 0
 
 
 def test_estimate_handicap_from_average_score_uses_par_72_baseline():

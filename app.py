@@ -11,13 +11,17 @@ import pandas as pd
 from flask import Flask, jsonify, render_template, request, send_from_directory
 
 from preprocess import (
+    BUNKER_FREQUENCIES,
+    CLUB_CATEGORIES,
+    DIVOT_DEPTHS,
     GOALS,
     INPUT_COLUMNS,
     IRON_FEELS,
     IRON_MISSES,
-    SHOPPING_TARGETS,
     SHOT_SHAPES,
     TRAJECTORIES,
+    TURF_FIRMNESS,
+    WEDGE_SHOT_STYLES,
     estimate_handicap_from_average_score,
     load_equipment_catalog,
 )
@@ -25,7 +29,9 @@ from recommend import (
     ClubRecommendation,
     GolferInput,
     recommend_clubs,
+    recommend_fairway_woods,
     recommend_irons,
+    recommend_wedges,
 )
 from train import LABEL_COLUMNS, train_from_csv
 
@@ -72,6 +78,8 @@ def build_model_row(
     goal: str,
     iron_miss: str,
     iron_feel: str,
+    wedge_turf: str,
+    divot_depth: str,
 ) -> pd.DataFrame:
     """Build the model input frame expected by the fitted scikit-learn pipelines."""
     return pd.DataFrame(
@@ -84,6 +92,8 @@ def build_model_row(
                 "goal": goal,
                 "iron_miss": iron_miss,
                 "iron_feel": iron_feel,
+                "wedge_turf": wedge_turf,
+                "divot_depth": divot_depth,
             }
         ]
     )
@@ -122,12 +132,16 @@ def favicon():
 def index():
     return render_template(
         "index.html",
-        shopping_targets=SHOPPING_TARGETS,
+        club_categories=CLUB_CATEGORIES,
         shot_shapes=SHOT_SHAPES,
         goals=GOALS,
         trajectories=TRAJECTORIES,
         iron_feels=IRON_FEELS,
         iron_misses=IRON_MISSES,
+        turf_firmness=TURF_FIRMNESS,
+        divot_depths=DIVOT_DEPTHS,
+        wedge_shot_styles=WEDGE_SHOT_STYLES,
+        bunker_frequencies=BUNKER_FREQUENCIES,
     )
 
 
@@ -135,7 +149,13 @@ def index():
 def api_recommend():
     payload = request.get_json(silent=True) or {}
 
-    shopping_for = str(payload.get("shopping_for", "Both"))
+    raw_shopping_for = payload.get("shopping_for")
+    if not isinstance(raw_shopping_for, list):
+        raw_shopping_for = None
+    shopping_for = [str(item) for item in (raw_shopping_for or []) if str(item) in CLUB_CATEGORIES]
+    if not shopping_for:
+        shopping_for = ["Driver", "Irons"]
+
     score_mode = str(payload.get("score_mode", "Handicap"))
     if score_mode == "Average score":
         handicap = float(estimate_handicap_from_average_score(_coerce_float(payload.get("average_score"), 90)))
@@ -160,9 +180,23 @@ def api_recommend():
     iron_trajectory = str(payload.get("iron_trajectory", "About right"))
     iron_feel = str(payload.get("iron_feel", "No preference"))
     iron_miss = str(payload.get("iron_miss", "Consistent"))
+    wedge_turf = str(payload.get("wedge_turf", "Normal"))
+    if wedge_turf not in TURF_FIRMNESS:
+        wedge_turf = "Normal"
+    divot_depth = str(payload.get("divot_depth", "Medium"))
+    if divot_depth not in DIVOT_DEPTHS:
+        divot_depth = "Medium"
+    wedge_shot_style = str(payload.get("wedge_shot_style", "No preference"))
+    if wedge_shot_style not in WEDGE_SHOT_STYLES:
+        wedge_shot_style = "No preference"
+    bunker_frequency = str(payload.get("bunker_frequency", "Sometimes"))
+    if bunker_frequency not in BUNKER_FREQUENCIES:
+        bunker_frequency = "Sometimes"
 
-    wants_driver = shopping_for in {"Driver", "Both"}
-    wants_irons = shopping_for in {"Irons", "Both"}
+    wants_driver = "Driver" in shopping_for
+    wants_fairway_woods = "Fairway Wood" in shopping_for
+    wants_irons = "Irons" in shopping_for
+    wants_wedges = "Wedges" in shopping_for
 
     models = load_models()
     catalog = load_catalog()
@@ -179,6 +213,10 @@ def api_recommend():
         iron_trajectory=iron_trajectory,
         iron_shot_shape=iron_shot_shape,
         iron_goal=iron_goal,
+        wedge_turf=wedge_turf,
+        divot_depth=divot_depth,
+        wedge_shot_style=wedge_shot_style,
+        bunker_frequency=bunker_frequency,
     )
 
     driver_row = build_model_row(
@@ -189,6 +227,8 @@ def api_recommend():
         goal=driver_goal,
         iron_miss=iron_miss,
         iron_feel=iron_feel,
+        wedge_turf=wedge_turf,
+        divot_depth=divot_depth,
     )
     iron_row = build_model_row(
         handicap=handicap,
@@ -198,14 +238,22 @@ def api_recommend():
         goal=iron_goal,
         iron_miss=iron_miss,
         iron_feel=iron_feel,
+        wedge_turf=wedge_turf,
+        divot_depth=divot_depth,
     )
 
+    # fairway_wood_loft and wedge_bounce ride along in driver_specs: both are
+    # predicted from driver_row since neither has its own shot_shape/goal
+    # question, the same way iron_category gets its own prediction from
+    # iron_row below because it does.
     driver_specs = predict_specs(models, driver_row)
     iron_specs = predict_specs(models, iron_row)
     specs = {**driver_specs, "iron_category": iron_specs["iron_category"]}
 
     driver_recommendations: list[ClubRecommendation] = []
+    fairway_wood_recommendations: list[ClubRecommendation] = []
     iron_recommendations: list[ClubRecommendation] = []
+    wedge_recommendations: list[ClubRecommendation] = []
     if wants_driver:
         driver_recommendations = recommend_clubs(
             catalog=catalog,
@@ -214,12 +262,27 @@ def api_recommend():
             predicted_iron_category=specs["iron_category"],
             top_n=len(catalog.get("drivers", [])),
         )
+    if wants_fairway_woods:
+        fairway_wood_recommendations = recommend_fairway_woods(
+            catalog=catalog,
+            golfer=golfer,
+            predicted_loft=specs["fairway_wood_loft"],
+            predicted_iron_category=specs["iron_category"],
+            top_n=len(catalog.get("fairway-woods", [])),
+        )
     if wants_irons:
         iron_recommendations = recommend_irons(
             catalog=catalog,
             golfer=golfer,
             predicted_iron_category=specs["iron_category"],
             top_n=len(catalog.get("iron-sets", [])),
+        )
+    if wants_wedges:
+        wedge_recommendations = recommend_wedges(
+            catalog=catalog,
+            golfer=golfer,
+            predicted_bounce=specs["wedge_bounce"],
+            top_n=len(catalog.get("wedges", [])),
         )
 
     return jsonify(
@@ -232,10 +295,14 @@ def api_recommend():
                 "shopping_for": shopping_for,
             },
             "wants_driver": wants_driver,
+            "wants_fairway_woods": wants_fairway_woods,
             "wants_irons": wants_irons,
+            "wants_wedges": wants_wedges,
             "recommendations": {
                 "drivers": [_club_to_dict(rec) for rec in driver_recommendations],
+                "fairway_woods": [_club_to_dict(rec) for rec in fairway_wood_recommendations],
                 "irons": [_club_to_dict(rec) for rec in iron_recommendations],
+                "wedges": [_club_to_dict(rec) for rec in wedge_recommendations],
             },
         }
     )

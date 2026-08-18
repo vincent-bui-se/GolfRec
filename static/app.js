@@ -7,16 +7,41 @@ const form = document.querySelector("#profile-form");
 const emptyState = document.querySelector("#empty-state");
 const recommendations = document.querySelector("#recommendations");
 const tabs = document.querySelector("#tabs");
-const driverBudget = document.querySelector("#driver-budget");
-const ironBudget = document.querySelector("#iron-budget");
-const driverCondition = document.querySelector("#driver-condition");
-const ironCondition = document.querySelector("#iron-condition");
 const loadingState = document.querySelector("#loading-state");
 const formError = document.querySelector("#form-error");
 const formErrorDetail = document.querySelector("#form-error-detail");
 const retryAction = document.querySelector("#retry-action");
 const resultStatus = document.querySelector("#result-status");
 const USED_MAX_YEAR = new Date().getFullYear() - 4;
+
+// One entry per results category. Driver and Fairway Wood share a profile
+// section (same swing, same session) so two tabs point at the same
+// fieldsSelector; every other lookup - result JSON key, "wants" flag, element
+// id prefix, starting budget ceiling - is per-tab because those genuinely
+// differ per category.
+const CATEGORIES = [
+  { tab: "drivers", resultKey: "drivers", wants: "wants_driver", idPrefix: "driver", fieldsSelector: ".wood-fields", fallbackBudget: 2500 },
+  { tab: "fairway-woods", resultKey: "fairway_woods", wants: "wants_fairway_woods", idPrefix: "fairway-wood", fieldsSelector: ".wood-fields", fallbackBudget: 500 },
+  { tab: "irons", resultKey: "irons", wants: "wants_irons", idPrefix: "iron", fieldsSelector: ".iron-fields", fallbackBudget: 2500 },
+  { tab: "wedges", resultKey: "wedges", wants: "wants_wedges", idPrefix: "wedge", fieldsSelector: ".wedge-fields", fallbackBudget: 350 },
+];
+
+const categories = CATEGORIES.map((category) => ({
+  ...category,
+  budgetEl: document.querySelector(`#${category.idPrefix}-budget`),
+  budgetValueEl: document.querySelector(`#${category.idPrefix}-budget-value`),
+  conditionEl: document.querySelector(`#${category.idPrefix}-condition`),
+  listEl: document.querySelector(`#${category.idPrefix}-list`),
+  countEl: document.querySelector(`#${category.idPrefix}-count`),
+}));
+
+const SPEC_TILES = [
+  { spec: "driver_loft", wants: "wants_driver", format: (value) => `${value} deg` },
+  { spec: "shaft_flex", wants: "wants_driver", format: (value) => value },
+  { spec: "fairway_wood_loft", wants: "wants_fairway_woods", format: (value) => `${value} deg` },
+  { spec: "iron_category", wants: "wants_irons", format: (value) => titleCaseSpec(value) },
+  { spec: "wedge_bounce", wants: "wants_wedges", format: (value) => value },
+];
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -35,9 +60,15 @@ function formValue(name) {
   return field.value;
 }
 
+function checkedShoppingFor() {
+  return [...form.querySelectorAll('input[name="shopping_for"]:checked')].map(
+    (checkbox) => checkbox.value,
+  );
+}
+
 function collectPayload() {
   return {
-    shopping_for: formValue("shopping_for"),
+    shopping_for: checkedShoppingFor(),
     score_mode: formValue("score_mode"),
     handicap: Number(formValue("handicap")),
     average_score: Number(formValue("average_score")),
@@ -52,6 +83,10 @@ function collectPayload() {
     iron_trajectory: formValue("iron_trajectory"),
     iron_feel: formValue("iron_feel"),
     iron_miss: formValue("iron_miss"),
+    wedge_turf: formValue("wedge_turf"),
+    divot_depth: formValue("divot_depth"),
+    wedge_shot_style: formValue("wedge_shot_style"),
+    bunker_frequency: formValue("bunker_frequency"),
   };
 }
 
@@ -62,12 +97,10 @@ function titleCaseSpec(value) {
 }
 
 function updateSpecGrid(specs, result) {
-  const tiles = document.querySelectorAll(".spec-tile strong");
-  tiles[0].textContent = result.wants_driver ? `${specs.driver_loft} deg` : "-";
-  tiles[1].textContent = result.wants_driver ? specs.shaft_flex : "-";
-  tiles[2].textContent = result.wants_irons
-    ? titleCaseSpec(specs.iron_category)
-    : "-";
+  SPEC_TILES.forEach(({ spec, wants, format }) => {
+    const tile = document.querySelector(`.spec-tile[data-spec="${spec}"] strong`);
+    tile.textContent = result[wants] ? format(specs[spec]) : "-";
+  });
 }
 
 function updateConditionalFields() {
@@ -81,17 +114,19 @@ function updateConditionalFields() {
     field.classList.toggle("hidden", field.dataset.speedMode !== speedMode);
   });
 
-  const shoppingFor = formValue("shopping_for");
-  document
-    .querySelectorAll(".driver-fields")
-    .forEach((section) =>
-      section.classList.toggle("hidden", shoppingFor === "Irons"),
-    );
-  document
-    .querySelectorAll(".iron-fields")
-    .forEach((section) =>
-      section.classList.toggle("hidden", shoppingFor === "Driver"),
-    );
+  const checked = new Set(checkedShoppingFor());
+  // Driver and Fairway Wood share .wood-fields (same swing, same inputs), so
+  // that section shows for either; a category with its own question section
+  // only appears once its own checkbox is checked.
+  document.querySelectorAll(".wood-fields").forEach((section) =>
+    section.classList.toggle("hidden", !checked.has("Driver") && !checked.has("Fairway Wood")),
+  );
+  document.querySelectorAll(".iron-fields").forEach((section) =>
+    section.classList.toggle("hidden", !checked.has("Irons")),
+  );
+  document.querySelectorAll(".wedge-fields").forEach((section) =>
+    section.classList.toggle("hidden", !checked.has("Wedges")),
+  );
 }
 
 function selectForDisplay(clubs, defaultLimit = 5) {
@@ -247,22 +282,21 @@ function setActiveTab(tabName) {
 }
 
 function updateTabAvailability(result) {
-  const driverTab = document.querySelector('[data-tab="drivers"]');
-  const ironTab = document.querySelector('[data-tab="irons"]');
-  driverTab.classList.toggle("hidden", !result.wants_driver);
-  ironTab.classList.toggle("hidden", !result.wants_irons);
+  const visibleTabs = [];
+  categories.forEach((category) => {
+    const wanted = Boolean(result[category.wants]);
+    document.querySelector(`[data-tab="${category.tab}"]`).classList.toggle("hidden", !wanted);
+    if (wanted) {
+      visibleTabs.push(category.tab);
+    }
+  });
 
-  if (!result.wants_driver && state.activeTab === "drivers") {
-    setActiveTab("irons");
-  } else if (!result.wants_irons && state.activeTab === "irons") {
-    setActiveTab("drivers");
-  } else if (result.wants_driver) {
-    setActiveTab("drivers");
-  } else {
-    setActiveTab("irons");
+  if (!visibleTabs.includes(state.activeTab)) {
+    setActiveTab(visibleTabs[0] || categories[0].tab);
   }
 
-  tabs.classList.toggle("hidden", !(result.wants_driver && result.wants_irons));
+  // No point showing tabs to switch between when at most one has anything in it.
+  tabs.classList.toggle("hidden", visibleTabs.length < 2);
 }
 
 function renderRecommendations() {
@@ -270,27 +304,16 @@ function renderRecommendations() {
     return;
   }
 
-  document.querySelector("#driver-budget-value").textContent = currency.format(
-    driverBudget.value,
-  );
-  document.querySelector("#iron-budget-value").textContent = currency.format(
-    ironBudget.value,
-  );
-
-  renderClubList(
-    document.querySelector("#driver-list"),
-    document.querySelector("#driver-count"),
-    state.result.recommendations.drivers,
-    Number(driverBudget.value),
-    driverCondition.value,
-  );
-  renderClubList(
-    document.querySelector("#iron-list"),
-    document.querySelector("#iron-count"),
-    state.result.recommendations.irons,
-    Number(ironBudget.value),
-    ironCondition.value,
-  );
+  categories.forEach((category) => {
+    category.budgetValueEl.textContent = currency.format(category.budgetEl.value);
+    renderClubList(
+      category.listEl,
+      category.countEl,
+      state.result.recommendations[category.resultKey],
+      Number(category.budgetEl.value),
+      category.conditionEl.value,
+    );
+  });
 }
 
 // A focused number input treats the wheel as increment/decrement, so scrolling
@@ -308,31 +331,31 @@ document.addEventListener(
 );
 
 form.addEventListener("change", updateConditionalFields);
-driverBudget.addEventListener("input", renderRecommendations);
-ironBudget.addEventListener("input", renderRecommendations);
-driverCondition.addEventListener("change", () => {
-  if (!state.result) {
-    return;
-  }
-  updateBudgetForCondition(
-    driverBudget,
-    state.result.recommendations.drivers,
-    driverCondition.value,
-    2500,
-  );
-  renderRecommendations();
+
+// Unchecking the last box would leave nothing to shop for and no visible tab
+// to recover from, so the group always keeps at least one category checked.
+document.querySelectorAll('input[name="shopping_for"]').forEach((checkbox) => {
+  checkbox.addEventListener("click", (event) => {
+    if (checkedShoppingFor().length === 0) {
+      event.target.checked = true;
+    }
+  });
 });
-ironCondition.addEventListener("change", () => {
-  if (!state.result) {
-    return;
-  }
-  updateBudgetForCondition(
-    ironBudget,
-    state.result.recommendations.irons,
-    ironCondition.value,
-    2500,
-  );
-  renderRecommendations();
+
+categories.forEach((category) => {
+  category.budgetEl.addEventListener("input", renderRecommendations);
+  category.conditionEl.addEventListener("change", () => {
+    if (!state.result) {
+      return;
+    }
+    updateBudgetForCondition(
+      category.budgetEl,
+      state.result.recommendations[category.resultKey],
+      category.conditionEl.value,
+      category.fallbackBudget,
+    );
+    renderRecommendations();
+  });
 });
 
 document.querySelectorAll(".tab-button").forEach((button) => {
@@ -387,15 +410,11 @@ function revealResults() {
 }
 
 function announceResults() {
-  const counts = [];
-  if (state.result.wants_driver) {
-    counts.push(document.querySelector("#driver-count").textContent.trim());
-  }
-  if (state.result.wants_irons) {
-    counts.push(document.querySelector("#iron-count").textContent.trim());
-  }
+  const counts = categories
+    .filter((category) => state.result[category.wants])
+    .map((category) => category.countEl.textContent.trim());
   resultStatus.textContent = counts.length
-    ? `Recommendations ready: ${counts.join(" and ")}.`
+    ? `Recommendations ready: ${counts.join(", ")}.`
     : "Recommendations ready.";
 }
 
@@ -421,10 +440,14 @@ async function requestRecommendations() {
       throw new Error(`Server responded with ${response.status}`);
     }
     state.result = await response.json();
-    driverCondition.value = "all";
-    ironCondition.value = "all";
-    setBudgetStart(driverBudget, state.result.recommendations.drivers, 2500);
-    setBudgetStart(ironBudget, state.result.recommendations.irons, 2500);
+    categories.forEach((category) => {
+      category.conditionEl.value = "all";
+      setBudgetStart(
+        category.budgetEl,
+        state.result.recommendations[category.resultKey],
+        category.fallbackBudget,
+      );
+    });
     updateSpecGrid(state.result.specs, state.result);
     updateTabAvailability(state.result);
     loadingState.classList.add("hidden");

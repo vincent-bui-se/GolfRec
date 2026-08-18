@@ -24,11 +24,18 @@ from synthetic_data import save_dataset
 LABEL_COLUMNS = [
     "driver_loft",
     "shaft_flex",
+    "fairway_wood_loft",
     "iron_category",
+    "wedge_bounce",
 ]
 
+# Labels that are numeric loft degrees rather than category names round-trip
+# through CSV as floats (16.5 -> "16.5", but 15 -> "15.0"); the rest are
+# already display-ready strings.
+_NUMERIC_LABELS = ["driver_loft", "fairway_wood_loft"]
 
-def _clean_driver_loft(value: object) -> str:
+
+def _clean_numeric_label(value: object) -> str:
     number = float(value)
     if number.is_integer():
         return str(int(number))
@@ -38,8 +45,9 @@ def _clean_driver_loft(value: object) -> str:
 def normalize_label_columns(golfers: pd.DataFrame) -> pd.DataFrame:
     """Keep labels as display-ready strings after CSV round-trips."""
     normalized = golfers.copy()
-    normalized["driver_loft"] = normalized["driver_loft"].map(_clean_driver_loft)
-    for label in ["shaft_flex", "iron_category"]:
+    for label in _NUMERIC_LABELS:
+        normalized[label] = normalized[label].map(_clean_numeric_label)
+    for label in ["shaft_flex", "iron_category", "wedge_bounce"]:
         normalized[label] = normalized[label].astype(str)
     return normalized
 
@@ -57,16 +65,34 @@ PARAM_GRIDS: dict[str, dict[str, list[Any]]] = {
         "classifier__max_depth": [10, 14, None],
         "classifier__min_samples_leaf": [1, 2],
     },
+    "fairway_wood_loft": {
+        "classifier__n_estimators": [200, 300],
+        "classifier__max_depth": [10, 14, None],
+        "classifier__min_samples_leaf": [1, 2],
+    },
     "iron_category": {
         "classifier__n_estimators": [200, 300],
         "classifier__max_depth": [12, 16, None],
+        "classifier__min_samples_leaf": [1, 2],
+    },
+    "wedge_bounce": {
+        "classifier__n_estimators": [200, 300],
+        "classifier__max_depth": [10, 14, None],
         "classifier__min_samples_leaf": [1, 2],
     },
 }
 
 
 def build_base_pipeline(random_state: int = 42) -> Pipeline:
-    """Create the shared preprocessing + Random Forest pipeline (untuned)."""
+    """Create the shared preprocessing + Random Forest pipeline (untuned).
+
+    n_jobs=1 here, not -1: GridSearchCV below already parallelises across
+    every fold x hyperparameter combination with its own n_jobs=-1. Letting
+    the classifier inside each of those also claim every core means dozens of
+    fits fight over the same cores at once - oversubscription, not extra
+    speed. One parallel layer is the right amount; the outer one already
+    saturates the machine.
+    """
     return Pipeline(
         steps=[
             ("features", FunctionTransformer(make_feature_frame, validate=False)),
@@ -74,7 +100,7 @@ def build_base_pipeline(random_state: int = 42) -> Pipeline:
                 "classifier",
                 RandomForestClassifier(
                     random_state=random_state,
-                    n_jobs=-1,
+                    n_jobs=1,
                 ),
             ),
         ]
