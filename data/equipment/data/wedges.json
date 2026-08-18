@@ -21,7 +21,7 @@
       "hybrid-shafts": 12,
       "iron-shafts": 14
     },
-    "note": "Expert-curated catalog. Community contributions layer per-record on the live site. Free to use, adapt, and share — including commercially — with attribution; keep derivatives open.",
+    "note": "Expert-curated catalog. Community contributions layer per-record on the live site. Free to use, adapt, and share \u2014 including commercially \u2014 with attribution; keep derivatives open.",
     "category": "wedges"
   },
   "records": [
@@ -150,7 +150,7 @@
         {
           "grindCode": "F",
           "oemName": "F Grind",
-          "description": "Full sole — wide, generous bounce for full swings with a square face.",
+          "description": "Full sole \u2014 wide, generous bounce for full swings with a square face.",
           "soleWidth": "wide",
           "heelRelief": "none",
           "toeRelief": "none",
@@ -181,7 +181,7 @@
         {
           "grindCode": "M",
           "oemName": "M Grind",
-          "description": "Mid-sole with heel and toe relief. Versatile — square or open.",
+          "description": "Mid-sole with heel and toe relief. Versatile \u2014 square or open.",
           "soleWidth": "medium",
           "heelRelief": "moderate",
           "toeRelief": "moderate",
@@ -254,7 +254,7 @@
         {
           "grindCode": "T",
           "oemName": "T Grind",
-          "description": "Tour grind — narrow, low bounce, maximum relief.",
+          "description": "Tour grind \u2014 narrow, low bounce, maximum relief.",
           "soleWidth": "narrow",
           "heelRelief": "heavy",
           "toeRelief": "heavy",
@@ -637,7 +637,7 @@
         {
           "grindCode": "TW",
           "oemName": "Tiger Woods Grind",
-          "description": "Tour grind — very narrow sole, minimal bounce, maximum relief.",
+          "description": "Tour grind \u2014 very narrow sole, minimal bounce, maximum relief.",
           "soleWidth": "narrow",
           "heelRelief": "heavy",
           "toeRelief": "heavy",
@@ -1442,7 +1442,7 @@
         {
           "grindCode": "S",
           "oemName": "S Grind",
-          "description": "Standard sole with light heel relief — the all-purpose middle.",
+          "description": "Standard sole with light heel relief \u2014 the all-purpose middle.",
           "soleWidth": "medium",
           "heelRelief": "light",
           "toeRelief": "none",
@@ -1480,7 +1480,7 @@
         {
           "grindCode": "K",
           "oemName": "K Grind",
-          "description": "Widest sole in the line — the bunker club.",
+          "description": "Widest sole in the line \u2014 the bunker club.",
           "soleWidth": "wide",
           "heelRelief": "none",
           "toeRelief": "none",
@@ -1500,7 +1500,7 @@
         {
           "grindCode": "L",
           "oemName": "L Grind",
-          "description": "Narrow crescent sole, maximum greenside versatility — low bounce, demands precision.",
+          "description": "Narrow crescent sole, maximum greenside versatility \u2014 low bounce, demands precision.",
           "soleWidth": "narrow",
           "heelRelief": "heavy",
           "toeRelief": "heavy",
@@ -1519,7 +1519,7 @@
         {
           "grindCode": "D",
           "oemName": "D Grind",
-          "description": "High-bounce player grind — crescent shape with bounce kept under the strike.",
+          "description": "High-bounce player grind \u2014 crescent shape with bounce kept under the strike.",
           "soleWidth": "medium",
           "heelRelief": "moderate",
           "toeRelief": "moderate",
@@ -1773,7 +1773,7 @@
         {
           "grindCode": "ATV",
           "oemName": "ATV Grind",
-          "description": "All-Terrain-Versatility sole — heavy relief everywhere so the bounce adapts to the delivery.",
+          "description": "All-Terrain-Versatility sole \u2014 heavy relief everywhere so the bounce adapts to the delivery.",
           "soleWidth": "medium",
           "heelRelief": "heavy",
           "toeRelief": "heavy",
@@ -1933,7 +1933,7 @@
         {
           "grindCode": "C",
           "oemName": "Type C (Chipper)",
-          "description": "Putter-adjacent chipper sole — extreme width, designed for a putting stroke from off the green.",
+          "description": "Putter-adjacent chipper sole \u2014 extreme width, designed for a putting stroke from off the green.",
           "soleWidth": "wide",
           "heelRelief": "none",
           "toeRelief": "none",
@@ -1964,7 +1964,7 @@
         {
           "grindCode": "S",
           "oemName": "Type S (Sand)",
-          "description": "Maximum-width sand sole — nearly impossible to dig.",
+          "description": "Maximum-width sand sole \u2014 nearly impossible to dig.",
           "soleWidth": "wide",
           "heelRelief": "none",
           "toeRelief": "none",
@@ -2139,7 +2139,7 @@
         {
           "grindCode": "ES",
           "oemName": "Eye2 Sole",
-          "description": "The classic Eye2 high-toe shape with dish sole — the bunker specialist.",
+          "description": "The classic Eye2 high-toe shape with dish sole \u2014 the bunker specialist.",
           "soleWidth": "medium",
           "heelRelief": "moderate",
           "toeRelief": "light",
@@ -2187,7 +2187,7 @@
         {
           "grindCode": "CHP",
           "oemName": "ChipR Sole",
-          "description": "Putter-length chipper at 38.5° — built for a putting stroke from the fringe and light rough.",
+          "description": "Putter-length chipper at 38.5\u00b0 \u2014 built for a putting stroke from the fringe and light rough.",
           "soleWidth": "wide",
           "heelRelief": "none",
           "toeRelief": "none",
@@ -2290,7 +2290,7 @@
         {
           "grindCode": "V",
           "oemName": "Versatile Grind",
-          "description": "Heel/toe relief for adaptable bounce — the all-rounder.",
+          "description": "Heel/toe relief for adaptable bounce \u2014 the all-rounder.",
           "soleWidth": "medium",
           "heelRelief": "moderate",
           "toeRelief": "moderate",
@@ -2327,7 +2327,7 @@
         {
           "grindCode": "W",
           "oemName": "Wide-Low Grind",
-          "description": "Wide sole with low leading edge — bunkers and soft lies.",
+          "description": "Wide sole with low leading edge \u2014 bunkers and soft lies.",
           "soleWidth": "wide",
           "heelRelief": "none",
           "toeRelief": "none",
@@ -2625,7 +2625,7 @@
         {
           "grindCode": "W",
           "oemName": "W Grind",
-          "description": "Wide full sole — bunkers, soft turf, steep swings.",
+          "description": "Wide full sole \u2014 bunkers, soft turf, steep swings.",
           "soleWidth": "wide",
           "heelRelief": "none",
           "toeRelief": "none",
@@ -2846,6 +2846,1435 @@
       "forgivenessTier": 2,
       "workability": "high",
       "msrp": 129,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "titleist-vokey-sm8",
+      "brand": "Titleist",
+      "model": "Vokey SM8",
+      "year": 2019,
+      "region": "global",
+      "wedgeCategory": "tour",
+      "construction": "forged-carbon",
+      "finishOptions": [
+        "tour-chrome",
+        "brushed-steel",
+        "jet-black",
+        "raw"
+      ],
+      "configurations": [
+        {
+          "loft": 46,
+          "bounce": 10,
+          "grindCode": "F"
+        },
+        {
+          "loft": 48,
+          "bounce": 10,
+          "grindCode": "F"
+        },
+        {
+          "loft": 50,
+          "bounce": 8,
+          "grindCode": "F"
+        },
+        {
+          "loft": 50,
+          "bounce": 12,
+          "grindCode": "F"
+        },
+        {
+          "loft": 52,
+          "bounce": 8,
+          "grindCode": "F"
+        },
+        {
+          "loft": 52,
+          "bounce": 12,
+          "grindCode": "F"
+        },
+        {
+          "loft": 54,
+          "bounce": 10,
+          "grindCode": "S"
+        },
+        {
+          "loft": 54,
+          "bounce": 14,
+          "grindCode": "F"
+        },
+        {
+          "loft": 54,
+          "bounce": 8,
+          "grindCode": "M"
+        },
+        {
+          "loft": 56,
+          "bounce": 10,
+          "grindCode": "S"
+        },
+        {
+          "loft": 56,
+          "bounce": 14,
+          "grindCode": "F"
+        },
+        {
+          "loft": 56,
+          "bounce": 8,
+          "grindCode": "M"
+        },
+        {
+          "loft": 58,
+          "bounce": 8,
+          "grindCode": "M"
+        },
+        {
+          "loft": 58,
+          "bounce": 12,
+          "grindCode": "D"
+        },
+        {
+          "loft": 58,
+          "bounce": 4,
+          "grindCode": "L"
+        },
+        {
+          "loft": 60,
+          "bounce": 8,
+          "grindCode": "M"
+        },
+        {
+          "loft": 60,
+          "bounce": 12,
+          "grindCode": "D"
+        },
+        {
+          "loft": 60,
+          "bounce": 4,
+          "grindCode": "L"
+        },
+        {
+          "loft": 60,
+          "bounce": 14,
+          "grindCode": "K"
+        },
+        {
+          "loft": 62,
+          "bounce": 8,
+          "grindCode": "M"
+        }
+      ],
+      "grinds": [
+        {
+          "grindCode": "F",
+          "oemName": "F Grind",
+          "description": "Full sole for full swings and square-face shots.",
+          "soleWidth": "wide",
+          "heelRelief": "none",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "none",
+          "leadingEdge": "straight",
+          "camber": "flat",
+          "bestFor": [
+            "all-conditions",
+            "square-face-work",
+            "high-handicap-versatility"
+          ],
+          "equivalentGrindIds": [
+            "titleist-vokey-sm9.F"
+          ]
+        },
+        {
+          "grindCode": "S",
+          "oemName": "S Grind",
+          "description": "Standard sole with light heel relief - the all-purpose middle.",
+          "soleWidth": "medium",
+          "heelRelief": "light",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "light",
+          "leadingEdge": "straight",
+          "camber": "mild",
+          "bestFor": [
+            "all-conditions",
+            "square-face-work"
+          ],
+          "equivalentGrindIds": [
+            "titleist-vokey-sm9.S"
+          ]
+        },
+        {
+          "grindCode": "M",
+          "oemName": "M Grind",
+          "description": "Heel/toe relief for face manipulation around the green.",
+          "soleWidth": "medium",
+          "heelRelief": "moderate",
+          "toeRelief": "moderate",
+          "trailingEdgeRelief": "light",
+          "leadingEdge": "cambered",
+          "camber": "mild",
+          "bestFor": [
+            "open-face-work",
+            "firm-turf",
+            "tight-lies"
+          ],
+          "equivalentGrindIds": [
+            "titleist-vokey-sm9.M"
+          ]
+        },
+        {
+          "grindCode": "K",
+          "oemName": "K Grind",
+          "description": "Widest sole in the line - the bunker club.",
+          "soleWidth": "wide",
+          "heelRelief": "none",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "light",
+          "leadingEdge": "cambered",
+          "camber": "pronounced",
+          "bestFor": [
+            "sand-shots",
+            "soft-turf",
+            "high-handicap-versatility"
+          ],
+          "equivalentGrindIds": [
+            "titleist-vokey-sm9.K"
+          ]
+        },
+        {
+          "grindCode": "L",
+          "oemName": "L Grind",
+          "description": "Narrow crescent sole, maximum greenside versatility - low bounce, demands precision.",
+          "soleWidth": "narrow",
+          "heelRelief": "heavy",
+          "toeRelief": "heavy",
+          "trailingEdgeRelief": "moderate",
+          "leadingEdge": "cambered",
+          "camber": "mild",
+          "bestFor": [
+            "firm-turf",
+            "tight-lies",
+            "open-face-work"
+          ],
+          "equivalentGrindIds": [
+            "titleist-vokey-sm9.L"
+          ]
+        },
+        {
+          "grindCode": "D",
+          "oemName": "D Grind",
+          "description": "High-bounce player grind - crescent shape with bounce kept under the strike.",
+          "soleWidth": "medium",
+          "heelRelief": "moderate",
+          "toeRelief": "moderate",
+          "trailingEdgeRelief": "moderate",
+          "leadingEdge": "cambered",
+          "camber": "pronounced",
+          "bestFor": [
+            "soft-turf",
+            "sand-shots",
+            "open-face-work"
+          ],
+          "equivalentGrindIds": [
+            "titleist-vokey-sm9.D"
+          ]
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 159,
+      "successorId": "titleist-vokey-sm9",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "cleveland-rtx-zipcore",
+      "brand": "Cleveland",
+      "model": "RTX ZipCore",
+      "year": 2020,
+      "region": "global",
+      "wedgeCategory": "tour",
+      "construction": "cast-stainless",
+      "finishOptions": [
+        "tour-satin",
+        "black-satin"
+      ],
+      "configurations": [
+        {
+          "loft": 46,
+          "bounce": 10,
+          "grindCode": "FULL"
+        },
+        {
+          "loft": 48,
+          "bounce": 10,
+          "grindCode": "FULL"
+        },
+        {
+          "loft": 50,
+          "bounce": 10,
+          "grindCode": "FULL"
+        },
+        {
+          "loft": 52,
+          "bounce": 10,
+          "grindCode": "FULL"
+        },
+        {
+          "loft": 54,
+          "bounce": 10,
+          "grindCode": "MID"
+        },
+        {
+          "loft": 54,
+          "bounce": 14,
+          "grindCode": "FULL"
+        },
+        {
+          "loft": 56,
+          "bounce": 10,
+          "grindCode": "MID"
+        },
+        {
+          "loft": 56,
+          "bounce": 14,
+          "grindCode": "FULL"
+        },
+        {
+          "loft": 58,
+          "bounce": 6,
+          "grindCode": "LOW"
+        },
+        {
+          "loft": 58,
+          "bounce": 10,
+          "grindCode": "MID"
+        },
+        {
+          "loft": 60,
+          "bounce": 6,
+          "grindCode": "LOW"
+        },
+        {
+          "loft": 60,
+          "bounce": 10,
+          "grindCode": "MID"
+        }
+      ],
+      "grinds": [
+        {
+          "grindCode": "FULL",
+          "oemName": "Full Sole",
+          "description": "Wide sole, full swing focus. Square-face shots, soft conditions.",
+          "soleWidth": "wide",
+          "heelRelief": "none",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "light",
+          "leadingEdge": "straight",
+          "camber": "mild",
+          "bestFor": [
+            "all-conditions",
+            "soft-turf",
+            "sand-shots"
+          ],
+          "equivalentGrindIds": [
+            "cleveland-rtx-6-zipcore.FULL"
+          ]
+        },
+        {
+          "grindCode": "MID",
+          "oemName": "Mid Sole",
+          "description": "Medium sole, moderate heel and toe relief. Versatile.",
+          "soleWidth": "medium",
+          "heelRelief": "moderate",
+          "toeRelief": "moderate",
+          "trailingEdgeRelief": "moderate",
+          "leadingEdge": "cambered",
+          "camber": "mild",
+          "bestFor": [
+            "all-conditions",
+            "open-face-work"
+          ],
+          "equivalentGrindIds": [
+            "cleveland-rtx-6-zipcore.MID"
+          ]
+        },
+        {
+          "grindCode": "LOW",
+          "oemName": "Low Sole",
+          "description": "C-shaped grind with relief on heel, toe, and trailing edge for versatility.",
+          "soleWidth": "narrow",
+          "heelRelief": "heavy",
+          "toeRelief": "heavy",
+          "trailingEdgeRelief": "heavy",
+          "leadingEdge": "cambered",
+          "camber": "flat",
+          "bestFor": [
+            "tight-lies",
+            "firm-turf",
+            "open-face-work"
+          ],
+          "equivalentGrindIds": [
+            "cleveland-rtx-6-zipcore.LOW"
+          ]
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 149,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "taylormade-mg2",
+      "brand": "TaylorMade",
+      "model": "Milled Grind 2",
+      "year": 2019,
+      "region": "global",
+      "wedgeCategory": "tour",
+      "construction": "cast-stainless",
+      "finishOptions": [
+        "chrome",
+        "black",
+        "raw"
+      ],
+      "configurations": [
+        {
+          "loft": 48,
+          "bounce": 9,
+          "grindCode": "STD"
+        },
+        {
+          "loft": 50,
+          "bounce": 9,
+          "grindCode": "STD"
+        },
+        {
+          "loft": 52,
+          "bounce": 9,
+          "grindCode": "STD"
+        },
+        {
+          "loft": 54,
+          "bounce": 11,
+          "grindCode": "STD"
+        },
+        {
+          "loft": 54,
+          "bounce": 8,
+          "grindCode": "C"
+        },
+        {
+          "loft": 56,
+          "bounce": 12,
+          "grindCode": "STD"
+        },
+        {
+          "loft": 56,
+          "bounce": 8,
+          "grindCode": "C"
+        },
+        {
+          "loft": 58,
+          "bounce": 11,
+          "grindCode": "STD"
+        },
+        {
+          "loft": 58,
+          "bounce": 8,
+          "grindCode": "C"
+        },
+        {
+          "loft": 60,
+          "bounce": 10,
+          "grindCode": "STD"
+        },
+        {
+          "loft": 60,
+          "bounce": 8,
+          "grindCode": "C"
+        }
+      ],
+      "grinds": [
+        {
+          "grindCode": "STD",
+          "oemName": "Standard Grind",
+          "description": "The do-everything sole for full swings and square-face shots.",
+          "soleWidth": "medium",
+          "heelRelief": "light",
+          "toeRelief": "light",
+          "trailingEdgeRelief": "light",
+          "leadingEdge": "straight",
+          "camber": "mild",
+          "bestFor": [
+            "all-conditions",
+            "square-face-work"
+          ],
+          "equivalentGrindIds": [
+            "taylormade-mg3.SB"
+          ]
+        },
+        {
+          "grindCode": "C",
+          "oemName": "Low Bounce C-Grind",
+          "description": "Extra heel and toe relief for added versatility on firm turf.",
+          "soleWidth": "narrow",
+          "heelRelief": "heavy",
+          "toeRelief": "moderate",
+          "trailingEdgeRelief": "moderate",
+          "leadingEdge": "straight",
+          "camber": "mild",
+          "bestFor": [
+            "firm-turf",
+            "tight-lies",
+            "open-face-work"
+          ],
+          "equivalentGrindIds": [
+            "taylormade-mg3.LB"
+          ]
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 150,
+      "successorId": "taylormade-mg3",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "callaway-mack-daddy-cb",
+      "brand": "Callaway",
+      "model": "Mack Daddy CB",
+      "year": 2019,
+      "region": "global",
+      "wedgeCategory": "game-improvement",
+      "construction": "cast-stainless",
+      "finishOptions": [
+        "chrome"
+      ],
+      "configurations": [
+        {
+          "loft": 46,
+          "bounce": 10,
+          "grindCode": "FULL"
+        },
+        {
+          "loft": 48,
+          "bounce": 10,
+          "grindCode": "FULL"
+        },
+        {
+          "loft": 50,
+          "bounce": 12,
+          "grindCode": "FULL"
+        },
+        {
+          "loft": 52,
+          "bounce": 12,
+          "grindCode": "FULL"
+        },
+        {
+          "loft": 54,
+          "bounce": 14,
+          "grindCode": "W"
+        },
+        {
+          "loft": 56,
+          "bounce": 14,
+          "grindCode": "W"
+        },
+        {
+          "loft": 58,
+          "bounce": 12,
+          "grindCode": "W"
+        },
+        {
+          "loft": 60,
+          "bounce": 12,
+          "grindCode": "W"
+        }
+      ],
+      "grinds": [
+        {
+          "grindCode": "FULL",
+          "oemName": "Full Sole",
+          "description": "Iron-like turf interaction with moderate bounce for full swings.",
+          "soleWidth": "wide",
+          "heelRelief": "none",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "none",
+          "leadingEdge": "straight",
+          "camber": "flat",
+          "bestFor": [
+            "all-conditions",
+            "square-face-work",
+            "high-handicap-versatility"
+          ]
+        },
+        {
+          "grindCode": "W",
+          "oemName": "Modified W Grind",
+          "description": "Extra forgiveness out of bunkers and thick rough, with a low leading edge for open-face shots.",
+          "soleWidth": "wide",
+          "heelRelief": "moderate",
+          "toeRelief": "light",
+          "trailingEdgeRelief": "light",
+          "leadingEdge": "cambered",
+          "camber": "mild",
+          "bestFor": [
+            "soft-turf",
+            "sand-shots",
+            "open-face-work",
+            "high-handicap-versatility"
+          ]
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "max-forgiveness",
+      "forgivenessTier": 4,
+      "workability": "mid",
+      "msrp": 130,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "ping-glide-3-0",
+      "brand": "Ping",
+      "model": "Glide 3.0",
+      "year": 2019,
+      "region": "global",
+      "wedgeCategory": "tour",
+      "construction": "cast-stainless",
+      "finishOptions": [
+        "hydropearl-chrome"
+      ],
+      "configurations": [
+        {
+          "loft": 46,
+          "bounce": 12,
+          "grindCode": "SS"
+        },
+        {
+          "loft": 50,
+          "bounce": 12,
+          "grindCode": "SS"
+        },
+        {
+          "loft": 52,
+          "bounce": 12,
+          "grindCode": "SS"
+        },
+        {
+          "loft": 54,
+          "bounce": 12,
+          "grindCode": "SS"
+        },
+        {
+          "loft": 54,
+          "bounce": 14,
+          "grindCode": "WS"
+        },
+        {
+          "loft": 56,
+          "bounce": 12,
+          "grindCode": "SS"
+        },
+        {
+          "loft": 56,
+          "bounce": 14,
+          "grindCode": "WS"
+        },
+        {
+          "loft": 58,
+          "bounce": 10,
+          "grindCode": "SS"
+        },
+        {
+          "loft": 58,
+          "bounce": 6,
+          "grindCode": "TS"
+        },
+        {
+          "loft": 58,
+          "bounce": 14,
+          "grindCode": "WS"
+        },
+        {
+          "loft": 60,
+          "bounce": 10,
+          "grindCode": "SS"
+        },
+        {
+          "loft": 60,
+          "bounce": 6,
+          "grindCode": "TS"
+        },
+        {
+          "loft": 60,
+          "bounce": 14,
+          "grindCode": "WS"
+        }
+      ],
+      "grinds": [
+        {
+          "grindCode": "SS",
+          "oemName": "Standard Sole",
+          "description": "Rounded standard sole with light heel relief.",
+          "soleWidth": "medium",
+          "heelRelief": "light",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "light",
+          "leadingEdge": "cambered",
+          "camber": "mild",
+          "bestFor": [
+            "all-conditions",
+            "square-face-work"
+          ],
+          "equivalentGrindIds": [
+            "ping-glide-4-0.SS"
+          ]
+        },
+        {
+          "grindCode": "WS",
+          "oemName": "Wide Sole",
+          "description": "High-bounce option for a steep angle of attack or soft turf.",
+          "soleWidth": "wide",
+          "heelRelief": "none",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "none",
+          "leadingEdge": "straight",
+          "camber": "flat",
+          "bestFor": [
+            "soft-turf",
+            "sand-shots",
+            "high-handicap-versatility"
+          ],
+          "equivalentGrindIds": [
+            "ping-glide-4-0.WS"
+          ]
+        },
+        {
+          "grindCode": "TS",
+          "oemName": "Thin Sole",
+          "description": "Extreme heel relief for precise shot-making and versatility from tight lies.",
+          "soleWidth": "narrow",
+          "heelRelief": "heavy",
+          "toeRelief": "moderate",
+          "trailingEdgeRelief": "moderate",
+          "leadingEdge": "straight",
+          "camber": "mild",
+          "bestFor": [
+            "firm-turf",
+            "tight-lies",
+            "open-face-work"
+          ],
+          "equivalentGrindIds": [
+            "ping-glide-4-0.TS"
+          ]
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "forgivenessTier": 3,
+      "workability": "mid",
+      "msrp": 150,
+      "successorId": "ping-glide-4-0",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "mizuno-t20",
+      "brand": "Mizuno",
+      "model": "T20",
+      "year": 2020,
+      "region": "global",
+      "wedgeCategory": "tour",
+      "construction": "forged-carbon",
+      "finishOptions": [
+        "satin-chrome",
+        "blue-ion",
+        "raw"
+      ],
+      "configurations": [
+        {
+          "loft": 46,
+          "bounce": 10,
+          "grindCode": "S"
+        },
+        {
+          "loft": 48,
+          "bounce": 10,
+          "grindCode": "S"
+        },
+        {
+          "loft": 50,
+          "bounce": 10,
+          "grindCode": "S"
+        },
+        {
+          "loft": 52,
+          "bounce": 10,
+          "grindCode": "S"
+        },
+        {
+          "loft": 54,
+          "bounce": 10,
+          "grindCode": "S"
+        },
+        {
+          "loft": 56,
+          "bounce": 12,
+          "grindCode": "M"
+        },
+        {
+          "loft": 56,
+          "bounce": 8,
+          "grindCode": "C"
+        },
+        {
+          "loft": 58,
+          "bounce": 12,
+          "grindCode": "M"
+        },
+        {
+          "loft": 60,
+          "bounce": 12,
+          "grindCode": "M"
+        },
+        {
+          "loft": 60,
+          "bounce": 8,
+          "grindCode": "C"
+        }
+      ],
+      "grinds": [
+        {
+          "grindCode": "S",
+          "oemName": "Standard Grind",
+          "description": "Full-swing sole for lofts 46-54, built for square-face contact.",
+          "soleWidth": "medium",
+          "heelRelief": "light",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "light",
+          "leadingEdge": "straight",
+          "camber": "mild",
+          "bestFor": [
+            "all-conditions",
+            "square-face-work"
+          ]
+        },
+        {
+          "grindCode": "M",
+          "oemName": "Subtle M Grind",
+          "description": "Higher-bounce grind for steep attack angles and soft turf.",
+          "soleWidth": "wide",
+          "heelRelief": "light",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "none",
+          "leadingEdge": "straight",
+          "camber": "flat",
+          "bestFor": [
+            "soft-turf",
+            "sand-shots",
+            "high-handicap-versatility"
+          ]
+        },
+        {
+          "grindCode": "C",
+          "oemName": "Aggressive C Grind",
+          "description": "Low-bounce grind with extra relief for creative, open-faced shotmaking.",
+          "soleWidth": "narrow",
+          "heelRelief": "heavy",
+          "toeRelief": "moderate",
+          "trailingEdgeRelief": "moderate",
+          "leadingEdge": "cambered",
+          "camber": "mild",
+          "bestFor": [
+            "firm-turf",
+            "tight-lies",
+            "open-face-work"
+          ]
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 150,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "cobra-king-snakebite",
+      "brand": "Cobra",
+      "model": "King Snakebite",
+      "year": 2021,
+      "region": "global",
+      "wedgeCategory": "tour",
+      "construction": "cast-stainless",
+      "finishOptions": [
+        "chrome",
+        "raw"
+      ],
+      "configurations": [
+        {
+          "loft": 50,
+          "bounce": 10,
+          "grindCode": "CLASSIC"
+        },
+        {
+          "loft": 52,
+          "bounce": 10,
+          "grindCode": "CLASSIC"
+        },
+        {
+          "loft": 54,
+          "bounce": 11,
+          "grindCode": "VERSATILE"
+        },
+        {
+          "loft": 56,
+          "bounce": 11,
+          "grindCode": "VERSATILE"
+        },
+        {
+          "loft": 56,
+          "bounce": 8,
+          "grindCode": "WIDELOW"
+        },
+        {
+          "loft": 58,
+          "bounce": 8,
+          "grindCode": "WIDELOW"
+        },
+        {
+          "loft": 58,
+          "bounce": 11,
+          "grindCode": "VERSATILE"
+        },
+        {
+          "loft": 60,
+          "bounce": 8,
+          "grindCode": "WIDELOW"
+        },
+        {
+          "loft": 60,
+          "bounce": 11,
+          "grindCode": "VERSATILE"
+        }
+      ],
+      "grinds": [
+        {
+          "grindCode": "CLASSIC",
+          "oemName": "Classic Grind",
+          "description": "Progressive sole width from heel to toe for traditional full-swing shots.",
+          "soleWidth": "medium",
+          "heelRelief": "none",
+          "toeRelief": "light",
+          "trailingEdgeRelief": "none",
+          "leadingEdge": "straight",
+          "camber": "mild",
+          "bestFor": [
+            "all-conditions",
+            "square-face-work"
+          ]
+        },
+        {
+          "grindCode": "VERSATILE",
+          "oemName": "Versatile Grind",
+          "description": "Toe, heel, and trailing-edge relief for shot-shaping around the green.",
+          "soleWidth": "medium",
+          "heelRelief": "moderate",
+          "toeRelief": "moderate",
+          "trailingEdgeRelief": "moderate",
+          "leadingEdge": "cambered",
+          "camber": "mild",
+          "bestFor": [
+            "open-face-work",
+            "firm-turf",
+            "tight-lies"
+          ]
+        },
+        {
+          "grindCode": "WIDELOW",
+          "oemName": "Wide Low Grind",
+          "description": "Wide sole with reduced effective bounce for soft turf and bunker versatility.",
+          "soleWidth": "wide",
+          "heelRelief": "light",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "light",
+          "leadingEdge": "straight",
+          "camber": "flat",
+          "bestFor": [
+            "soft-turf",
+            "sand-shots",
+            "high-handicap-versatility"
+          ]
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "forgivenessTier": 3,
+      "workability": "mid",
+      "msrp": 160,
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "titleist-vokey-sm11",
+      "brand": "Titleist",
+      "model": "Vokey SM11",
+      "year": 2026,
+      "region": "global",
+      "wedgeCategory": "tour",
+      "construction": "forged-carbon",
+      "finishOptions": [
+        "tour-chrome",
+        "raw",
+        "jet-black",
+        "nickel"
+      ],
+      "configurations": [
+        {
+          "loft": 44,
+          "bounce": 10,
+          "grindCode": "F"
+        },
+        {
+          "loft": 46,
+          "bounce": 10,
+          "grindCode": "F"
+        },
+        {
+          "loft": 48,
+          "bounce": 10,
+          "grindCode": "F"
+        },
+        {
+          "loft": 50,
+          "bounce": 8,
+          "grindCode": "F"
+        },
+        {
+          "loft": 50,
+          "bounce": 12,
+          "grindCode": "F"
+        },
+        {
+          "loft": 52,
+          "bounce": 8,
+          "grindCode": "F"
+        },
+        {
+          "loft": 52,
+          "bounce": 12,
+          "grindCode": "F"
+        },
+        {
+          "loft": 54,
+          "bounce": 10,
+          "grindCode": "S"
+        },
+        {
+          "loft": 54,
+          "bounce": 14,
+          "grindCode": "S"
+        },
+        {
+          "loft": 54,
+          "bounce": 8,
+          "grindCode": "M"
+        },
+        {
+          "loft": 56,
+          "bounce": 10,
+          "grindCode": "S"
+        },
+        {
+          "loft": 56,
+          "bounce": 14,
+          "grindCode": "S"
+        },
+        {
+          "loft": 56,
+          "bounce": 8,
+          "grindCode": "M"
+        },
+        {
+          "loft": 58,
+          "bounce": 8,
+          "grindCode": "M"
+        },
+        {
+          "loft": 58,
+          "bounce": 12,
+          "grindCode": "D"
+        },
+        {
+          "loft": 58,
+          "bounce": 4,
+          "grindCode": "T"
+        },
+        {
+          "loft": 58,
+          "bounce": 6,
+          "grindCode": "T"
+        },
+        {
+          "loft": 58,
+          "bounce": 12,
+          "grindCode": "K"
+        },
+        {
+          "loft": 60,
+          "bounce": 8,
+          "grindCode": "M"
+        },
+        {
+          "loft": 60,
+          "bounce": 12,
+          "grindCode": "D"
+        },
+        {
+          "loft": 60,
+          "bounce": 4,
+          "grindCode": "T"
+        },
+        {
+          "loft": 60,
+          "bounce": 6,
+          "grindCode": "T"
+        },
+        {
+          "loft": 60,
+          "bounce": 12,
+          "grindCode": "K"
+        }
+      ],
+      "grinds": [
+        {
+          "grindCode": "F",
+          "oemName": "F Grind",
+          "description": "Full sole - wide, generous bounce for full swings with a square face.",
+          "soleWidth": "wide",
+          "heelRelief": "none",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "none",
+          "leadingEdge": "straight",
+          "camber": "flat",
+          "bestFor": [
+            "all-conditions",
+            "square-face-work",
+            "high-handicap-versatility"
+          ],
+          "equivalentGrindIds": [
+            "titleist-vokey-sm10.F"
+          ]
+        },
+        {
+          "grindCode": "S",
+          "oemName": "S Grind",
+          "description": "Standard all-purpose sole with light heel relief.",
+          "soleWidth": "medium",
+          "heelRelief": "light",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "light",
+          "leadingEdge": "straight",
+          "camber": "mild",
+          "bestFor": [
+            "all-conditions",
+            "square-face-work"
+          ],
+          "equivalentGrindIds": [
+            "titleist-vokey-sm10.S"
+          ]
+        },
+        {
+          "grindCode": "M",
+          "oemName": "M Grind",
+          "description": "Mid-sole with heel and toe relief - Bob Vokey's favorite for creative, open-faced shotmaking.",
+          "soleWidth": "medium",
+          "heelRelief": "moderate",
+          "toeRelief": "moderate",
+          "trailingEdgeRelief": "light",
+          "leadingEdge": "cambered",
+          "camber": "mild",
+          "bestFor": [
+            "open-face-work",
+            "firm-turf",
+            "tight-lies"
+          ],
+          "equivalentGrindIds": [
+            "titleist-vokey-sm10.M"
+          ]
+        },
+        {
+          "grindCode": "K",
+          "oemName": "K Grind",
+          "description": "Widest sole, highest effective bounce. Soft conditions, sand.",
+          "soleWidth": "wide",
+          "heelRelief": "none",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "none",
+          "leadingEdge": "straight",
+          "camber": "pronounced",
+          "bestFor": [
+            "soft-turf",
+            "sand-shots"
+          ],
+          "equivalentGrindIds": [
+            "titleist-vokey-sm10.K"
+          ]
+        },
+        {
+          "grindCode": "D",
+          "oemName": "D Grind",
+          "description": "Wide sole with heel/toe and trailing-edge relief. High-bounce versatility.",
+          "soleWidth": "wide",
+          "heelRelief": "moderate",
+          "toeRelief": "moderate",
+          "trailingEdgeRelief": "moderate",
+          "leadingEdge": "cambered",
+          "camber": "mild",
+          "bestFor": [
+            "open-face-work",
+            "soft-turf",
+            "sand-shots"
+          ],
+          "equivalentGrindIds": [
+            "titleist-vokey-sm10.D"
+          ]
+        },
+        {
+          "grindCode": "T",
+          "oemName": "T Grind",
+          "description": "Low-bounce versatility for tight lies and firm conditions - narrow sole, maximum relief.",
+          "soleWidth": "narrow",
+          "heelRelief": "heavy",
+          "toeRelief": "heavy",
+          "trailingEdgeRelief": "heavy",
+          "leadingEdge": "cambered",
+          "camber": "flat",
+          "bestFor": [
+            "tight-lies",
+            "open-face-work",
+            "firm-turf"
+          ],
+          "equivalentGrindIds": [
+            "titleist-vokey-sm10.T"
+          ]
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 199,
+      "predecessorId": "titleist-vokey-sm10",
+      "engineEligible": true,
+      "seededFromCurated": true
+    },
+    {
+      "id": "taylormade-mg5",
+      "brand": "TaylorMade",
+      "model": "Milled Grind 5",
+      "year": 2025,
+      "region": "global",
+      "wedgeCategory": "tour",
+      "construction": "forged-carbon",
+      "finishOptions": [
+        "chrome",
+        "charcoal",
+        "raw"
+      ],
+      "configurations": [
+        {
+          "loft": 46,
+          "bounce": 10,
+          "grindCode": "SB"
+        },
+        {
+          "loft": 48,
+          "bounce": 10,
+          "grindCode": "SB"
+        },
+        {
+          "loft": 50,
+          "bounce": 10,
+          "grindCode": "SB"
+        },
+        {
+          "loft": 52,
+          "bounce": 10,
+          "grindCode": "SB"
+        },
+        {
+          "loft": 54,
+          "bounce": 11,
+          "grindCode": "SB"
+        },
+        {
+          "loft": 54,
+          "bounce": 9,
+          "grindCode": "SC"
+        },
+        {
+          "loft": 56,
+          "bounce": 12,
+          "grindCode": "SB"
+        },
+        {
+          "loft": 56,
+          "bounce": 9,
+          "grindCode": "SC"
+        },
+        {
+          "loft": 56,
+          "bounce": 14,
+          "grindCode": "HB"
+        },
+        {
+          "loft": 56,
+          "bounce": 6,
+          "grindCode": "LB"
+        },
+        {
+          "loft": 58,
+          "bounce": 11,
+          "grindCode": "SB"
+        },
+        {
+          "loft": 58,
+          "bounce": 8,
+          "grindCode": "SC"
+        },
+        {
+          "loft": 58,
+          "bounce": 14,
+          "grindCode": "HB"
+        },
+        {
+          "loft": 58,
+          "bounce": 4,
+          "grindCode": "LB"
+        },
+        {
+          "loft": 60,
+          "bounce": 10,
+          "grindCode": "SB"
+        },
+        {
+          "loft": 60,
+          "bounce": 8,
+          "grindCode": "SC"
+        },
+        {
+          "loft": 60,
+          "bounce": 12,
+          "grindCode": "HB"
+        },
+        {
+          "loft": 60,
+          "bounce": 4,
+          "grindCode": "LB"
+        }
+      ],
+      "grinds": [
+        {
+          "grindCode": "SB",
+          "oemName": "SB Grind",
+          "description": "Full sole with constant trailing-edge relief for consistent turf interaction across most swing types.",
+          "soleWidth": "wide",
+          "heelRelief": "none",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "light",
+          "leadingEdge": "straight",
+          "camber": "mild",
+          "bestFor": [
+            "all-conditions",
+            "square-face-work",
+            "high-handicap-versatility"
+          ],
+          "equivalentGrindIds": [
+            "taylormade-mg4.SB"
+          ]
+        },
+        {
+          "grindCode": "SC",
+          "oemName": "SC Grind",
+          "description": "Medium-low bounce with camber in the middle of the sole and distinct heel/toe/trailing relief for greenside versatility.",
+          "soleWidth": "medium",
+          "heelRelief": "moderate",
+          "toeRelief": "moderate",
+          "trailingEdgeRelief": "moderate",
+          "leadingEdge": "cambered",
+          "camber": "mild",
+          "bestFor": [
+            "open-face-work",
+            "firm-turf",
+            "tight-lies"
+          ]
+        },
+        {
+          "grindCode": "HB",
+          "oemName": "HB Grind",
+          "description": "High bounce with heel relief and extra bounce at the toe, for soft conditions or steeper swings.",
+          "soleWidth": "wide",
+          "heelRelief": "light",
+          "toeRelief": "none",
+          "trailingEdgeRelief": "none",
+          "leadingEdge": "straight",
+          "camber": "flat",
+          "bestFor": [
+            "soft-turf",
+            "sand-shots",
+            "high-handicap-versatility"
+          ],
+          "equivalentGrindIds": [
+            "taylormade-mg4.HB"
+          ]
+        },
+        {
+          "grindCode": "LB",
+          "oemName": "LB Grind",
+          "description": "Minimal bounce, modified C-grind that lets the leading edge sit close to the ground with the face open.",
+          "soleWidth": "narrow",
+          "heelRelief": "heavy",
+          "toeRelief": "moderate",
+          "trailingEdgeRelief": "moderate",
+          "leadingEdge": "cambered",
+          "camber": "flat",
+          "bestFor": [
+            "firm-turf",
+            "tight-lies",
+            "open-face-work"
+          ],
+          "equivalentGrindIds": [
+            "taylormade-mg4.LB"
+          ]
+        }
+      ],
+      "hasRH": true,
+      "hasLH": true,
+      "family": "players",
+      "forgivenessTier": 3,
+      "workability": "high",
+      "msrp": 200,
+      "predecessorId": "taylormade-mg4",
       "engineEligible": true,
       "seededFromCurated": true
     }
