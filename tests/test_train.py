@@ -41,3 +41,6 @@ def test_normalize_label_columns_cleans_driver_loft_values_after_csv_reload(tmp_
     normalized = normalize_label_columns(reloaded)
 
     assert set(normalized["driver_loft"].unique()).issubset({"8", "9", "10.5", "12"})
+    # fairway_wood_loft round-trips through the same float-then-string CSV
+    # issue as driver_loft (16.5 -> "16.5", but 15 -> "15.0").
+    assert set(normalized["fairway_wood_loft"].unique()).issubset({"15", "16.5", "18", "21"})

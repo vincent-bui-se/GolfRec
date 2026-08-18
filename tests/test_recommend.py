@@ -8,10 +8,14 @@ from recommend import (
     merge_same_name_iron_sets,
     prioritise_distinctive_reasons,
     recommend_clubs,
+    recommend_fairway_woods,
     recommend_irons,
+    recommend_wedges,
     select_recommendations_for_display,
     score_driver,
+    score_fairway_wood,
     score_iron_set,
+    score_wedge,
 )
 
 
@@ -428,3 +432,384 @@ def test_recommend_irons_merges_same_name_different_years_end_to_end():
     assert merged.year <= USED_MAX_YEAR_EQUIVALENT, (
         "merged year must satisfy the client's used-condition filter whenever any merged year qualifies"
     )
+
+
+def test_score_fairway_wood_shares_driver_scoring_but_uses_its_own_category():
+    club = {
+        "brand": "Test",
+        "model": "Max",
+        "lofts": [16.5, 18],
+        "forgivenessTier": 4,
+        "launchChar": "mid-high",
+        "spinChar": "mid",
+        "speedMinMph": 80,
+        "speedMaxMph": 105,
+        "msrp": 429,
+        "family": "versatile",
+    }
+    golfer = GolferInput(
+        handicap=18,
+        swing_speed=88,
+        driver_carry=210,
+        shot_shape="Slice",
+        goal="Forgiveness",
+        iron_miss="Fat/Thin",
+        iron_feel="Forged/Blade-like",
+    )
+
+    driver_score = score_driver(club, golfer, predicted_loft="18")
+    fairway_wood_score = score_fairway_wood(club, golfer, predicted_loft="18")
+
+    assert driver_score.score == fairway_wood_score.score
+    assert driver_score.reasons == fairway_wood_score.reasons
+    assert driver_score.category == "Driver"
+    assert fairway_wood_score.category == "Fairway Wood"
+
+
+def test_wood_launch_reasons_are_category_agnostic():
+    # score_driver and score_fairway_wood share one implementation, so a
+    # launch-correction reason written with "driver" in it would misdescribe
+    # a fairway wood recommendation.
+    club = {
+        "brand": "Test",
+        "model": "Low",
+        "lofts": [9, 10.5],
+        "forgivenessTier": 4,
+        "launchChar": "high",
+        "spinChar": "mid",
+        "speedMinMph": 85,
+        "speedMaxMph": 110,
+        "msrp": 599,
+        "family": "versatile",
+    }
+    golfer = GolferInput(
+        handicap=12,
+        swing_speed=95,
+        driver_carry=235,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        driver_trajectory="Too low",
+    )
+
+    scored = score_fairway_wood(club, golfer, predicted_loft="10.5")
+
+    assert not any("driver" in reason.lower() for reason in scored.reasons)
+
+
+def test_recommend_fairway_woods_returns_ranked_recommendations_end_to_end():
+    catalog = load_equipment_catalog(EQUIPMENT_DIR)
+    golfer = GolferInput(
+        handicap=22,
+        swing_speed=84,
+        driver_carry=205,
+        shot_shape="Slice",
+        goal="Forgiveness",
+        iron_miss="Fat/Thin",
+        iron_feel="Forged/Blade-like",
+    )
+
+    recommendations = recommend_fairway_woods(
+        catalog=catalog,
+        golfer=golfer,
+        predicted_loft="18",
+        predicted_iron_category="game-improvement",
+        top_n=5,
+    )
+
+    assert len(recommendations) == 5
+    assert all(0 <= rec.score <= 100 for rec in recommendations)
+    assert recommendations == sorted(recommendations, key=lambda rec: rec.score, reverse=True)
+    assert all(rec.category == "Fairway Wood" for rec in recommendations)
+
+
+def test_score_wedge_bounce_tier_match_scores_higher_than_mismatch():
+    matching_bounce_club = {
+        "brand": "Test",
+        "model": "Match",
+        "forgivenessTier": 3,
+        "workability": "high",
+        "family": "players",
+        "msrp": 179,
+        "configurations": [{"loft": 56, "bounce": 12, "grindCode": "K"}],
+        "grinds": [{"grindCode": "K", "bestFor": ["all-conditions"]}],
+    }
+    mismatched_bounce_club = {
+        **matching_bounce_club,
+        "model": "Mismatch",
+        "configurations": [{"loft": 56, "bounce": 6, "grindCode": "L"}],
+        "grinds": [{"grindCode": "L", "bestFor": ["all-conditions"]}],
+    }
+    golfer = GolferInput(
+        handicap=14,
+        swing_speed=90,
+        driver_carry=215,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        wedge_turf="Normal",
+    )
+
+    matched = score_wedge(matching_bounce_club, golfer, predicted_bounce="High")
+    mismatched = score_wedge(mismatched_bounce_club, golfer, predicted_bounce="High")
+
+    assert matched.score > mismatched.score
+    assert any("bounce" in reason.lower() for reason in matched.reasons)
+
+
+def test_score_wedge_grind_fit_rewards_matching_turf_condition():
+    club_firm_grind = {
+        "brand": "Test",
+        "model": "FirmGrind",
+        "forgivenessTier": 3,
+        "workability": "high",
+        "msrp": 179,
+        "configurations": [{"loft": 56, "bounce": 9, "grindCode": "L"}],
+        "grinds": [{"grindCode": "L", "bestFor": ["firm-turf", "tight-lies"]}],
+    }
+    club_soft_grind = {
+        **club_firm_grind,
+        "model": "SoftGrind",
+        "grinds": [{"grindCode": "L", "bestFor": ["soft-turf", "sand-shots"]}],
+    }
+    firm_turf_golfer = GolferInput(
+        handicap=14,
+        swing_speed=90,
+        driver_carry=215,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        wedge_turf="Firm",
+    )
+
+    matches_turf = score_wedge(club_firm_grind, firm_turf_golfer, predicted_bounce="Mid")
+    mismatches_turf = score_wedge(club_soft_grind, firm_turf_golfer, predicted_bounce="Mid")
+
+    assert matches_turf.score > mismatches_turf.score
+    assert any("turf" in reason.lower() for reason in matches_turf.reasons)
+
+
+def test_score_wedge_forgiveness_axis_favors_high_forgiveness_for_digging_miss():
+    high_forgiveness = {
+        "brand": "Test",
+        "model": "Forgiving",
+        "forgivenessTier": 5,
+        "workability": "low",
+        "family": "max-forgiveness",
+        "msrp": 149,
+        "configurations": [{"loft": 56, "bounce": 9, "grindCode": "F"}],
+        "grinds": [{"grindCode": "F", "bestFor": ["all-conditions"]}],
+    }
+    low_forgiveness = {
+        **high_forgiveness,
+        "model": "Players",
+        "forgivenessTier": 2,
+        "workability": "high",
+        "family": "players",
+    }
+    golfer = GolferInput(
+        handicap=22,
+        swing_speed=82,
+        driver_carry=195,
+        shot_shape="Slice",
+        goal="Accuracy",
+        iron_miss="Fat/Thin",
+        iron_feel="Confidence-inspiring",
+        wedge_turf="Normal",
+    )
+
+    forgiving_score = score_wedge(high_forgiveness, golfer, predicted_bounce="Mid").score
+    players_score = score_wedge(low_forgiveness, golfer, predicted_bounce="Mid").score
+
+    assert forgiving_score > players_score
+
+
+def test_score_wedge_workability_axis_favors_low_workability_for_forgiveness_goal():
+    low_workability = {
+        "brand": "Test",
+        "model": "Low",
+        "forgivenessTier": 3,
+        "workability": "low",
+        "msrp": 149,
+        "configurations": [{"loft": 56, "bounce": 9, "grindCode": "F"}],
+        "grinds": [{"grindCode": "F", "bestFor": ["all-conditions"]}],
+    }
+    high_workability = {**low_workability, "model": "High", "workability": "high"}
+    golfer = GolferInput(
+        handicap=22,
+        swing_speed=82,
+        driver_carry=195,
+        shot_shape="Slice",
+        goal="Forgiveness",
+        iron_miss="Consistent",
+        iron_feel="Confidence-inspiring",
+        wedge_turf="Normal",
+    )
+
+    low_score = score_wedge(low_workability, golfer, predicted_bounce="Mid").score
+    high_score = score_wedge(high_workability, golfer, predicted_bounce="Mid").score
+
+    assert low_score > high_score
+
+
+def test_score_wedge_sole_width_fit_rewards_matching_divot_depth():
+    wide_sole_club = {
+        "brand": "Test",
+        "model": "Wide",
+        "forgivenessTier": 3,
+        "workability": "mid",
+        "msrp": 179,
+        "configurations": [{"loft": 56, "bounce": 9, "grindCode": "W"}],
+        "grinds": [{"grindCode": "W", "bestFor": ["all-conditions"], "soleWidth": "wide"}],
+    }
+    narrow_sole_club = {
+        **wide_sole_club,
+        "model": "Narrow",
+        "grinds": [{"grindCode": "W", "bestFor": ["all-conditions"], "soleWidth": "narrow"}],
+    }
+    deep_divot_golfer = GolferInput(
+        handicap=14,
+        swing_speed=90,
+        driver_carry=215,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        wedge_turf="Normal",
+        divot_depth="Deep",
+    )
+
+    matches_divot = score_wedge(wide_sole_club, deep_divot_golfer, predicted_bounce="Mid")
+    mismatches_divot = score_wedge(narrow_sole_club, deep_divot_golfer, predicted_bounce="Mid")
+
+    assert matches_divot.score > mismatches_divot.score
+    assert any("divot" in reason.lower() for reason in matches_divot.reasons)
+
+
+def test_score_wedge_shot_style_fit_rewards_matching_bestfor_tag():
+    square_face_club = {
+        "brand": "Test",
+        "model": "Square",
+        "forgivenessTier": 3,
+        "workability": "mid",
+        "msrp": 179,
+        "configurations": [{"loft": 56, "bounce": 9, "grindCode": "S"}],
+        "grinds": [{"grindCode": "S", "bestFor": ["square-face-work"]}],
+    }
+    open_face_club = {
+        **square_face_club,
+        "model": "Open",
+        "grinds": [{"grindCode": "S", "bestFor": ["open-face-work"]}],
+    }
+    shaper_golfer = GolferInput(
+        handicap=14,
+        swing_speed=90,
+        driver_carry=215,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        wedge_turf="Normal",
+        wedge_shot_style="I like to shape shots around the green",
+    )
+
+    matches_style = score_wedge(open_face_club, shaper_golfer, predicted_bounce="Mid")
+    mismatches_style = score_wedge(square_face_club, shaper_golfer, predicted_bounce="Mid")
+
+    assert matches_style.score > mismatches_style.score
+    assert any("shape shots" in reason.lower() for reason in matches_style.reasons)
+
+
+def test_score_wedge_bunker_frequency_fit_rewards_sand_shots_grind():
+    sand_club = {
+        "brand": "Test",
+        "model": "Sand",
+        "forgivenessTier": 3,
+        "workability": "mid",
+        "msrp": 179,
+        "configurations": [{"loft": 56, "bounce": 9, "grindCode": "M"}],
+        "grinds": [{"grindCode": "M", "bestFor": ["sand-shots"]}],
+    }
+    tight_lies_club = {
+        **sand_club,
+        "model": "Tight",
+        "grinds": [{"grindCode": "M", "bestFor": ["tight-lies"]}],
+    }
+    frequent_bunker_golfer = GolferInput(
+        handicap=14,
+        swing_speed=90,
+        driver_carry=215,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        wedge_turf="Normal",
+        bunker_frequency="Frequently",
+    )
+
+    matches_bunker = score_wedge(sand_club, frequent_bunker_golfer, predicted_bounce="Mid")
+    mismatches_bunker = score_wedge(tight_lies_club, frequent_bunker_golfer, predicted_bounce="Mid")
+
+    assert matches_bunker.score > mismatches_bunker.score
+    assert any("bunker" in reason.lower() for reason in matches_bunker.reasons)
+
+
+def test_score_wedge_high_handicap_versatility_bonus_applies_when_forgiveness_triggered():
+    versatile_grind = {
+        "brand": "Test",
+        "model": "Versatile",
+        "forgivenessTier": 4,
+        "workability": "mid",
+        "msrp": 179,
+        "configurations": [{"loft": 56, "bounce": 9, "grindCode": "V"}],
+        "grinds": [{"grindCode": "V", "bestFor": ["all-conditions", "high-handicap-versatility"]}],
+    }
+    plain_grind = {
+        **versatile_grind,
+        "model": "Plain",
+        "grinds": [{"grindCode": "V", "bestFor": ["all-conditions"]}],
+    }
+    digging_golfer = GolferInput(
+        handicap=24,
+        swing_speed=82,
+        driver_carry=195,
+        shot_shape="Slice",
+        goal="Accuracy",
+        iron_miss="Fat/Thin",
+        iron_feel="Confidence-inspiring",
+        wedge_turf="Normal",
+    )
+
+    versatile_score = score_wedge(versatile_grind, digging_golfer, predicted_bounce="Mid").score
+    plain_score = score_wedge(plain_grind, digging_golfer, predicted_bounce="Mid").score
+
+    assert versatile_score > plain_score
+
+
+def test_recommend_wedges_returns_ranked_recommendations_end_to_end():
+    catalog = load_equipment_catalog(EQUIPMENT_DIR)
+    golfer = GolferInput(
+        handicap=14,
+        swing_speed=90,
+        driver_carry=215,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        wedge_turf="Soft",
+    )
+
+    recommendations = recommend_wedges(
+        catalog=catalog,
+        golfer=golfer,
+        predicted_bounce="High",
+        top_n=5,
+    )
+
+    assert len(recommendations) == 5
+    assert all(0 <= rec.score <= 100 for rec in recommendations)
+    assert recommendations == sorted(recommendations, key=lambda rec: rec.score, reverse=True)
+    assert all(rec.category == "Wedge" for rec in recommendations)
