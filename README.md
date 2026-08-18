@@ -14,8 +14,10 @@ The system predicts:
  
 - Recommended driver loft
 - Recommended shaft flex
+- Recommended fairway wood loft
 - Recommended iron category
-After prediction, it searches the included equipment JSON database and ranks the top driver recommendations with an explanation for each match.
+- Recommended wedge bounce
+After prediction, it searches the included equipment JSON database and ranks the top recommendations for all four club categories, each with an explanation for the match.
  
 ## Why This Requires AI
  
@@ -58,10 +60,13 @@ Each generated golfer includes:
 - Goal
 - Typical iron miss
 - Preferred iron feel or look
+- Typical turf/lie conditions (for wedge bounce)
 - Driver loft label
 - Shaft flex label
+- Fairway wood loft label
 - Iron category label
-The label-generation rules are based on public fitting guidance from sources such as MyGolfSpy's driver shaft flex chart, LAZRUS Golf's driver loft guide, TaylorMade's game-improvement iron guidance, and PGA TOUR Superstore fitting education. Iron category labels are not based on handicap alone; they combine handicap, swing speed, carry distance, shot shape, primary goal, typical miss, and preferred feel/look.
+- Wedge bounce label
+The label-generation rules are based on public fitting guidance from sources such as MyGolfSpy's driver shaft flex chart, LAZRUS Golf's driver loft guide, TaylorMade's game-improvement iron guidance, and PGA TOUR Superstore fitting education. Iron category labels are not based on handicap alone; they combine handicap, swing speed, carry distance, shot shape, primary goal, typical miss, and preferred feel/look. Fairway wood loft follows the same speed/handicap/goal logic as driver loft, recalibrated to fairway wood's finer loft steps. Wedge bounce is driven primarily by stated turf/lie conditions, with a digging miss (Fat/Thin) nudging away from a low-bounce fit regardless of turf.
  
 Sources:
  
@@ -71,11 +76,13 @@ Sources:
 - [PGA TOUR Superstore club fitting guide](https://www.pgatoursuperstore.com/learning-center/golf-club-fitting-guide.html)
 ## Machine Learning
  
-The primary algorithm is Random Forest classification. Three separate models are trained:
+The primary algorithm is Random Forest classification. Five separate models are trained, one per predicted label:
  
 - `driver_loft_model.joblib`
 - `shaft_flex_model.joblib`
+- `fairway_wood_loft_model.joblib`
 - `iron_category_model.joblib`
+- `wedge_bounce_model.joblib`
 Random Forest was chosen because it works well on tabular data, handles nonlinear feature interactions, needs little preprocessing, is robust to noisy labels, and is easier to explain than more complex neural-network approaches.
  
 The training script evaluates each model using:
@@ -87,15 +94,17 @@ Current model performance. Balanced accuracy is the cross-validated figure and i
  
 | Target | Accuracy | Balanced accuracy (CV) | Classes |
 | --- | --- | --- | --- |
-| Driver loft | 0.890 | 0.885 | 4 |
-| Shaft flex | 0.893 | 0.863 | 5 |
-| Iron category | 0.787 | 0.713 | 5 |
+| Driver loft | 0.890 | 0.848 | 4 |
+| Shaft flex | 0.882 | 0.837 | 5 |
+| Fairway wood loft | 0.890 | 0.865 | 4 |
+| Iron category | 0.775 | 0.678 | 5 |
+| Wedge bounce | 0.902 | 0.897 | 3 |
  
-Iron category is the hardest of the three. The model separates the extremes well (`super-game-improvement` reaches 0.91 F1, `blade` 0.83) but confuses the middle categories, with `players-cb` at 0.58 F1 and `players-distance` at 0.61. Those two overlap heavily in the source fitting guidance, so the labels themselves are not cleanly separable.
+Iron category is the hardest of the five. The model separates the extremes well (`super-game-improvement` reaches 0.90 F1, `blade` 0.85) but confuses the middle categories, with `players-cb` at 0.55 F1 and `players-distance` at 0.62. Those two overlap heavily in the source fitting guidance, so the labels themselves are not cleanly separable. Wedge bounce is the easiest label added: turf/lie condition is a direct, near-deterministic driver of bounce need, so its three classes separate cleanly.
  
 ![Iron category confusion matrix](models/iron_category_confusion_matrix.png)
  
-Full metrics, best hyperparameters, and classification reports are written to `models/metrics.json`. Confusion matrix images for all three models are in `models/`.
+Full metrics, best hyperparameters, and classification reports are written to `models/metrics.json`. Confusion matrix images for all five models are in `models/`.
  
 ## Recommendation Algorithm
  
@@ -110,22 +119,26 @@ The AI models predict fitting specifications. Then `recommend.py` ranks equipmen
 - Slice/draw-bias compatibility
 - Whether the golfer currently hits the ball too high, too low, or about right
 - Separate driver and iron shot-shape and goal answers
+- Bounce and grind fit against stated turf/lie conditions (wedges)
+- Workability fit against golfer goal (wedges)
 The web app displays the top recommendations with match scores and short explanations. If the top 5 clubs all share the same match score, the display expands until it reaches the next lower score so the ranking is clearer.
+
+Fairway woods share the driver's scoring logic entirely - same catalog schema, same fitting signals - just against a fairway-wood-appropriate loft target, so `score_driver` and `score_fairway_wood` are thin wrappers around one shared implementation. Wedges don't get a single predicted-loft target the way the other three categories do: real wedge fitting is a multi-club gapping decision (a golfer typically carries 2-3 wedges spanning a loft range), which is a different feature from what's implemented here. Wedge scoring instead ranks individual wedge models by bounce/grind fit, forgiveness, and workability, the same way every other category ranks individual products.
  
 ## Web Questionnaire
  
 The app asks shared questions first:
  
-- What the golfer is shopping for: driver, irons, or both
+- What the golfer is shopping for: any combination of driver, fairway wood, irons, and wedges (all four checked by default)
 - Handicap or average score
-Driver questions are shown only when driver recommendations are requested:
+Driver and fairway wood questions are shown whenever either is requested - they reuse the same swing inputs, since a golfer's shot shape, trajectory, and goal don't change between the two:
  
 - Swing speed or driver carry distance
 - Driver shot shape
 - Driver trajectory: too high, too low, or about right
 - Primary driver goal
-- Driver tab budget filter
-- Driver condition filter: All or Used
+- Per-category tab budget filter
+- Per-category tab condition filter: All or Used
 Iron questions are shown only when iron recommendations are requested:
  
 - Iron shot shape
@@ -135,6 +148,11 @@ Iron questions are shown only when iron recommendations are requested:
 - Typical iron miss
 - Iron tab budget filter
 - Iron condition filter: All or Used
+Wedge questions are shown only when wedge recommendations are requested:
+ 
+- Typical turf/lie conditions: Firm, Normal, or Soft
+- Wedge tab budget filter
+- Wedge tab condition filter: All or Used
 The Used option filters recommendations to clubs at least four model years old. In 2026, that means 2022 models or older.
  
 ## Project Structure

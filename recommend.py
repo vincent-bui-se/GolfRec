@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 from collections import Counter, defaultdict
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from typing import Any
 
 _TRAILING_YEAR_RE = re.compile(r"\s*\(\d{4}\)\s*$")
@@ -41,11 +41,16 @@ class GolferInput:
     goal: str
     iron_miss: str
     iron_feel: str
-    shopping_for: str = "Both"
+    shopping_for: list[str] = field(default_factory=lambda: ["Driver", "Irons"])
     driver_trajectory: str = "About right"
     iron_trajectory: str = "About right"
     iron_shot_shape: str | None = None
     iron_goal: str | None = None
+    wedge_turf: str = "Normal"
+    divot_depth: str = "Medium"
+    # Scoring-time-only preferences (not ML features - see preprocess.py).
+    wedge_shot_style: str = "No preference"
+    bunker_frequency: str = "Sometimes"
 
     @property
     def driver_shot_shape(self) -> str:
@@ -186,12 +191,19 @@ def prioritise_distinctive_reasons(
     return ranked
 
 
-def score_driver(
+def _score_wood(
     club: dict[str, Any],
     golfer: GolferInput,
     predicted_loft: str,
+    category: str,
 ) -> ClubRecommendation:
-    """Score one driver against the golfer and predicted ideal loft.
+    """Score one driver or fairway wood against the golfer and predicted loft.
+
+    Drivers and fairway woods share the same catalog schema (lofts,
+    adjustable hosel, launch/spin character, forgiveness tier, family) and the
+    same fitting logic - only the target loft range differs, which the caller
+    already accounts for via `predicted_loft`. `category` only affects the
+    label on the returned recommendation, never the scoring itself.
 
     Scoring weights (max 100 pts):
       - Swing speed range match  : 20 pts
@@ -256,10 +268,10 @@ def score_driver(
     launch = str(club.get("launchChar", "mid"))
     if golfer.driver_trajectory == "Too low" and "high" in launch:
         score += 15
-        reasons.append("Higher launch helps correct your low driver flight.")
+        reasons.append("Higher launch helps correct a low ball flight.")
     elif golfer.driver_trajectory == "Too high" and launch in {"low", "mid-low"}:
         score += 15
-        reasons.append("Lower launch helps bring down your driver flight.")
+        reasons.append("Lower launch helps bring down a high ball flight.")
     elif golfer.driver_trajectory == "About right" and "mid" in launch:
         score += 14
         reasons.append("Mid launch keeps your current trajectory stable.")
@@ -327,7 +339,26 @@ def score_driver(
         model=str(club.get("model", "Unknown")),
         msrp=club.get("msrp") if isinstance(club.get("msrp"), (int, float)) else None,
         year=club.get("year") if isinstance(club.get("year"), int) else None,
+        category=category,
     )
+
+
+def score_driver(
+    club: dict[str, Any],
+    golfer: GolferInput,
+    predicted_loft: str,
+) -> ClubRecommendation:
+    """Score one driver against the golfer and predicted ideal loft. See `_score_wood`."""
+    return _score_wood(club, golfer, predicted_loft, category="Driver")
+
+
+def score_fairway_wood(
+    club: dict[str, Any],
+    golfer: GolferInput,
+    predicted_loft: str,
+) -> ClubRecommendation:
+    """Score one fairway wood against the golfer and predicted ideal loft. See `_score_wood`."""
+    return _score_wood(club, golfer, predicted_loft, category="Fairway Wood")
 
 
 def score_iron_set(
@@ -484,16 +515,16 @@ def score_iron_set(
     )
 
 
-def recommend_clubs(
-    catalog: dict[str, list[dict[str, Any]]],
+def _recommend_woods(
+    clubs: list[dict[str, Any]],
     golfer: GolferInput,
     predicted_loft: str,
     predicted_iron_category: str,
-    top_n: int = 3,
+    top_n: int,
+    category: str,
 ) -> list[ClubRecommendation]:
-    """Return ranked driver recommendations from the equipment database."""
-    drivers = catalog.get("drivers", [])
-    scored = [score_driver(club, golfer, predicted_loft) for club in drivers]
+    """Shared ranking pass for drivers and fairway woods. See `_score_wood`."""
+    scored = [_score_wood(club, golfer, predicted_loft, category) for club in clubs]
 
     if golfer.goal == "Forgiveness" or predicted_iron_category in {
         "game-improvement",
@@ -504,6 +535,288 @@ def recommend_clubs(
             for rec in scored
             if rec.score >= 60 or "max" in rec.name.lower() or "draw" in rec.name.lower()
         ] or scored
+
+    ranked = sorted(scored, key=lambda rec: rec.score, reverse=True)[:top_n]
+    return prioritise_distinctive_reasons(ranked)
+
+
+def recommend_clubs(
+    catalog: dict[str, list[dict[str, Any]]],
+    golfer: GolferInput,
+    predicted_loft: str,
+    predicted_iron_category: str,
+    top_n: int = 3,
+) -> list[ClubRecommendation]:
+    """Return ranked driver recommendations from the equipment database."""
+    return _recommend_woods(
+        catalog.get("drivers", []), golfer, predicted_loft, predicted_iron_category, top_n, "Driver"
+    )
+
+
+def recommend_fairway_woods(
+    catalog: dict[str, list[dict[str, Any]]],
+    golfer: GolferInput,
+    predicted_loft: str,
+    predicted_iron_category: str,
+    top_n: int = 3,
+) -> list[ClubRecommendation]:
+    """Return ranked fairway wood recommendations from the equipment database."""
+    return _recommend_woods(
+        catalog.get("fairway-woods", []),
+        golfer,
+        predicted_loft,
+        predicted_iron_category,
+        top_n,
+        "Fairway Wood",
+    )
+
+
+# ---------- Wedges ----------
+# Wedges don't get a single predicted-loft target the way drivers/fairway
+# woods/irons do, because real wedge fitting is a multi-club gapping decision
+# (a golfer typically carries 2-3 wedges spanning a loft range, informed by
+# where their iron set stops) rather than a single best-fit head. Recommending
+# an assembled, gapped wedge set is a materially different feature; what's
+# implemented here mirrors every other category instead - rank individual
+# wedge models by fit and return the top few - with bounce/grind fit (from
+# turf conditions) standing in for loft fit as the primary matching axis.
+
+# Bounce tier boundaries, chosen from the catalog's own bounce values (4-14
+# degrees): most low-bounce grinds sit at 4-7, most mid at 8-10, most high at
+# 11+.
+_LOW_BOUNCE_MAX = 7
+_MID_BOUNCE_MAX = 10
+_BOUNCE_TIER_CENTER = {"Low": 5.5, "Mid": 9.0, "High": 12.5}
+_BOUNCE_TIER_ORDER = ["Low", "Mid", "High"]
+
+# What each turf/lie condition needs from a grind, in the grind metadata's own
+# vocabulary (each grind lists which conditions it's `bestFor`).
+_TURF_BESTFOR_TAGS = {
+    "Firm": {"firm-turf", "tight-lies"},
+    "Normal": {"all-conditions"},
+    "Soft": {"soft-turf", "sand-shots"},
+}
+
+# Divot depth is a direct attack-angle proxy for how much sole a golfer needs
+# under the leading edge, independent of turf: a deep digger wants a wide sole
+# regardless of ground firmness, a shallow sweeper wants a narrow sole so the
+# leading edge (not the sole) meets the turf first.
+_SOLE_WIDTH_FOR_DIVOT = {"Deep": "wide", "Medium": "medium", "Shallow": "narrow"}
+
+# Greenside shot-shaping preference maps straight to the two most common
+# `bestFor` tags in the wedge catalog that nothing previously scored against.
+_SHOT_STYLE_TAGS = {
+    "One repeatable shot": "square-face-work",
+    "I like to shape shots around the green": "open-face-work",
+}
+
+_WEDGE_FAMILY_NOTES = {
+    "max-forgiveness": "Wide, forgiving sole helps off-centre and heavy contact.",
+    "players": "Compact players shape rewards precise strikes.",
+    "versatile": "Versatile grind works across a range of lies.",
+}
+
+
+def _bounce_tier(bounce: float) -> str:
+    if bounce <= _LOW_BOUNCE_MAX:
+        return "Low"
+    if bounce <= _MID_BOUNCE_MAX:
+        return "Mid"
+    return "High"
+
+
+def _select_wedge_configuration(club: dict[str, Any], predicted_bounce: str) -> dict[str, Any] | None:
+    """Pick the configuration (loft/bounce/grind) closest to the predicted bounce tier."""
+    configurations = club.get("configurations", [])
+    if not configurations:
+        return None
+    target = _BOUNCE_TIER_CENTER.get(predicted_bounce, _BOUNCE_TIER_CENTER["Mid"])
+    return min(configurations, key=lambda config: abs(float(config.get("bounce", 9)) - target))
+
+
+def _grind_best_for(club: dict[str, Any], grind_code: str | None) -> set[str]:
+    for grind in club.get("grinds", []):
+        if grind.get("grindCode") == grind_code:
+            return set(grind.get("bestFor", []))
+    return set()
+
+
+def _grind_sole_width(club: dict[str, Any], grind_code: str | None) -> str | None:
+    for grind in club.get("grinds", []):
+        if grind.get("grindCode") == grind_code:
+            width = grind.get("soleWidth")
+            return str(width) if width else None
+    return None
+
+
+def score_wedge(
+    club: dict[str, Any],
+    golfer: GolferInput,
+    predicted_bounce: str,
+) -> ClubRecommendation:
+    """Score one wedge against the golfer and predicted bounce need.
+
+    Scoring weights (max 100 pts):
+      - Bounce tier match (from turf + divot depth) : 25 pts
+      - Grind fit for stated turf/lie                : 15 pts
+      - Sole-width fit for divot depth                : 10 pts
+      - Greenside shot-style fit                      : 10 pts
+      - Bunker frequency fit                          : 10 pts
+      - Forgiveness / contact quality                 : 20 pts
+      - Workability / shot-shaping                    :  5 pts
+      - Base score (always)                           :  5 pts
+    """
+    score = 0.0
+    reasons: list[str] = []
+
+    chosen = _select_wedge_configuration(club, predicted_bounce)
+    best_for = _grind_best_for(club, chosen.get("grindCode")) if chosen is not None else set()
+
+    # --- Bounce tier match (25 pts) ---
+    if chosen is not None:
+        chosen_bounce = float(chosen.get("bounce", 9))
+        chosen_tier = _bounce_tier(chosen_bounce)
+        tier_gap = abs(
+            _BOUNCE_TIER_ORDER.index(chosen_tier) - _BOUNCE_TIER_ORDER.index(predicted_bounce)
+        )
+        if tier_gap == 0:
+            score += 25
+            reasons.append(
+                f"{chosen_bounce:g} deg bounce fits your {predicted_bounce.lower()}-bounce need."
+            )
+        elif tier_gap == 1:
+            score += 14
+            reasons.append(f"{chosen_bounce:g} deg bounce is close to your bounce need.")
+        else:
+            score += 6
+
+    # --- Grind fit for stated turf/lie (15 pts) ---
+    if chosen is not None:
+        wanted_tags = _TURF_BESTFOR_TAGS.get(golfer.wedge_turf, set())
+        if best_for & wanted_tags:
+            score += 15
+            reasons.append(f"Grind is built for your {golfer.wedge_turf.lower()} turf conditions.")
+        elif "all-conditions" in best_for:
+            score += 9
+            reasons.append("All-conditions grind adapts to most turf.")
+        else:
+            score += 3
+
+    # --- Sole-width fit for divot depth (10 pts) ---
+    if chosen is not None:
+        sole_width = _grind_sole_width(club, chosen.get("grindCode"))
+        wanted_width = _SOLE_WIDTH_FOR_DIVOT.get(golfer.divot_depth, "medium")
+        if sole_width == wanted_width:
+            score += 10
+            reasons.append(f"{sole_width.title()} sole matches your {golfer.divot_depth.lower()} divot.")
+        elif sole_width == "medium" or wanted_width == "medium":
+            score += 6
+        else:
+            score += 2
+
+    # --- Greenside shot-style fit (10 pts) ---
+    wanted_tag = _SHOT_STYLE_TAGS.get(golfer.wedge_shot_style)
+    if wanted_tag is None:
+        score += 6
+    elif wanted_tag in best_for:
+        score += 10
+        reasons.append(f"Grind suits {golfer.wedge_shot_style.lower()}.")
+    elif "all-conditions" in best_for:
+        score += 6
+    else:
+        score += 2
+
+    # --- Bunker frequency fit (10 pts) ---
+    wedge_category = str(club.get("wedgeCategory", ""))
+    if golfer.bunker_frequency == "Frequently":
+        if "sand-shots" in best_for or wedge_category == "specialty":
+            score += 10
+            reasons.append("Grind and shape favour frequent bunker play.")
+        else:
+            score += 3
+    elif golfer.bunker_frequency == "Sometimes":
+        if "sand-shots" in best_for or "all-conditions" in best_for:
+            score += 7
+        else:
+            score += 4
+    else:  # Rarely
+        if wedge_category == "specialty":
+            score += 3
+        else:
+            score += 7
+
+    # --- Forgiveness / contact quality (20 pts) ---
+    # Same combined trigger as score_iron_set: a digging/inconsistent miss or
+    # an explicit Forgiveness goal both call for a forgiving wedge fit.
+    forgiveness = float(club.get("forgivenessTier", 3))
+    triggered = golfer.iron_miss in {"Fat/Thin", "Inconsistent"} or golfer.goal == "Forgiveness"
+    if triggered:
+        forgiveness_points = min(forgiveness * 4, 20)
+        if forgiveness >= 4:
+            reasons.append("High forgiveness helps with off-centre wedge contact.")
+        if "high-handicap-versatility" in best_for:
+            forgiveness_points = min(forgiveness_points + 2, 20)
+            reasons.append("Grind is built for high-handicap versatility.")
+    else:
+        forgiveness_points = 14
+        if forgiveness >= 4:
+            forgiveness_points += 4
+            reasons.append("Forgiving sole gives extra margin even for consistent contact.")
+    score += forgiveness_points
+
+    # --- Workability / shot-shaping (5 pts) ---
+    workability = str(club.get("workability", "mid")).lower()
+    if golfer.goal in {"Accuracy", "Distance"}:
+        if workability == "high":
+            score += 5
+            reasons.append("High workability supports precise, shaped wedge shots.")
+        elif workability == "mid":
+            score += 3
+        else:
+            score += 1
+    else:  # Forgiveness
+        if workability == "low":
+            score += 5
+            reasons.append("Low-workability shape favours consistency over shot-shaping.")
+        elif workability == "mid":
+            score += 3
+        else:
+            score += 1
+
+    # --- Family character (no points; flavour text) ---
+    family_note = _WEDGE_FAMILY_NOTES.get(str(club.get("family", "")))
+    if family_note:
+        reasons.append(family_note)
+
+    # --- Base score (5 pts) ---
+    score += 5
+
+    capped = int(round(max(0, min(score, 100))))
+    name = _display_name(str(club.get("brand", "Unknown")), str(club.get("model", "Unknown")))
+    return ClubRecommendation(
+        name=name,
+        score=capped,
+        reasons=reasons,
+        brand=str(club.get("brand", "Unknown")),
+        model=str(club.get("model", "Unknown")),
+        msrp=club.get("msrp") if isinstance(club.get("msrp"), (int, float)) else None,
+        year=club.get("year") if isinstance(club.get("year"), int) else None,
+        category="Wedge",
+    )
+
+
+def recommend_wedges(
+    catalog: dict[str, list[dict[str, Any]]],
+    golfer: GolferInput,
+    predicted_bounce: str,
+    top_n: int = 3,
+) -> list[ClubRecommendation]:
+    """Return ranked wedge recommendations from the equipment database."""
+    wedges = catalog.get("wedges", [])
+    scored = [score_wedge(club, golfer, predicted_bounce) for club in wedges]
+
+    if golfer.iron_miss in {"Fat/Thin", "Inconsistent"}:
+        scored = [rec for rec in scored if rec.score >= 50] or scored
 
     ranked = sorted(scored, key=lambda rec: rec.score, reverse=True)[:top_n]
     return prioritise_distinctive_reasons(ranked)

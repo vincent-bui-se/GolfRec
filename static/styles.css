@@ -174,6 +174,54 @@ select {
   box-shadow: 0 0 0 3px rgba(168, 128, 31, 0.28);
 }
 
+/* Four independent toggles, unlike .segmented's mutually-exclusive pair, so
+   real checkboxes rather than a segmented control - each one reads on its own. */
+.shopping-for {
+  display: grid;
+  gap: 7px;
+  padding: 0;
+  border: none;
+  margin: 0;
+}
+
+.shopping-for legend {
+  display: block;
+  padding: 0;
+  margin: 0 0 2px;
+  color: rgba(246, 242, 231, 0.7);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(246, 242, 231, 0.24);
+  border-radius: 7px;
+  background: var(--ink-soft);
+  cursor: pointer;
+}
+
+.checkbox-option input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--turf);
+}
+
+.checkbox-option span {
+  color: rgba(246, 242, 231, 0.85);
+  font-size: 0.84rem;
+  font-weight: 500;
+}
+
+.checkbox-option input:focus-visible {
+  outline: 2px solid var(--ochre);
+  outline-offset: 2px;
+}
+
 .segmented {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -313,7 +361,7 @@ select {
 .spec-grid {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   border: 1px solid var(--stone);
   border-radius: var(--radius);
   background: var(--paper);
@@ -838,6 +886,20 @@ select {
 @media (max-width: 920px) {
   .app-shell {
     grid-template-columns: 1fr;
+  }
+
+  /* Five tiles at full width divide evenly with no wrap, but the same five
+     columns get cramped once the panel itself narrows below ~920px - "Super
+     Game Improvement" has nowhere to go. Three columns wrap to two rows
+     instead (3 then 2); the nth-child rule below drops the divider on
+     whichever tile now starts the second row, since :first-child alone only
+     ever catches the very first tile, not the first of each wrapped row. */
+  .spec-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .spec-tile:nth-child(3n + 1) {
+    border-left: none;
   }
 
   /* The bar is sticky, so anything scrolled to the top of the viewport comes

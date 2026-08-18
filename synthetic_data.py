@@ -7,11 +7,13 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from preprocess import GOALS, SHOT_SHAPES, IRON_MISSES, IRON_FEELS
+from preprocess import GOALS, SHOT_SHAPES, IRON_MISSES, IRON_FEELS, TURF_FIRMNESS, DIVOT_DEPTHS
 
 
 DRIVER_LOFT_LABELS = ["8", "9", "10.5", "12"]
 SHAFT_FLEX_LABELS = ["L", "A", "R", "S", "X"]
+FAIRWAY_WOOD_LOFT_LABELS = ["15", "16.5", "18", "21"]
+WEDGE_BOUNCE_LABELS = ["Low", "Mid", "High"]
 IRON_CATEGORY_LABELS = [
     "blade",
     "players-cb",
@@ -55,6 +57,58 @@ def _shaft_flex(speed: float) -> str:
     if speed < 105:
         return "S"
     return "X"
+
+
+def _fairway_wood_loft(speed: float, handicap: float, goal: str) -> str:
+    """Same shape of rule as _driver_loft: slower speed needs more loft to launch.
+
+    Fairway wood lofts run in finer steps than driver lofts (15/16.5/18/21 vs.
+    8/9/10.5/12), so the thresholds are recalibrated, not reused.
+    """
+    if speed < 80:
+        loft = "21"
+    elif speed < 92:
+        loft = "18"
+    elif speed < 104:
+        loft = "16.5"
+    else:
+        loft = "15"
+
+    if handicap > 24 and loft in {"15", "16.5"}:
+        loft = "18"
+    if goal == "Forgiveness" and speed < 96:
+        loft = "21"
+    return loft
+
+
+def _wedge_bounce(turf: str, divot_depth: str) -> str:
+    """Bounce need combines turf/lie firmness with the golfer's attack angle.
+
+    Soft turf and sand need sole material under the leading edge (high bounce)
+    to keep the club from digging; firm turf needs the opposite so the leading
+    edge can reach the ball before the sole does. Divot depth is a direct
+    attack-angle proxy and carries at least as much weight as turf: a deep,
+    steep divot needs bounce to survive even on firm ground, while a shallow,
+    sweeping contact can get away with less bounce even on soft ground. The
+    two signals are combined additively rather than one overriding the other,
+    since neither alone is a reliable predictor.
+    """
+    score = 0.0
+    if turf == "Soft":
+        score += 1.0
+    elif turf == "Firm":
+        score -= 1.0
+
+    if divot_depth == "Deep":
+        score += 1.2
+    elif divot_depth == "Shallow":
+        score -= 1.2
+
+    if score <= -0.75:
+        return "Low"
+    if score <= 0.75:
+        return "Mid"
+    return "High"
 
 
 def _iron_category(
@@ -138,11 +192,16 @@ def generate_golfer_profiles(
     handicaps = np.clip(rng.normal(17, 9, n), 0, 36).round(1)
     swing_speeds = np.clip(108 - 1.15 * handicaps + rng.normal(0, 7, n), 60, 120).round(1)
     driver_carry = np.clip(swing_speeds * 2.35 + rng.normal(0, 13, n), 130, 315).round(0)
+    # A home course's turf firmness is a course/climate trait, not a skill
+    # trait, so it is drawn independently of handicap rather than banded with
+    # the fields below.
+    wedge_turfs = [str(value) for value in rng.choice(TURF_FIRMNESS, size=n)]
 
     shot_shapes = []
     goals = []
     iron_misses = []
     iron_feels = []
+    divot_depths = []
     for handicap in handicaps:
         if handicap >= 20:
             shot_probs = [0.38, 0.18, 0.24, 0.12, 0.08]
@@ -161,15 +220,43 @@ def generate_golfer_profiles(
             feel_probs = [0.6, 0.1, 0.3]
         shot_shapes.append(str(rng.choice(SHOT_SHAPES, p=shot_probs)))
         goals.append(str(rng.choice(GOALS, p=goal_probs)))
-        iron_misses.append(str(rng.choice(IRON_MISSES, p=miss_probs)))
+        iron_miss = str(rng.choice(IRON_MISSES, p=miss_probs))
+        iron_misses.append(iron_miss)
         iron_feels.append(str(rng.choice(IRON_FEELS, p=feel_probs)))
 
+        # Divot depth (attack angle) correlates with iron miss pattern in real
+        # swings - a digging miss (Fat/Thin) comes from a steep, deep-divot
+        # attack angle, while a consistently clean strike tends to sweep the
+        # turf shallower. Sampled per-golfer, not per-handicap-band, since the
+        # correlation is with the miss itself rather than skill level.
+        if iron_miss == "Fat/Thin":
+            divot_probs = [0.10, 0.25, 0.65]
+        elif iron_miss == "Inconsistent":
+            divot_probs = [0.20, 0.40, 0.40]
+        elif iron_miss == "Left/Right":
+            divot_probs = [0.30, 0.45, 0.25]
+        else:
+            divot_probs = [0.35, 0.45, 0.20]
+        divot_depths.append(str(rng.choice(DIVOT_DEPTHS, p=divot_probs)))
+
     rows = []
-    for handicap, speed, carry, shape, goal, i_miss, i_feel in zip(
-        handicaps, swing_speeds, driver_carry, shot_shapes, goals, iron_misses, iron_feels
+    for handicap, speed, carry, shape, goal, i_miss, i_feel, turf, divot in zip(
+        handicaps,
+        swing_speeds,
+        driver_carry,
+        shot_shapes,
+        goals,
+        iron_misses,
+        iron_feels,
+        wedge_turfs,
+        divot_depths,
     ):
         loft = _with_noise(_driver_loft(speed, handicap, goal), DRIVER_LOFT_LABELS, rng, noise_rate)
         flex = _with_noise(_shaft_flex(speed), SHAFT_FLEX_LABELS, rng, noise_rate)
+        fairway_loft = _with_noise(
+            _fairway_wood_loft(speed, handicap, goal), FAIRWAY_WOOD_LOFT_LABELS, rng, noise_rate
+        )
+        bounce = _with_noise(_wedge_bounce(turf, divot), WEDGE_BOUNCE_LABELS, rng, noise_rate)
         iron = _with_noise(
             _iron_category(handicap, speed, carry, shape, goal, i_miss, i_feel),
             IRON_CATEGORY_LABELS,
@@ -185,9 +272,13 @@ def generate_golfer_profiles(
                 "goal": goal,
                 "iron_miss": i_miss,
                 "iron_feel": i_feel,
+                "wedge_turf": turf,
+                "divot_depth": divot,
                 "driver_loft": loft,
                 "shaft_flex": flex,
+                "fairway_wood_loft": fairway_loft,
                 "iron_category": iron,
+                "wedge_bounce": bounce,
             }
         )
 

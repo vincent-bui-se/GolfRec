@@ -13,7 +13,26 @@ SHOT_SHAPES = ["Slice", "Fade", "Straight", "Draw", "Hook"]
 GOALS = ["Distance", "Accuracy", "Forgiveness"]
 IRON_MISSES = ["Fat/Thin", "Left/Right", "Inconsistent", "Consistent"]
 IRON_FEELS = ["Forged/Blade-like", "Confidence-inspiring", "No preference"]
-SHOPPING_TARGETS = ["Driver", "Irons", "Both"]
+# Fairway wood fitting reuses every driver input (same swing, same session) and
+# earns its own results tab without a form question of its own. Wedges are the
+# one category that turns on a golf-relevant signal nothing else captures - the
+# turf/lie conditions a golfer's home course plays - so that's the only new
+# question in the profile form.
+CLUB_CATEGORIES = ["Driver", "Fairway Wood", "Irons", "Wedges"]
+TURF_FIRMNESS = ["Firm", "Normal", "Soft"]
+# Attack angle proxy: how deep a divot the golfer typically takes with an
+# iron/wedge. Combines with turf firmness to drive bounce need, and separately
+# informs sole-width fit (deep divots want a wider sole regardless of turf).
+DIVOT_DEPTHS = ["Shallow", "Medium", "Deep"]
+# Greenside shot-shaping preference and bunker frequency are asked in outcome
+# terms so a golfer can self-assess without technical vocabulary. Both map
+# straight to wedge grind `bestFor` tags that nothing in the app used before -
+# they're scoring-time preferences only, not ML features (like driver/iron
+# trajectory), since there's no ambiguous pattern here worth training a model
+# on: "plays sand often" -> "favor sand-friendly grinds" is already a direct,
+# deterministic rule.
+WEDGE_SHOT_STYLES = ["One repeatable shot", "I like to shape shots around the green", "No preference"]
+BUNKER_FREQUENCIES = ["Rarely", "Sometimes", "Frequently"]
 TRAJECTORIES = ["Too low", "About right", "Too high"]
 INPUT_COLUMNS = [
     "handicap",
@@ -23,6 +42,8 @@ INPUT_COLUMNS = [
     "goal",
     "iron_miss",
     "iron_feel",
+    "wedge_turf",
+    "divot_depth",
 ]
 FEATURE_COLUMNS = [
     "handicap",
@@ -43,6 +64,12 @@ FEATURE_COLUMNS = [
     "iron_feel_Forged/Blade-like",
     "iron_feel_Confidence-inspiring",
     "iron_feel_No preference",
+    "wedge_turf_Firm",
+    "wedge_turf_Normal",
+    "wedge_turf_Soft",
+    "divot_depth_Shallow",
+    "divot_depth_Medium",
+    "divot_depth_Deep",
 ]
 
 
@@ -92,6 +119,10 @@ def make_feature_frame(golfers: pd.DataFrame) -> pd.DataFrame:
         frame[f"iron_miss_{value}"] = (golfers["iron_miss"] == value).astype(int)
     for value in IRON_FEELS:
         frame[f"iron_feel_{value}"] = (golfers["iron_feel"] == value).astype(int)
+    for value in TURF_FIRMNESS:
+        frame[f"wedge_turf_{value}"] = (golfers["wedge_turf"] == value).astype(int)
+    for value in DIVOT_DEPTHS:
+        frame[f"divot_depth_{value}"] = (golfers["divot_depth"] == value).astype(int)
 
     return frame[FEATURE_COLUMNS]
 

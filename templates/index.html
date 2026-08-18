@@ -55,14 +55,15 @@
               <span>Profile</span>
             </div>
 
-            <label class="field">
-              <span>Shopping for</span>
-              <select name="shopping_for" id="shopping-for">
-                {% for value in shopping_targets %}
-                <option value="{{ value }}" {% if value == "Both" %}selected{% endif %}>{{ value }}</option>
-                {% endfor %}
-              </select>
-            </label>
+            <fieldset class="shopping-for" id="shopping-for">
+              <legend>Shopping for</legend>
+              {% for value in club_categories %}
+              <label class="checkbox-option">
+                <input type="checkbox" name="shopping_for" value="{{ value }}" checked>
+                <span>{{ value }}</span>
+              </label>
+              {% endfor %}
+            </fieldset>
 
             <div class="segmented" role="radiogroup" aria-label="Score type">
               <label>
@@ -86,9 +87,9 @@
             </label>
           </section>
 
-          <section class="form-section driver-fields">
+          <section class="form-section wood-fields">
             <div class="section-heading">
-              <span>Driver</span>
+              <span>Driver &amp; Fairway Wood</span>
             </div>
 
             <div class="segmented" role="radiogroup" aria-label="Driver speed type">
@@ -191,6 +192,48 @@
             </label>
           </section>
 
+          <section class="form-section wedge-fields">
+            <div class="section-heading">
+              <span>Wedges</span>
+            </div>
+
+            <label class="field">
+              <span>Typical turf/lie conditions</span>
+              <select name="wedge_turf">
+                {% for value in turf_firmness %}
+                <option value="{{ value }}" {% if value == "Normal" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="field">
+              <span>How deep is your typical divot?</span>
+              <select name="divot_depth">
+                {% for value in divot_depths %}
+                <option value="{{ value }}" {% if value == "Medium" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Greenside shot style</span>
+              <select name="wedge_shot_style">
+                {% for value in wedge_shot_styles %}
+                <option value="{{ value }}" {% if value == "No preference" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="field">
+              <span>How often do you play from bunkers?</span>
+              <select name="bunker_frequency">
+                {% for value in bunker_frequencies %}
+                <option value="{{ value }}" {% if value == "Sometimes" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+          </section>
+
           <div class="form-actions">
             <button class="primary-action" type="submit">
               <span>Find My Sticks</span>
@@ -217,16 +260,24 @@
         <p class="sr-only" role="status" aria-live="polite" id="result-status"></p>
 
         <section class="spec-grid" id="spec-grid">
-          <article class="spec-tile">
+          <article class="spec-tile" data-spec="driver_loft">
             <span>Driver Loft</span>
             <strong>-</strong>
           </article>
-          <article class="spec-tile">
+          <article class="spec-tile" data-spec="shaft_flex">
             <span>Shaft Flex</span>
             <strong>-</strong>
           </article>
-          <article class="spec-tile">
+          <article class="spec-tile" data-spec="fairway_wood_loft">
+            <span>Fairway Wood Loft</span>
+            <strong>-</strong>
+          </article>
+          <article class="spec-tile" data-spec="iron_category">
             <span>Iron Type</span>
+            <strong>-</strong>
+          </article>
+          <article class="spec-tile" data-spec="wedge_bounce">
+            <span>Wedge Bounce</span>
             <strong>-</strong>
           </article>
         </section>
@@ -246,7 +297,9 @@
         <section class="recommendations hidden" id="recommendations">
           <div class="tabs" id="tabs" role="tablist" aria-label="Recommendation category">
             <button type="button" class="tab-button active" data-tab="drivers" role="tab" id="tab-drivers" aria-controls="panel-drivers" aria-selected="true">Drivers</button>
+            <button type="button" class="tab-button" data-tab="fairway-woods" role="tab" id="tab-fairway-woods" aria-controls="panel-fairway-woods" aria-selected="false" tabindex="-1">Fairway Woods</button>
             <button type="button" class="tab-button" data-tab="irons" role="tab" id="tab-irons" aria-controls="panel-irons" aria-selected="false" tabindex="-1">Irons</button>
+            <button type="button" class="tab-button" data-tab="wedges" role="tab" id="tab-wedges" aria-controls="panel-wedges" aria-selected="false" tabindex="-1">Wedges</button>
           </div>
 
           <div class="tab-panel active" data-panel="drivers" role="tabpanel" id="panel-drivers" aria-labelledby="tab-drivers" tabindex="0">
@@ -281,6 +334,38 @@
             <div class="club-list" id="driver-list"></div>
           </div>
 
+          <div class="tab-panel" data-panel="fairway-woods" role="tabpanel" id="panel-fairway-woods" aria-labelledby="tab-fairway-woods" tabindex="0">
+            <div class="list-toolbar">
+              <div>
+                <h3>Fairway Wood Recommendations</h3>
+                <p id="fairway-wood-count">0 clubs</p>
+              </div>
+              <div class="toolbar-controls">
+                <div class="condition-control">
+                  <span class="control-label">
+                    Condition
+                    <span
+                      class="info-icon"
+                      tabindex="0"
+                      aria-label="Used shows clubs at least four model years old."
+                      data-tooltip="Used shows clubs at least four model years old. In 2026, that means 2022 or older."
+                    >i</span>
+                  </span>
+                  <select id="fairway-wood-condition">
+                    <option value="all" selected>All</option>
+                    <option value="used">Used</option>
+                  </select>
+                </div>
+                <label class="budget-control">
+                  <span>Budget</span>
+                  <input type="range" id="fairway-wood-budget" min="250" max="500" step="25" value="500">
+                  <strong id="fairway-wood-budget-value">$500</strong>
+                </label>
+              </div>
+            </div>
+            <div class="club-list" id="fairway-wood-list"></div>
+          </div>
+
           <div class="tab-panel" data-panel="irons" role="tabpanel" id="panel-irons" aria-labelledby="tab-irons" tabindex="0">
             <div class="list-toolbar">
               <div>
@@ -311,6 +396,38 @@
               </div>
             </div>
             <div class="club-list" id="iron-list"></div>
+          </div>
+
+          <div class="tab-panel" data-panel="wedges" role="tabpanel" id="panel-wedges" aria-labelledby="tab-wedges" tabindex="0">
+            <div class="list-toolbar">
+              <div>
+                <h3>Wedge Recommendations</h3>
+                <p id="wedge-count">0 clubs</p>
+              </div>
+              <div class="toolbar-controls">
+                <div class="condition-control">
+                  <span class="control-label">
+                    Condition
+                    <span
+                      class="info-icon"
+                      tabindex="0"
+                      aria-label="Used shows clubs at least four model years old."
+                      data-tooltip="Used shows clubs at least four model years old. In 2026, that means 2022 or older."
+                    >i</span>
+                  </span>
+                  <select id="wedge-condition">
+                    <option value="all" selected>All</option>
+                    <option value="used">Used</option>
+                  </select>
+                </div>
+                <label class="budget-control">
+                  <span>Budget</span>
+                  <input type="range" id="wedge-budget" min="100" max="350" step="25" value="350">
+                  <strong id="wedge-budget-value">$350</strong>
+                </label>
+              </div>
+            </div>
+            <div class="club-list" id="wedge-list"></div>
           </div>
         </section>
       </main>
