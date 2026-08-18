@@ -61,12 +61,13 @@ Each generated golfer includes:
 - Typical iron miss
 - Preferred iron feel or look
 - Typical turf/lie conditions (for wedge bounce)
+- Typical divot depth (for wedge bounce)
 - Driver loft label
 - Shaft flex label
 - Fairway wood loft label
 - Iron category label
 - Wedge bounce label
-The label-generation rules are based on public fitting guidance from sources such as MyGolfSpy's driver shaft flex chart, LAZRUS Golf's driver loft guide, TaylorMade's game-improvement iron guidance, and PGA TOUR Superstore fitting education. Iron category labels are not based on handicap alone; they combine handicap, swing speed, carry distance, shot shape, primary goal, typical miss, and preferred feel/look. Fairway wood loft follows the same speed/handicap/goal logic as driver loft, recalibrated to fairway wood's finer loft steps. Wedge bounce is driven primarily by stated turf/lie conditions, with a digging miss (Fat/Thin) nudging away from a low-bounce fit regardless of turf.
+The label-generation rules are based on public fitting guidance from sources such as MyGolfSpy's driver shaft flex chart, LAZRUS Golf's driver loft guide, TaylorMade's game-improvement iron guidance, and PGA TOUR Superstore fitting education. Iron category labels are not based on handicap alone; they combine handicap, swing speed, carry distance, shot shape, primary goal, typical miss, and preferred feel/look. Fairway wood loft follows the same speed/handicap/goal logic as driver loft, recalibrated to fairway wood's finer loft steps. Wedge bounce combines stated turf/lie firmness with divot depth (an attack-angle proxy), weighted at least as heavily as turf, since a deep digger needs bounce even on firm ground and a shallow sweeper can get away with less even on soft ground.
  
 Sources:
  
@@ -94,13 +95,13 @@ Current model performance. Balanced accuracy is the cross-validated figure and i
  
 | Target | Accuracy | Balanced accuracy (CV) | Classes |
 | --- | --- | --- | --- |
-| Driver loft | 0.890 | 0.848 | 4 |
-| Shaft flex | 0.882 | 0.837 | 5 |
-| Fairway wood loft | 0.890 | 0.865 | 4 |
-| Iron category | 0.775 | 0.678 | 5 |
-| Wedge bounce | 0.902 | 0.897 | 3 |
+| Driver loft | 0.893 | 0.823 | 4 |
+| Shaft flex | 0.873 | 0.830 | 5 |
+| Fairway wood loft | 0.907 | 0.863 | 4 |
+| Iron category | 0.750 | 0.635 | 5 |
+| Wedge bounce | 0.907 | 0.898 | 3 |
  
-Iron category is the hardest of the five. The model separates the extremes well (`super-game-improvement` reaches 0.90 F1, `blade` 0.85) but confuses the middle categories, with `players-cb` at 0.55 F1 and `players-distance` at 0.62. Those two overlap heavily in the source fitting guidance, so the labels themselves are not cleanly separable. Wedge bounce is the easiest label added: turf/lie condition is a direct, near-deterministic driver of bounce need, so its three classes separate cleanly.
+Iron category is the hardest of the five. The model separates the extremes well but confuses the middle categories, since those overlap heavily in the source fitting guidance and are not cleanly separable. It also picked up the new divot-depth input, which it has no real signal for, costing it a little cross-validated accuracy without changing its predictions. Wedge bounce is the easiest label added: turf/lie condition and divot depth are direct, near-deterministic drivers of bounce need, so its three classes separate cleanly - and adding divot depth as a second input held its accuracy steady while making the underlying rule more realistic.
  
 ![Iron category confusion matrix](models/iron_category_confusion_matrix.png)
  
@@ -120,6 +121,9 @@ The AI models predict fitting specifications. Then `recommend.py` ranks equipmen
 - Whether the golfer currently hits the ball too high, too low, or about right
 - Separate driver and iron shot-shape and goal answers
 - Bounce and grind fit against stated turf/lie conditions (wedges)
+- Sole-width fit against divot depth (wedges)
+- Greenside shot-style fit against grind character (wedges)
+- Bunker frequency fit against grind and wedge category (wedges)
 - Workability fit against golfer goal (wedges)
 The web app displays the top recommendations with match scores and short explanations. If the top 5 clubs all share the same match score, the display expands until it reaches the next lower score so the ranking is clearer.
 
@@ -151,8 +155,13 @@ Iron questions are shown only when iron recommendations are requested:
 Wedge questions are shown only when wedge recommendations are requested:
  
 - Typical turf/lie conditions: Firm, Normal, or Soft
+- Typical divot depth: Shallow, Medium, or Deep
+- Greenside shot style: one repeatable shot, shaping shots around the green, or no preference
+- Bunker frequency: Rarely, Sometimes, or Frequently
 - Wedge tab budget filter
 - Wedge tab condition filter: All or Used
+ 
+Divot depth doubles as a wedge-bounce input (see Machine Learning above) and a direct sole-width scoring signal. Greenside shot style and bunker frequency are scoring-only preferences, not model inputs - like driver/iron trajectory, there's no ambiguous pattern worth training a model on ("plays sand often" -> "favor sand-friendly grinds" is already a direct rule), so they're read straight into the wedge scorer instead.
 The Used option filters recommendations to clubs at least four model years old. In 2026, that means 2022 models or older.
  
 ## Project Structure

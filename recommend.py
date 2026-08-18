@@ -609,6 +609,12 @@ _SHOT_STYLE_TAGS = {
     "One repeatable shot": "square-face-work",
     "I like to shape shots around the green": "open-face-work",
 }
+# Reason-text phrasing for each shot style, kept separate from the dropdown
+# option text above so the sentence reads naturally either way.
+_SHOT_STYLE_REASON_TEXT = {
+    "One repeatable shot": "your repeatable, square-face shot style",
+    "I like to shape shots around the green": "shaping shots around the green",
+}
 
 _WEDGE_FAMILY_NOTES = {
     "max-forgiveness": "Wide, forgiving sole helps off-centre and heavy contact.",
@@ -720,7 +726,8 @@ def score_wedge(
         score += 6
     elif wanted_tag in best_for:
         score += 10
-        reasons.append(f"Grind suits {golfer.wedge_shot_style.lower()}.")
+        style_text = _SHOT_STYLE_REASON_TEXT.get(golfer.wedge_shot_style, golfer.wedge_shot_style.lower())
+        reasons.append(f"Grind suits {style_text}.")
     elif "all-conditions" in best_for:
         score += 6
     else:

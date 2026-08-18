@@ -720,7 +720,7 @@ def test_score_wedge_shot_style_fit_rewards_matching_bestfor_tag():
     mismatches_style = score_wedge(square_face_club, shaper_golfer, predicted_bounce="Mid")
 
     assert matches_style.score > mismatches_style.score
-    assert any("shape shots" in reason.lower() for reason in matches_style.reasons)
+    assert any("shots around the green" in reason.lower() for reason in matches_style.reasons)
 
 
 def test_score_wedge_bunker_frequency_fit_rewards_sand_shots_grind():
