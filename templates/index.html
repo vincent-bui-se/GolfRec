@@ -92,6 +92,16 @@
               <span>Driver &amp; Fairway Wood</span>
             </div>
 
+            <label class="field">
+              <span>Current driver (optional)</span>
+              <select name="current_driver_id">
+                <option value="" selected>Not sure / skip</option>
+                {% for option in current_drivers %}
+                <option value="{{ option.id }}">{{ option.label }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
             <div class="segmented" role="radiogroup" aria-label="Driver speed type">
               <label>
                 <input type="radio" name="speed_mode" value="Swing speed" checked>
@@ -145,6 +155,16 @@
             <div class="section-heading">
               <span>Irons</span>
             </div>
+
+            <label class="field">
+              <span>Current irons (optional)</span>
+              <select name="current_iron_set_id">
+                <option value="" selected>Not sure / skip</option>
+                {% for option in current_iron_sets %}
+                <option value="{{ option.id }}">{{ option.label }}</option>
+                {% endfor %}
+              </select>
+            </label>
 
             <label class="field">
               <span>Shot shape</span>
