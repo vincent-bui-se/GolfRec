@@ -27,9 +27,15 @@
         <!-- Left, to match the direction the drawer it opens actually slides
              in from - it used to sit on the right while the drawer came from
              the left, which read as if the button opened the wrong panel. -->
-        <button type="button" class="drawer-toggle" id="drawer-toggle" aria-expanded="false" aria-controls="profile-panel">
+        <button
+          type="button"
+          class="drawer-toggle"
+          id="drawer-toggle"
+          aria-expanded="false"
+          aria-controls="profile-panel"
+          aria-label="Open profile"
+        >
           <span class="drawer-toggle-icon" aria-hidden="true"></span>
-          <span>Profile</span>
         </button>
         <div class="mobile-bar-brand">
           <img class="brand-mark" src="{{ url_for('static', filename='brand-mark.png') }}" alt="" width="34" height="34" aria-hidden="true">

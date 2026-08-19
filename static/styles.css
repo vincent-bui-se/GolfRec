@@ -1019,22 +1019,22 @@ select {
     display: none;
   }
 
+  /* Matches .drawer-close below - same circle, same border, same size - so
+     the button that opens the drawer and the one that closes it read as a
+     pair. It used to be a wide bordered pill with a text label, which had
+     more visual weight than the plain "x" it opens onto and read as a
+     generic dashboard control next to the illustrated brand mark. */
   .drawer-toggle {
     grid-column: 1;
     justify-self: start;
-    flex: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    min-height: 40px;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
     border: 1px solid rgba(246, 242, 231, 0.3);
-    border-radius: 7px;
+    border-radius: 999px;
     background: transparent;
     color: var(--chalk);
-    padding: 0 14px;
-    font: inherit;
-    font-size: 0.85rem;
-    font-weight: 600;
     cursor: pointer;
   }
 
