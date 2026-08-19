@@ -178,12 +178,12 @@ def _speed_score(club: dict[str, Any], speed: float) -> tuple[float, str]:
             note = f"{speed:.0f} mph is at the top of this head's {low:.0f}-{high:.0f} mph range."
         else:
             note = f"{speed:.0f} mph sits mid-range for this head ({low:.0f}-{high:.0f} mph)."
-        return 20.0, note
+        return 10.0, note
 
     distance = min(abs(speed - low), abs(speed - high))
     # Provide a 2 mph buffer before penalizing
     effective_distance = max(0.0, distance - 2.0)
-    score = max(0.0, 20.0 - effective_distance * 1.5)
+    score = max(0.0, 10.0 - effective_distance * 0.75)
     return score, f"Close to your {speed:.0f} mph swing speed range."
 
 
@@ -267,26 +267,34 @@ def _score_wood(
     label on the returned recommendation, never the scoring itself.
 
     Scoring weights (max 100 pts):
-      - Swing speed range match  : 20 pts
-      - Loft match (+ adjustable): 20 pts
+      - Launch characteristic    : 20 pts
+      - Spin characteristic      : 18 pts
       - Forgiveness / goal       : 20 pts
-      - Launch characteristic    : 15 pts
-      - Spin characteristic      : 15 pts
-      - Shot shape / family bonus:  5 pts
+      - Loft match (+ adjustable): 15 pts
+      - Swing speed range match  : 10 pts
+      - Shot shape / family bonus: 12 pts
       - Base score (always)      :  5 pts
+
+    Launch+spin are weighted highest because optimizing them together for the
+    golfer's swing speed is the single biggest lever in real club fitting -
+    it drives carry distance and dispersion more than any other head trait.
+    Swing-speed range is mostly a fit/legality gate (most modern heads clear
+    a wide range) rather than a quality signal, so it carries less weight
+    than the traits that actually differentiate one head from another for a
+    golfer who already clears that gate.
     """
     score = 0.0
     reasons: list[str] = []
 
-    # --- Swing speed (20 pts) ---
+    # --- Swing speed (10 pts) ---
     speed_points, speed_reason = _speed_score(club, golfer.swing_speed)
     score += speed_points
     reasons.append(speed_reason)
 
-    # --- Loft match with adjustable hosel awareness (20 pts) ---
+    # --- Loft match with adjustable hosel awareness (15 pts) ---
     adjust_range = float(club.get("adjustRangeDeg", 0)) / 2  # total / 2 = each direction
     closest_loft, loft_gap = _closest_loft(club.get("lofts", []), predicted_loft, adjust_range)
-    loft_points = max(0.0, 20.0 - loft_gap * 10)
+    loft_points = max(0.0, 15.0 - loft_gap * 7.5)
     score += loft_points
     if closest_loft is not None:
         # Distinguish heads sold in the target loft from those that only reach it
@@ -319,19 +327,18 @@ def _score_wood(
         elif forgiveness >= 8:
             reasons.append("Stable head keeps accuracy misses playable.")
     else:  # Distance
-        if club.get("spinChar") in {"low", "low-mid"}:
-            score += 20
-            reasons.append("Low-spin design promotes extra distance.")
-        elif club.get("spinChar") == "mid":
-            score += 15
-        else:
-            score += 10
+        # Not a spin re-check - the Spin bucket below already scores that.
+        # Distance golfers still lose carry on a mis-hit, so forgiveness gets
+        # a moderate (not full Forgiveness-goal-strength) credit here instead.
+        score += 6 + forgiveness * 1.4
+        if forgiveness >= 8:
+            reasons.append("Forgiving head preserves distance on mis-hits.")
 
-    # --- Launch characteristic (15 pts) ---
+    # --- Launch characteristic (20 pts) ---
     launch = str(club.get("launchChar", "mid"))
     if golfer.current_driver_launch is not None:
         launch_points, launch_gap = _relative_trajectory_points(
-            launch, golfer.driver_trajectory, golfer.current_driver_launch, 15
+            launch, golfer.driver_trajectory, golfer.current_driver_launch, 20
         )
         score += launch_points
         if launch_gap == 0 and golfer.driver_trajectory == "Too high":
@@ -341,32 +348,32 @@ def _score_wood(
         elif launch_gap == 0:
             reasons.append("Launch matches your current driver, keeping your trajectory stable.")
     elif golfer.driver_trajectory == "Too low" and _ordinal(launch) >= 3:
-        score += 15
+        score += 20
         reasons.append("Higher launch helps correct a low ball flight.")
     elif golfer.driver_trajectory == "Too high" and _ordinal(launch) <= 1:
-        score += 15
+        score += 20
         reasons.append("Lower launch helps bring down a high ball flight.")
     elif golfer.driver_trajectory == "About right" and _ordinal(launch) == 2:
-        score += 14
+        score += 19
         reasons.append("Mid launch keeps your current trajectory stable.")
     elif golfer.swing_speed < 85 and _ordinal(launch) >= 3:
-        score += 13
+        score += 17
         reasons.append("High launch helps slower swing speeds maximise carry.")
     elif golfer.swing_speed >= 100 and _ordinal(launch) <= 2:
-        score += 15
+        score += 20
         reasons.append("Controlled launch keeps the ball penetrating into wind.")
     elif 85 <= golfer.swing_speed < 100 and _ordinal(launch) in {2, 3}:
-        score += 13
+        score += 17
         reasons.append("Ideal mid-launch for your swing speed.")
     else:
-        score += 8
+        score += 11
         reasons.append(f"{launch.replace('-', ' ').title()} launch profile.")
 
-    # --- Spin characteristic (15 pts) ---
+    # --- Spin characteristic (18 pts) ---
     spin = str(club.get("spinChar", "mid")).lower()
     if golfer.current_driver_spin is not None:
         spin_points, spin_gap = _relative_trajectory_points(
-            spin, golfer.driver_trajectory, golfer.current_driver_spin, 15
+            spin, golfer.driver_trajectory, golfer.current_driver_spin, 18
         )
         score += spin_points
         if spin_gap == 0 and golfer.driver_trajectory == "Too high":
@@ -376,34 +383,37 @@ def _score_wood(
         elif spin_gap == 0:
             reasons.append("Spin matches your current driver, maintaining your trajectory.")
     elif golfer.driver_trajectory == "Too high" and _ordinal(spin) <= 1:
-        score += 15
+        score += 18
         reasons.append("Low spin helps prevent ballooning for your high trajectory.")
     elif golfer.driver_trajectory == "Too high" and _ordinal(spin) == 2:
-        score += 8
+        score += 10
     elif golfer.driver_trajectory == "Too low" and _ordinal(spin) >= 3:
-        score += 15
+        score += 18
         reasons.append("Higher spin helps keep the ball airborne longer for your low trajectory.")
     elif golfer.driver_trajectory == "Too low" and _ordinal(spin) == 2:
-        score += 10
+        score += 12
     elif golfer.driver_trajectory == "About right" and _ordinal(spin) == 2:
-        score += 15
+        score += 18
         reasons.append("Mid spin maintains your optimal trajectory.")
     elif golfer.driver_trajectory == "About right" and _ordinal(spin) in {1, 3}:
-        score += 10
+        score += 12
     else:
-        score += 5
+        score += 6
 
-    # --- Shot shape / family bonus (5 pts) ---
+    # --- Shot shape / family bonus (12 pts) ---
+    # Weighted up from the original 5: draw-bias fitting is a real,
+    # well-documented corrective lever for the majority-slicing amateur
+    # population, not a minor tiebreaker.
     if golfer.shot_shape == "Slice" and (
         club.get("drawBiasBuiltIn") or club.get("drawBiasAvailable") or club.get("family") == "draw-bias"
     ):
-        score += 5
+        score += 12
         reasons.append("Draw-bias option can help reduce a slice.")
     elif golfer.goal == "Distance" and club.get("family") in {"low-spin", "players"}:
-        score += 4
+        score += 10
         reasons.append("Low-spin player's head supports maximum distance.")
     elif golfer.shot_shape in {"Draw", "Hook"} and club.get("spinChar") in {"low", "low-mid"}:
-        score += 3
+        score += 7
         reasons.append("Low-spin design helps moderate a strong draw.")
 
     # --- Head character (no points; describes what sets this head apart) ---
@@ -453,22 +463,27 @@ def score_iron_set(
 ) -> ClubRecommendation:
     """Score one iron set against the golfer and predicted category.
 
-    Scoring weights (max 93 pts; base score always applies):
-      - Category match           : 30 pts
+    Scoring weights (max 100 pts):
+      - Category match           : 32 pts
       - Forgiveness / miss type  : 20 pts
-      - Launch (speed vs. iron)  : 15 pts
+      - Launch (speed vs. iron)  : 18 pts
       - Spin characteristic      : 10 pts
       - Construction / feel pref :  8 pts (kept light; see the branch below)
-      - Shot-shape bonus         :  5 pts
+      - Shot-shape bonus         :  7 pts
       - Base score               :  5 pts
+
+    Category carries the most weight because matching construction to skill
+    level (blade through super-game-improvement) is the single biggest
+    practical iron-fitting decision - a badly mismatched category is a worse
+    real-world outcome than any other factor scored here.
     """
     score = 0.0
     reasons: list[str] = []
 
-    # --- Category match (30 pts) ---
+    # --- Category match (32 pts) ---
     category = str(club.get("ironCategory", ""))
     if category == predicted_iron_category:
-        score += 30
+        score += 32
         reasons.append(f"Matches the predicted {category.replace('-', ' ').title()} category.")
     else:
         # Adjacent categories still earn partial credit
@@ -480,7 +495,7 @@ def score_iron_set(
             "super-game-improvement": {"game-improvement"},
         }
         if category in adjacent.get(predicted_iron_category, set()):
-            score += 18
+            score += 19
             reasons.append(f"Near-match category: {category.replace('-', ' ').title()}.")
         else:
             score += 5
@@ -534,11 +549,11 @@ def score_iron_set(
     else:  # No preference
         score += 4
 
-    # --- Launch characteristic vs. swing speed (15 pts) ---
+    # --- Launch characteristic vs. swing speed (18 pts) ---
     iron_launch = str(club.get("launchChar", "mid")).lower()
     if golfer.current_iron_launch is not None:
         iron_launch_points, iron_launch_gap = _relative_trajectory_points(
-            iron_launch, golfer.iron_trajectory, golfer.current_iron_launch, 15
+            iron_launch, golfer.iron_trajectory, golfer.current_iron_launch, 18
         )
         score += iron_launch_points
         if iron_launch_gap == 0 and golfer.iron_trajectory == "Too high":
@@ -548,25 +563,25 @@ def score_iron_set(
         elif iron_launch_gap == 0:
             reasons.append("Launch matches your current irons, preserving your trajectory.")
     elif golfer.iron_trajectory == "Too low" and _ordinal(iron_launch) >= 3:
-        score += 15
+        score += 18
         reasons.append("High-launching irons help correct your low iron flight.")
     elif golfer.iron_trajectory == "Too high" and _ordinal(iron_launch) <= 1:
-        score += 15
+        score += 18
         reasons.append("Lower-launching irons help bring down your iron flight.")
     elif golfer.iron_trajectory == "About right" and _ordinal(iron_launch) == 2:
-        score += 13
+        score += 16
         reasons.append("Mid-launch irons preserve your current trajectory.")
     elif golfer.swing_speed < 85 and _ordinal(iron_launch) >= 3:
-        score += 12
+        score += 14
         reasons.append("High-launching irons help maximise carry for slower swing speeds.")
     elif golfer.swing_speed >= 100 and _ordinal(iron_launch) <= 1:
-        score += 12
+        score += 14
         reasons.append("Lower-launching irons help control trajectory at faster speeds.")
     elif 85 <= golfer.swing_speed < 100 and _ordinal(iron_launch) == 2:
-        score += 12
+        score += 14
         reasons.append("Mid-launch irons suit your swing speed well.")
     else:
-        score += 8
+        score += 10
 
     # --- Spin characteristic (10 pts) ---
     iron_spin = str(club.get("spinChar", "mid")).lower()
@@ -597,12 +612,12 @@ def score_iron_set(
     else:
         score += 4
 
-    # --- Shot shape bonus (5 pts) ---
+    # --- Shot shape bonus (7 pts) ---
     if iron_shape == "Slice" and category in {"game-improvement", "super-game-improvement"}:
-        score += 5
+        score += 7
         reasons.append("Upright lie and offset help mitigate a slice.")
     elif iron_shape in {"Draw", "Hook"} and category in {"blade", "players-cb"}:
-        score += 5
+        score += 7
         reasons.append("Players irons offer the workability to shape shots.")
 
     # --- Base score (5 pts) ---
@@ -788,11 +803,19 @@ def score_wedge(
       - Bounce tier match (from turf + divot depth) : 25 pts
       - Grind fit for stated turf/lie                : 15 pts
       - Sole-width fit for divot depth                : 10 pts
-      - Greenside shot-style fit                      : 10 pts
+      - Greenside shot-style fit                      : 12 pts
       - Bunker frequency fit                          : 10 pts
-      - Forgiveness / contact quality                 : 20 pts
-      - Workability / shot-shaping                    :  5 pts
+      - Forgiveness / contact quality                 : 14 pts
+      - Workability / shot-shaping                    :  9 pts
       - Base score (always)                           :  5 pts
+
+    Bounce/grind/sole (turf interaction) keeps the largest combined share
+    because wedge fitting is genuinely turf- and lie-centric - every major
+    wedge maker's own fitting guide centers on it, more so than for
+    full-swing clubs, since wedge shots come from a much wider variety of
+    lies. Forgiveness/MOI is trimmed relative to the driver/iron scoring:
+    it's a real but smaller factor for short-game clubs, where touch, spin,
+    and turf interaction matter more than off-centre-hit margin.
     """
     score = 0.0
     reasons: list[str] = []
@@ -842,16 +865,16 @@ def score_wedge(
         else:
             score += 2
 
-    # --- Greenside shot-style fit (10 pts) ---
+    # --- Greenside shot-style fit (12 pts) ---
     wanted_tag = _SHOT_STYLE_TAGS.get(golfer.wedge_shot_style)
     if wanted_tag is None:
-        score += 6
+        score += 7
     elif wanted_tag in best_for:
-        score += 10
+        score += 12
         style_text = _SHOT_STYLE_REASON_TEXT.get(golfer.wedge_shot_style, golfer.wedge_shot_style.lower())
         reasons.append(f"Grind suits {style_text}.")
     elif "all-conditions" in best_for:
-        score += 6
+        score += 7
     else:
         score += 2
 
@@ -874,43 +897,43 @@ def score_wedge(
         else:
             score += 7
 
-    # --- Forgiveness / contact quality (20 pts) ---
+    # --- Forgiveness / contact quality (14 pts) ---
     # Same combined trigger as score_iron_set: a digging/inconsistent miss or
     # an explicit Forgiveness goal both call for a forgiving wedge fit.
     forgiveness = float(club.get("forgivenessScore", 6.0))
     triggered = golfer.iron_miss in {"Fat/Thin", "Inconsistent"} or golfer.goal == "Forgiveness"
     if triggered:
-        forgiveness_points = min(forgiveness * 2, 20)
+        forgiveness_points = min(forgiveness * 1.4, 14)
         if forgiveness >= 8:
             reasons.append("High forgiveness helps with off-centre wedge contact.")
         if "high-handicap-versatility" in best_for:
-            forgiveness_points = min(forgiveness_points + 2, 20)
+            forgiveness_points = min(forgiveness_points + 1.4, 14)
             reasons.append("Grind is built for high-handicap versatility.")
     else:
-        forgiveness_points = 14
+        forgiveness_points = 10
         if forgiveness >= 8:
-            forgiveness_points += 4
+            forgiveness_points += 3
             reasons.append("Forgiving sole gives extra margin even for consistent contact.")
     score += forgiveness_points
 
-    # --- Workability / shot-shaping (5 pts) ---
+    # --- Workability / shot-shaping (9 pts) ---
     workability = str(club.get("workability", "mid")).lower()
     if golfer.goal in {"Accuracy", "Distance"}:
         if workability == "high":
-            score += 5
+            score += 9
             reasons.append("High workability supports precise, shaped wedge shots.")
         elif workability == "mid":
-            score += 3
+            score += 5
         else:
-            score += 1
+            score += 2
     else:  # Forgiveness
         if workability == "low":
-            score += 5
+            score += 9
             reasons.append("Low-workability shape favours consistency over shot-shaping.")
         elif workability == "mid":
-            score += 3
+            score += 5
         else:
-            score += 1
+            score += 2
 
     # --- Family character (no points; flavour text) ---
     family_note = _WEDGE_FAMILY_NOTES.get(str(club.get("family", "")))
