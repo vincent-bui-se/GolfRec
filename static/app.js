@@ -577,4 +577,28 @@ form.addEventListener("submit", (event) => {
 
 retryAction.addEventListener("click", requestRecommendations);
 
+// "Current driver"/"current irons" are typeahead text fields backed by a
+// <datalist> of real catalog entries; collectPayload() reads the hidden id
+// field, not the visible text. Typing something that doesn't exactly match a
+// real option (case-insensitive) just leaves the hidden id empty - same as
+// picking "skip" - rather than guessing at a fuzzy match.
+function wireCatalogTypeahead(textFieldName, datalistId, hiddenFieldName) {
+  const textField = form.querySelector(`[name="${textFieldName}"]`);
+  const datalist = document.querySelector(`#${datalistId}`);
+  const hiddenField = form.querySelector(`[name="${hiddenFieldName}"]`);
+  if (!textField || !datalist || !hiddenField) return;
+
+  const resolve = () => {
+    const typed = textField.value.trim().toLowerCase();
+    const match = [...datalist.options].find((option) => option.value.toLowerCase() === typed);
+    hiddenField.value = match ? match.dataset.id : "";
+  };
+
+  textField.addEventListener("input", resolve);
+  textField.addEventListener("change", resolve);
+}
+
+wireCatalogTypeahead("current_driver_label", "current-driver-options", "current_driver_id");
+wireCatalogTypeahead("current_iron_set_label", "current-iron-set-options", "current_iron_set_id");
+
 updateConditionalFields();
