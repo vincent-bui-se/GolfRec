@@ -44,13 +44,23 @@ def test_resolve_current_club_returns_none_for_unknown_id():
     assert app_module._resolve_current_club("drivers", "not-in-catalog", catalog) is None
 
 
-def test_index_page_renders_current_club_dropdowns(client):
+def test_index_page_renders_current_club_typeahead_fields(client):
+    """"Current driver"/"current irons" are typeahead text inputs (a visible
+    label field plus a hidden id field resolved client-side from a
+    <datalist>), not plain <select> dropdowns - see static/app.js."""
+    catalog = app_module.load_catalog()
+    a_real_driver = catalog["drivers"][0]
+    expected_label = f"{a_real_driver['brand']} {a_real_driver['model']} ({a_real_driver['year']})"
+
     response = client.get("/")
+    html = response.get_data(as_text=True)
 
     assert response.status_code == 200
-    assert b"current_driver_id" in response.data
-    assert b"current_iron_set_id" in response.data
-    assert b"Not sure / skip" in response.data
+    assert 'name="current_driver_label"' in html
+    assert 'name="current_iron_set_label"' in html
+    assert 'type="hidden" name="current_driver_id"' in html
+    assert 'type="hidden" name="current_iron_set_id"' in html
+    assert expected_label in html
 
 
 def test_recommend_endpoint_accepts_current_club_selections(client):

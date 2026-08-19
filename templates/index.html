@@ -94,12 +94,19 @@
 
             <label class="field">
               <span>Current driver (optional)</span>
-              <select name="current_driver_id">
-                <option value="" selected>Not sure / skip</option>
+              <input
+                type="text"
+                name="current_driver_label"
+                list="current-driver-options"
+                autocomplete="off"
+                placeholder="Start typing to search, or leave blank"
+              >
+              <datalist id="current-driver-options">
                 {% for option in current_drivers %}
-                <option value="{{ option.id }}">{{ option.label }}</option>
+                <option data-id="{{ option.id }}" value="{{ option.label }}"></option>
                 {% endfor %}
-              </select>
+              </datalist>
+              <input type="hidden" name="current_driver_id" value="">
             </label>
 
             <div class="segmented" role="radiogroup" aria-label="Driver speed type">
@@ -158,12 +165,19 @@
 
             <label class="field">
               <span>Current irons (optional)</span>
-              <select name="current_iron_set_id">
-                <option value="" selected>Not sure / skip</option>
+              <input
+                type="text"
+                name="current_iron_set_label"
+                list="current-iron-set-options"
+                autocomplete="off"
+                placeholder="Start typing to search, or leave blank"
+              >
+              <datalist id="current-iron-set-options">
                 {% for option in current_iron_sets %}
-                <option value="{{ option.id }}">{{ option.label }}</option>
+                <option data-id="{{ option.id }}" value="{{ option.label }}"></option>
                 {% endfor %}
-              </select>
+              </datalist>
+              <input type="hidden" name="current_iron_set_id" value="">
             </label>
 
             <label class="field">
