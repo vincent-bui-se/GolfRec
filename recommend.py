@@ -51,6 +51,18 @@ class GolferInput:
     # Scoring-time-only preferences (not ML features - see preprocess.py).
     wedge_shot_style: str = "No preference"
     bunker_frequency: str = "Sometimes"
+    # The golfer's *current* driver/iron launchChar+spinChar, resolved by the
+    # caller from a catalog lookup (app.py) - None when they don't know or
+    # skipped the question. "Too high"/"Too low" trajectory only means
+    # something relative to what they already play: a golfer already on a
+    # low-launch head who still balloons it needs a small nudge further down,
+    # not the single lowest-launch head in the catalog (which is what an
+    # absolute target would otherwise recommend, risking overcorrecting them
+    # into "too low"). None falls back to the old absolute-target behavior.
+    current_driver_launch: str | None = None
+    current_driver_spin: str | None = None
+    current_iron_launch: str | None = None
+    current_iron_spin: str | None = None
 
     @property
     def driver_shot_shape(self) -> str:
@@ -101,6 +113,55 @@ def _closest_loft(
     best_gap = min(max(0.0, abs(loft - target) - adjust_range_deg) for loft in numeric_lofts)
     closest = min(numeric_lofts, key=lambda loft: abs(loft - target))
     return closest, best_gap
+
+
+# Launch/spin character on a 0-4 scale. "mid-low" and "low-mid" both appear
+# in the catalog for the same underlying bucket (different curators, same
+# meaning) - both must map to the same ordinal, which a literal string-set
+# membership check doesn't guarantee: the old code checked `{"low",
+# "mid-low"}` in some branches and `"mid" in launch` (a substring check that
+# happens to also catch "mid-low"/"low-mid") in others, so a driver spelled
+# "low-mid" could pass one branch's check and fail an equivalent one a few
+# lines later purely on wording.
+_LAUNCH_SPIN_ORDER = {
+    "low": 0,
+    "low-mid": 1,
+    "mid-low": 1,
+    "mid": 2,
+    "mid-high": 3,
+    "high": 4,
+}
+
+
+def _ordinal(value: object) -> int:
+    return _LAUNCH_SPIN_ORDER.get(str(value).lower(), 2)
+
+
+def _desired_ordinal(trajectory: str, baseline_ordinal: int) -> int:
+    """One step toward correcting the complaint from the golfer's *current*
+    launch/spin, not the extreme end of the scale - see GolferInput's
+    current_driver_launch docstring for why."""
+    if trajectory == "Too high":
+        return max(0, baseline_ordinal - 1)
+    if trajectory == "Too low":
+        return min(4, baseline_ordinal + 1)
+    return baseline_ordinal
+
+
+def _relative_trajectory_points(
+    candidate_value: object,
+    trajectory: str,
+    baseline_value: str,
+    max_points: float,
+) -> tuple[float, int]:
+    """Score a candidate's launch or spin bucket against a one-step target
+    from the golfer's known current bucket. Returns (points, gap) so the
+    caller can phrase a reason only on a strong (small-gap) match."""
+    baseline_ordinal = _ordinal(baseline_value)
+    desired_ordinal = _desired_ordinal(trajectory, baseline_ordinal)
+    gap = abs(_ordinal(candidate_value) - desired_ordinal)
+    points = max(0.0, max_points - gap * (max_points / 3))
+    return points, gap
 
 
 def _speed_score(club: dict[str, Any], speed: float) -> tuple[float, str]:
@@ -266,22 +327,33 @@ def _score_wood(
 
     # --- Launch characteristic (15 pts) ---
     launch = str(club.get("launchChar", "mid"))
-    if golfer.driver_trajectory == "Too low" and "high" in launch:
+    if golfer.current_driver_launch is not None:
+        launch_points, launch_gap = _relative_trajectory_points(
+            launch, golfer.driver_trajectory, golfer.current_driver_launch, 15
+        )
+        score += launch_points
+        if launch_gap == 0 and golfer.driver_trajectory == "Too high":
+            reasons.append("Lower launch than your current driver should bring your ball flight down without overcorrecting.")
+        elif launch_gap == 0 and golfer.driver_trajectory == "Too low":
+            reasons.append("Higher launch than your current driver should bring your ball flight up without overcorrecting.")
+        elif launch_gap == 0:
+            reasons.append("Launch matches your current driver, keeping your trajectory stable.")
+    elif golfer.driver_trajectory == "Too low" and _ordinal(launch) >= 3:
         score += 15
         reasons.append("Higher launch helps correct a low ball flight.")
-    elif golfer.driver_trajectory == "Too high" and launch in {"low", "mid-low"}:
+    elif golfer.driver_trajectory == "Too high" and _ordinal(launch) <= 1:
         score += 15
         reasons.append("Lower launch helps bring down a high ball flight.")
-    elif golfer.driver_trajectory == "About right" and "mid" in launch:
+    elif golfer.driver_trajectory == "About right" and _ordinal(launch) == 2:
         score += 14
         reasons.append("Mid launch keeps your current trajectory stable.")
-    elif golfer.swing_speed < 85 and "high" in launch:
+    elif golfer.swing_speed < 85 and _ordinal(launch) >= 3:
         score += 13
         reasons.append("High launch helps slower swing speeds maximise carry.")
-    elif golfer.swing_speed >= 100 and launch in {"low", "mid-low", "mid"}:
+    elif golfer.swing_speed >= 100 and _ordinal(launch) <= 2:
         score += 15
         reasons.append("Controlled launch keeps the ball penetrating into wind.")
-    elif 85 <= golfer.swing_speed < 100 and launch in {"mid", "mid-high"}:
+    elif 85 <= golfer.swing_speed < 100 and _ordinal(launch) in {2, 3}:
         score += 13
         reasons.append("Ideal mid-launch for your swing speed.")
     else:
@@ -290,20 +362,31 @@ def _score_wood(
 
     # --- Spin characteristic (15 pts) ---
     spin = str(club.get("spinChar", "mid")).lower()
-    if golfer.driver_trajectory == "Too high" and spin in {"low", "low-mid"}:
+    if golfer.current_driver_spin is not None:
+        spin_points, spin_gap = _relative_trajectory_points(
+            spin, golfer.driver_trajectory, golfer.current_driver_spin, 15
+        )
+        score += spin_points
+        if spin_gap == 0 and golfer.driver_trajectory == "Too high":
+            reasons.append("Lower spin than your current driver should help stop it ballooning.")
+        elif spin_gap == 0 and golfer.driver_trajectory == "Too low":
+            reasons.append("Higher spin than your current driver should help keep it airborne longer.")
+        elif spin_gap == 0:
+            reasons.append("Spin matches your current driver, maintaining your trajectory.")
+    elif golfer.driver_trajectory == "Too high" and _ordinal(spin) <= 1:
         score += 15
         reasons.append("Low spin helps prevent ballooning for your high trajectory.")
-    elif golfer.driver_trajectory == "Too high" and spin == "mid":
+    elif golfer.driver_trajectory == "Too high" and _ordinal(spin) == 2:
         score += 8
-    elif golfer.driver_trajectory == "Too low" and spin in {"high", "mid-high"}:
+    elif golfer.driver_trajectory == "Too low" and _ordinal(spin) >= 3:
         score += 15
         reasons.append("Higher spin helps keep the ball airborne longer for your low trajectory.")
-    elif golfer.driver_trajectory == "Too low" and spin == "mid":
+    elif golfer.driver_trajectory == "Too low" and _ordinal(spin) == 2:
         score += 10
-    elif golfer.driver_trajectory == "About right" and spin == "mid":
+    elif golfer.driver_trajectory == "About right" and _ordinal(spin) == 2:
         score += 15
         reasons.append("Mid spin maintains your optimal trajectory.")
-    elif golfer.driver_trajectory == "About right" and spin in {"low-mid", "mid-high"}:
+    elif golfer.driver_trajectory == "About right" and _ordinal(spin) in {1, 3}:
         score += 10
     else:
         score += 5
@@ -451,22 +534,33 @@ def score_iron_set(
 
     # --- Launch characteristic vs. swing speed (15 pts) ---
     iron_launch = str(club.get("launchChar", "mid")).lower()
-    if golfer.iron_trajectory == "Too low" and "high" in iron_launch:
+    if golfer.current_iron_launch is not None:
+        iron_launch_points, iron_launch_gap = _relative_trajectory_points(
+            iron_launch, golfer.iron_trajectory, golfer.current_iron_launch, 15
+        )
+        score += iron_launch_points
+        if iron_launch_gap == 0 and golfer.iron_trajectory == "Too high":
+            reasons.append("Lower launch than your current irons should bring your ball flight down without overcorrecting.")
+        elif iron_launch_gap == 0 and golfer.iron_trajectory == "Too low":
+            reasons.append("Higher launch than your current irons should bring your ball flight up without overcorrecting.")
+        elif iron_launch_gap == 0:
+            reasons.append("Launch matches your current irons, preserving your trajectory.")
+    elif golfer.iron_trajectory == "Too low" and _ordinal(iron_launch) >= 3:
         score += 15
         reasons.append("High-launching irons help correct your low iron flight.")
-    elif golfer.iron_trajectory == "Too high" and iron_launch in {"low", "mid-low"}:
+    elif golfer.iron_trajectory == "Too high" and _ordinal(iron_launch) <= 1:
         score += 15
         reasons.append("Lower-launching irons help bring down your iron flight.")
-    elif golfer.iron_trajectory == "About right" and "mid" in iron_launch:
+    elif golfer.iron_trajectory == "About right" and _ordinal(iron_launch) == 2:
         score += 13
         reasons.append("Mid-launch irons preserve your current trajectory.")
-    elif golfer.swing_speed < 85 and "high" in iron_launch:
+    elif golfer.swing_speed < 85 and _ordinal(iron_launch) >= 3:
         score += 12
         reasons.append("High-launching irons help maximise carry for slower swing speeds.")
-    elif golfer.swing_speed >= 100 and iron_launch in {"low", "mid-low"}:
+    elif golfer.swing_speed >= 100 and _ordinal(iron_launch) <= 1:
         score += 12
         reasons.append("Lower-launching irons help control trajectory at faster speeds.")
-    elif 85 <= golfer.swing_speed < 100 and "mid" in iron_launch:
+    elif 85 <= golfer.swing_speed < 100 and _ordinal(iron_launch) == 2:
         score += 12
         reasons.append("Mid-launch irons suit your swing speed well.")
     else:
@@ -474,17 +568,28 @@ def score_iron_set(
 
     # --- Spin characteristic (10 pts) ---
     iron_spin = str(club.get("spinChar", "mid")).lower()
-    if golfer.iron_trajectory == "Too high" and iron_spin in {"low", "mid-low"}:
+    if golfer.current_iron_spin is not None:
+        iron_spin_points, iron_spin_gap = _relative_trajectory_points(
+            iron_spin, golfer.iron_trajectory, golfer.current_iron_spin, 10
+        )
+        score += iron_spin_points
+        if iron_spin_gap == 0 and golfer.iron_trajectory == "Too high":
+            reasons.append("Lower spin than your current irons should help stop it ballooning.")
+        elif iron_spin_gap == 0 and golfer.iron_trajectory == "Too low":
+            reasons.append("Higher spin than your current irons should help it hold the green.")
+        elif iron_spin_gap == 0:
+            reasons.append("Spin matches your current irons for holding greens.")
+    elif golfer.iron_trajectory == "Too high" and _ordinal(iron_spin) <= 1:
         score += 10
         reasons.append("Lower spin helps prevent ballooning for your high trajectory.")
-    elif golfer.iron_trajectory == "Too high" and iron_spin == "mid":
+    elif golfer.iron_trajectory == "Too high" and _ordinal(iron_spin) == 2:
         score += 6
-    elif golfer.iron_trajectory == "Too low" and iron_spin in {"high", "mid-high"}:
+    elif golfer.iron_trajectory == "Too low" and _ordinal(iron_spin) >= 3:
         score += 10
         reasons.append("Higher spin helps keep the ball airborne longer for your low trajectory.")
-    elif golfer.iron_trajectory == "Too low" and iron_spin == "mid":
+    elif golfer.iron_trajectory == "Too low" and _ordinal(iron_spin) == 2:
         score += 6
-    elif golfer.iron_trajectory == "About right" and iron_spin in {"mid", "mid-high"}:
+    elif golfer.iron_trajectory == "About right" and _ordinal(iron_spin) in {2, 3}:
         score += 10
         reasons.append("Good spin profile for holding greens.")
     else:
@@ -524,19 +629,34 @@ def _recommend_woods(
     category: str,
 ) -> list[ClubRecommendation]:
     """Shared ranking pass for drivers and fairway woods. See `_score_wood`."""
-    scored = [_score_wood(club, golfer, predicted_loft, category) for club in clubs]
+    scored = [(club, _score_wood(club, golfer, predicted_loft, category)) for club in clubs]
 
     if golfer.goal == "Forgiveness" or predicted_iron_category in {
         "game-improvement",
         "super-game-improvement",
     }:
-        scored = [
-            rec
-            for rec in scored
-            if rec.score >= 60 or "max" in rec.name.lower() or "draw" in rec.name.lower()
-        ] or scored
+        # A genuinely forgiving or draw-biased club should survive the floor
+        # even if an unrelated axis (e.g. a speed or trajectory mismatch)
+        # dragged its total score down - forgiveness/draw-bias is exactly the
+        # trait that matters most for this golfer. Checked against the same
+        # catalog fields _score_wood's own bonus reads, not a name-string
+        # proxy for them: a club merely named "Max" for marketing reasons
+        # isn't necessarily forgiving, and a genuinely draw-biased head like
+        # the Ping G440 SFT ("Straight Flight Technology") has neither "max"
+        # nor "draw" in its name.
+        filtered = [
+            (club, rec)
+            for club, rec in scored
+            if rec.score >= 60
+            or float(club.get("forgivenessTier", 3)) >= 4
+            or club.get("drawBiasBuiltIn")
+            or club.get("drawBiasAvailable")
+            or club.get("family") in {"max-forgiveness", "draw-bias"}
+        ]
+        scored = filtered or scored
 
-    ranked = sorted(scored, key=lambda rec: rec.score, reverse=True)[:top_n]
+    recommendations = [rec for _, rec in scored]
+    ranked = sorted(recommendations, key=lambda rec: rec.score, reverse=True)[:top_n]
     return prioritise_distinctive_reasons(ranked)
 
 

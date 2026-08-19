@@ -168,6 +168,100 @@ def test_driver_trajectory_changes_launch_scoring():
     assert high_score > low_score
 
 
+def test_known_current_driver_prefers_a_modest_step_over_the_extreme():
+    """The core scenario a real current-setup baseline is meant to fix: a
+    golfer already on a "mid" launch driver who says their flight is too high
+    needs a mild reduction (mid-low), not the single most extreme low-launch
+    head in the catalog - jumping straight to the extreme risks overcorrecting
+    them into "too low", which is exactly the failure mode a baseline avoids.
+    """
+    base_spec = {
+        "brand": "Test",
+        "lofts": [10.5],
+        "forgivenessTier": 4,
+        "spinChar": "mid",
+        "speedMinMph": 85,
+        "speedMaxMph": 110,
+        "msrp": 599,
+        "family": "versatile",
+    }
+    modest_step_driver = {**base_spec, "model": "Modest", "launchChar": "mid-low"}
+    extreme_driver = {**base_spec, "model": "Extreme", "launchChar": "low"}
+
+    golfer_with_baseline = GolferInput(
+        handicap=14,
+        swing_speed=95,
+        driver_carry=225,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        driver_trajectory="Too high",
+        current_driver_launch="mid",
+        current_driver_spin="mid",
+    )
+
+    modest_score = score_driver(modest_step_driver, golfer_with_baseline, predicted_loft="10.5").score
+    extreme_score = score_driver(extreme_driver, golfer_with_baseline, predicted_loft="10.5").score
+
+    assert modest_score > extreme_score
+    assert any("current driver" in reason.lower() for reason in
+               score_driver(modest_step_driver, golfer_with_baseline, predicted_loft="10.5").reasons)
+
+    # Without a known baseline, the old undifferentiated behavior holds: both
+    # count as "low enough" for a "Too high" complaint and score identically
+    # on the launch axis specifically - confirming the difference above comes
+    # from the baseline, not some other change to these two fixtures.
+    golfer_without_baseline = GolferInput(
+        handicap=14,
+        swing_speed=95,
+        driver_carry=225,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        driver_trajectory="Too high",
+    )
+    modest_score_no_baseline = score_driver(modest_step_driver, golfer_without_baseline, predicted_loft="10.5").score
+    extreme_score_no_baseline = score_driver(extreme_driver, golfer_without_baseline, predicted_loft="10.5").score
+    assert modest_score_no_baseline == extreme_score_no_baseline
+
+
+def test_launch_char_spelling_variants_score_identically_without_a_baseline():
+    """Regression test: the catalog has both "mid-low" and "low-mid" for the
+    same real bucket (different curators, same meaning). The old code checked
+    literal string sets like {"low", "mid-low"} in some branches, so a club
+    spelled "low-mid" could silently fall through to a worse-scoring branch
+    than an otherwise-identical club spelled "mid-low"."""
+    base_spec = {
+        "brand": "Test",
+        "lofts": [10.5],
+        "forgivenessTier": 4,
+        "spinChar": "mid",
+        "speedMinMph": 85,
+        "speedMaxMph": 110,
+        "msrp": 599,
+        "family": "versatile",
+    }
+    spelled_mid_low = {**base_spec, "model": "A", "launchChar": "mid-low"}
+    spelled_low_mid = {**base_spec, "model": "B", "launchChar": "low-mid"}
+    golfer = GolferInput(
+        handicap=14,
+        swing_speed=95,
+        driver_carry=225,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        driver_trajectory="Too high",
+    )
+
+    assert (
+        score_driver(spelled_mid_low, golfer, predicted_loft="10.5").score
+        == score_driver(spelled_low_mid, golfer, predicted_loft="10.5").score
+    )
+
+
 def test_iron_trajectory_changes_spin_scoring():
     low_spin_iron = {
         "brand": "Test",
@@ -196,6 +290,55 @@ def test_iron_trajectory_changes_spin_scoring():
     low_score = score_iron_set(low_spin_iron, golfer, "players-distance").score
 
     assert high_score > low_score
+
+
+def test_known_current_irons_prefers_a_modest_step_over_the_extreme():
+    """Mirrors the driver case for irons: a golfer already on weak/low-launch
+    irons who still says their flight is too high needs a small further
+    reduction, not the single lowest-launching iron set in the catalog."""
+    base_spec = {
+        "brand": "Test",
+        "ironCategory": "players-distance",
+        "construction": "cavity-back",
+        "forgivenessTier": 3,
+        "workability": "mid",
+        "spinChar": "mid",
+        "msrp": 999,
+    }
+    modest_step_irons = {**base_spec, "model": "Modest", "launchChar": "mid-low"}
+    extreme_irons = {**base_spec, "model": "Extreme", "launchChar": "low"}
+
+    golfer_with_baseline = GolferInput(
+        handicap=14,
+        swing_speed=95,
+        driver_carry=225,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        iron_trajectory="Too high",
+        current_iron_launch="mid",
+        current_iron_spin="mid",
+    )
+
+    modest_score = score_iron_set(modest_step_irons, golfer_with_baseline, "players-distance").score
+    extreme_score = score_iron_set(extreme_irons, golfer_with_baseline, "players-distance").score
+
+    assert modest_score > extreme_score
+
+    golfer_without_baseline = GolferInput(
+        handicap=14,
+        swing_speed=95,
+        driver_carry=225,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        iron_trajectory="Too high",
+    )
+    modest_score_no_baseline = score_iron_set(modest_step_irons, golfer_without_baseline, "players-distance").score
+    extreme_score_no_baseline = score_iron_set(extreme_irons, golfer_without_baseline, "players-distance").score
+    assert modest_score_no_baseline == extreme_score_no_baseline
 
 
 def test_iron_specific_shot_shape_goal_and_trajectory_affect_scoring():
@@ -342,6 +485,63 @@ def test_driver_recommendations_include_all_years_when_budget_filter_is_separate
     recommendations = recommend_clubs(catalog, golfer, "10.5", "players-distance", top_n=5)
 
     assert {rec.year for rec in recommendations} == {2022, 2025}
+
+
+def test_forgiveness_floor_bypass_checks_real_fields_not_the_product_name():
+    """Regression test: the floor-bypass for Forgiveness/game-improvement
+    golfers used to check whether "max" or "draw" appeared in the club's
+    *name*, not whether it was actually forgiving or draw-biased. A real
+    catalog club - the Ping G440 SFT ("Straight Flight Technology") - is
+    genuinely draw-bias (drawBiasBuiltIn=True, family="draw-bias") but its
+    name contains neither substring, so it used to get dropped by the score
+    floor even for the exact golfer profile that filter exists to protect.
+    """
+    low_score_draw_bias = {
+        "brand": "Ping",
+        "model": "G440 SFT",
+        "lofts": [8],
+        "forgivenessTier": 2,
+        "launchChar": "low",
+        "spinChar": "low",
+        "speedMinMph": 95,
+        "speedMaxMph": 125,
+        "msrp": 599,
+        "family": "draw-bias",
+        "drawBiasBuiltIn": True,
+    }
+    control_driver = {
+        "brand": "Test",
+        "model": "Control",
+        "lofts": [10.5],
+        "forgivenessTier": 5,
+        "launchChar": "high",
+        "spinChar": "mid",
+        "speedMinMph": 60,
+        "speedMaxMph": 80,
+        "msrp": 599,
+        "family": "max-forgiveness",
+    }
+    golfer = GolferInput(
+        handicap=24,
+        swing_speed=70,
+        driver_carry=165,
+        shot_shape="Slice",
+        goal="Forgiveness",
+        iron_miss="Fat/Thin",
+        iron_feel="Confidence-inspiring",
+        driver_trajectory="About right",
+    )
+    catalog = {"drivers": [low_score_draw_bias, control_driver]}
+
+    # Confirm the setup actually exercises the floor (score genuinely < 60,
+    # not accidentally rescued by the "if nothing survives, keep everything"
+    # fallback because the control club alone would pass).
+    raw_score = score_driver(low_score_draw_bias, golfer, predicted_loft="10.5").score
+    assert raw_score < 60
+
+    recommendations = recommend_clubs(catalog, golfer, "10.5", "game-improvement", top_n=5)
+
+    assert "G440 SFT" in " ".join(rec.model for rec in recommendations)
 
 
 def test_merge_same_name_iron_sets_combines_identical_ratings_across_years():

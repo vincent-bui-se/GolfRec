@@ -128,6 +128,8 @@ The AI models predict fitting specifications. Then `recommend.py` ranks equipmen
 The web app displays the top recommendations with match scores and short explanations. If the top 5 clubs all share the same match score, the display expands until it reaches the next lower score so the ranking is clearer.
 
 Fairway woods share the driver's scoring logic entirely - same catalog schema, same fitting signals - just against a fairway-wood-appropriate loft target, so `score_driver` and `score_fairway_wood` are thin wrappers around one shared implementation. Wedges don't get a single predicted-loft target the way the other three categories do: real wedge fitting is a multi-club gapping decision (a golfer typically carries 2-3 wedges spanning a loft range), which is a different feature from what's implemented here. Wedge scoring instead ranks individual wedge models by bounce/grind fit, forgiveness, and workability, the same way every other category ranks individual products.
+
+A trajectory complaint ("too high"/"too low") only means something relative to what a golfer already plays, so the driver, fairway wood, and iron questionnaires let the golfer optionally name their *current* driver/irons from the catalog. When that's known, launch/spin scoring targets one step off the golfer's *actual current* launch/spin bucket rather than the extreme end of the scale - a golfer already on a mid-launch driver who says their flight is too high gets steered toward a mildly-lower-launching head, not the single lowest-launch driver in the catalog, which risks overcorrecting them into "too low." Skipping the question falls back to the original absolute-target behavior.
  
 ## Web Questionnaire
  
@@ -137,6 +139,7 @@ The app asks shared questions first:
 - Handicap or average score
 Driver and fairway wood questions are shown whenever either is requested - they reuse the same swing inputs, since a golfer's shot shape, trajectory, and goal don't change between the two:
  
+- Current driver (optional) - lets trajectory scoring target one step off the golfer's actual launch/spin instead of the scale's extreme end
 - Swing speed or driver carry distance
 - Driver shot shape
 - Driver trajectory: too high, too low, or about right
@@ -145,6 +148,7 @@ Driver and fairway wood questions are shown whenever either is requested - they 
 - Per-category tab condition filter: All or Used
 Iron questions are shown only when iron recommendations are requested:
  
+- Current irons (optional) - same relative-trajectory role as the current driver question, above
 - Iron shot shape
 - Primary iron goal
 - Iron trajectory: too high, too low, or about right

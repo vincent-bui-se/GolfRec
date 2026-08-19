@@ -106,6 +106,31 @@ def _coerce_float(value: object, default: float) -> float:
         return default
 
 
+def _current_club_options(records: list[dict[str, Any]]) -> list[dict[str, str]]:
+    """Build a sorted (id, label) list for the "current driver/irons" dropdowns."""
+    options = [
+        {
+            "id": str(record["id"]),
+            "label": f"{record.get('brand', 'Unknown')} {record.get('model', 'Unknown')} ({record.get('year', '?')})",
+        }
+        for record in records
+        if record.get("id")
+    ]
+    return sorted(options, key=lambda option: option["label"])
+
+
+def _resolve_current_club(
+    catalog_key: str, club_id: str, catalog: dict[str, list[dict[str, Any]]]
+) -> dict[str, Any] | None:
+    """Look up a "current driver/irons" selection by id, or None if unset/unknown."""
+    if not club_id:
+        return None
+    for record in catalog.get(catalog_key, []):
+        if str(record.get("id")) == club_id:
+            return record
+    return None
+
+
 def _club_to_dict(recommendation: ClubRecommendation) -> dict[str, Any]:
     return {
         "name": recommendation.name,
@@ -130,6 +155,7 @@ def favicon():
 
 @app.get("/")
 def index():
+    catalog = load_catalog()
     return render_template(
         "index.html",
         club_categories=CLUB_CATEGORIES,
@@ -142,6 +168,8 @@ def index():
         divot_depths=DIVOT_DEPTHS,
         wedge_shot_styles=WEDGE_SHOT_STYLES,
         bunker_frequencies=BUNKER_FREQUENCIES,
+        current_drivers=_current_club_options(catalog.get("drivers", [])),
+        current_iron_sets=_current_club_options(catalog.get("iron-sets", [])),
     )
 
 
@@ -192,6 +220,8 @@ def api_recommend():
     bunker_frequency = str(payload.get("bunker_frequency", "Sometimes"))
     if bunker_frequency not in BUNKER_FREQUENCIES:
         bunker_frequency = "Sometimes"
+    current_driver_id = str(payload.get("current_driver_id", "")).strip()
+    current_iron_set_id = str(payload.get("current_iron_set_id", "")).strip()
 
     wants_driver = "Driver" in shopping_for
     wants_fairway_woods = "Fairway Wood" in shopping_for
@@ -200,6 +230,10 @@ def api_recommend():
 
     models = load_models()
     catalog = load_catalog()
+
+    current_driver = _resolve_current_club("drivers", current_driver_id, catalog)
+    current_iron_set = _resolve_current_club("iron-sets", current_iron_set_id, catalog)
+
     golfer = GolferInput(
         handicap=handicap,
         swing_speed=swing_speed,
@@ -217,6 +251,10 @@ def api_recommend():
         divot_depth=divot_depth,
         wedge_shot_style=wedge_shot_style,
         bunker_frequency=bunker_frequency,
+        current_driver_launch=current_driver.get("launchChar") if current_driver else None,
+        current_driver_spin=current_driver.get("spinChar") if current_driver else None,
+        current_iron_launch=current_iron_set.get("launchChar") if current_iron_set else None,
+        current_iron_spin=current_iron_set.get("spinChar") if current_iron_set else None,
     )
 
     driver_row = build_model_row(
