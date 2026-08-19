@@ -261,7 +261,7 @@ def _score_wood(
     """Score one driver or fairway wood against the golfer and predicted loft.
 
     Drivers and fairway woods share the same catalog schema (lofts,
-    adjustable hosel, launch/spin character, forgiveness tier, family) and the
+    adjustable hosel, launch/spin character, forgiveness score, family) and the
     same fitting logic - only the target loft range differs, which the caller
     already accounts for via `predicted_loft`. `category` only affects the
     label on the returned recommendation, never the scoring itself.
@@ -303,18 +303,20 @@ def _score_wood(
             reasons.append(f"Available loft {closest_loft:g} deg closely matches the AI loft target.")
 
     # --- Forgiveness / goal fit (20 pts) ---
-    forgiveness = float(club.get("forgivenessTier", 3))
+    # forgivenessScore is 0-10 (was a 1-5 tier); default 6.0 mirrors the old
+    # neutral default of 3/5.
+    forgiveness = float(club.get("forgivenessScore", 6.0))
     if golfer.goal == "Forgiveness":
-        score += forgiveness * 3.5
+        score += forgiveness * 1.75
         if club.get("family") in {"game-improvement", "max-forgiveness"}:
             score += 2.5
-        if forgiveness >= 4:
+        if forgiveness >= 8:
             reasons.append("High forgiveness maximises your margin for off-centre hits.")
     elif golfer.goal == "Accuracy":
-        score += 8 + min(forgiveness, 4) * 3
-        if forgiveness >= 5:
+        score += 8 + min(forgiveness, 8) * 1.5
+        if forgiveness >= 10:
             reasons.append("Top-tier stability holds your line on off-centre strikes.")
-        elif forgiveness >= 4:
+        elif forgiveness >= 8:
             reasons.append("Stable head keeps accuracy misses playable.")
     else:  # Distance
         if club.get("spinChar") in {"low", "low-mid"}:
@@ -485,21 +487,21 @@ def score_iron_set(
             reasons.append(f"Category: {category.replace('-', ' ').title()}.")
 
     # --- Forgiveness / miss type (20 pts) ---
-    forgiveness = float(club.get("forgivenessTier", 3))
+    forgiveness = float(club.get("forgivenessScore", 6.0))
     iron_goal = golfer.effective_iron_goal
     iron_shape = golfer.effective_iron_shot_shape
 
     if golfer.iron_miss in {"Fat/Thin", "Inconsistent"} or iron_goal == "Forgiveness":
         # Weight forgiveness heavily for inconsistent ball-strikers
-        score += forgiveness * 4
-        if forgiveness >= 4:
+        score += forgiveness * 2
+        if forgiveness >= 8:
             reasons.append("High forgiveness helps with inconsistent contact.")
-        elif forgiveness >= 3:
+        elif forgiveness >= 6:
             reasons.append("Moderate forgiveness suits your miss tendency.")
     else:
         # Consistent ball-strikers earn flat points regardless of forgiveness
         score += 15
-        if forgiveness >= 4:
+        if forgiveness >= 8:
             score += 5
             reasons.append("High forgiveness gives extra margin even for consistent players.")
         else:
@@ -524,7 +526,7 @@ def score_iron_set(
         if "hollow-body" in construction:
             score += 8
             reasons.append("Hollow-body construction inspires confidence at address.")
-        elif forgiveness >= 3:
+        elif forgiveness >= 6:
             score += 5
             reasons.append("Forgiving head design is confidence-inspiring.")
         else:
@@ -648,7 +650,7 @@ def _recommend_woods(
             (club, rec)
             for club, rec in scored
             if rec.score >= 60
-            or float(club.get("forgivenessTier", 3)) >= 4
+            or float(club.get("forgivenessScore", 6.0)) >= 8
             or club.get("drawBiasBuiltIn")
             or club.get("drawBiasAvailable")
             or club.get("family") in {"max-forgiveness", "draw-bias"}
@@ -875,18 +877,18 @@ def score_wedge(
     # --- Forgiveness / contact quality (20 pts) ---
     # Same combined trigger as score_iron_set: a digging/inconsistent miss or
     # an explicit Forgiveness goal both call for a forgiving wedge fit.
-    forgiveness = float(club.get("forgivenessTier", 3))
+    forgiveness = float(club.get("forgivenessScore", 6.0))
     triggered = golfer.iron_miss in {"Fat/Thin", "Inconsistent"} or golfer.goal == "Forgiveness"
     if triggered:
-        forgiveness_points = min(forgiveness * 4, 20)
-        if forgiveness >= 4:
+        forgiveness_points = min(forgiveness * 2, 20)
+        if forgiveness >= 8:
             reasons.append("High forgiveness helps with off-centre wedge contact.")
         if "high-handicap-versatility" in best_for:
             forgiveness_points = min(forgiveness_points + 2, 20)
             reasons.append("Grind is built for high-handicap versatility.")
     else:
         forgiveness_points = 14
-        if forgiveness >= 4:
+        if forgiveness >= 8:
             forgiveness_points += 4
             reasons.append("Forgiving sole gives extra margin even for consistent contact.")
     score += forgiveness_points
