@@ -106,10 +106,14 @@
               <input
                 type="text"
                 name="current_driver_label"
-                list="current-driver-options"
                 autocomplete="off"
                 placeholder="Start typing to search, or leave blank"
+                role="combobox"
+                aria-expanded="false"
+                aria-controls="current-driver-listbox"
+                aria-autocomplete="list"
               >
+              <ul class="typeahead-suggestions" id="current-driver-listbox" role="listbox" hidden></ul>
               <datalist id="current-driver-options">
                 {% for option in current_drivers %}
                 <option data-id="{{ option.id }}" value="{{ option.label }}"></option>
@@ -177,10 +181,14 @@
               <input
                 type="text"
                 name="current_iron_set_label"
-                list="current-iron-set-options"
                 autocomplete="off"
                 placeholder="Start typing to search, or leave blank"
+                role="combobox"
+                aria-expanded="false"
+                aria-controls="current-iron-set-listbox"
+                aria-autocomplete="list"
               >
+              <ul class="typeahead-suggestions" id="current-iron-set-listbox" role="listbox" hidden></ul>
               <datalist id="current-iron-set-options">
                 {% for option in current_iron_sets %}
                 <option data-id="{{ option.id }}" value="{{ option.label }}"></option>
