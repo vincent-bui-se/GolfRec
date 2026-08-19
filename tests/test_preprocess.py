@@ -20,7 +20,7 @@ def test_load_equipment_catalog_reads_category_records():
     assert "drivers" in catalog
     assert "iron-sets" in catalog
     assert len(catalog["drivers"]) >= 10
-    assert {"brand", "model", "lofts", "forgivenessTier", "msrp"}.issubset(
+    assert {"brand", "model", "lofts", "forgivenessScore", "msrp"}.issubset(
         catalog["drivers"][0].keys()
     )
 
