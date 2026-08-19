@@ -579,26 +579,162 @@ retryAction.addEventListener("click", requestRecommendations);
 
 // "Current driver"/"current irons" are typeahead text fields backed by a
 // <datalist> of real catalog entries; collectPayload() reads the hidden id
-// field, not the visible text. Typing something that doesn't exactly match a
-// real option (case-insensitive) just leaves the hidden id empty - same as
-// picking "skip" - rather than guessing at a fuzzy match.
-function wireCatalogTypeahead(textFieldName, datalistId, hiddenFieldName) {
+// field, not the visible text. The <datalist> is a data source only (no
+// list="" attribute links it to the input) - suggestions are rendered as a
+// custom dropdown instead, because native datalist popups are entirely
+// browser/OS-controlled and unstylable: on mobile several browsers render
+// them as an autofill strip glued to the keyboard rather than a list anchored
+// to the field, which reads as broken. Typing something that doesn't exactly
+// match a real option (case-insensitive) leaves the hidden id empty - same
+// as picking "skip" - rather than guessing at a fuzzy match.
+function wireCatalogTypeahead(textFieldName, datalistId, hiddenFieldName, listboxId) {
   const textField = form.querySelector(`[name="${textFieldName}"]`);
   const datalist = document.querySelector(`#${datalistId}`);
   const hiddenField = form.querySelector(`[name="${hiddenFieldName}"]`);
-  if (!textField || !datalist || !hiddenField) return;
+  const listbox = document.querySelector(`#${listboxId}`);
+  if (!textField || !datalist || !hiddenField || !listbox) return;
 
-  const resolve = () => {
+  // Moved out of .profile-panel (which scrolls) to a direct child of <body>,
+  // so it renders relative to the viewport instead of a scrolling ancestor
+  // that could clip it. Position is computed from the field's own on-screen
+  // rect (positionList, below) rather than normal document flow.
+  document.body.appendChild(listbox);
+
+  const options = [...datalist.options].map((option) => ({
+    id: option.dataset.id,
+    label: option.value,
+  }));
+
+  let visibleMatches = [];
+  let activeIndex = -1;
+
+  function positionList() {
+    const rect = textField.getBoundingClientRect();
+    listbox.style.top = `${rect.bottom + 4}px`;
+    listbox.style.left = `${rect.left}px`;
+    listbox.style.width = `${rect.width}px`;
+  }
+
+  function resolveHiddenId() {
     const typed = textField.value.trim().toLowerCase();
-    const match = [...datalist.options].find((option) => option.value.toLowerCase() === typed);
-    hiddenField.value = match ? match.dataset.id : "";
-  };
+    const match = options.find((option) => option.label.toLowerCase() === typed);
+    hiddenField.value = match ? match.id : "";
+  }
 
-  textField.addEventListener("input", resolve);
-  textField.addEventListener("change", resolve);
+  function closeList() {
+    listbox.hidden = true;
+    listbox.innerHTML = "";
+    textField.setAttribute("aria-expanded", "false");
+    textField.removeAttribute("aria-activedescendant");
+    visibleMatches = [];
+    activeIndex = -1;
+    // capture: true to match the addEventListener call in renderMatches -
+    // scroll events don't bubble, so catching them from .profile-panel's
+    // internal scroll (or any other scrolling ancestor) requires listening
+    // during the capture phase, not the default bubble phase.
+    window.removeEventListener("scroll", positionList, true);
+    window.removeEventListener("resize", positionList);
+  }
+
+  function setActive(index) {
+    activeIndex = index;
+    [...listbox.children].forEach((li, i) => {
+      li.setAttribute("aria-selected", String(i === activeIndex));
+    });
+    const active = listbox.children[activeIndex];
+    if (active) {
+      active.scrollIntoView({ block: "nearest" });
+      textField.setAttribute("aria-activedescendant", active.id);
+    } else {
+      textField.removeAttribute("aria-activedescendant");
+    }
+  }
+
+  function selectMatch(option) {
+    textField.value = option.label;
+    hiddenField.value = option.id;
+    closeList();
+  }
+
+  function renderMatches(typed) {
+    visibleMatches = options
+      .filter((option) => option.label.toLowerCase().includes(typed))
+      .slice(0, 8);
+    listbox.innerHTML = visibleMatches
+      .map(
+        (option, index) =>
+          `<li role="option" id="${listboxId}-opt-${index}" data-index="${index}">${escapeHtml(option.label)}</li>`,
+      )
+      .join("");
+    const hasMatches = visibleMatches.length > 0;
+    listbox.hidden = !hasMatches;
+    textField.setAttribute("aria-expanded", String(hasMatches));
+    activeIndex = -1;
+    if (hasMatches) {
+      positionList();
+      window.addEventListener("scroll", positionList, true);
+      window.addEventListener("resize", positionList);
+    }
+  }
+
+  textField.addEventListener("input", () => {
+    resolveHiddenId();
+    const typed = textField.value.trim().toLowerCase();
+    if (!typed) {
+      closeList();
+      return;
+    }
+    renderMatches(typed);
+  });
+
+  textField.addEventListener("focus", () => {
+    const typed = textField.value.trim().toLowerCase();
+    if (typed) renderMatches(typed);
+  });
+
+  textField.addEventListener("keydown", (event) => {
+    if (listbox.hidden) return;
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setActive(Math.min(activeIndex + 1, visibleMatches.length - 1));
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setActive(Math.max(activeIndex - 1, 0));
+    } else if (event.key === "Enter" && activeIndex >= 0) {
+      event.preventDefault();
+      selectMatch(visibleMatches[activeIndex]);
+    } else if (event.key === "Escape") {
+      closeList();
+    }
+  });
+
+  // mousedown, not click: it fires before the input's blur, so the list is
+  // still open (and the tapped option still exists) when we act on it - a
+  // click handler here would fire after blur already closed the list.
+  listbox.addEventListener("mousedown", (event) => {
+    const li = event.target.closest("li");
+    if (!li) return;
+    event.preventDefault();
+    const option = visibleMatches[Number(li.dataset.index)];
+    if (option) selectMatch(option);
+  });
+
+  textField.addEventListener("blur", () => {
+    setTimeout(closeList, 0);
+  });
 }
 
-wireCatalogTypeahead("current_driver_label", "current-driver-options", "current_driver_id");
-wireCatalogTypeahead("current_iron_set_label", "current-iron-set-options", "current_iron_set_id");
+wireCatalogTypeahead(
+  "current_driver_label",
+  "current-driver-options",
+  "current_driver_id",
+  "current-driver-listbox",
+);
+wireCatalogTypeahead(
+  "current_iron_set_label",
+  "current-iron-set-options",
+  "current_iron_set_id",
+  "current-iron-set-listbox",
+);
 
 updateConditionalFields();
