@@ -970,13 +970,19 @@ select {
       visibility 0s;
   }
 
+  /* Three tracks so the brand centers over the whole bar regardless of the
+     toggle button's width, rather than being pushed off-center by it (a
+     plain two-item flex row puts the brand wherever space-between leaves it,
+     which reads as lopsided once the toggle moved to the left edge). The
+     third track has nothing in it - its only job is mirroring the toggle's
+     column so the middle one is genuinely centered, not just left-shifted. */
   .mobile-bar {
     position: sticky;
     top: 0;
     z-index: 30;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
     gap: 12px;
     background: var(--ink);
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
@@ -986,7 +992,9 @@ select {
   .mobile-bar-brand {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 9px;
+    grid-column: 2;
   }
 
   .mobile-bar h1 {
@@ -1012,6 +1020,8 @@ select {
   }
 
   .drawer-toggle {
+    grid-column: 1;
+    justify-self: start;
     flex: none;
     display: inline-flex;
     align-items: center;
