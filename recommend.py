@@ -84,7 +84,7 @@ class GolferInput:
 @dataclass(frozen=True)
 class ClubRecommendation:
     name: str
-    score: int
+    score: float
     reasons: list[str]
     brand: str
     model: str
@@ -414,7 +414,7 @@ def _score_wood(
     # --- Base score (5 pts) ---
     score += 5
 
-    capped = int(round(max(0, min(score, 100))))
+    capped = round(max(0.0, min(score, 100.0)), 1)
     name = _display_name(str(club.get("brand", "Unknown")), str(club.get("model", "Unknown")))
     return ClubRecommendation(
         name=name,
@@ -608,7 +608,7 @@ def score_iron_set(
     # --- Base score (5 pts) ---
     score += 5
 
-    capped = int(round(max(0, min(score, 100))))
+    capped = round(max(0.0, min(score, 100.0)), 1)
     name = _display_name(str(club.get("brand", "Unknown")), str(club.get("model", "Unknown")))
     return ClubRecommendation(
         name=name,
@@ -920,7 +920,7 @@ def score_wedge(
     # --- Base score (5 pts) ---
     score += 5
 
-    capped = int(round(max(0, min(score, 100))))
+    capped = round(max(0.0, min(score, 100.0)), 1)
     name = _display_name(str(club.get("brand", "Unknown")), str(club.get("model", "Unknown")))
     return ClubRecommendation(
         name=name,
