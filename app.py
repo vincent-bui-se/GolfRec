@@ -11,7 +11,6 @@ import pandas as pd
 from flask import Flask, jsonify, render_template, request, send_from_directory
 
 from preprocess import (
-    BUNKER_FREQUENCIES,
     CLUB_CATEGORIES,
     DIVOT_DEPTHS,
     GOALS,
@@ -25,6 +24,7 @@ from preprocess import (
     SWING_SPEED_PER_HANDICAP_MPH,
     TRAJECTORIES,
     TURF_FIRMNESS,
+    WEDGE_LOFT_OPTIONS,
     WEDGE_SHOT_STYLES,
     estimate_handicap_from_average_score,
     load_equipment_catalog,
@@ -178,7 +178,7 @@ def index():
         turf_firmness=TURF_FIRMNESS,
         divot_depths=DIVOT_DEPTHS,
         wedge_shot_styles=WEDGE_SHOT_STYLES,
-        bunker_frequencies=BUNKER_FREQUENCIES,
+        wedge_lofts=WEDGE_LOFT_OPTIONS,
         current_drivers=_current_club_options(catalog.get("drivers", [])),
         current_iron_sets=_current_club_options(catalog.get("iron-sets", [])),
     )
@@ -247,9 +247,12 @@ def api_recommend():
     wedge_shot_style = str(payload.get("wedge_shot_style", "No preference"))
     if wedge_shot_style not in WEDGE_SHOT_STYLES:
         wedge_shot_style = "No preference"
-    bunker_frequency = str(payload.get("bunker_frequency", "Sometimes"))
-    if bunker_frequency not in BUNKER_FREQUENCIES:
-        bunker_frequency = "Sometimes"
+    # 56 deg (matches GolferInput.wedge_loft's own default) is the single
+    # most common "do-it-all" wedge loft - a reasonable fallback, not derived
+    # from WEDGE_LOFT_OPTIONS's position, which could silently drift if that
+    # list's contents ever change.
+    wedge_loft = _coerce_float(payload.get("wedge_loft"), 56.0)
+    wedge_loft = max(float(WEDGE_LOFT_OPTIONS[0]), min(float(WEDGE_LOFT_OPTIONS[-1]), wedge_loft))
     current_driver_id = str(payload.get("current_driver_id", "")).strip()
     current_iron_set_id = str(payload.get("current_iron_set_id", "")).strip()
 
@@ -280,7 +283,7 @@ def api_recommend():
         wedge_turf=wedge_turf,
         divot_depth=divot_depth,
         wedge_shot_style=wedge_shot_style,
-        bunker_frequency=bunker_frequency,
+        wedge_loft=wedge_loft,
         current_driver_launch=current_driver.get("launchChar") if current_driver else None,
         current_driver_spin=current_driver.get("spinChar") if current_driver else None,
         current_iron_launch=current_iron_set.get("launchChar") if current_iron_set else None,
