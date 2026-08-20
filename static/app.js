@@ -213,7 +213,17 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
     return;
   }
 
-  listElement.innerHTML = selected
+  const topScore = selected[0].score;
+  const tiedCount = selected.filter((club) => club.score === topScore).length;
+  // A tie means the model genuinely can't separate these clubs - many real
+  // clubs suit the same golfer equally well - so say so instead of letting
+  // list position imply one beats the others.
+  const tieNote =
+    tiedCount > 1
+      ? `<div class="tie-note">${tiedCount} clubs are an equally strong fit at ${topScore}% - the order below doesn't mean one beats the others.</div>`
+      : "";
+
+  listElement.innerHTML = tieNote + selected
     .map((club) => {
       const years = displayYears(club, condition);
       const meta = [

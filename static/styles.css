@@ -816,6 +816,15 @@ select {
   text-align: center;
 }
 
+.tie-note {
+  border: 1px solid var(--ochre);
+  border-radius: var(--radius);
+  background: var(--ochre-soft);
+  padding: 10px 14px;
+  color: var(--ochre-deep);
+  font-size: 0.9em;
+}
+
 .hidden {
   display: none !important;
 }
