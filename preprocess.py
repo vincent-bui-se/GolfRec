@@ -34,6 +34,15 @@ DIVOT_DEPTHS = ["Shallow", "Medium", "Deep"]
 WEDGE_SHOT_STYLES = ["One repeatable shot", "I like to shape shots around the green", "No preference"]
 BUNKER_FREQUENCIES = ["Rarely", "Sometimes", "Frequently"]
 TRAJECTORIES = ["Too low", "About right", "Too high"]
+# Shared handicap -> swing speed coefficients: synthetic_data.py uses these
+# (plus noise) to generate training labels, and app.py's fallback estimator
+# uses them (without noise) for a live request. Keeping one source of truth
+# here means retuning the relationship can't update one call site and
+# silently leave the other using the old numbers.
+SWING_SPEED_BASE_MPH = 108.0
+SWING_SPEED_PER_HANDICAP_MPH = -1.15
+SWING_SPEED_MIN_MPH = 60.0
+SWING_SPEED_MAX_MPH = 120.0
 INPUT_COLUMNS = [
     "handicap",
     "swing_speed",
