@@ -214,14 +214,21 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
   }
 
   const topScore = selected[0].score;
-  const tiedCount = selected.filter((club) => club.score === topScore).length;
-  // A tie means the model genuinely can't separate these clubs - many real
-  // clubs suit the same golfer equally well - so say so instead of letting
-  // list position imply one beats the others.
-  const tieNote =
-    tiedCount > 1
-      ? `<div class="tie-note">${tiedCount} clubs are an equally strong fit at ${topScore}% - the order below doesn't mean one beats the others.</div>`
-      : "";
+  // A gap this small is inside the model's own noise floor - it can reflect
+  // a genuinely sourced difference (e.g. a measured vs. estimated
+  // forgiveness rating) or just which discrete point bucket a club happened
+  // to land in, and there's no way to tell which from the number alone. So
+  // don't let list position imply a meaningful win either way.
+  const NEAR_TIE_THRESHOLD = 2;
+  const closeGroup = selected.filter((club) => topScore - club.score <= NEAR_TIE_THRESHOLD);
+  const exactTie = closeGroup.length > 1 && closeGroup.every((club) => club.score === topScore);
+  let tieNote = "";
+  if (exactTie) {
+    tieNote = `<div class="tie-note">${closeGroup.length} clubs are an equally strong fit at ${topScore}% - the order below doesn't mean one beats the others.</div>`;
+  } else if (closeGroup.length > 1) {
+    const lowScore = closeGroup[closeGroup.length - 1].score;
+    tieNote = `<div class="tie-note">${closeGroup.length} clubs score within ${NEAR_TIE_THRESHOLD} points of each other (${lowScore}-${topScore}%) - a gap that small isn't a meaningful difference, so weigh the reasons below more than the exact number.</div>`;
+  }
 
   listElement.innerHTML = tieNote + selected
     .map((club) => {
