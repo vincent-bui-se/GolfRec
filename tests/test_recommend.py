@@ -807,7 +807,6 @@ def test_score_wedge_forgiveness_axis_favors_high_forgiveness_for_digging_miss()
         **high_forgiveness,
         "model": "Players",
         "forgivenessScore": 4.0,
-        "workability": "high",
         "family": "players",
     }
     golfer = GolferInput(
