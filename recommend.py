@@ -109,7 +109,7 @@ def _build_recommendation(
     out so a future change to that finalization (e.g. rounding precision)
     only needs to happen once.
     """
-    capped = round(max(0.0, min(score, 100.0)), 1)
+    capped = round(max(0.0, min(score, 100.0)))
     name = _display_name(str(club.get("brand", "Unknown")), str(club.get("model", "Unknown")))
     return ClubRecommendation(
         name=name,
