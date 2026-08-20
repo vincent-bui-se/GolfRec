@@ -360,7 +360,12 @@ def _score_wood(
     forgiveness = float(club.get("forgivenessScore", 6.0))
     if golfer.goal == "Forgiveness":
         score += forgiveness * 1.75
-        if club.get("family") in {"game-improvement", "max-forgiveness"}:
+        # "game-improvement" is never a real driver/fairway-wood family
+        # value in the catalog (see _DRIVER_FAMILY_NOTES's 5 keys) - that's
+        # an ironCategory value, not a family one. Only "max-forgiveness"
+        # can ever match here; kept as a single check rather than a set to
+        # not imply a second live branch that doesn't exist.
+        if club.get("family") == "max-forgiveness":
             score += 2.5
         if forgiveness >= 8:
             reasons.append("High forgiveness maximises your margin for off-centre hits.")
@@ -580,7 +585,12 @@ def score_iron_set(
         if "forged" in construction:
             score += 8
             reasons.append("Forged construction delivers the preferred feel.")
-        elif workability in {"high", "medium-high"}:
+        elif workability in {"high", "mid"}:
+            # Was {"high", "medium-high"} - "medium-high" never exists in
+            # the catalog (workability is only high/mid/low), so this
+            # branch was silently only ever matching "high", leaving every
+            # real mid-workability, non-forged iron scored identically to a
+            # low-workability one on this axis.
             score += 5
             reasons.append("High workability approximates a forged feel.")
         else:
