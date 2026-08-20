@@ -50,7 +50,9 @@ class GolferInput:
     divot_depth: str = "Medium"
     # Scoring-time-only preferences (not ML features - see preprocess.py).
     wedge_shot_style: str = "No preference"
-    bunker_frequency: str = "Sometimes"
+    # What loft the golfer is shopping for - see _select_wedge_configuration_candidates.
+    # Default (56) is the single most common "do-it-all" wedge loft.
+    wedge_loft: float = 56.0
     # The golfer's *current* driver/iron launchChar+spinChar, resolved by the
     # caller from a catalog lookup (app.py) - None when they don't know or
     # skipped the question. "Too high"/"Too low" trajectory only means
@@ -744,14 +746,21 @@ def recommend_fairway_woods(
 
 
 # ---------- Wedges ----------
-# Wedges don't get a single predicted-loft target the way drivers/fairway
-# woods/irons do, because real wedge fitting is a multi-club gapping decision
-# (a golfer typically carries 2-3 wedges spanning a loft range, informed by
-# where their iron set stops) rather than a single best-fit head. Recommending
-# an assembled, gapped wedge set is a materially different feature; what's
-# implemented here mirrors every other category instead - rank individual
-# wedge models by fit and return the top few - with bounce/grind fit (from
-# turf conditions) standing in for loft fit as the primary matching axis.
+# Wedges still don't get an ML-predicted loft target the way drivers/fairway
+# woods/irons do - real wedge fitting is a multi-club gapping decision (a
+# golfer typically carries 2-3 wedges spanning a loft range, informed by
+# where their iron set stops), and recommending an assembled, gapped wedge
+# set is a materially different feature from what's built here. What IS
+# built here: the golfer states which single loft they're shopping for
+# (golfer.wedge_loft), and that loft picks which configuration on each wedge
+# gets evaluated. This matters because a wedge model commonly offers several
+# bounce/grind options at different lofts, and comparing wedges on whichever
+# configuration happens to have the closest bounce degree - regardless of
+# loft - let a generic "works everywhere" grind win a Low-bounce request just
+# by having a low-bounce loft option somewhere in its lineup, while a
+# genuinely purpose-built low-bounce specialist grind on another wedge lost
+# purely because its low-bounce loft wasn't the golfer's actual target loft.
+# Comparing wedges at the same loft fixes that.
 
 # Bounce tier boundaries, chosen from the catalog's own bounce values (4-14
 # degrees): most low-bounce grinds sit at 4-7, most mid at 8-10, most high at
@@ -803,13 +812,78 @@ def _bounce_tier(bounce: float) -> str:
     return "High"
 
 
-def _select_wedge_configuration(club: dict[str, Any], predicted_bounce: str) -> dict[str, Any] | None:
-    """Pick the configuration (loft/bounce/grind) closest to the predicted bounce tier."""
+def _select_wedge_configuration_candidates(
+    club: dict[str, Any], target_loft: float
+) -> list[dict[str, Any]]:
+    """All configurations at the loft closest to what the golfer is shopping for.
+
+    Usually 1-4 (a wedge often offers several bounce/grind options at the
+    same loft) - score_wedge scores each candidate fully and keeps whichever
+    fits best, rather than this function guessing which one to pick.
+    """
     configurations = club.get("configurations", [])
     if not configurations:
-        return None
-    target = _BOUNCE_TIER_CENTER.get(predicted_bounce, _BOUNCE_TIER_CENTER["Mid"])
-    return min(configurations, key=lambda config: abs(float(config.get("bounce", 9)) - target))
+        return []
+    closest_loft = min(
+        configurations, key=lambda config: abs(float(config.get("loft", target_loft)) - target_loft)
+    )["loft"]
+    return [config for config in configurations if config.get("loft") == closest_loft]
+
+
+def _score_wedge_configuration(
+    club: dict[str, Any],
+    golfer: GolferInput,
+    predicted_bounce: str,
+    config: dict[str, Any],
+) -> tuple[float, list[str], set[str]]:
+    """Score one specific loft/bounce/grind configuration's fit.
+
+    Covers only the axes that depend on *which* configuration was picked
+    (bounce tier, grind/turf, sole width, 60 pts combined) - score_wedge
+    scores this once per same-loft candidate and keeps the best result.
+    Everything config-independent (shot-style, forgiveness, workability,
+    base) is scored once in score_wedge itself, not repeated per candidate.
+    """
+    points = 0.0
+    reasons: list[str] = []
+    best_for = _grind_best_for(club, config.get("grindCode"))
+
+    # --- Bounce tier match (30 pts) ---
+    chosen_bounce = float(config.get("bounce", 9))
+    chosen_tier = _bounce_tier(chosen_bounce)
+    tier_gap = abs(_BOUNCE_TIER_ORDER.index(chosen_tier) - _BOUNCE_TIER_ORDER.index(predicted_bounce))
+    if tier_gap == 0:
+        points += 30
+        reasons.append(f"{chosen_bounce:g} deg bounce fits your {predicted_bounce.lower()}-bounce need.")
+    elif tier_gap == 1:
+        points += 17
+        reasons.append(f"{chosen_bounce:g} deg bounce is close to your bounce need.")
+    else:
+        points += 7
+
+    # --- Grind fit for stated turf/lie (18 pts) ---
+    wanted_tags = _TURF_BESTFOR_TAGS.get(golfer.wedge_turf, set())
+    if best_for & wanted_tags:
+        points += 18
+        reasons.append(f"Grind is built for your {golfer.wedge_turf.lower()} turf conditions.")
+    elif "all-conditions" in best_for:
+        points += 11
+        reasons.append("All-conditions grind adapts to most turf.")
+    else:
+        points += 4
+
+    # --- Sole-width fit for divot depth (12 pts) ---
+    sole_width = _grind_sole_width(club, config.get("grindCode"))
+    wanted_width = _SOLE_WIDTH_FOR_DIVOT.get(golfer.divot_depth, "medium")
+    if sole_width == wanted_width:
+        points += 12
+        reasons.append(f"{sole_width.title()} sole matches your {golfer.divot_depth.lower()} divot.")
+    elif sole_width == "medium" or wanted_width == "medium":
+        points += 7
+    else:
+        points += 2
+
+    return points, reasons, best_for
 
 
 def _grind_best_for(club: dict[str, Any], grind_code: str | None) -> set[str]:
@@ -832,73 +906,36 @@ def score_wedge(
     golfer: GolferInput,
     predicted_bounce: str,
 ) -> ClubRecommendation:
-    """Score one wedge against the golfer and predicted bounce need.
+    """Score one wedge against the golfer's stated loft and predicted bounce need.
 
     Scoring weights (max 100 pts):
-      - Bounce tier match (from turf + divot depth) : 25 pts
-      - Grind fit for stated turf/lie                : 15 pts
-      - Sole-width fit for divot depth                : 10 pts
+      - Bounce tier match (from turf + divot depth) : 30 pts
+      - Grind fit for stated turf/lie                : 18 pts
+      - Sole-width fit for divot depth                : 12 pts
       - Greenside shot-style fit                      : 12 pts
-      - Bunker frequency fit                          : 10 pts
       - Forgiveness / contact quality                 : 14 pts
       - Workability / shot-shaping                    :  9 pts
       - Base score (always)                           :  5 pts
 
-    Bounce/grind/sole (turf interaction) keeps the largest combined share
-    because wedge fitting is genuinely turf- and lie-centric - every major
-    wedge maker's own fitting guide centers on it, more so than for
-    full-swing clubs, since wedge shots come from a much wider variety of
-    lies. Forgiveness/MOI is trimmed relative to the driver/iron scoring:
-    it's a real but smaller factor for short-game clubs, where touch, spin,
-    and turf interaction matter more than off-centre-hit margin.
+    Bounce/grind/sole (turf interaction, 60 pts combined) keeps the largest
+    share because wedge fitting is genuinely turf- and lie-centric - every
+    major wedge maker's own fitting guide centers on it, more so than for
+    full-swing clubs. Those three are scored per-candidate across every
+    configuration the wedge offers at the golfer's stated loft
+    (see _score_wedge_configuration) and the best-scoring one wins.
+    Forgiveness/MOI is trimmed relative to the driver/iron scoring: it's a
+    real but smaller factor for short-game clubs, where touch, spin, and
+    turf interaction matter more than off-centre-hit margin.
     """
-    score = 0.0
-    reasons: list[str] = []
-
-    chosen = _select_wedge_configuration(club, predicted_bounce)
-    best_for = _grind_best_for(club, chosen.get("grindCode")) if chosen is not None else set()
-
-    # --- Bounce tier match (25 pts) ---
-    if chosen is not None:
-        chosen_bounce = float(chosen.get("bounce", 9))
-        chosen_tier = _bounce_tier(chosen_bounce)
-        tier_gap = abs(
-            _BOUNCE_TIER_ORDER.index(chosen_tier) - _BOUNCE_TIER_ORDER.index(predicted_bounce)
-        )
-        if tier_gap == 0:
-            score += 25
-            reasons.append(
-                f"{chosen_bounce:g} deg bounce fits your {predicted_bounce.lower()}-bounce need."
-            )
-        elif tier_gap == 1:
-            score += 14
-            reasons.append(f"{chosen_bounce:g} deg bounce is close to your bounce need.")
-        else:
-            score += 6
-
-    # --- Grind fit for stated turf/lie (15 pts) ---
-    if chosen is not None:
-        wanted_tags = _TURF_BESTFOR_TAGS.get(golfer.wedge_turf, set())
-        if best_for & wanted_tags:
-            score += 15
-            reasons.append(f"Grind is built for your {golfer.wedge_turf.lower()} turf conditions.")
-        elif "all-conditions" in best_for:
-            score += 9
-            reasons.append("All-conditions grind adapts to most turf.")
-        else:
-            score += 3
-
-    # --- Sole-width fit for divot depth (10 pts) ---
-    if chosen is not None:
-        sole_width = _grind_sole_width(club, chosen.get("grindCode"))
-        wanted_width = _SOLE_WIDTH_FOR_DIVOT.get(golfer.divot_depth, "medium")
-        if sole_width == wanted_width:
-            score += 10
-            reasons.append(f"{sole_width.title()} sole matches your {golfer.divot_depth.lower()} divot.")
-        elif sole_width == "medium" or wanted_width == "medium":
-            score += 6
-        else:
-            score += 2
+    candidates = _select_wedge_configuration_candidates(club, golfer.wedge_loft)
+    if not candidates:
+        score, reasons, best_for = 0.0, [], set()
+    else:
+        scored_candidates = [
+            _score_wedge_configuration(club, golfer, predicted_bounce, config) for config in candidates
+        ]
+        score, reasons, best_for = max(scored_candidates, key=lambda candidate: candidate[0])
+    reasons = list(reasons)
 
     # --- Greenside shot-style fit (12 pts) ---
     wanted_tag = _SHOT_STYLE_TAGS.get(golfer.wedge_shot_style)
@@ -912,25 +949,6 @@ def score_wedge(
         score += 7
     else:
         score += 2
-
-    # --- Bunker frequency fit (10 pts) ---
-    wedge_category = str(club.get("wedgeCategory", ""))
-    if golfer.bunker_frequency == "Frequently":
-        if "sand-shots" in best_for or wedge_category == "specialty":
-            score += 10
-            reasons.append("Grind and shape favour frequent bunker play.")
-        else:
-            score += 3
-    elif golfer.bunker_frequency == "Sometimes":
-        if "sand-shots" in best_for or "all-conditions" in best_for:
-            score += 7
-        else:
-            score += 4
-    else:  # Rarely
-        if wedge_category == "specialty":
-            score += 3
-        else:
-            score += 7
 
     # --- Forgiveness / contact quality (14 pts) ---
     # Same combined trigger as score_iron_set: a digging/inconsistent miss or
