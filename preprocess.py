@@ -32,7 +32,14 @@ DIVOT_DEPTHS = ["Shallow", "Medium", "Deep"]
 # on: "plays sand often" -> "favor sand-friendly grinds" is already a direct,
 # deterministic rule.
 WEDGE_SHOT_STYLES = ["One repeatable shot", "I like to shape shots around the green", "No preference"]
-BUNKER_FREQUENCIES = ["Rarely", "Sometimes", "Frequently"]
+# What loft the golfer is shopping for - drives which configuration on each
+# wedge gets evaluated (see recommend.py's _select_wedge_configuration),
+# rather than every wedge being judged on whichever configuration happens to
+# have the closest bounce degree regardless of loft. Covers the range the
+# catalog actually has strong coverage for (see data audit: 50-60 deg is
+# covered by 26-28 of 29 wedges; 46-48 deg by 16-17/29 since some brands
+# push shorter gap-wedge lofts into their iron sets instead).
+WEDGE_LOFT_OPTIONS = [46, 48, 50, 52, 54, 56, 58, 60, 62]
 TRAJECTORIES = ["Too low", "About right", "Too high"]
 # Shared handicap -> swing speed coefficients: synthetic_data.py uses these
 # (plus noise) to generate training labels, and app.py's fallback estimator

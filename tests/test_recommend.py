@@ -923,40 +923,6 @@ def test_score_wedge_shot_style_fit_rewards_matching_bestfor_tag():
     assert any("shots around the green" in reason.lower() for reason in matches_style.reasons)
 
 
-def test_score_wedge_bunker_frequency_fit_rewards_sand_shots_grind():
-    sand_club = {
-        "brand": "Test",
-        "model": "Sand",
-        "forgivenessScore": 6.0,
-        "workability": "mid",
-        "msrp": 179,
-        "configurations": [{"loft": 56, "bounce": 9, "grindCode": "M"}],
-        "grinds": [{"grindCode": "M", "bestFor": ["sand-shots"]}],
-    }
-    tight_lies_club = {
-        **sand_club,
-        "model": "Tight",
-        "grinds": [{"grindCode": "M", "bestFor": ["tight-lies"]}],
-    }
-    frequent_bunker_golfer = GolferInput(
-        handicap=14,
-        swing_speed=90,
-        driver_carry=215,
-        shot_shape="Straight",
-        goal="Accuracy",
-        iron_miss="Consistent",
-        iron_feel="No preference",
-        wedge_turf="Normal",
-        bunker_frequency="Frequently",
-    )
-
-    matches_bunker = score_wedge(sand_club, frequent_bunker_golfer, predicted_bounce="Mid")
-    mismatches_bunker = score_wedge(tight_lies_club, frequent_bunker_golfer, predicted_bounce="Mid")
-
-    assert matches_bunker.score > mismatches_bunker.score
-    assert any("bunker" in reason.lower() for reason in matches_bunker.reasons)
-
-
 def test_score_wedge_high_handicap_versatility_bonus_applies_when_forgiveness_triggered():
     versatile_grind = {
         "brand": "Test",
@@ -987,6 +953,101 @@ def test_score_wedge_high_handicap_versatility_bonus_applies_when_forgiveness_tr
     plain_score = score_wedge(plain_grind, digging_golfer, predicted_bounce="Mid").score
 
     assert versatile_score > plain_score
+
+
+def test_score_wedge_uses_the_configuration_at_the_golfers_stated_loft():
+    """A club offering different grinds at different lofts must be judged on
+    the one at golfer.wedge_loft, not on whichever configuration elsewhere
+    in its lineup happens to have the closest bounce degree."""
+    club = {
+        "brand": "Test",
+        "model": "TwoLoft",
+        "forgivenessScore": 6.0,
+        "workability": "mid",
+        "msrp": 179,
+        "configurations": [
+            {"loft": 52, "bounce": 6, "grindCode": "L"},
+            {"loft": 58, "bounce": 12, "grindCode": "S"},
+        ],
+        "grinds": [
+            {"grindCode": "L", "bestFor": ["firm-turf", "tight-lies"]},
+            {"grindCode": "S", "bestFor": ["soft-turf", "sand-shots"]},
+        ],
+    }
+    golfer = GolferInput(
+        handicap=14,
+        swing_speed=90,
+        driver_carry=215,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        wedge_turf="Soft",
+        wedge_loft=58,
+    )
+
+    result = score_wedge(club, golfer, predicted_bounce="High")
+
+    assert any("12" in reason for reason in result.reasons)
+    assert not any("6 deg bounce" in reason for reason in result.reasons)
+
+
+def test_score_wedge_picks_the_best_overall_fit_among_same_loft_candidates():
+    """Regression test: a genuinely purpose-built specialist grind must beat
+    a generic 'works everywhere' grind at the *same* loft when the
+    specialist is the real fit - a generic grind should not win just by
+    scoring adequately on every axis while the specialist correctly scores
+    low on axes it was never designed for."""
+    specialist_club = {
+        "brand": "Test",
+        "model": "Specialist",
+        "forgivenessScore": 4.0,
+        "workability": "high",
+        "family": "players",
+        "msrp": 160,
+        "configurations": [{"loft": 58, "bounce": 6, "grindCode": "X"}],
+        "grinds": [
+            {
+                "grindCode": "X",
+                "bestFor": ["firm-turf", "tight-lies"],
+                "soleWidth": "narrow",
+            }
+        ],
+    }
+    generic_club = {
+        "brand": "Test",
+        "model": "Generic",
+        "forgivenessScore": 4.0,
+        "workability": "high",
+        "family": "players",
+        "msrp": 160,
+        "configurations": [{"loft": 58, "bounce": 6, "grindCode": "S"}],
+        "grinds": [
+            {
+                "grindCode": "S",
+                "bestFor": ["all-conditions", "square-face-work"],
+                "soleWidth": "medium",
+            }
+        ],
+    }
+    # Turf/divot/shot-style all point at the specialist's exact specialty.
+    golfer = GolferInput(
+        handicap=12,
+        swing_speed=98,
+        driver_carry=230,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        wedge_turf="Firm",
+        divot_depth="Shallow",
+        wedge_loft=58,
+    )
+
+    specialist_result = score_wedge(specialist_club, golfer, predicted_bounce="Low")
+    generic_result = score_wedge(generic_club, golfer, predicted_bounce="Low")
+
+    assert specialist_result.score > generic_result.score
 
 
 def test_recommend_wedges_returns_ranked_recommendations_end_to_end():

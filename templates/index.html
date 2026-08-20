@@ -276,10 +276,10 @@
             </label>
 
             <label class="field">
-              <span>How often do you play from bunkers?</span>
-              <select name="bunker_frequency">
-                {% for value in bunker_frequencies %}
-                <option value="{{ value }}" {% if value == "Sometimes" %}selected{% endif %}>{{ value }}</option>
+              <span>What loft are you shopping for?</span>
+              <select name="wedge_loft">
+                {% for value in wedge_lofts %}
+                <option value="{{ value }}" {% if value == 56 %}selected{% endif %}>{{ value }} deg</option>
                 {% endfor %}
               </select>
             </label>

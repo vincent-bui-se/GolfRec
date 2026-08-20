@@ -88,7 +88,7 @@ function collectPayload() {
     wedge_turf: formValue("wedge_turf"),
     divot_depth: formValue("divot_depth"),
     wedge_shot_style: formValue("wedge_shot_style"),
-    bunker_frequency: formValue("bunker_frequency"),
+    wedge_loft: formValue("wedge_loft"),
   };
 }
 
