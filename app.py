@@ -19,6 +19,10 @@ from preprocess import (
     IRON_FEELS,
     IRON_MISSES,
     SHOT_SHAPES,
+    SWING_SPEED_BASE_MPH,
+    SWING_SPEED_MAX_MPH,
+    SWING_SPEED_MIN_MPH,
+    SWING_SPEED_PER_HANDICAP_MPH,
     TRAJECTORIES,
     TURF_FIRMNESS,
     WEDGE_SHOT_STYLES,
@@ -59,14 +63,21 @@ def load_catalog() -> dict[str, list[dict[str, Any]]]:
     return load_equipment_catalog(EQUIPMENT_DIR)
 
 
-def predict_specs(models: dict[str, object], golfer_row: pd.DataFrame) -> dict[str, str]:
-    """Predict each fitting label from a one-row golfer feature frame."""
-    return {label: str(models[label].predict(golfer_row[INPUT_COLUMNS])[0]) for label in LABEL_COLUMNS}
+def predict_specs(
+    models: dict[str, object],
+    golfer_row: pd.DataFrame,
+    labels: list[str] = LABEL_COLUMNS,
+) -> dict[str, str]:
+    """Predict the given fitting labels (default: all of them) from a one-row golfer feature frame."""
+    return {label: str(models[label].predict(golfer_row[INPUT_COLUMNS])[0]) for label in labels}
 
 
 def estimate_swing_speed_from_handicap(handicap: float) -> float:
     """Fallback driver speed estimate when the user only enters scoring information."""
-    return max(60.0, min(120.0, 108.0 - 1.15 * handicap))
+    return max(
+        SWING_SPEED_MIN_MPH,
+        min(SWING_SPEED_MAX_MPH, SWING_SPEED_BASE_MPH + SWING_SPEED_PER_HANDICAP_MPH * handicap),
+    )
 
 
 def build_model_row(
@@ -201,13 +212,32 @@ def api_recommend():
         driver_carry = round(swing_speed * 2.35)
 
     driver_shot_shape = str(payload.get("driver_shot_shape", "Straight"))
+    if driver_shot_shape not in SHOT_SHAPES:
+        driver_shot_shape = "Straight"
     driver_goal = str(payload.get("driver_goal", "Accuracy"))
+    if driver_goal not in GOALS:
+        driver_goal = "Accuracy"
     driver_trajectory = str(payload.get("driver_trajectory", "About right"))
-    iron_shot_shape = str(payload.get("iron_shot_shape", driver_shot_shape))
-    iron_goal = str(payload.get("iron_goal", driver_goal))
+    if driver_trajectory not in TRAJECTORIES:
+        driver_trajectory = "About right"
+    # None (not defaulted to the driver's value here) so GolferInput's own
+    # effective_iron_shot_shape/effective_iron_goal fallback-to-driver logic
+    # is the single place that decision happens - see the iron_row build
+    # below, which must read the same effective_* values this feeds the
+    # catalog scorer, or the ML model and the scorer can silently diverge.
+    raw_iron_shot_shape = payload.get("iron_shot_shape")
+    iron_shot_shape = str(raw_iron_shot_shape) if raw_iron_shot_shape in SHOT_SHAPES else None
+    raw_iron_goal = payload.get("iron_goal")
+    iron_goal = str(raw_iron_goal) if raw_iron_goal in GOALS else None
     iron_trajectory = str(payload.get("iron_trajectory", "About right"))
+    if iron_trajectory not in TRAJECTORIES:
+        iron_trajectory = "About right"
     iron_feel = str(payload.get("iron_feel", "No preference"))
+    if iron_feel not in IRON_FEELS:
+        iron_feel = "No preference"
     iron_miss = str(payload.get("iron_miss", "Consistent"))
+    if iron_miss not in IRON_MISSES:
+        iron_miss = "Consistent"
     wedge_turf = str(payload.get("wedge_turf", "Normal"))
     if wedge_turf not in TURF_FIRMNESS:
         wedge_turf = "Normal"
@@ -272,8 +302,11 @@ def api_recommend():
         handicap=handicap,
         swing_speed=swing_speed,
         driver_carry=driver_carry,
-        shot_shape=iron_shot_shape,
-        goal=iron_goal,
+        # Effective, not raw: must match what recommend.py's catalog scorer
+        # sees for this same golfer, or the ML prediction and the scoring
+        # reasons silently disagree about the golfer's iron shot shape/goal.
+        shot_shape=golfer.effective_iron_shot_shape,
+        goal=golfer.effective_iron_goal,
         iron_miss=iron_miss,
         iron_feel=iron_feel,
         wedge_turf=wedge_turf,
@@ -283,10 +316,12 @@ def api_recommend():
     # fairway_wood_loft and wedge_bounce ride along in driver_specs: both are
     # predicted from driver_row since neither has its own shot_shape/goal
     # question, the same way iron_category gets its own prediction from
-    # iron_row below because it does.
+    # iron_row below because it does. Only iron_category is actually needed
+    # from iron_row, so that's the only label predicted from it - predicting
+    # (and discarding) the other 4 labels from iron_row was pure waste.
     driver_specs = predict_specs(models, driver_row)
-    iron_specs = predict_specs(models, iron_row)
-    specs = {**driver_specs, "iron_category": iron_specs["iron_category"]}
+    iron_category = predict_specs(models, iron_row, labels=["iron_category"])["iron_category"]
+    specs = {**driver_specs, "iron_category": iron_category}
 
     driver_recommendations: list[ClubRecommendation] = []
     fairway_wood_recommendations: list[ClubRecommendation] = []

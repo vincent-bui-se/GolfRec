@@ -7,7 +7,18 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from preprocess import GOALS, SHOT_SHAPES, IRON_MISSES, IRON_FEELS, TURF_FIRMNESS, DIVOT_DEPTHS
+from preprocess import (
+    DIVOT_DEPTHS,
+    GOALS,
+    IRON_FEELS,
+    IRON_MISSES,
+    SHOT_SHAPES,
+    SWING_SPEED_BASE_MPH,
+    SWING_SPEED_MAX_MPH,
+    SWING_SPEED_MIN_MPH,
+    SWING_SPEED_PER_HANDICAP_MPH,
+    TURF_FIRMNESS,
+)
 
 
 DRIVER_LOFT_LABELS = ["8", "9", "10.5", "12"]
@@ -190,7 +201,11 @@ def generate_golfer_profiles(
 
     rng = np.random.default_rng(seed)
     handicaps = np.clip(rng.normal(17, 9, n), 0, 36).round(1)
-    swing_speeds = np.clip(108 - 1.15 * handicaps + rng.normal(0, 7, n), 60, 120).round(1)
+    swing_speeds = np.clip(
+        SWING_SPEED_BASE_MPH + SWING_SPEED_PER_HANDICAP_MPH * handicaps + rng.normal(0, 7, n),
+        SWING_SPEED_MIN_MPH,
+        SWING_SPEED_MAX_MPH,
+    ).round(1)
     driver_carry = np.clip(swing_speeds * 2.35 + rng.normal(0, 13, n), 130, 315).round(0)
     # A home course's turf firmness is a course/climate trait, not a skill
     # trait, so it is drawn independently of handicap rather than banded with

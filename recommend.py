@@ -94,6 +94,33 @@ class ClubRecommendation:
     years: list[int] | None = None
 
 
+def _build_recommendation(
+    club: dict[str, Any],
+    score: float,
+    reasons: list[str],
+    category: str,
+) -> ClubRecommendation:
+    """Cap/round a raw score and assemble the final ClubRecommendation.
+
+    Shared by _score_wood, score_iron_set, and score_wedge, which all ended
+    with the same capping + name-building + construction logic - factored
+    out so a future change to that finalization (e.g. rounding precision)
+    only needs to happen once.
+    """
+    capped = round(max(0.0, min(score, 100.0)), 1)
+    name = _display_name(str(club.get("brand", "Unknown")), str(club.get("model", "Unknown")))
+    return ClubRecommendation(
+        name=name,
+        score=capped,
+        reasons=reasons,
+        brand=str(club.get("brand", "Unknown")),
+        model=str(club.get("model", "Unknown")),
+        msrp=club.get("msrp") if isinstance(club.get("msrp"), (int, float)) else None,
+        year=club.get("year") if isinstance(club.get("year"), int) else None,
+        category=category,
+    )
+
+
 def _closest_loft(
     lofts: list[Any],
     predicted_loft: str,
@@ -192,7 +219,17 @@ def filter_recommendations_by_budget(
     max_budget: float,
     limit: int | None = None,
 ) -> list[ClubRecommendation]:
-    """Keep recommendations with a known MSRP at or below the selected budget."""
+    """Keep recommendations with a known MSRP at or below the selected budget.
+
+    NOT called by app.py / the live app. The budget slider needs instant,
+    server-round-trip-free filtering as the user drags it, so
+    static/app.js's `filterByBudget` reimplements this exact logic
+    client-side, and that JS copy is what actually runs in production. This
+    Python version exists as a tested, readable reference and for any future
+    server-side/API consumer - editing it has zero effect on the deployed
+    app unless the JS copy is also updated to match, or app.py is wired to
+    call this directly.
+    """
     affordable = [
         recommendation
         for recommendation in recommendations
@@ -206,7 +243,12 @@ def select_recommendations_for_display(
     recommendations: list[ClubRecommendation],
     default_limit: int = 5,
 ) -> list[ClubRecommendation]:
-    """Return default top recommendations, expanding flat top-score groups."""
+    """Return default top recommendations, expanding flat top-score groups.
+
+    NOT called by app.py / the live app - same situation as
+    `filter_recommendations_by_budget` above: static/app.js's
+    `selectForDisplay` is the client-side duplicate that actually runs.
+    """
     if len(recommendations) <= default_limit:
         return recommendations
 
@@ -335,6 +377,12 @@ def _score_wood(
             reasons.append("Forgiving head preserves distance on mis-hits.")
 
     # --- Launch characteristic (20 pts) ---
+    # There's no separate current-fairway-wood-trajectory question, so this
+    # baseline is always the golfer's current *driver* even when scoring a
+    # fairway wood - that's an intentional proxy for their general ball-flight
+    # tendency, but the reason text must say so explicitly for a fairway wood
+    # card, or "than your current driver" reads like a category mismatch.
+    baseline_suffix = "" if category == "Driver" else ", carrying that same fix into your fairway woods"
     launch = str(club.get("launchChar", "mid"))
     if golfer.current_driver_launch is not None:
         launch_points, launch_gap = _relative_trajectory_points(
@@ -342,11 +390,11 @@ def _score_wood(
         )
         score += launch_points
         if launch_gap == 0 and golfer.driver_trajectory == "Too high":
-            reasons.append("Lower launch than your current driver should bring your ball flight down without overcorrecting.")
+            reasons.append(f"Lower launch than your current driver should bring your ball flight down without overcorrecting{baseline_suffix}.")
         elif launch_gap == 0 and golfer.driver_trajectory == "Too low":
-            reasons.append("Higher launch than your current driver should bring your ball flight up without overcorrecting.")
+            reasons.append(f"Higher launch than your current driver should bring your ball flight up without overcorrecting{baseline_suffix}.")
         elif launch_gap == 0:
-            reasons.append("Launch matches your current driver, keeping your trajectory stable.")
+            reasons.append(f"Launch matches your current driver, keeping your trajectory stable{baseline_suffix}.")
     elif golfer.driver_trajectory == "Too low" and _ordinal(launch) >= 3:
         score += 20
         reasons.append("Higher launch helps correct a low ball flight.")
@@ -377,11 +425,11 @@ def _score_wood(
         )
         score += spin_points
         if spin_gap == 0 and golfer.driver_trajectory == "Too high":
-            reasons.append("Lower spin than your current driver should help stop it ballooning.")
+            reasons.append(f"Lower spin than your current driver should help stop it ballooning{baseline_suffix}.")
         elif spin_gap == 0 and golfer.driver_trajectory == "Too low":
-            reasons.append("Higher spin than your current driver should help keep it airborne longer.")
+            reasons.append(f"Higher spin than your current driver should help keep it airborne longer{baseline_suffix}.")
         elif spin_gap == 0:
-            reasons.append("Spin matches your current driver, maintaining your trajectory.")
+            reasons.append(f"Spin matches your current driver, maintaining your trajectory{baseline_suffix}.")
     elif golfer.driver_trajectory == "Too high" and _ordinal(spin) <= 1:
         score += 18
         reasons.append("Low spin helps prevent ballooning for your high trajectory.")
@@ -412,7 +460,11 @@ def _score_wood(
     elif golfer.goal == "Distance" and club.get("family") in {"low-spin", "players"}:
         score += 10
         reasons.append("Low-spin player's head supports maximum distance.")
-    elif golfer.shot_shape in {"Draw", "Hook"} and club.get("spinChar") in {"low", "low-mid"}:
+    elif golfer.shot_shape in {"Draw", "Hook"} and _ordinal(club.get("spinChar")) <= 1:
+        # _ordinal(), not a raw string-set check - "low-mid" and "mid-low"
+        # both appear in the catalog for the same bucket (see
+        # _LAUNCH_SPIN_ORDER's comment), and a literal set membership check
+        # only catches one spelling.
         score += 7
         reasons.append("Low-spin design helps moderate a strong draw.")
 
@@ -424,18 +476,7 @@ def _score_wood(
     # --- Base score (5 pts) ---
     score += 5
 
-    capped = round(max(0.0, min(score, 100.0)), 1)
-    name = _display_name(str(club.get("brand", "Unknown")), str(club.get("model", "Unknown")))
-    return ClubRecommendation(
-        name=name,
-        score=capped,
-        reasons=reasons,
-        brand=str(club.get("brand", "Unknown")),
-        model=str(club.get("model", "Unknown")),
-        msrp=club.get("msrp") if isinstance(club.get("msrp"), (int, float)) else None,
-        year=club.get("year") if isinstance(club.get("year"), int) else None,
-        category=category,
-    )
+    return _build_recommendation(club, score, reasons, category)
 
 
 def score_driver(
@@ -514,13 +555,18 @@ def score_iron_set(
         elif forgiveness >= 6:
             reasons.append("Moderate forgiveness suits your miss tendency.")
     else:
-        # Consistent ball-strikers earn flat points regardless of forgiveness
+        # Consistent ball-strikers mostly don't need forgiveness insurance, so
+        # the baseline is high regardless - but the tiers must still differ in
+        # points, not just in reason text, or a truly unforgiving iron ranks
+        # identically to a max-forgiveness one for every consistent striker.
         score += 15
         if forgiveness >= 8:
             score += 5
             reasons.append("High forgiveness gives extra margin even for consistent players.")
+        elif forgiveness >= 6:
+            score += 3
         else:
-            score += 5
+            score += 1
 
     # --- Construction / feel preference (8 pts) ---
     # Kept deliberately light: this axis previously ran to 15 pts and swung
@@ -623,18 +669,7 @@ def score_iron_set(
     # --- Base score (5 pts) ---
     score += 5
 
-    capped = round(max(0.0, min(score, 100.0)), 1)
-    name = _display_name(str(club.get("brand", "Unknown")), str(club.get("model", "Unknown")))
-    return ClubRecommendation(
-        name=name,
-        score=capped,
-        reasons=reasons,
-        brand=str(club.get("brand", "Unknown")),
-        model=str(club.get("model", "Unknown")),
-        msrp=club.get("msrp") if isinstance(club.get("msrp"), (int, float)) else None,
-        year=club.get("year") if isinstance(club.get("year"), int) else None,
-        category="Iron Set",
-    )
+    return _build_recommendation(club, score, reasons, "Iron Set")
 
 
 def _recommend_woods(
@@ -903,11 +938,16 @@ def score_wedge(
     forgiveness = float(club.get("forgivenessScore", 6.0))
     triggered = golfer.iron_miss in {"Fat/Thin", "Inconsistent"} or golfer.goal == "Forgiveness"
     if triggered:
-        forgiveness_points = min(forgiveness * 1.4, 14)
+        # Base caps at 12, not the bucket's full 14, reserving real headroom
+        # for the versatility bonus below - at forgiveness=10 (4 real wedges
+        # in the catalog sit there) the old 1.4x/14 cap left zero room for
+        # the +1.4 bonus to add anything, so the reason text printed without
+        # actually changing the score.
+        forgiveness_points = min(forgiveness * 1.2, 12)
         if forgiveness >= 8:
             reasons.append("High forgiveness helps with off-centre wedge contact.")
         if "high-handicap-versatility" in best_for:
-            forgiveness_points = min(forgiveness_points + 1.4, 14)
+            forgiveness_points = min(forgiveness_points + 2, 14)
             reasons.append("Grind is built for high-handicap versatility.")
     else:
         forgiveness_points = 10
@@ -943,18 +983,7 @@ def score_wedge(
     # --- Base score (5 pts) ---
     score += 5
 
-    capped = round(max(0.0, min(score, 100.0)), 1)
-    name = _display_name(str(club.get("brand", "Unknown")), str(club.get("model", "Unknown")))
-    return ClubRecommendation(
-        name=name,
-        score=capped,
-        reasons=reasons,
-        brand=str(club.get("brand", "Unknown")),
-        model=str(club.get("model", "Unknown")),
-        msrp=club.get("msrp") if isinstance(club.get("msrp"), (int, float)) else None,
-        year=club.get("year") if isinstance(club.get("year"), int) else None,
-        category="Wedge",
-    )
+    return _build_recommendation(club, score, reasons, "Wedge")
 
 
 def recommend_wedges(
