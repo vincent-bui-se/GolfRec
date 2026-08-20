@@ -123,6 +123,21 @@ def _build_recommendation(
     )
 
 
+def _rank_key(rec: ClubRecommendation) -> tuple[float, float]:
+    """Sort key: highest score first, cheapest MSRP breaking ties.
+
+    Genuinely tied scores are common and expected (many clubs suit the same
+    golfer equally well - see score_wedge/_score_wood/score_iron_set
+    docstrings), so this never re-scores anything to force a unique winner.
+    It only replaces an otherwise-arbitrary tie order (whichever club
+    happened to load first from the catalog JSON) with a deliberate,
+    useful one: cheaper of two equally-good options shown first. Unknown
+    MSRP sorts last among its tied peers rather than first.
+    """
+    msrp = rec.msrp if rec.msrp is not None else float("inf")
+    return (-rec.score, msrp)
+
+
 def _closest_loft(
     lofts: list[Any],
     predicted_loft: str,
@@ -237,7 +252,7 @@ def filter_recommendations_by_budget(
         for recommendation in recommendations
         if recommendation.msrp is not None and recommendation.msrp <= max_budget
     ]
-    ordered = sorted(affordable, key=lambda rec: rec.score, reverse=True)
+    ordered = sorted(affordable, key=_rank_key)
     return ordered if limit is None else ordered[:limit]
 
 
@@ -720,7 +735,7 @@ def _recommend_woods(
         scored = filtered or scored
 
     recommendations = [rec for _, rec in scored]
-    ranked = sorted(recommendations, key=lambda rec: rec.score, reverse=True)[:top_n]
+    ranked = sorted(recommendations, key=_rank_key)[:top_n]
     return prioritise_distinctive_reasons(ranked)
 
 
@@ -825,19 +840,24 @@ def _bounce_tier(bounce: float) -> str:
 def _select_wedge_configuration_candidates(
     club: dict[str, Any], target_loft: float
 ) -> list[dict[str, Any]]:
-    """All configurations at the loft closest to what the golfer is shopping for.
+    """All configurations at the loft(s) closest to what the golfer is shopping for.
 
     Usually 1-4 (a wedge often offers several bounce/grind options at the
     same loft) - score_wedge scores each candidate fully and keeps whichever
     fits best, rather than this function guessing which one to pick.
+
+    Compares by gap, not by a single "closest loft" value: when two distinct
+    lofts are equally close to the target (e.g. target 48, offered lofts 46
+    and 50), both are real candidates and must both be scored - picking one
+    "closest loft" via min() silently drops whichever loft didn't happen to
+    be first in the catalog's configuration list.
     """
     configurations = club.get("configurations", [])
     if not configurations:
         return []
-    closest_loft = min(
-        configurations, key=lambda config: abs(float(config.get("loft", target_loft)) - target_loft)
-    )["loft"]
-    return [config for config in configurations if config.get("loft") == closest_loft]
+    gaps = [abs(float(config.get("loft", target_loft)) - target_loft) for config in configurations]
+    best_gap = min(gaps)
+    return [config for config, gap in zip(configurations, gaps) if gap == best_gap]
 
 
 def _score_wedge_configuration(
@@ -1027,7 +1047,7 @@ def recommend_wedges(
     if golfer.iron_miss in {"Fat/Thin", "Inconsistent"}:
         scored = [rec for rec in scored if rec.score >= 50] or scored
 
-    ranked = sorted(scored, key=lambda rec: rec.score, reverse=True)[:top_n]
+    ranked = sorted(scored, key=_rank_key)[:top_n]
     return prioritise_distinctive_reasons(ranked)
 
 
@@ -1099,5 +1119,5 @@ def recommend_irons(
         scored = [rec for rec in scored if rec.score >= 50] or scored
 
     merged = merge_same_name_iron_sets(scored)
-    ranked = sorted(merged, key=lambda rec: rec.score, reverse=True)[:top_n]
+    ranked = sorted(merged, key=_rank_key)[:top_n]
     return prioritise_distinctive_reasons(ranked)

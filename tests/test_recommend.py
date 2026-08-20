@@ -1049,6 +1049,80 @@ def test_score_wedge_picks_the_best_overall_fit_among_same_loft_candidates():
     assert specialist_result.score > generic_result.score
 
 
+def test_score_wedge_considers_both_lofts_when_equidistant_from_target():
+    """When a wedge's two nearest lofts are equally close to the golfer's
+    stated loft, both are real candidates - picking only whichever comes
+    first in the catalog silently drops an equally valid option (and, if
+    that option scores better, understates the club's true fit)."""
+    club = {
+        "brand": "Test",
+        "model": "EquidistantLofts",
+        "forgivenessScore": 6.0,
+        "workability": "mid",
+        "msrp": 179,
+        "configurations": [
+            # loft 46 is listed first but is the *worse* fit for this golfer;
+            # both 46 and 50 are exactly 2 deg from the target loft of 48.
+            {"loft": 46, "bounce": 12, "grindCode": "S"},
+            {"loft": 50, "bounce": 6, "grindCode": "L"},
+        ],
+        "grinds": [
+            {"grindCode": "S", "bestFor": ["soft-turf", "sand-shots"]},
+            {"grindCode": "L", "bestFor": ["firm-turf", "tight-lies"]},
+        ],
+    }
+    golfer = GolferInput(
+        handicap=14,
+        swing_speed=90,
+        driver_carry=215,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+        wedge_turf="Firm",
+        wedge_loft=48,
+    )
+
+    result = score_wedge(club, golfer, predicted_bounce="Low")
+
+    assert any("6 deg bounce" in reason for reason in result.reasons)
+    assert any("firm turf" in reason for reason in result.reasons)
+
+
+def test_recommend_irons_breaks_ties_by_lower_msrp():
+    """Two iron sets that score identically are a genuine tie (many real
+    clubs suit the same golfer equally well), but the order they're returned
+    in still needs to be deliberate, not whichever happened to load first
+    from the catalog JSON - cheapest-first is the useful default."""
+    base = {
+        "ironCategory": "game-improvement",
+        "forgivenessScore": 8.0,
+        "construction": "cast-stainless",
+        "workability": "mid",
+        "launchChar": "mid",
+        "spinChar": "mid",
+    }
+    pricier = {**base, "brand": "Test", "model": "Pricier", "msrp": 900}
+    cheaper = {**base, "brand": "Test", "model": "Cheaper", "msrp": 500}
+    golfer = GolferInput(
+        handicap=18,
+        swing_speed=90,
+        driver_carry=210,
+        shot_shape="Straight",
+        goal="Accuracy",
+        iron_miss="Consistent",
+        iron_feel="No preference",
+    )
+
+    ranked = recommend_irons(
+        {"iron-sets": [pricier, cheaper]}, golfer, predicted_iron_category="game-improvement", top_n=2
+    )
+
+    assert ranked[0].score == ranked[1].score
+    assert ranked[0].model == "Cheaper"
+    assert ranked[1].model == "Pricier"
+
+
 def test_recommend_wedges_returns_ranked_recommendations_end_to_end():
     catalog = load_equipment_catalog(EQUIPMENT_DIR)
     golfer = GolferInput(
