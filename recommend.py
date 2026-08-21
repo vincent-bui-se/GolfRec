@@ -27,7 +27,7 @@ _DRIVER_FAMILY_NOTES = {
     "low-spin": "Low-spin head trades help for speed.",
     "max-forgiveness": "Max-forgiveness build for the widest usable face.",
     "draw-bias": "Draw-bias build fights a left-to-right miss.",
-    "players": "Compact players head rewards centre contact.",
+    "players": "Compact players head rewards center contact.",
     "versatile": "Versatile head balances help and workability.",
 }
 
@@ -367,7 +367,7 @@ def _score_wood(
                 f"target (+/-{round(adjust_range, 1):g} deg hosel)."
             )
         elif loft_gap <= 0.5:
-            reasons.append(f"Available loft {closest_loft:g} deg closely matches the AI loft target.")
+            reasons.append(f"Available loft {closest_loft:g} deg closely matches your target loft.")
 
     # --- Forgiveness / goal fit (20 pts) ---
     # forgivenessScore is 0-10 (was a 1-5 tier); default 6.0 mirrors the old
@@ -383,11 +383,11 @@ def _score_wood(
         if club.get("family") == "max-forgiveness":
             score += 2.5
         if forgiveness >= 8:
-            reasons.append("High forgiveness maximises your margin for off-centre hits.")
+            reasons.append("High forgiveness maximizes your margin for off-center hits.")
     elif golfer.goal == "Accuracy":
         score += 8 + min(forgiveness, 8) * 1.5
         if forgiveness >= 10:
-            reasons.append("Top-tier stability holds your line on off-centre strikes.")
+            reasons.append("High stability holds your line on off-center strikes.")
         elif forgiveness >= 8:
             reasons.append("Stable head keeps accuracy misses playable.")
     else:  # Distance
@@ -428,7 +428,7 @@ def _score_wood(
         reasons.append("Mid launch keeps your current trajectory stable.")
     elif golfer.swing_speed < 85 and _ordinal(launch) >= 3:
         score += 17
-        reasons.append("High launch helps slower swing speeds maximise carry.")
+        reasons.append("High launch helps slower swing speeds maximize carry.")
     elif golfer.swing_speed >= 100 and _ordinal(launch) <= 2:
         score += 20
         reasons.append("Controlled launch keeps the ball penetrating into wind.")
@@ -646,7 +646,7 @@ def score_iron_set(
         reasons.append("Mid-launch irons preserve your current trajectory.")
     elif golfer.swing_speed < 85 and _ordinal(iron_launch) >= 3:
         score += 14
-        reasons.append("High-launching irons help maximise carry for slower swing speeds.")
+        reasons.append("High-launching irons help maximize carry for slower swing speeds.")
     elif golfer.swing_speed >= 100 and _ordinal(iron_launch) <= 1:
         score += 14
         reasons.append("Lower-launching irons help control trajectory at faster speeds.")
@@ -823,7 +823,7 @@ _SHOT_STYLE_REASON_TEXT = {
 }
 
 _WEDGE_FAMILY_NOTES = {
-    "max-forgiveness": "Wide, forgiving sole helps off-centre and heavy contact.",
+    "max-forgiveness": "Wide, forgiving sole helps off-center and heavy contact.",
     "players": "Compact players shape rewards precise strikes.",
     "versatile": "Versatile grind works across a range of lies.",
 }
@@ -993,7 +993,7 @@ def score_wedge(
         # actually changing the score.
         forgiveness_points = min(forgiveness * 1.2, 12)
         if forgiveness >= 8:
-            reasons.append("High forgiveness helps with off-centre wedge contact.")
+            reasons.append("High forgiveness helps with off-center wedge contact.")
         if "high-handicap-versatility" in best_for:
             forgiveness_points = min(forgiveness_points + 2, 14)
             reasons.append("Grind is built for high-handicap versatility.")
@@ -1017,7 +1017,7 @@ def score_wedge(
     else:  # Forgiveness
         if workability == "low":
             score += 9
-            reasons.append("Low-workability shape favours consistency over shot-shaping.")
+            reasons.append("Low-workability shape favors consistency over shot-shaping.")
         elif workability == "mid":
             score += 5
         else:

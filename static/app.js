@@ -224,10 +224,10 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
   const exactTie = closeGroup.length > 1 && closeGroup.every((club) => club.score === topScore);
   let tieNote = "";
   if (exactTie) {
-    tieNote = `<div class="tie-note">${closeGroup.length} clubs are an equally strong fit at ${topScore}% - the order below doesn't mean one beats the others.</div>`;
+    tieNote = `<div class="tie-note">${closeGroup.length} clubs are an equally strong fit at ${topScore}%. The order below doesn't mean one beats the others.</div>`;
   } else if (closeGroup.length > 1) {
     const lowScore = closeGroup[closeGroup.length - 1].score;
-    tieNote = `<div class="tie-note">${closeGroup.length} clubs score within ${NEAR_TIE_THRESHOLD} points of each other (${lowScore}-${topScore}%) - a gap that small isn't a meaningful difference, so weigh the reasons below more than the exact number.</div>`;
+    tieNote = `<div class="tie-note">${closeGroup.length} clubs score within ${NEAR_TIE_THRESHOLD} points of each other (${lowScore}-${topScore}%). That gap isn't a meaningful difference, so weigh the reasons below more than the exact number.</div>`;
   }
 
   listElement.innerHTML = tieNote + selected
