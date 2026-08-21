@@ -9,6 +9,7 @@ from typing import Any
 import joblib
 import pandas as pd
 from flask import Flask, jsonify, render_template, request, send_from_directory
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from preprocess import (
     CLUB_CATEGORIES,
@@ -46,6 +47,43 @@ MODEL_DIR = PROJECT_ROOT / "models"
 DATASET_PATH = PROJECT_ROOT / "data" / "golfers.csv"
 
 app = Flask(__name__)
+# Render/Cloudflare terminate TLS in front of this app and forward plain HTTP
+# to gunicorn, so request.scheme (and anything built from it, like
+# url_for(..., _external=True)) would read "http" without this - producing
+# a canonical/OG URL for the insecure scheme on a page that's only ever
+# actually served over HTTPS.
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+
+_CONTENT_SECURITY_POLICY = (
+    "default-src 'self'; "
+    "script-src 'self'; "
+    "style-src 'self' 'unsafe-inline'; "
+    "font-src 'self'; "
+    "img-src 'self'; "
+    "connect-src 'self'; "
+    "frame-ancestors 'none'; "
+    "base-uri 'self'; "
+    "form-action 'self'"
+)
+
+
+@app.after_request
+def _add_security_headers(response):
+    # HSTS only matters over a connection ProxyFix confirms was actually
+    # HTTPS - setting it on a plain-HTTP response (e.g. local dev) would be
+    # a lie the browser can't act on anyway.
+    if request.is_secure:
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Permissions-Policy"] = "geolocation=(), camera=(), microphone=()"
+    # style-src needs 'unsafe-inline' for app.js's element.style.x = ...
+    # positioning of the typeahead dropdown; script-src does not, since
+    # that's the axis that actually matters against injection.
+    response.headers["Content-Security-Policy"] = _CONTENT_SECURITY_POLICY
+    if request.path.startswith("/static/"):
+        response.headers["Cache-Control"] = "public, max-age=3600"
+    return response
 
 
 @lru_cache(maxsize=1)
@@ -162,6 +200,23 @@ def favicon():
     return send_from_directory(
         app.static_folder, "favicon.ico", mimetype="image/vnd.microsoft.icon"
     )
+
+
+@app.get("/robots.txt")
+def robots():
+    """A plain static-file response, not a templated/catalog-driven one.
+
+    Distinct from a 404 (which crawlers correctly treat as "no restrictions")
+    - the actual risk this avoids is a 5xx here, which Google's crawler
+    treats as "robots.txt unreachable" and can suppress crawling of the
+    entire site while it persists. Routing through send_from_directory
+    keeps this response independent of catalog loading, model inference, or
+    template rendering, so an unrelated app-logic failure elsewhere can't
+    take robots.txt down with it. It doesn't protect against the host
+    process itself being asleep (Render free-tier hibernation) - only a
+    CDN-level static response or an always-on tier can close that gap.
+    """
+    return send_from_directory(app.static_folder, "robots.txt", mimetype="text/plain")
 
 
 @app.get("/")
