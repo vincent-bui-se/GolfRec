@@ -3,7 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Stickly</title>
+    <title>Stickly - Free AI Golf Club Recommendations</title>
+    <meta name="description" content="Get personalized driver, fairway wood, iron, and wedge recommendations matched to your handicap and swing speed. Free AI-scored club fitting, no signup required.">
+    <link rel="canonical" href="{{ url_for('index', _external=True) }}">
+
     <!-- Every icon is the header artwork itself, downscaled. A simplified vector
          mark was tried first on the assumption the illustration would mush at
          16px; rendered side by side it lost to the artwork at every size, so
@@ -11,9 +14,55 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32.png') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Stickly">
+    <meta property="og:title" content="Stickly - Free AI Golf Club Recommendations">
+    <meta property="og:description" content="Get personalized driver, fairway wood, iron, and wedge recommendations matched to your handicap and swing speed. Free AI-scored club fitting, no signup required.">
+    <meta property="og:url" content="{{ url_for('index', _external=True) }}">
+    <meta property="og:image" content="{{ url_for('static', filename='apple-touch-icon.png', _external=True) }}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Stickly - Free AI Golf Club Recommendations">
+    <meta name="twitter:description" content="Get personalized driver, fairway wood, iron, and wedge recommendations matched to your handicap and swing speed. Free AI-scored club fitting, no signup required.">
+    <meta name="twitter:image" content="{{ url_for('static', filename='apple-touch-icon.png', _external=True) }}">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "{{ url_for('index', _external=True) }}#organization",
+          "name": "Stickly",
+          "url": "{{ url_for('index', _external=True) }}",
+          "logo": "{{ url_for('static', filename='apple-touch-icon.png', _external=True) }}"
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "{{ url_for('index', _external=True) }}#webapp",
+          "name": "Stickly",
+          "url": "{{ url_for('index', _external=True) }}",
+          "description": "Free golf club recommendation tool. Enter your handicap or average score, swing speed, and playing preferences to get AI-scored driver, fairway wood, iron, and wedge recommendations matched to your game, with links to buy from retailers.",
+          "applicationCategory": "SportsApplication",
+          "operatingSystem": "Any",
+          "isAccessibleForFree": true,
+          "featureList": [
+            "Personalized driver recommendations",
+            "Personalized fairway wood recommendations",
+            "Personalized iron set recommendations",
+            "Personalized wedge recommendations",
+            "Budget and used-club filtering"
+          ],
+          "publisher": { "@id": "{{ url_for('index', _external=True) }}#organization" }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Fonts are self-hosted (see the @font-face rules at the top of
+         styles.css) rather than linked from fonts.googleapis.com - that
+         extra DNS+TLS+fetch round trip was the single largest contributor
+         to render-blocking delay on this page. -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
@@ -38,7 +87,7 @@
           <span class="drawer-toggle-icon" aria-hidden="true"></span>
         </button>
         <div class="mobile-bar-brand">
-          <img class="brand-mark" src="{{ url_for('static', filename='brand-mark.png') }}" alt="" width="34" height="34" aria-hidden="true">
+          <img class="brand-mark" src="{{ url_for('static', filename='brand-mark.webp') }}" alt="" width="34" height="34" aria-hidden="true">
           <h1>Stickly</h1>
         </div>
       </header>
@@ -51,7 +100,7 @@
         </button>
 
         <div class="brand-lockup">
-          <img class="brand-mark" src="{{ url_for('static', filename='brand-mark.png') }}" alt="" width="44" height="44" aria-hidden="true">
+          <img class="brand-mark" src="{{ url_for('static', filename='brand-mark.webp') }}" alt="" width="44" height="44" aria-hidden="true">
           <div>
             <h1>Stickly</h1>
             <p class="brand-tagline">Your Game. Your Sticks</p>
