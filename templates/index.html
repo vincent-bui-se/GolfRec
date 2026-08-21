@@ -47,11 +47,10 @@
           "operatingSystem": "Any",
           "isAccessibleForFree": true,
           "featureList": [
-            "Personalized driver recommendations",
-            "Personalized fairway wood recommendations",
-            "Personalized iron set recommendations",
-            "Personalized wedge recommendations",
-            "Budget and used-club filtering"
+            "Driver, fairway wood, iron, and wedge recommendations matched to your swing",
+            "AI-scored fit against real club specifications",
+            "Budget and used-club filtering",
+            "Links to buy from retailers"
           ],
           "publisher": { "@id": "{{ url_for('index', _external=True) }}#organization" }
         }
@@ -347,7 +346,7 @@
         <header class="page-header">
           <div>
             <h2>Clubs matched to your game</h2>
-            <p class="page-subtitle">Machine learning models trained on thousands of real club specifications turn your profile into personalized recommendations.</p>
+            <p class="page-subtitle">Machine learning models turn your profile into personalized recommendations, matched against real club specifications.</p>
           </div>
         </header>
 
@@ -391,7 +390,7 @@
         <section class="empty-state loading-state hidden" id="loading-state">
           <div class="spinner" aria-hidden="true"></div>
           <h3>Fitting your clubs</h3>
-          <p>Matching your profile against thousands of club specs.</p>
+          <p>Matching your profile against the club catalog.</p>
         </section>
 
         <section class="recommendations hidden" id="recommendations">
