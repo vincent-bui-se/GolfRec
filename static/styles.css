@@ -71,8 +71,14 @@
   --flag: #8b3a2b;
 
   --ink-text: #1c2620;
-  --shadow: 0 16px 40px rgba(23, 36, 28, 0.1);
-  --radius: 10px;
+  /* A tight, low-blur drop rather than an ambient glow - paper resting on a
+     desk casts a shadow close to its own edge, not a soft halo floating
+     16px above the surface. */
+  --shadow: 0 1px 0 rgba(23, 36, 28, 0.08), 0 3px 8px rgba(23, 36, 28, 0.16);
+  /* A flat sheet of paper has square-ish corners, not a rounded app card;
+     this is just enough radius to keep sharp corners from looking like a
+     rendering glitch at small sizes. */
+  --radius: 3px;
 
   --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-body:
