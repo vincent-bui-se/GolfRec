@@ -192,6 +192,15 @@
             </label>
 
             <label class="field">
+              <span>Swing tempo</span>
+              <select name="swing_tempo">
+                {% for value in swing_tempos %}
+                <option value="{{ value }}" {% if value == "Moderate" %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </label>
+
+            <label class="field">
               <span>Shot shape</span>
               <select name="driver_shot_shape">
                 {% for value in shot_shapes %}
@@ -347,6 +356,7 @@
           <div>
             <h2>Clubs matched to your game</h2>
             <p class="page-subtitle">Machine learning models turn your profile into personalized recommendations, matched against real club specifications.</p>
+            <p class="page-disclaimer">A starting point, not a full fitting. Stickly estimates from what you tell it here; a real fitter measures your actual swing. Good enough if you're not chasing exact numbers.</p>
           </div>
         </header>
 
