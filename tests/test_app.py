@@ -71,7 +71,7 @@ def test_index_page_renders_swing_tempo_field_and_disclaimer(client):
     assert 'name="swing_tempo"' in html
     for tempo in app_module.SWING_TEMPOS:
         assert f'value="{tempo}"' in html
-    assert "not a full fitting" in html
+    assert "a starting point" in html
 
 
 def test_index_page_separates_speed_fields_from_driver_specific_fields(client):
