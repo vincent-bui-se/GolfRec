@@ -74,6 +74,23 @@ def test_index_page_renders_swing_tempo_field_and_disclaimer(client):
     assert "not a full fitting" in html
 
 
+def test_index_page_separates_speed_fields_from_driver_specific_fields(client):
+    """Swing speed/tempo feed shaft_flex and iron_category both, so they need
+    their own section (shown for Driver, Fairway Wood, or Irons) separate
+    from the driver/fairway-wood-only fields (current driver, shot shape,
+    goal) that stay in .wood-fields - see updateConditionalFields() in
+    app.js."""
+    response = client.get("/")
+    html = response.get_data(as_text=True)
+
+    speed_section = html.index('class="form-section speed-fields"')
+    tempo_field = html.index('name="swing_tempo"')
+    wood_section = html.index('class="form-section wood-fields"')
+    current_driver_field = html.index('name="current_driver_label"')
+
+    assert speed_section < tempo_field < wood_section < current_driver_field
+
+
 def test_recommend_endpoint_accepts_current_club_selections(client):
     catalog = app_module.load_catalog()
     real_driver_id = catalog["drivers"][0]["id"]

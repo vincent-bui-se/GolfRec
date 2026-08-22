@@ -36,11 +36,13 @@ const categories = CATEGORIES.map((category) => ({
 }));
 
 const SPEC_TILES = [
-  { spec: "driver_loft", wants: "wants_driver", format: (value) => `${value} deg` },
-  { spec: "shaft_flex", wants: "wants_driver", format: (value) => value },
-  { spec: "fairway_wood_loft", wants: "wants_fairway_woods", format: (value) => `${value} deg` },
-  { spec: "iron_category", wants: "wants_irons", format: (value) => titleCaseSpec(value) },
-  { spec: "wedge_bounce", wants: "wants_wedges", format: (value) => value },
+  { spec: "driver_loft", wants: ["wants_driver"], format: (value) => `${value} deg` },
+  // Same swing-speed-derived flex for both - irons don't get their own
+  // prediction (yet), but the letter is still meaningful shopping for either.
+  { spec: "shaft_flex", wants: ["wants_driver", "wants_irons"], format: (value) => value },
+  { spec: "fairway_wood_loft", wants: ["wants_fairway_woods"], format: (value) => `${value} deg` },
+  { spec: "iron_category", wants: ["wants_irons"], format: (value) => titleCaseSpec(value) },
+  { spec: "wedge_bounce", wants: ["wants_wedges"], format: (value) => value },
 ];
 
 const currency = new Intl.NumberFormat("en-US", {
@@ -102,7 +104,8 @@ function titleCaseSpec(value) {
 function updateSpecGrid(specs, result) {
   SPEC_TILES.forEach(({ spec, wants, format }) => {
     const tile = document.querySelector(`.spec-tile[data-spec="${spec}"] strong`);
-    tile.textContent = result[wants] ? format(specs[spec]) : "-";
+    const wanted = wants.some((key) => result[key]);
+    tile.textContent = wanted ? format(specs[spec]) : "-";
   });
 }
 
@@ -118,6 +121,16 @@ function updateConditionalFields() {
   });
 
   const checked = new Set(checkedShoppingFor());
+  // Swing speed/carry/tempo feed the shaft_flex and iron_category models
+  // both, so .speed-fields shows for any of the three categories that
+  // actually consume it - not just Driver/Fairway Wood, which is why it's
+  // a separate section from .wood-fields below rather than folded into it.
+  document.querySelectorAll(".speed-fields").forEach((section) =>
+    section.classList.toggle(
+      "hidden",
+      !checked.has("Driver") && !checked.has("Fairway Wood") && !checked.has("Irons"),
+    ),
+  );
   // Driver and Fairway Wood share .wood-fields (same swing, same inputs), so
   // that section shows for either; a category with its own question section
   // only appears once its own checkbox is checked.
