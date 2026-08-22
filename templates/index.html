@@ -144,33 +144,12 @@
             </label>
           </section>
 
-          <section class="form-section wood-fields">
+          <section class="form-section speed-fields">
             <div class="section-heading">
-              <span>Driver &amp; Fairway Wood</span>
+              <span>Swing</span>
             </div>
 
-            <label class="field">
-              <span>Current driver (optional)</span>
-              <input
-                type="text"
-                name="current_driver_label"
-                autocomplete="off"
-                placeholder="Start typing to search, or leave blank"
-                role="combobox"
-                aria-expanded="false"
-                aria-controls="current-driver-listbox"
-                aria-autocomplete="list"
-              >
-              <ul class="typeahead-suggestions" id="current-driver-listbox" role="listbox" hidden></ul>
-              <datalist id="current-driver-options">
-                {% for option in current_drivers %}
-                <option data-id="{{ option.id }}" value="{{ option.label }}"></option>
-                {% endfor %}
-              </datalist>
-              <input type="hidden" name="current_driver_id" value="">
-            </label>
-
-            <div class="segmented" role="radiogroup" aria-label="Driver speed type">
+            <div class="segmented" role="radiogroup" aria-label="Speed input type">
               <label>
                 <input type="radio" name="speed_mode" value="Swing speed" checked>
                 <span>Swing Speed</span>
@@ -198,6 +177,33 @@
                 <option value="{{ value }}" {% if value == "Moderate" %}selected{% endif %}>{{ value }}</option>
                 {% endfor %}
               </select>
+            </label>
+          </section>
+
+          <section class="form-section wood-fields">
+            <div class="section-heading">
+              <span>Driver &amp; Fairway Wood</span>
+            </div>
+
+            <label class="field">
+              <span>Current driver (optional)</span>
+              <input
+                type="text"
+                name="current_driver_label"
+                autocomplete="off"
+                placeholder="Start typing to search, or leave blank"
+                role="combobox"
+                aria-expanded="false"
+                aria-controls="current-driver-listbox"
+                aria-autocomplete="list"
+              >
+              <ul class="typeahead-suggestions" id="current-driver-listbox" role="listbox" hidden></ul>
+              <datalist id="current-driver-options">
+                {% for option in current_drivers %}
+                <option data-id="{{ option.id }}" value="{{ option.label }}"></option>
+                {% endfor %}
+              </datalist>
+              <input type="hidden" name="current_driver_id" value="">
             </label>
 
             <label class="field">
