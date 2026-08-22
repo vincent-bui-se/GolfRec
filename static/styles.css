@@ -456,6 +456,15 @@ select {
   line-height: 1.4;
 }
 
+.page-disclaimer {
+  margin: 6px 0 0;
+  max-width: 480px;
+  color: var(--moss);
+  font-size: 0.72rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
 /* Spec grid rendered as a single fitting-sheet ticket, torn along the top */
 .spec-grid {
   position: relative;

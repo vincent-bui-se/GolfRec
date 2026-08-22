@@ -75,6 +75,7 @@ function collectPayload() {
     speed_mode: formValue("speed_mode"),
     swing_speed: Number(formValue("swing_speed")),
     driver_carry: Number(formValue("driver_carry")),
+    swing_tempo: formValue("swing_tempo"),
     current_driver_id: formValue("current_driver_id"),
     driver_shot_shape: formValue("driver_shot_shape"),
     driver_trajectory: formValue("driver_trajectory"),

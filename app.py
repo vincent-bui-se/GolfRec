@@ -23,6 +23,7 @@ from preprocess import (
     SWING_SPEED_MAX_MPH,
     SWING_SPEED_MIN_MPH,
     SWING_SPEED_PER_HANDICAP_MPH,
+    SWING_TEMPOS,
     TRAJECTORIES,
     TURF_FIRMNESS,
     WEDGE_LOFT_OPTIONS,
@@ -108,6 +109,30 @@ def predict_specs(
 ) -> dict[str, str]:
     """Predict the given fitting labels (default: all of them) from a one-row golfer feature frame."""
     return {label: str(models[label].predict(golfer_row[INPUT_COLUMNS])[0]) for label in labels}
+
+
+# Matches synthetic_data.py's SHAFT_FLEX_LABELS ordering (softest to stiffest).
+_FLEX_ORDER = ["L", "A", "R", "S", "X"]
+
+
+def _adjust_flex_for_tempo(flex: str, tempo: str) -> str:
+    """Nudge a speed-predicted flex letter one step for tempo, real-fitting style.
+
+    Swing speed alone predicts a flex band; a fast transition through the ball
+    (tempo) is the standard adjustment fitters make on top of that band, one
+    step firmer or softer, not a full re-fit. Unrecognized flex letters (only
+    possible if a model's label set ever drifts from _FLEX_ORDER) pass through
+    unchanged rather than raising, since this is a display nicety, not a value
+    the recommendation logic depends on.
+    """
+    if flex not in _FLEX_ORDER:
+        return flex
+    index = _FLEX_ORDER.index(flex)
+    if tempo == "Aggressive":
+        index = min(index + 1, len(_FLEX_ORDER) - 1)
+    elif tempo == "Smooth":
+        index = max(index - 1, 0)
+    return _FLEX_ORDER[index]
 
 
 def estimate_swing_speed_from_handicap(handicap: float) -> float:
@@ -232,6 +257,7 @@ def index():
         iron_misses=IRON_MISSES,
         turf_firmness=TURF_FIRMNESS,
         divot_depths=DIVOT_DEPTHS,
+        swing_tempos=SWING_TEMPOS,
         wedge_shot_styles=WEDGE_SHOT_STYLES,
         wedge_lofts=WEDGE_LOFT_OPTIONS,
         current_drivers=_current_club_options(catalog.get("drivers", [])),
@@ -265,6 +291,10 @@ def api_recommend():
     else:
         swing_speed = _coerce_float(payload.get("swing_speed"), swing_speed)
         driver_carry = round(swing_speed * 2.35)
+
+    swing_tempo = str(payload.get("swing_tempo", "Moderate"))
+    if swing_tempo not in SWING_TEMPOS:
+        swing_tempo = "Moderate"
 
     driver_shot_shape = str(payload.get("driver_shot_shape", "Straight"))
     if driver_shot_shape not in SHOT_SHAPES:
@@ -378,6 +408,7 @@ def api_recommend():
     # from iron_row, so that's the only label predicted from it - predicting
     # (and discarding) the other 4 labels from iron_row was pure waste.
     driver_specs = predict_specs(models, driver_row)
+    driver_specs["shaft_flex"] = _adjust_flex_for_tempo(driver_specs["shaft_flex"], swing_tempo)
     iron_category = predict_specs(models, iron_row, labels=["iron_category"])["iron_category"]
     specs = {**driver_specs, "iron_category": iron_category}
 

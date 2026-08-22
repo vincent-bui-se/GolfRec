@@ -41,6 +41,12 @@ WEDGE_SHOT_STYLES = ["One repeatable shot", "I like to shape shots around the gr
 # push shorter gap-wedge lofts into their iron sets instead).
 WEDGE_LOFT_OPTIONS = [46, 48, 50, 52, 54, 56, 58, 60, 62]
 TRAJECTORIES = ["Too low", "About right", "Too high"]
+# Scoring-time only, like WEDGE_SHOT_STYLES above: nudges the displayed
+# shaft_flex letter (see app.py's _adjust_flex_for_tempo) rather than feeding
+# the ML model - swing speed alone already predicts a flex band, and tempo is
+# the standard real-fitting adjustment on top of that band, not a separate
+# axis worth training on.
+SWING_TEMPOS = ["Smooth", "Moderate", "Aggressive"]
 # Shared handicap -> swing speed coefficients: synthetic_data.py uses these
 # (plus noise) to generate training labels, and app.py's fallback estimator
 # uses them (without noise) for a live request. Keeping one source of truth
