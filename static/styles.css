@@ -457,10 +457,10 @@ select {
 }
 
 .page-disclaimer {
-  margin: 6px 0 0;
+  margin: 10px 0 20px;
   max-width: 480px;
   color: var(--moss);
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   font-style: italic;
   line-height: 1.4;
 }
