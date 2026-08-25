@@ -520,6 +520,26 @@ select {
   line-height: 1.1;
 }
 
+/* A wash that clears, not a movement: these tiles read as cells on a paper
+   ticket, and a ticket gets filled in rather than animated. Nothing moves,
+   nothing scales - the ochre is the same one the tiles' own accents use, so
+   it reads as ink landing rather than a UI effect.
+   Applied by updateSpecGrid() in app.js, and only to specs whose value
+   actually changed. The prefers-reduced-motion block near the end of this
+   file already collapses this to 0.001ms via its * rule. */
+@keyframes spec-fill {
+  from {
+    background-color: var(--ochre-soft);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+.spec-tile.spec-changed {
+  animation: spec-fill 0.9s ease-out;
+}
+
 /* align-content defaults to stretch, which grew the three auto rows to fill
    340px and left the heading marooned between two bands of empty paper.
    Centring the block and spacing it explicitly keeps it compact. */
