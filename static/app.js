@@ -103,9 +103,26 @@ function titleCaseSpec(value) {
 
 function updateSpecGrid(specs, result) {
   SPEC_TILES.forEach(({ spec, wants, format }) => {
-    const tile = document.querySelector(`.spec-tile[data-spec="${spec}"] strong`);
+    const tile = document.querySelector(`.spec-tile[data-spec="${spec}"]`);
+    const value = tile.querySelector("strong");
     const wanted = wants.some((key) => result[key]);
-    tile.textContent = wanted ? format(specs[spec]) : "-";
+    const next = wanted ? format(specs[spec]) : "-";
+    if (value.textContent === next) {
+      return;
+    }
+    value.textContent = next;
+    // Marks only the specs that moved. The grid sits in the results column
+    // while the submit button is in the sidebar, so without this the numbers
+    // change off to the side of where you're looking; on a re-run after
+    // tweaking one input, lighting up just the specs that actually changed is
+    // the part worth pointing at.
+    //
+    // Removing the class isn't enough to replay the animation on a tile
+    // that's still mid-run from the previous submit - the reflow between the
+    // remove and the re-add is what resets it.
+    tile.classList.remove("spec-changed");
+    void tile.offsetWidth;
+    tile.classList.add("spec-changed");
   });
 }
 
