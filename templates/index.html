@@ -61,7 +61,37 @@
     <!-- Fonts are self-hosted (see the @font-face rules at the top of
          styles.css) rather than linked from fonts.googleapis.com - that
          extra DNS+TLS+fetch round trip was the single largest contributor
-         to render-blocking delay on this page. -->
+         to render-blocking delay on this page.
+
+         Self-hosting removed that round trip but not the serialization that
+         replaced it: an @font-face is only discovered once the stylesheet
+         declaring it has downloaded and parsed, so the fonts sat one level
+         down a dependency chain (HTML -> CSS -> font). Measured on this page,
+         the stylesheet was requested at ~37ms and the fonts not until ~61ms;
+         with these preloads the fonts are requested alongside the stylesheet
+         instead of behind it.
+
+         That delay is visible rather than merely slow, because font-display:
+         swap paints the fallback first and the two faces do not occupy the
+         same space - measured on the guides, body copy sets ~9.8% wider in
+         Plex Sans than in its system-ui fallback and Fraunces ~6.7% wider
+         than Georgia, so every line shifts when the swap lands.
+
+         Preload does not save bytes - every face here is fetched either way -
+         it spends early bandwidth against the render-blocking stylesheet to
+         buy earlier discovery, so only the faces carrying real text earn it.
+         Plex Mono 500 is what the spec tiles and score badge set, confirmed
+         against document.fonts rather than assumed; the 400 and 600 weights
+         are declared in styles.css but unused here. Fraunces italic is left
+         out despite being above the fold: at 45.6KB it is the largest file and
+         sets one word, so preloading it would spend a third of the budget to
+         spare the brand mark an 11.7% shift while delaying the body face
+         behind it. crossorigin is required even though
+         these are same-origin: fonts are always fetched in CORS mode, and
+         without it the preload is ignored and the file fetched twice. -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/fraunces-normal.woff2') }}">
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/ibm-plex-sans-variable.woff2') }}">
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/ibm-plex-mono-500.woff2') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
