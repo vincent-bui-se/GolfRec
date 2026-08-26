@@ -1,10 +1,11 @@
+{% set meta_description = "Driver, fairway wood, iron and wedge recommendations matched to how you actually play. Free club fitting online, no signup required." -%}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stickly - Free AI Golf Club Recommendations</title>
-    <meta name="description" content="Get personalized driver, fairway wood, iron, and wedge recommendations matched to your handicap and swing speed. Free AI-scored club fitting, no signup required.">
+    <meta name="description" content="{{ meta_description }}">
     <link rel="canonical" href="{{ url_for('index', _external=True) }}">
 
     <!-- Every icon is the header artwork itself, downscaled. A simplified vector
@@ -18,12 +19,12 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Stickly">
     <meta property="og:title" content="Stickly - Free AI Golf Club Recommendations">
-    <meta property="og:description" content="Get personalized driver, fairway wood, iron, and wedge recommendations matched to your handicap and swing speed. Free AI-scored club fitting, no signup required.">
+    <meta property="og:description" content="{{ meta_description }}">
     <meta property="og:url" content="{{ url_for('index', _external=True) }}">
     <meta property="og:image" content="{{ url_for('static', filename='apple-touch-icon.png', _external=True) }}">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Stickly - Free AI Golf Club Recommendations">
-    <meta name="twitter:description" content="Get personalized driver, fairway wood, iron, and wedge recommendations matched to your handicap and swing speed. Free AI-scored club fitting, no signup required.">
+    <meta name="twitter:description" content="{{ meta_description }}">
     <meta name="twitter:image" content="{{ url_for('static', filename='apple-touch-icon.png', _external=True) }}">
 
     <script type="application/ld+json">
@@ -394,7 +395,7 @@
 
         <div class="form-error hidden" id="form-error" role="alert">
           <strong>Couldn't generate recommendations</strong>
-          <p id="form-error-detail">The model didn't respond. Check that the server is running, then try again.</p>
+          <p id="form-error-detail">Something went wrong before your clubs could be scored. Try again in a moment.</p>
           <button type="button" class="retry-action" id="retry-action">Try again</button>
         </div>
 
@@ -428,7 +429,7 @@
         <section class="empty-state" id="empty-state">
           <div class="empty-line"></div>
           <h3>No recommendations yet</h3>
-          <p>Set your profile to see your matches.</p>
+          <p>Fill in your profile, then choose Find My Sticks.</p>
         </section>
 
         <section class="empty-state loading-state hidden" id="loading-state">
@@ -459,7 +460,7 @@
                       class="info-icon"
                       tabindex="0"
                       aria-label="Used shows clubs at least four model years old."
-                      data-tooltip="Used shows clubs at least four model years old. In 2026, that means 2022 or older."
+                      data-tooltip="Used shows clubs at least four model years old."
                     >i</span>
                   </span>
                   <select id="driver-condition">
@@ -491,7 +492,7 @@
                       class="info-icon"
                       tabindex="0"
                       aria-label="Used shows clubs at least four model years old."
-                      data-tooltip="Used shows clubs at least four model years old. In 2026, that means 2022 or older."
+                      data-tooltip="Used shows clubs at least four model years old."
                     >i</span>
                   </span>
                   <select id="fairway-wood-condition">
@@ -523,7 +524,7 @@
                       class="info-icon"
                       tabindex="0"
                       aria-label="Used shows clubs at least four model years old."
-                      data-tooltip="Used shows clubs at least four model years old. In 2026, that means 2022 or older."
+                      data-tooltip="Used shows clubs at least four model years old."
                     >i</span>
                   </span>
                   <select id="iron-condition">
@@ -555,7 +556,7 @@
                       class="info-icon"
                       tabindex="0"
                       aria-label="Used shows clubs at least four model years old."
-                      data-tooltip="Used shows clubs at least four model years old. In 2026, that means 2022 or older."
+                      data-tooltip="Used shows clubs at least four model years old."
                     >i</span>
                   </span>
                   <select id="wedge-condition">
