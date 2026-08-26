@@ -83,7 +83,28 @@ def test_reasons_lead_with_what_distinguishes_each_club():
     )
 
     shown = [tuple(rec.reasons[:3]) for rec in ranked]
-    assert len(set(shown)) >= 8, "top results still share the same leading reasons"
+
+    # The near-tie band is the case this actually has to hold for. app.js uses
+    # NEAR_TIE_THRESHOLD = 2 to decide when to tell the golfer the score gap
+    # "isn't a meaningful difference, so weigh the reasons below more than the
+    # exact number" - so inside that band the reasons are the entire basis for
+    # choosing, and two clubs reading identically leaves the advice unfollowable.
+    #
+    # This is what the old bar missed: `>= 8` distinct out of top_n=16 passed
+    # while the top two results were byte-identical, because it allowed half the
+    # list to be duplicates and never looked at where the duplication landed.
+    top_score = max(rec.score for rec in ranked)
+    near_tie = [rec for rec in ranked if top_score - rec.score <= 2]
+    near_tie_shown = [tuple(rec.reasons[:3]) for rec in near_tie]
+    assert len(set(near_tie_shown)) == len(near_tie_shown), (
+        "clubs the UI calls too close to separate on score are showing "
+        "identical reasons, which is the one place that cannot happen"
+    )
+
+    # Outside the tie band a repeat is allowed: two heads with the same speed
+    # window, forgiveness and launch genuinely are alike, and inventing a
+    # distinction to satisfy a counter would be worse than repeating one.
+    assert len(set(shown)) >= len(shown) - 2, "results are collapsing to shared text"
 
     # No single reason may lead every club; that is the flattening this guards.
     leads = {rec.reasons[0] for rec in ranked if rec.reasons}
