@@ -8,12 +8,29 @@
     <meta name="description" content="{{ meta_description }}">
     <link rel="canonical" href="{{ url_for('index', _external=True) }}">
 
-    <!-- Every icon is the header artwork itself, downscaled. A simplified vector
-         mark was tried first on the assumption the illustration would mush at
-         16px; rendered side by side it lost to the artwork at every size, so
-         the artwork is used throughout and the tab icon matches the logo. -->
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32.png') }}">
+    <!-- Every icon is the header artwork itself. A simplified vector mark was
+         tried first on the assumption the illustration would mush at 16px;
+         rendered side by side it lost to the artwork at every size, so the
+         artwork is used throughout and the tab icon matches the logo.
+
+         Sizes are multiples of 48 because that is the shape Google asks a
+         favicon to be, and the file it reads is whichever THIS page declares -
+         the favicon in a search result is taken from the site's home page, not
+         from whichever page happened to rank.
+
+         These stay transparent: a browser tab is light or dark depending on
+         the viewer's theme, so the icon has to sit on either. The ball carries
+         a thin outline for the same reason - it is a white disc, drawn for the
+         ink sidebar, and on any light ground it would otherwise not be there
+         at all. favicon-32.png is still generated and still on disk, no longer
+         linked from here: the guides in golf-ai-monetize link it through the
+         proxy, and dropping the file would 404 them. -->
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='favicon-192.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon-96.png') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <!-- Opaque, unlike the favicons above: iOS composites a transparent PNG
+         onto black, which would land the near-black grips on a near-black
+         ground. -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
 
     <meta property="og:type" content="website">
@@ -21,11 +38,11 @@
     <meta property="og:title" content="Stickly - Free AI Golf Club Recommendations">
     <meta property="og:description" content="{{ meta_description }}">
     <meta property="og:url" content="{{ url_for('index', _external=True) }}">
-    <meta property="og:image" content="{{ url_for('static', filename='apple-touch-icon.png', _external=True) }}">
+    <meta property="og:image" content="{{ url_for('static', filename='logo-512.png', _external=True) }}">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Stickly - Free AI Golf Club Recommendations">
     <meta name="twitter:description" content="{{ meta_description }}">
-    <meta name="twitter:image" content="{{ url_for('static', filename='apple-touch-icon.png', _external=True) }}">
+    <meta name="twitter:image" content="{{ url_for('static', filename='logo-512.png', _external=True) }}">
 
     <script type="application/ld+json">
     {
@@ -36,7 +53,7 @@
           "@id": "{{ url_for('index', _external=True) }}#organization",
           "name": "Stickly",
           "url": "{{ url_for('index', _external=True) }}",
-          "logo": "{{ url_for('static', filename='apple-touch-icon.png', _external=True) }}"
+          "logo": "{{ url_for('static', filename='logo-512.png', _external=True) }}"
         },
         {
           "@type": "WebApplication",
