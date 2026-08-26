@@ -357,6 +357,13 @@ select {
   font-weight: 600;
 }
 
+/* Same reasoning as .primary-action:active - on a segmented control the
+   press is the whole interaction, and on touch it is the only confirmation
+   the tap was received before the selection redraws. */
+.segmented input:active + span {
+  transform: translateY(1px);
+}
+
 /* The real radio is visually hidden, so the focus ring has to live on the
    rendered span or keyboard users get no indication at all. */
 .segmented input:focus-visible + span {
@@ -416,6 +423,14 @@ select {
 .primary-action:focus-visible {
   outline: 2px solid var(--ochre);
   outline-offset: 2px;
+}
+
+/* The press itself. 1px is enough to read as a physical push against the
+   raised shadow above, and the shadow tightens with it so the button looks
+   pressed toward the paper rather than just nudged down it. */
+.primary-action:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.24);
 }
 
 .primary-action:disabled {
@@ -821,7 +836,7 @@ select {
 
 .score-label {
   color: var(--moss);
-  font-size: 0.6rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1349,9 +1364,18 @@ select {
     animation-iteration-count: 1 !important;
   }
 
-  /* Reduced motion should remove movement, not feedback. A small spinner in a
-     fixed spot signals a live request without the large-area motion this
-     setting guards against, so it keeps spinning; everything else stays still. */
+  /* Reduced motion should remove movement, not feedback. The wash that marks a
+     changed spec tile is pure background-color - nothing translates, scales, or
+     rotates - so it carries no vestibular trigger and stays, on the same
+     grounds as the spinner below. Without it the tiles change in silence and
+     a reduced-motion user cannot tell which numbers moved. */
+  .spec-tile.spec-changed {
+    animation-duration: 0.9s !important;
+  }
+
+  /* A small spinner in a fixed spot signals a live request without the
+     large-area motion this setting guards against, so it keeps spinning;
+     everything else stays still. */
   .spinner {
     animation: spin 0.8s linear infinite !important;
     animation-duration: 0.8s !important;

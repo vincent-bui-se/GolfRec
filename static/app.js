@@ -236,11 +236,29 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
   countElement.textContent = `${selected.length} ${selected.length === 1 ? "club" : "clubs"}`;
 
   if (!selected.length) {
-    const message =
+    // The dead end already knows its own way out: conditionMatches is every
+    // club that cleared the condition filter and failed only on price, so the
+    // cheapest of those is the exact budget that would return something. Saying
+    // "no clubs match this budget" without it leaves the user guessing whether
+    // the fix is $20 or $200 - the one number that decides what they do next.
+    const cheapest = conditionMatches
+      .map((club) => club.msrp)
+      .filter((price) => typeof price === "number" && Number.isFinite(price))
+      .sort((a, b) => a - b)[0];
+
+    const cause =
       condition === "used"
         ? `No clubs match this budget and used filter. Used means ${USED_MAX_YEAR} or older.`
         : "No clubs match this budget.";
-    listElement.innerHTML = `<div class="notice">${escapeHtml(message)}</div>`;
+    // Only offered when a real price backs it; with nothing left after the
+    // condition filter there is no honest number to name, and inventing a
+    // target would be worse than the dead end.
+    const recovery =
+      typeof cheapest === "number"
+        ? ` The cheapest that fits your other answers is $${Math.round(cheapest)}.`
+        : "";
+
+    listElement.innerHTML = `<div class="notice">${escapeHtml(cause + recovery)}</div>`;
     return;
   }
 
