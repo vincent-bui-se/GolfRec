@@ -80,18 +80,15 @@
          Preload does not save bytes - every face here is fetched either way -
          it spends early bandwidth against the render-blocking stylesheet to
          buy earlier discovery, so only the faces carrying real text earn it.
-         Plex Mono 500 is what the spec tiles and score badge set, confirmed
-         against document.fonts rather than assumed; the 400 and 600 weights
-         are declared in styles.css but unused here. Fraunces italic is left
-         out despite being above the fold: at 45.6KB it is the largest file and
-         sets one word, so preloading it would spend a third of the budget to
-         spare the brand mark an 11.7% shift while delaying the body face
-         behind it. crossorigin is required even though
+         Both faces here do: Archivo sets every label, control and figure on
+         the page and Libre Franklin sets the headings, and between them they
+         replaced the six-file Fraunces + IBM Plex set this page used to ship
+         (122KB of woff2 down to 64KB, and four fewer requests). crossorigin is
+         required even though
          these are same-origin: fonts are always fetched in CORS mode, and
          without it the preload is ignored and the file fetched twice. -->
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/fraunces-normal.woff2') }}">
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/ibm-plex-sans-variable.woff2') }}">
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/ibm-plex-mono-500.woff2') }}">
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/archivo-variable.woff2') }}">
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/libre-franklin-variable.woff2') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
