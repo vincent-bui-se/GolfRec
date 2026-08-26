@@ -283,7 +283,7 @@ def select_recommendations_for_display(
 
 
 def _forgiveness_phrase(club: dict[str, Any], forgiveness: float) -> str:
-    """Name a head's measured forgiveness, and say how well that value is known.
+    """Name a head's measured forgiveness so two heads never read identically.
 
     The score uses forgivenessScore as a continuous 0-10 value, but the reason
     text used to collapse it into "at least 8" or silence. Across the 70 drivers
@@ -293,20 +293,16 @@ def _forgiveness_phrase(club: dict[str, Any], forgiveness: float) -> str:
     top of a near-tied list indistinguishable - exactly where the UI's tie note
     tells the golfer to weigh the reasons instead of the score.
 
-    The value alone is what differentiates; it is a property of this head, not a
-    claim about its rank in the current result set. Ranking language ("the most
-    forgiving here") would change meaning as the budget filter moves and would
-    go false on ties, so it is deliberately avoided.
+    The value alone is what differentiates, and it is a property of this head,
+    not a claim about its rank in the current result set. Ranking language ("the
+    most forgiving here") would change meaning as the budget filter moves and
+    would go false on ties, so it is deliberately avoided.
 
-    Provenance rides along because it changes how much the number is worth: the
-    catalog marks 20 drivers measured and 48 estimated, and presenting an
-    estimate as if it were measured is the kind of quiet overclaim this product
-    cannot afford. Where the catalog states no confidence at all, the number is
-    given plainly rather than labelled with a guess.
+    `club` stays in the signature because the catalog also carries
+    forgivenessConfidence and forgivenessSource for this value; neither is shown
+    here by product decision, and a future caller wanting to surface provenance
+    has the club to read it from without changing every call site.
     """
-    confidence = str(club.get("forgivenessConfidence") or "").strip().lower()
-    if confidence in {"measured", "estimated"}:
-        return f"forgiveness {forgiveness:g}/10, {confidence}"
     return f"forgiveness {forgiveness:g}/10"
 
 
