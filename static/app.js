@@ -248,7 +248,7 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
 
     const cause =
       condition === "used"
-        ? `No clubs match this budget and used filter. Used means ${USED_MAX_YEAR} or older.`
+        ? `No clubs match this budget with Used selected. Used means ${USED_MAX_YEAR} or older.`
         : "No clubs match this budget.";
     // Only offered when a real price backs it; with nothing left after the
     // condition filter there is no honest number to name, and inventing a
@@ -273,10 +273,10 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
   const exactTie = closeGroup.length > 1 && closeGroup.every((club) => club.score === topScore);
   let tieNote = "";
   if (exactTie) {
-    tieNote = `<div class="tie-note">${closeGroup.length} clubs are an equally strong fit at ${topScore}%. The order below doesn't mean one beats the others.</div>`;
+    tieNote = `<div class="tie-note">${closeGroup.length} clubs tie at ${topScore}%. The order below isn't a ranking.</div>`;
   } else if (closeGroup.length > 1) {
     const lowScore = closeGroup[closeGroup.length - 1].score;
-    tieNote = `<div class="tie-note">${closeGroup.length} clubs score within ${NEAR_TIE_THRESHOLD} points of each other (${lowScore}-${topScore}%). That gap isn't a meaningful difference, so weigh the reasons below more than the exact number.</div>`;
+    tieNote = `<div class="tie-note">${closeGroup.length} clubs land within ${NEAR_TIE_THRESHOLD} points (${lowScore}-${topScore}%). That gap isn't a meaningful difference, so go by the reasons rather than the number.</div>`;
   }
 
   listElement.innerHTML = tieNote + selected
@@ -486,6 +486,24 @@ function announceResults() {
     : "Recommendations ready.";
 }
 
+// What the visitor reads when a run fails. The status code and the stack go to
+// the console instead: "Server responded with 502" tells a golfer nothing they
+// can act on, and the copy this replaces went further and asked them to check
+// that the server was running - something only whoever deployed it can do. Each
+// branch ends on the one move actually available from where they are.
+function describeFailure(error) {
+  if (error instanceof TypeError) {
+    return "Couldn't reach Stickly. Check your connection, then try again.";
+  }
+  if (error.status >= 500) {
+    return "Stickly had a problem scoring your profile. Try again in a moment.";
+  }
+  if (error.status >= 400) {
+    return "Something in the profile didn't come through. Change an answer, then run it again.";
+  }
+  return "Something went wrong. Try again in a moment.";
+}
+
 async function requestRecommendations() {
   const submitButton = form.querySelector("button[type='submit']");
   submitButton.disabled = true;
@@ -494,7 +512,7 @@ async function requestRecommendations() {
   emptyState.classList.add("hidden");
   recommendations.classList.add("hidden");
   loadingState.classList.remove("hidden");
-  resultStatus.textContent = "Running the model.";
+  resultStatus.textContent = "Fitting your clubs.";
   // Move to the panel now so the spinner, and then the outcome, are on screen.
   revealResults();
 
@@ -505,7 +523,9 @@ async function requestRecommendations() {
       body: JSON.stringify(collectPayload()),
     });
     if (!response.ok) {
-      throw new Error(`Server responded with ${response.status}`);
+      const failure = new Error(`Server responded with ${response.status}`);
+      failure.status = response.status;
+      throw failure;
     }
     state.result = await response.json();
     categories.forEach((category) => {
@@ -525,10 +545,7 @@ async function requestRecommendations() {
   } catch (error) {
     console.error(error);
     loadingState.classList.add("hidden");
-    formErrorDetail.textContent =
-      error instanceof TypeError
-        ? "The server didn't respond. Check that it's still running, then try again."
-        : `${error.message}. Try again, or adjust the profile and rerun.`;
+    formErrorDetail.textContent = describeFailure(error);
     formError.classList.remove("hidden");
     // Results are gone, so put the starting instruction back on screen.
     if (!state.result) {
@@ -802,5 +819,11 @@ wireCatalogTypeahead(
   "current_iron_set_id",
   "current-iron-set-listbox",
 );
+
+document.querySelectorAll(".info-icon[data-tooltip]").forEach((icon) => {
+  const withYear = `Used shows clubs at least four model years old, so ${USED_MAX_YEAR} or older.`;
+  icon.setAttribute("aria-label", withYear);
+  icon.dataset.tooltip = withYear;
+});
 
 updateConditionalFields();
