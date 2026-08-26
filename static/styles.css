@@ -6,85 +6,91 @@
    each gets a single ranged font-weight declaration rather than repeating
    the same file behind separate weight-specific @font-face blocks. */
 @font-face {
-  font-family: "Fraunces";
+  font-family: "Libre Franklin";
   font-style: normal;
-  font-weight: 500 600;
+  font-weight: 600 900;
   font-display: swap;
-  src: url("/static/fonts/fraunces-normal.woff2") format("woff2");
+  src: url("/static/fonts/libre-franklin-variable.woff2") format("woff2");
 }
 @font-face {
-  font-family: "Fraunces";
-  font-style: italic;
-  font-weight: 500 600;
-  font-display: swap;
-  src: url("/static/fonts/fraunces-italic.woff2") format("woff2");
-}
-@font-face {
-  font-family: "IBM Plex Sans";
+  font-family: "Archivo";
   font-style: normal;
   font-weight: 400 700;
   font-display: swap;
-  src: url("/static/fonts/ibm-plex-sans-variable.woff2") format("woff2");
-}
-@font-face {
-  font-family: "IBM Plex Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/static/fonts/ibm-plex-mono-400.woff2") format("woff2");
-}
-@font-face {
-  font-family: "IBM Plex Mono";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("/static/fonts/ibm-plex-mono-500.woff2") format("woff2");
-}
-@font-face {
-  font-family: "IBM Plex Mono";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("/static/fonts/ibm-plex-mono-600.woff2") format("woff2");
+  src: url("/static/fonts/archivo-variable.woff2") format("woff2");
 }
 
 :root {
   color-scheme: light;
 
+  /* Ground is bright coated stock, not cream. The warm chalk/stone/ochre set
+     this replaces is a recognisable generated-interface palette, and it is the
+     look the brief asked to move away from; the greens below are the identity
+     and stay. */
+  --stock: #f6f2e7;
+  --surface: #fffdf8;
+  --stock-sunk: #efeadb;
+
   --ink: #17241c;
-  --ink-soft: #223327;
+  --ink-soft: #4a5b50;
+  --ink-faint: #626e65;
+  --ink-text: #1c2620;
 
   --turf: #3b6e4f;
   --turf-deep: #2a4f38;
+  --turf-wash: #e8eee1;
 
-  --chalk: #f6f2e7;
-  --paper: #fffdf8;
+  /* Rules are grey biased toward the ink's hue rather than a warm beige, so
+     they read as chosen against this ground instead of inherited. */
+  --rule: #e0dac9;
+  --rule-strong: #c7bfa8;
 
-  --stone: #e2d9c4;
-  --stone-strong: #c9bd9c;
-  --moss: #5b6b5a;
+  /* Light type on the ink sidebar and on turf fills. --chalk used to do this
+     job AND serve as the page ground; one token cannot hold both roles once
+     the ground turns white, so they are split. */
+  --on-dark: #ffffff;
 
+  /* Fit confidence. The score badge already banded high/mid/low - these give
+     those bands names and contrast-checked values, and the accent stops being
+     decoration anywhere else. */
+  --strong: #3b6e4f;
+  --strong-wash: #e7eee0;
+  --qualified: #8a5f10;
+  --qualified-wash: #f8f0dc;
+  --stretch: #5d6861;
+  --stretch-wash: #ebe7db;
+
+  /* Kept for exactly two functional jobs: the focus ring, which must stay
+     visible on a turf fill where a turf ring would vanish, and the qualified
+     band above. Never a decorative accent. */
   --ochre: #a8801f;
-  --ochre-soft: #f1e3bd;
-  --ochre-deep: #7e6017;
+  --ochre-soft: #f8f0dc;
+  --ochre-deep: #8a5f10;
 
   --flag: #8b3a2b;
 
-  --ink-text: #1c2620;
-  /* A tight, low-blur drop rather than an ambient glow - paper resting on a
-     desk casts a shadow close to its own edge, not a soft halo floating
-     16px above the surface. */
-  --shadow: 0 1px 0 rgba(23, 36, 28, 0.08), 0 3px 8px rgba(23, 36, 28, 0.16);
-  /* A flat sheet of paper has square-ish corners, not a rounded app card;
-     this is just enough radius to keep sharp corners from looking like a
-     rendering glitch at small sizes. */
+  /* Fixed rem steps, ~1.2 ratio. Product UI is read at consistent DPI and the
+     old clamp()ed heading shrank inside the results panel rather than
+     adapting to it. */
+  --t-11: 0.6875rem;
+  --t-12: 0.75rem;
+  --t-13: 0.8125rem;
+  --t-14: 0.875rem;
+  --t-16: 1rem;
+  --t-19: 1.1875rem;
+  --t-22: 1.375rem;
+  --t-26: 1.625rem;
+  --t-32: 2rem;
+
+  --shadow: 0 1px 0 rgba(23, 36, 28, 0.04), 0 2px 6px rgba(23, 36, 28, 0.10);
   --radius: 3px;
 
-  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --font-body:
-    "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-display: "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+  --font-body: Archivo, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Numerals now set in Archivo with tabular figures (its tnum feature is
+     present and its digits are proportional by default, so the rule does real
+     work here - unlike the previous subset, where tnum was absent entirely). */
+  --font-mono: Archivo, ui-sans-serif, system-ui, sans-serif;
 }
 
 * {
@@ -92,9 +98,10 @@
 }
 
 body {
+  font-variant-numeric: tabular-nums;
   margin: 0;
   min-height: 100vh;
-  background: var(--chalk);
+  background: var(--stock);
   color: var(--ink-text);
   font-family: var(--font-body);
   font-size: 15px;
@@ -123,7 +130,7 @@ select {
   height: 100vh;
   background: var(--ink);
   border-right: 1px solid rgba(0, 0, 0, 0.3);
-  color: var(--chalk);
+  color: var(--on-dark);
   padding: 32px 28px;
   overflow-y: auto;
 }
@@ -146,7 +153,7 @@ select {
 
 .brand-lockup h1 {
   margin: 0;
-  color: var(--chalk);
+  color: var(--on-dark);
   font-family: var(--font-display);
   font-weight: 600;
   font-style: italic;
@@ -165,7 +172,7 @@ select {
 .empty-state p,
 .list-toolbar p {
   margin: 0;
-  color: var(--moss);
+  color: var(--ink-soft);
 }
 
 .profile-form {
@@ -189,7 +196,7 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: var(--chalk);
+  color: var(--on-dark);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -219,7 +226,7 @@ select {
   border: 1px solid rgba(246, 242, 231, 0.24);
   border-radius: 7px;
   background: var(--ink-soft);
-  color: var(--chalk);
+  color: var(--on-dark);
   padding: 0 12px;
   outline: none;
 }
@@ -264,7 +271,7 @@ select {
 .typeahead-suggestions li {
   padding: 9px 10px;
   border-radius: 5px;
-  color: var(--chalk);
+  color: var(--on-dark);
   font-size: 0.88rem;
   cursor: pointer;
 }
@@ -352,7 +359,7 @@ select {
 }
 
 .segmented input:checked + span {
-  background: var(--chalk);
+  background: var(--stock);
   color: var(--ink);
   font-weight: 600;
 }
@@ -407,7 +414,7 @@ select {
   border: 1px solid var(--turf);
   border-radius: 7px;
   background: var(--turf);
-  color: var(--chalk);
+  color: var(--on-dark);
   padding: 0 16px;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -457,7 +464,7 @@ select {
   color: var(--ink);
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.5rem, 2.4vw, 2.15rem);
+  font-size: var(--t-32);
   line-height: 1.15;
   letter-spacing: 0.01em;
   max-width: 640px;
@@ -466,14 +473,14 @@ select {
 .page-subtitle {
   margin: 8px 0 0;
   max-width: 480px;
-  color: var(--moss);
+  color: var(--ink-soft);
   font-size: 0.85rem;
   line-height: 1.4;
 }
 
 .page-disclaimer {
   margin: 10px 0 20px;
-  color: var(--moss);
+  color: var(--ink-soft);
   font-size: 0.66rem;
   font-style: italic;
   line-height: 1.4;
@@ -484,9 +491,9 @@ select {
   position: relative;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  border: 1px solid var(--stone);
+  border: 1px solid var(--rule);
   border-radius: var(--radius);
-  background: var(--paper);
+  background: var(--surface);
   box-shadow: var(--shadow);
   margin-bottom: 20px;
   overflow: hidden;
@@ -499,8 +506,8 @@ select {
   height: 4px;
   background-image: repeating-linear-gradient(
     90deg,
-    var(--stone-strong) 0,
-    var(--stone-strong) 8px,
+    var(--rule-strong) 0,
+    var(--rule-strong) 8px,
     transparent 8px,
     transparent 16px
   );
@@ -509,7 +516,7 @@ select {
 .spec-tile {
   min-height: 92px;
   padding: 18px 18px 16px;
-  border-left: 1px dashed var(--stone);
+  border-left: 1px dashed var(--rule);
 }
 
 .spec-tile:first-child {
@@ -518,7 +525,7 @@ select {
 
 .spec-tile span {
   display: block;
-  color: var(--moss);
+  color: var(--ink-soft);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -565,9 +572,9 @@ select {
   gap: 10px;
   min-height: 260px;
   padding: 32px 24px;
-  border: 1px solid var(--stone);
+  border: 1px solid var(--rule);
   border-radius: var(--radius);
-  background: var(--paper);
+  background: var(--surface);
   text-align: center;
   box-shadow: var(--shadow);
 }
@@ -586,17 +593,17 @@ select {
   border-radius: 999px;
   background: repeating-linear-gradient(
     90deg,
-    var(--stone-strong) 0,
-    var(--stone-strong) 6px,
+    var(--rule-strong) 0,
+    var(--rule-strong) 6px,
     transparent 6px,
     transparent 12px
   );
 }
 
 .recommendations {
-  border: 1px solid var(--stone);
+  border: 1px solid var(--rule);
   border-radius: var(--radius);
-  background: var(--paper);
+  background: var(--surface);
   box-shadow: var(--shadow);
   overflow: hidden;
 }
@@ -605,8 +612,8 @@ select {
   display: flex;
   gap: 6px;
   padding: 10px;
-  border-bottom: 1px solid var(--stone);
-  background: var(--chalk);
+  border-bottom: 1px solid var(--rule);
+  background: var(--stock);
 }
 
 .tab-button {
@@ -614,7 +621,7 @@ select {
   border: 1px solid transparent;
   border-radius: 6px;
   background: transparent;
-  color: var(--moss);
+  color: var(--ink-soft);
   padding: 0 14px;
   font-weight: 600;
   cursor: pointer;
@@ -623,7 +630,7 @@ select {
 .tab-button.active {
   border-color: var(--ink);
   background: var(--ink);
-  color: var(--chalk);
+  color: var(--on-dark);
 }
 
 .tab-button:focus-visible {
@@ -667,7 +674,7 @@ select {
 .condition-control {
   display: grid;
   gap: 6px;
-  color: var(--moss);
+  color: var(--ink-soft);
 }
 
 .control-label {
@@ -681,9 +688,9 @@ select {
 .condition-control select {
   height: 34px;
   min-width: 92px;
-  border: 1px solid var(--stone-strong);
+  border: 1px solid var(--rule-strong);
   border-radius: 7px;
-  background: var(--chalk);
+  background: var(--stock);
   color: var(--ink);
   padding: 0 10px;
   font-weight: 500;
@@ -701,9 +708,9 @@ select {
   width: 16px;
   height: 16px;
   place-items: center;
-  border: 1px solid var(--moss);
+  border: 1px solid var(--ink-soft);
   border-radius: 999px;
-  color: var(--moss);
+  color: var(--ink-soft);
   font-size: 0.66rem;
   font-weight: 700;
   line-height: 1;
@@ -719,7 +726,7 @@ select {
   border: 1px solid var(--ink-soft);
   border-radius: 7px;
   background: var(--ink);
-  color: var(--chalk);
+  color: var(--on-dark);
   content: attr(data-tooltip);
   opacity: 0;
   padding: 9px 10px;
@@ -756,7 +763,7 @@ select {
     "slider value";
   align-items: center;
   gap: 6px 10px;
-  color: var(--moss);
+  color: var(--ink-soft);
   font-size: 0.82rem;
   font-weight: 500;
 }
@@ -793,9 +800,9 @@ select {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 8px 16px;
-  border: 1px solid var(--stone);
+  border: 1px solid var(--rule);
   border-radius: var(--radius);
-  background: var(--chalk);
+  background: var(--stock);
   padding: 13px 14px;
 }
 
@@ -815,7 +822,7 @@ select {
 }
 
 .club-meta {
-  color: var(--moss);
+  color: var(--ink-soft);
   font-family: var(--font-mono);
   font-size: 0.78rem;
 }
@@ -835,7 +842,7 @@ select {
 }
 
 .score-label {
-  color: var(--moss);
+  color: var(--ink-soft);
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -851,8 +858,8 @@ select {
   width: 52px;
   height: 52px;
   border-radius: 999px;
-  border: 2px solid var(--stone-strong);
-  background: var(--paper);
+  border: 2px solid var(--rule-strong);
+  background: var(--surface);
   color: var(--ink);
   font-family: var(--font-mono);
   font-size: 0.9rem;
@@ -860,21 +867,21 @@ select {
 }
 
 .score-badge.band-high {
-  border-color: var(--turf);
-  background: var(--turf);
-  color: var(--chalk);
+  border-color: var(--strong);
+  background: var(--strong);
+  color: var(--on-dark);
 }
 
 .score-badge.band-mid {
-  border-color: var(--ochre);
-  background: var(--ochre-soft);
-  color: var(--ochre-deep);
+  border-color: var(--qualified);
+  background: var(--qualified-wash);
+  color: var(--qualified);
 }
 
 .score-badge.band-low {
-  border-color: var(--stone-strong);
-  background: var(--paper);
-  color: var(--moss);
+  border-color: var(--stretch);
+  background: var(--stretch-wash);
+  color: var(--stretch);
 }
 
 /* Full-sentence reasons read poorly crammed into rounded chips, so this is
@@ -908,10 +915,10 @@ select {
 }
 
 .notice {
-  border: 1px dashed var(--stone-strong);
+  border: 1px dashed var(--rule-strong);
   border-radius: var(--radius);
   padding: 18px;
-  color: var(--moss);
+  color: var(--ink-soft);
   text-align: center;
 }
 
@@ -947,7 +954,7 @@ select {
   gap: 10px;
   border: 1px solid var(--flag);
   border-radius: var(--radius);
-  background: var(--paper);
+  background: var(--surface);
   color: var(--ink-text);
   padding: 16px 18px;
   margin-bottom: 20px;
@@ -963,7 +970,7 @@ select {
 
 .form-error p {
   margin: 0;
-  color: var(--moss);
+  color: var(--ink-soft);
 }
 
 .retry-action {
@@ -979,7 +986,7 @@ select {
 
 .retry-action:hover {
   background: var(--flag);
-  color: var(--paper);
+  color: var(--stock);
 }
 
 .retry-action:focus-visible {
@@ -994,7 +1001,7 @@ select {
 .spinner {
   width: 28px;
   height: 28px;
-  border: 3px solid var(--stone);
+  border: 3px solid var(--rule);
   border-top-color: var(--turf);
   border-radius: 999px;
   animation: spin 0.8s linear infinite;
@@ -1156,7 +1163,7 @@ select {
 
   .mobile-bar h1 {
     margin: 0;
-    color: var(--chalk);
+    color: var(--on-dark);
     font-family: var(--font-display);
     font-weight: 600;
     font-style: italic;
@@ -1191,7 +1198,7 @@ select {
     border: 1px solid rgba(246, 242, 231, 0.3);
     border-radius: 999px;
     background: transparent;
-    color: var(--chalk);
+    color: var(--on-dark);
     cursor: pointer;
   }
 
@@ -1230,7 +1237,7 @@ select {
     border: 1px solid rgba(246, 242, 231, 0.3);
     border-radius: 999px;
     background: transparent;
-    color: var(--chalk);
+    color: var(--on-dark);
     font-size: 1.5rem;
     line-height: 1;
     cursor: pointer;
@@ -1280,7 +1287,7 @@ select {
 
   .spec-tile {
     border-left: none;
-    border-top: 1px dashed var(--stone);
+    border-top: 1px dashed var(--rule);
   }
 
   .spec-tile:first-child {
