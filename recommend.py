@@ -282,6 +282,34 @@ def select_recommendations_for_display(
     return selected
 
 
+def _forgiveness_phrase(club: dict[str, Any], forgiveness: float) -> str:
+    """Name a head's measured forgiveness, and say how well that value is known.
+
+    The score uses forgivenessScore as a continuous 0-10 value, but the reason
+    text used to collapse it into "at least 8" or silence. Across the 70 drivers
+    in the catalog that is 28 distinct values flattened into two outcomes: 44
+    clubs shared one sentence and the other 26 got no forgiveness line at all.
+    Two heads a full point apart then read identically, which is what made the
+    top of a near-tied list indistinguishable - exactly where the UI's tie note
+    tells the golfer to weigh the reasons instead of the score.
+
+    The value alone is what differentiates; it is a property of this head, not a
+    claim about its rank in the current result set. Ranking language ("the most
+    forgiving here") would change meaning as the budget filter moves and would
+    go false on ties, so it is deliberately avoided.
+
+    Provenance rides along because it changes how much the number is worth: the
+    catalog marks 20 drivers measured and 48 estimated, and presenting an
+    estimate as if it were measured is the kind of quiet overclaim this product
+    cannot afford. Where the catalog states no confidence at all, the number is
+    given plainly rather than labelled with a guess.
+    """
+    confidence = str(club.get("forgivenessConfidence") or "").strip().lower()
+    if confidence in {"measured", "estimated"}:
+        return f"forgiveness {forgiveness:g}/10, {confidence}"
+    return f"forgiveness {forgiveness:g}/10"
+
+
 def prioritise_distinctive_reasons(
     recommendations: list[ClubRecommendation],
 ) -> list[ClubRecommendation]:
@@ -373,6 +401,13 @@ def _score_wood(
     # forgivenessScore is 0-10 (was a 1-5 tier); default 6.0 mirrors the old
     # neutral default of 3/5.
     forgiveness = float(club.get("forgivenessScore", 6.0))
+    # Every branch below now states the head's forgiveness rather than only
+    # flagging the top band. The sentence still frames the number for the
+    # golfer's stated goal; the number is what separates two heads the scoring
+    # rates a point apart. The old ">= 10" branch was unreachable - the catalog
+    # tops out at 9.8 - so its wording is folded into the top band here instead
+    # of sitting as a line that can never print.
+    forgiveness_note = _forgiveness_phrase(club, forgiveness)
     if golfer.goal == "Forgiveness":
         score += forgiveness * 1.75
         # "game-improvement" is never a real driver/fairway-wood family
@@ -383,20 +418,30 @@ def _score_wood(
         if club.get("family") == "max-forgiveness":
             score += 2.5
         if forgiveness >= 8:
-            reasons.append("High forgiveness maximizes your margin for off-center hits.")
+            reasons.append(f"High forgiveness maximizes your margin for off-center hits ({forgiveness_note}).")
+        elif forgiveness >= 6:
+            reasons.append(f"Middling forgiveness for a goal that depends on it ({forgiveness_note}).")
+        else:
+            reasons.append(f"Low forgiveness works against your stated goal ({forgiveness_note}).")
     elif golfer.goal == "Accuracy":
         score += 8 + min(forgiveness, 8) * 1.5
-        if forgiveness >= 10:
-            reasons.append("High stability holds your line on off-center strikes.")
-        elif forgiveness >= 8:
-            reasons.append("Stable head keeps accuracy misses playable.")
+        if forgiveness >= 8:
+            reasons.append(f"Stable head keeps accuracy misses playable ({forgiveness_note}).")
+        elif forgiveness >= 6:
+            reasons.append(f"Moderate stability - centre strikes matter more on this head ({forgiveness_note}).")
+        else:
+            reasons.append(f"Punishes off-center strikes, which costs you accuracy ({forgiveness_note}).")
     else:  # Distance
         # Not a spin re-check - the Spin bucket below already scores that.
         # Distance golfers still lose carry on a mis-hit, so forgiveness gets
         # a moderate (not full Forgiveness-goal-strength) credit here instead.
         score += 6 + forgiveness * 1.4
         if forgiveness >= 8:
-            reasons.append("Forgiving head preserves distance on mis-hits.")
+            reasons.append(f"Forgiving head preserves distance on mis-hits ({forgiveness_note}).")
+        elif forgiveness >= 6:
+            reasons.append(f"Average forgiveness - mis-hits will cost you some carry ({forgiveness_note}).")
+        else:
+            reasons.append(f"Mis-hits lose real distance on this head ({forgiveness_note}).")
 
     # --- Launch characteristic (20 pts) ---
     # There's no separate current-fairway-wood-trajectory question, so this
@@ -569,13 +614,16 @@ def score_iron_set(
     iron_goal = golfer.effective_iron_goal
     iron_shape = golfer.effective_iron_shot_shape
 
+    forgiveness_note = _forgiveness_phrase(club, forgiveness)
     if golfer.iron_miss in {"Fat/Thin", "Inconsistent"} or iron_goal == "Forgiveness":
         # Weight forgiveness heavily for inconsistent ball-strikers
         score += forgiveness * 2
         if forgiveness >= 8:
-            reasons.append("High forgiveness helps with inconsistent contact.")
+            reasons.append(f"High forgiveness helps with inconsistent contact ({forgiveness_note}).")
         elif forgiveness >= 6:
-            reasons.append("Moderate forgiveness suits your miss tendency.")
+            reasons.append(f"Moderate forgiveness suits your miss tendency ({forgiveness_note}).")
+        else:
+            reasons.append(f"Little forgiveness to spare for the miss you described ({forgiveness_note}).")
     else:
         # Consistent ball-strikers mostly don't need forgiveness insurance, so
         # the baseline is high regardless - but the tiers must still differ in
@@ -584,11 +632,13 @@ def score_iron_set(
         score += 15
         if forgiveness >= 8:
             score += 5
-            reasons.append("High forgiveness gives extra margin even for consistent players.")
+            reasons.append(f"High forgiveness gives extra margin even for consistent players ({forgiveness_note}).")
         elif forgiveness >= 6:
             score += 3
+            reasons.append(f"Mid forgiveness, which your consistent contact can carry ({forgiveness_note}).")
         else:
             score += 1
+            reasons.append(f"Demands consistent centre contact ({forgiveness_note}).")
 
     # --- Construction / feel preference (8 pts) ---
     # Kept deliberately light: this axis previously ran to 15 pts and swung
@@ -984,6 +1034,7 @@ def score_wedge(
     # Same combined trigger as score_iron_set: a digging/inconsistent miss or
     # an explicit Forgiveness goal both call for a forgiving wedge fit.
     forgiveness = float(club.get("forgivenessScore", 6.0))
+    wedge_forgiveness_note = _forgiveness_phrase(club, forgiveness)
     triggered = golfer.iron_miss in {"Fat/Thin", "Inconsistent"} or golfer.goal == "Forgiveness"
     if triggered:
         # Base caps at 12, not the bucket's full 14, reserving real headroom
@@ -993,7 +1044,11 @@ def score_wedge(
         # actually changing the score.
         forgiveness_points = min(forgiveness * 1.2, 12)
         if forgiveness >= 8:
-            reasons.append("High forgiveness helps with off-center wedge contact.")
+            reasons.append(f"High forgiveness helps with off-center wedge contact ({wedge_forgiveness_note}).")
+        elif forgiveness >= 6:
+            reasons.append(f"Moderate forgiveness for the contact you described ({wedge_forgiveness_note}).")
+        else:
+            reasons.append(f"Unforgiving sole for a fat or thin miss ({wedge_forgiveness_note}).")
         if "high-handicap-versatility" in best_for:
             forgiveness_points = min(forgiveness_points + 2, 14)
             reasons.append("Grind is built for high-handicap versatility.")
@@ -1001,7 +1056,9 @@ def score_wedge(
         forgiveness_points = 10
         if forgiveness >= 8:
             forgiveness_points += 3
-            reasons.append("Forgiving sole gives extra margin even for consistent contact.")
+            reasons.append(f"Forgiving sole gives extra margin even for consistent contact ({wedge_forgiveness_note}).")
+        else:
+            reasons.append(f"Sole rewards the clean contact you already make ({wedge_forgiveness_note}).")
     score += forgiveness_points
 
     # --- Workability / shot-shaping (9 pts) ---
