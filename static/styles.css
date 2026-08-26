@@ -133,6 +133,20 @@ select {
   color: var(--on-dark);
   padding: 32px 28px;
   overflow-y: auto;
+  /* The bar itself is hidden, not the scrolling: on a laptop viewport the
+     intake form is taller than the panel, so a permanent light-on-ink track
+     ran the full height of the sidebar beside every field - the loudest
+     vertical line on the page, and drawn by the browser rather than by us.
+     Wheel, trackpad, touch, arrow keys, Page Up/Down and focus-scroll all
+     still work; only the chrome is gone. The sticky .form-actions shelf
+     below keeps the submit button reachable without the bar's position
+     cue. Restated in no media query, so this covers the desktop sidebar and
+     the mobile drawer alike. */
+  scrollbar-width: none;
+}
+
+.profile-panel::-webkit-scrollbar {
+  display: none;
 }
 
 .brand-lockup {
