@@ -135,6 +135,53 @@ def _adjust_flex_for_tempo(flex: str, tempo: str) -> str:
     return _FLEX_ORDER[index]
 
 
+def _loft_ladder(model: object) -> list[str]:
+    """The loft labels this model can emit, lowest loft first.
+
+    Read off the trained model rather than copied from synthetic_data's
+    DRIVER_LOFT_LABELS, so the ladder is always the one the prediction being
+    adjusted actually came from. _FLEX_ORDER above is a hand-written copy
+    because flex order is semantic (L < A < R < S < X) and cannot be recovered
+    by sorting; lofts are numbers, so they can.
+    """
+    try:
+        return sorted((str(label) for label in getattr(model, "classes_", ())), key=float)
+    except (TypeError, ValueError):
+        # A label set that is not numeric means this is no longer a loft
+        # ladder; adjusting it by position would be guesswork.
+        return []
+
+
+def _adjust_loft_for_trajectory(loft: str, trajectory: str, ladder: list[str]) -> str:
+    """Nudge a predicted loft one rung for the golfer's ball flight.
+
+    Ball flight is not one of the model's inputs (see INPUT_COLUMNS), so the
+    predicted loft is byte-identical whether a golfer says their driver flies
+    too low, too high, or about right - which is exactly what a golfer notices
+    when they change that answer and the number does not move. Same situation
+    as swing tempo and shaft flex above, and the same remedy: the model gives
+    the band, the answer the model never saw nudges it one step, the way a
+    fitter would rather than re-fitting from scratch.
+
+    Loft is the primary launch lever on a wood, so the direction is the obvious
+    one: flying too low earns more loft, too high earns less. recommend.py
+    separately prefers higher-launch and higher-spin *heads* for the same
+    answer; those are head construction rather than loft, so the two stack the
+    way a real fitting does instead of double-counting one lever.
+
+    Off-ladder lofts and unrecognised answers pass through unchanged rather
+    than raising, matching _adjust_flex_for_tempo.
+    """
+    if trajectory not in {"Too low", "Too high"} or loft not in ladder:
+        return loft
+    index = ladder.index(loft)
+    if trajectory == "Too low":
+        index = min(index + 1, len(ladder) - 1)
+    else:
+        index = max(index - 1, 0)
+    return ladder[index]
+
+
 def estimate_swing_speed_from_handicap(handicap: float) -> float:
     """Fallback driver speed estimate when the user only enters scoring information."""
     return max(
@@ -409,6 +456,20 @@ def api_recommend():
     # (and discarding) the other 4 labels from iron_row was pure waste.
     driver_specs = predict_specs(models, driver_row)
     driver_specs["shaft_flex"] = _adjust_flex_for_tempo(driver_specs["shaft_flex"], swing_tempo)
+    # Both woods take the driver's Ball flight answer: the question sits under
+    # "Driver & Fairway Wood" in the form and recommend.py's _score_wood
+    # already reads golfer.driver_trajectory for both categories, so leaving
+    # the fairway wood's loft unmoved would have it fitted to a flight the
+    # golfer just said was wrong.
+    #
+    # Applied here, before recommend_clubs() is handed specs["driver_loft"],
+    # so the catalog scoring and every reason it writes ("Sold in your 12 deg
+    # target loft") describe the adjusted target rather than the raw
+    # prediction.
+    for label in ("driver_loft", "fairway_wood_loft"):
+        driver_specs[label] = _adjust_loft_for_trajectory(
+            driver_specs[label], driver_trajectory, _loft_ladder(models[label])
+        )
     iron_category = predict_specs(models, iron_row, labels=["iron_category"])["iron_category"]
     specs = {**driver_specs, "iron_category": iron_category}
 
