@@ -495,7 +495,7 @@ select {
 .page-disclaimer {
   margin: 10px 0 20px;
   color: var(--ink-soft);
-  font-size: 0.66rem;
+  font-size: var(--t-13);
   font-style: italic;
   line-height: 1.4;
 }
@@ -1040,6 +1040,20 @@ select {
 
   .segmented span {
     min-height: 44px;
+  }
+
+  /* The intake form itself, which this block used to skip: the category
+     checkboxes sat at 34px and every text field and dropdown at 42px, so the
+     controls a visitor actually fills in were the ones still sized for a
+     mouse. Height rather than min-height on the fields, matching how they are
+     declared above - min-height would not lift a fixed height. */
+  .checkbox-option {
+    min-height: 44px;
+  }
+
+  .field input,
+  .field select {
+    height: 44px;
   }
 }
 
