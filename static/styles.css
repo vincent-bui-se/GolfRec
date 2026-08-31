@@ -1,16 +1,31 @@
 /* Self-hosted, replacing the fonts.googleapis.com/fonts.gstatic.com link -
    that round trip (DNS + TLS + a second fetch for the actual font files)
    was measured as the single largest contributor to render-blocking delay
-   on this page (~78% of a 3.2s LCP in a real Lighthouse run). Fraunces and
-   IBM Plex Sans are variable fonts - one file covers a weight range, so
-   each gets a single ranged font-weight declaration rather than repeating
-   the same file behind separate weight-specific @font-face blocks. */
+   on this page (~78% of a 3.2s LCP in a real Lighthouse run). Archivo is a
+   variable font - one file covers a weight range, so it gets a single
+   ranged font-weight declaration rather than repeating the same file
+   behind separate weight-specific @font-face blocks.
+
+   Source Serif 4 replaced Libre Franklin as the display face (see the
+   palette note in :root below) and is glyph-subset rather than a full
+   Latin webfont: this page's headings only ever set plain product copy -
+   club names, section titles, guide titles - so the file was requested
+   from Google Fonts with an explicit text= sample (letters, digits, and
+   the punctuation actually in use, including the degree sign for spec
+   values and an en/em dash) rather than the ~2500-glyph default Latin
+   set. That took it from 122KB down to 31.5KB, in the same range as the
+   29.3KB Libre Franklin file it replaced. A future heading that needs a
+   glyph outside that sample (an accented name, a curly quote) falls back
+   silently to the next face in the stack for that one character rather
+   than breaking - re-run the same Google Fonts request with a wider
+   text= sample and replace this file if that starts happening for real
+   copy. */
 @font-face {
-  font-family: "Libre Franklin";
+  font-family: "Source Serif 4";
   font-style: normal;
-  font-weight: 600 900;
+  font-weight: 600 700;
   font-display: swap;
-  src: url("/static/fonts/libre-franklin-variable.woff2") format("woff2");
+  src: url("/static/fonts/source-serif-4-variable.woff2") format("woff2");
 }
 @font-face {
   font-family: "Archivo";
@@ -23,49 +38,59 @@
 :root {
   color-scheme: light;
 
-  /* Ground is bright coated stock, not cream. The warm chalk/stone/ochre set
-     this replaces is a recognisable generated-interface palette, and it is the
-     look the brief asked to move away from; the greens below are the identity
-     and stay. */
-  --stock: #f6f2e7;
-  --surface: #fffdf8;
-  --stock-sunk: #efeadb;
+  /* Second re-skin (this one dropping golf-green, not just cream): ground is
+     cool near-white rather than warm stock, ink is neutral charcoal rather
+     than green-tinted, and the one identity color is a marine teal instead
+     of turf. Token NAMES are unchanged throughout this file on purpose -
+     --turf, --ochre, --flag, --strong/--qualified/--stretch all keep their
+     old names and functional roles, only the values and (for the score
+     badge below) how the bands render changed - so this diff is provably a
+     re-paint, not a restructure, and nothing downstream that reads these
+     variables needed to change. */
+  --stock: #fcfcfb;
+  --surface: #ffffff;
+  --stock-sunk: #f2f2ef;
 
-  --ink: #17241c;
-  --ink-soft: #4a5b50;
-  --ink-faint: #626e65;
-  --ink-text: #1c2620;
+  --ink: #20211f;
+  --ink-soft: #55564f;
+  --ink-faint: #84837b;
+  --ink-text: #20211f;
 
-  --turf: #3b6e4f;
-  --turf-deep: #2a4f38;
-  --turf-wash: #e8eee1;
+  --turf: #1f5f5b;
+  --turf-deep: #163f3c;
+  --turf-wash: #e9f1f0;
 
   /* Rules are grey biased toward the ink's hue rather than a warm beige, so
      they read as chosen against this ground instead of inherited. */
-  --rule: #e0dac9;
-  --rule-strong: #c7bfa8;
+  --rule: #e6e5e0;
+  --rule-strong: #d3d2cb;
 
   /* Light type on the ink sidebar and on turf fills. --chalk used to do this
      job AND serve as the page ground; one token cannot hold both roles once
      the ground turns white, so they are split. */
   --on-dark: #ffffff;
 
-  /* Fit confidence. The score badge already banded high/mid/low - these give
-     those bands names and contrast-checked values, and the accent stops being
-     decoration anywhere else. */
-  --strong: #3b6e4f;
-  --strong-wash: #e7eee0;
-  --qualified: #8a5f10;
-  --qualified-wash: #f8f0dc;
-  --stretch: #5d6861;
-  --stretch-wash: #ebe7db;
+  /* Fit confidence, redone as typographic hierarchy rather than a
+     red/amber/green stoplight: the score badge below now varies only text
+     color and weight per band, never fill or border, so --strong is the one
+     accent color in the whole scale and --qualified/--stretch are just ink
+     at two steps of fade. A three-hue traffic light reads as a quiz being
+     scored; weight and one color reads as a fact being stated. */
+  --strong: #1f5f5b;
+  --strong-wash: #e9f1f0;
+  --qualified: #55564f;
+  --qualified-wash: #f2f2ef;
+  --stretch: #84837b;
+  --stretch-wash: #f2f2ef;
 
   /* Kept for exactly two functional jobs: the focus ring, which must stay
-     visible on a turf fill where a turf ring would vanish, and the qualified
-     band above. Never a decorative accent. */
-  --ochre: #a8801f;
-  --ochre-soft: #f8f0dc;
-  --ochre-deep: #8a5f10;
+     visible on a turf fill where a turf ring would vanish, and the tie-note
+     callout. Never a decorative accent - repointed from the old golf-sand
+     ochre to a plain accessible focus blue, which reads as "focus," not as
+     brand, on either the white ground or the teal-filled buttons. */
+  --ochre: #2f6fed;
+  --ochre-soft: #eaf1fd;
+  --ochre-deep: #1d4ed8;
 
   --flag: #8b3a2b;
 
@@ -82,10 +107,10 @@
   --t-26: 1.625rem;
   --t-32: 2rem;
 
-  --shadow: 0 1px 0 rgba(23, 36, 28, 0.04), 0 2px 6px rgba(23, 36, 28, 0.10);
+  --shadow: 0 1px 0 rgba(32, 33, 31, 0.04), 0 2px 6px rgba(32, 33, 31, 0.10);
   --radius: 3px;
 
-  --font-display: "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-body: Archivo, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   /* Numerals now set in Archivo with tabular figures (its tnum feature is
      present and its digits are proportional by default, so the rule does real
@@ -248,7 +273,7 @@ select {
 .field input:focus,
 .field select:focus {
   border-color: var(--ochre);
-  box-shadow: 0 0 0 3px rgba(168, 128, 31, 0.28);
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.28);
 }
 
 /* Custom typeahead dropdown for "current driver"/"current irons" (see
@@ -713,7 +738,7 @@ select {
 
 .condition-control select:focus {
   border-color: var(--turf);
-  box-shadow: 0 0 0 3px rgba(59, 110, 79, 0.16);
+  box-shadow: 0 0 0 3px rgba(31, 95, 91, 0.16);
 }
 
 .info-icon {
@@ -880,22 +905,23 @@ select {
   font-weight: 600;
 }
 
+/* Bands vary text color and weight only - border and background stay the
+   plain neutral set on .score-badge above for all three. A red/amber/green
+   fill scores the visitor like a quiz; this states the number as a fact and
+   lets weight carry the emphasis, the same move as the reason list below. */
 .score-badge.band-high {
-  border-color: var(--strong);
-  background: var(--strong);
-  color: var(--on-dark);
+  color: var(--strong);
+  font-weight: 700;
 }
 
 .score-badge.band-mid {
-  border-color: var(--qualified);
-  background: var(--qualified-wash);
   color: var(--qualified);
+  font-weight: 600;
 }
 
 .score-badge.band-low {
-  border-color: var(--stretch);
-  background: var(--stretch-wash);
   color: var(--stretch);
+  font-weight: 600;
 }
 
 /* Full-sentence reasons read poorly crammed into rounded chips, so this is
