@@ -91,22 +91,22 @@
 
          That delay is visible rather than merely slow, because font-display:
          swap paints the fallback first and the two faces do not occupy the
-         same space - measured on the guides, body copy sets ~9.8% wider in
-         Plex Sans than in its system-ui fallback and Fraunces ~6.7% wider
-         than Georgia, so every line shifts when the swap lands.
+         same space, so every line shifts when the swap lands.
 
          Preload does not save bytes - every face here is fetched either way -
          it spends early bandwidth against the render-blocking stylesheet to
          buy earlier discovery, so only the faces carrying real text earn it.
          Both faces here do: Archivo sets every label, control and figure on
-         the page and Libre Franklin sets the headings, and between them they
-         replaced the six-file Fraunces + IBM Plex set this page used to ship
-         (122KB of woff2 down to 64KB, and four fewer requests). crossorigin is
-         required even though
+         the page and Source Serif 4 sets the headings. Source Serif 4 is
+         also glyph-subset to the punctuation this page's headings actually
+         use rather than shipped as a full Latin font (see the @font-face
+         comment in styles.css), which is what keeps the pair at roughly the
+         same combined weight as the sans-only set they replaced. crossorigin
+         is required even though
          these are same-origin: fonts are always fetched in CORS mode, and
          without it the preload is ignored and the file fetched twice. -->
     <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/archivo-variable.woff2') }}">
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/libre-franklin-variable.woff2') }}">
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/source-serif-4-variable.woff2') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
