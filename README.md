@@ -4,7 +4,7 @@ A Flask web app that predicts a golfer's fitting specifications from their swing
  
 **Stack:** Python · scikit-learn · Flask · pandas · NumPy · Matplotlib · pytest
  
-<img width="947" height="599" alt="Screenshot 2026-08-12 203020" src="https://github.com/user-attachments/assets/87720ae8-c547-4d46-b736-54ba7ada254b" />
+<img width="947" height="599" alt="screenshot" src="https://github.com/user-attachments/assets/b7718422-787c-417d-aeb9-c74ea13ecc04" />
 
 ## Problem Statement
  
