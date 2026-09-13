@@ -68,6 +68,7 @@ Each generated golfer includes:
 - Fairway wood loft label
 - Iron category label
 - Wedge bounce label
+
 The label-generation rules are based on public fitting guidance from sources such as MyGolfSpy's driver shaft flex chart, LAZRUS Golf's driver loft guide, TaylorMade's game-improvement iron guidance, and PGA TOUR Superstore fitting education. Iron category labels are not based on handicap alone; they combine handicap, swing speed, carry distance, shot shape, primary goal, typical miss, and preferred feel/look. Fairway wood loft follows the same speed/handicap/goal logic as driver loft, recalibrated to fairway wood's finer loft steps. Wedge bounce combines stated turf/lie firmness with divot depth (an attack-angle proxy), weighted at least as heavily as turf, since a deep digger needs bounce even on firm ground and a shallow sweeper can get away with less even on soft ground.
  
 Sources:
