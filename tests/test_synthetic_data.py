@@ -3,7 +3,17 @@ from synthetic_data import (
     _iron_category,
     _wedge_bounce,
     generate_golfer_profiles,
+    predict_rule_labels,
 )
+
+
+def test_rule_baseline_matches_generated_labels_without_noise():
+    import pandas as pd
+
+    golfers = generate_golfer_profiles(n=1000, seed=7, noise_rate=0)
+    predictions = predict_rule_labels(golfers)
+
+    pd.testing.assert_frame_equal(predictions, golfers[predictions.columns])
 
 
 def test_generate_golfer_profiles_creates_course_dataset_shape():

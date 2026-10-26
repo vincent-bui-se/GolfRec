@@ -1,3 +1,5 @@
+import { USED_MAX_YEAR, selectForDisplay, filterByCondition, displayYears, filterByBudget, maxMsrp } from "./filters.mjs";
+
 const state = {
   result: null,
   activeTab: "drivers",
@@ -12,13 +14,8 @@ const formError = document.querySelector("#form-error");
 const formErrorDetail = document.querySelector("#form-error-detail");
 const retryAction = document.querySelector("#retry-action");
 const resultStatus = document.querySelector("#result-status");
-const USED_MAX_YEAR = new Date().getFullYear() - 4;
 
-// One entry per results category. Driver and Fairway Wood share a profile
-// section (same swing, same session) so two tabs point at the same
-// fieldsSelector; every other lookup - result JSON key, "wants" flag, element
-// id prefix, starting budget ceiling - is per-tab because those genuinely
-// differ per category.
+// Per-category result keys, controls, and questionnaire sections.
 const CATEGORIES = [
   { tab: "drivers", resultKey: "drivers", wants: "wants_driver", idPrefix: "driver", fieldsSelector: ".wood-fields", fallbackBudget: 2500 },
   { tab: "fairway-woods", resultKey: "fairway_woods", wants: "wants_fairway_woods", idPrefix: "fairway-wood", fieldsSelector: ".wood-fields", fallbackBudget: 500 },
@@ -111,15 +108,7 @@ function updateSpecGrid(specs, result) {
       return;
     }
     value.textContent = next;
-    // Marks only the specs that moved. The grid sits in the results column
-    // while the submit button is in the sidebar, so without this the numbers
-    // change off to the side of where you're looking; on a re-run after
-    // tweaking one input, lighting up just the specs that actually changed is
-    // the part worth pointing at.
-    //
-    // Removing the class isn't enough to replay the animation on a tile
-    // that's still mid-run from the previous submit - the reflow between the
-    // remove and the re-add is what resets it.
+    // Replay the highlight only for changed values; reflow restarts the animation.
     tile.classList.remove("spec-changed");
     void tile.offsetWidth;
     tile.classList.add("spec-changed");
@@ -138,10 +127,7 @@ function updateConditionalFields() {
   });
 
   const checked = new Set(checkedShoppingFor());
-  // Swing speed/carry/tempo feed the shaft_flex and iron_category models
-  // both, so .speed-fields shows for any of the three categories that
-  // actually consume it - not just Driver/Fairway Wood, which is why it's
-  // a separate section from .wood-fields below rather than folded into it.
+  // Show swing inputs for every category that uses them.
   document.querySelectorAll(".speed-fields").forEach((section) =>
     section.classList.toggle(
       "hidden",
@@ -162,63 +148,6 @@ function updateConditionalFields() {
   );
 }
 
-function selectForDisplay(clubs, defaultLimit = 5) {
-  if (clubs.length <= defaultLimit) {
-    return clubs;
-  }
-  const firstFive = clubs.slice(0, defaultLimit);
-  const firstScore = firstFive[0].score;
-  if (firstFive.some((club) => club.score !== firstScore)) {
-    return firstFive;
-  }
-  const selected = [...firstFive];
-  for (const club of clubs.slice(defaultLimit)) {
-    selected.push(club);
-    if (club.score < firstScore) {
-      break;
-    }
-  }
-  return selected;
-}
-
-function filterByCondition(clubs, condition) {
-  if (condition !== "used") {
-    return clubs;
-  }
-  return clubs.filter(
-    (club) => Number.isInteger(club.year) && club.year <= USED_MAX_YEAR,
-  );
-}
-
-function displayYears(club, condition) {
-  const years =
-    Array.isArray(club.years) && club.years.length
-      ? club.years
-      : club.year
-        ? [club.year]
-        : [];
-  if (condition === "used") {
-    return years.filter((year) => year <= USED_MAX_YEAR);
-  }
-  return years;
-}
-
-function filterByBudget(clubs, budget) {
-  return clubs
-    .filter((club) => typeof club.msrp === "number" && club.msrp <= budget)
-    .sort((a, b) => b.score - a.score);
-}
-
-function maxMsrp(clubs, fallback) {
-  const prices = clubs
-    .map((club) => club.msrp)
-    .filter((price) => typeof price === "number" && Number.isFinite(price));
-  if (!prices.length) {
-    return fallback;
-  }
-  return Math.ceil(Math.max(...prices) / 25) * 25;
-}
-
 function setBudgetStart(slider, clubs, fallback) {
   const highestPrice = maxMsrp(clubs, fallback);
   slider.max = String(highestPrice);
@@ -236,11 +165,7 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
   countElement.textContent = `${selected.length} ${selected.length === 1 ? "club" : "clubs"}`;
 
   if (!selected.length) {
-    // The dead end already knows its own way out: conditionMatches is every
-    // club that cleared the condition filter and failed only on price, so the
-    // cheapest of those is the exact budget that would return something. Saying
-    // "no clubs match this budget" without it leaves the user guessing whether
-    // the fix is $20 or $200 - the one number that decides what they do next.
+    // Name the cheapest qualifying club so the user can adjust the budget.
     const cheapest = conditionMatches
       .map((club) => club.msrp)
       .filter((price) => typeof price === "number" && Number.isFinite(price))
@@ -486,11 +411,7 @@ function announceResults() {
     : "Recommendations ready.";
 }
 
-// What the visitor reads when a run fails. The status code and the stack go to
-// the console instead: "Server responded with 502" tells a golfer nothing they
-// can act on, and the copy this replaces went further and asked them to check
-// that the server was running - something only whoever deployed it can do. Each
-// branch ends on the one move actually available from where they are.
+// Show recovery steps to visitors; log diagnostic details to the console.
 function describeFailure(error) {
   if (error instanceof TypeError) {
     return "Couldn't reach Stickly. Check your connection, then try again.";
@@ -499,7 +420,7 @@ function describeFailure(error) {
     return "Stickly had a problem scoring your profile. Try again in a moment.";
   }
   if (error.status >= 400) {
-    return "Something in the profile didn't come through. Change an answer, then run it again.";
+    return error.publicMessage || "Something in the profile didn't come through. Change an answer, then run it again.";
   }
   return "Something went wrong. Try again in a moment.";
 }
@@ -525,6 +446,10 @@ async function requestRecommendations() {
     if (!response.ok) {
       const failure = new Error(`Server responded with ${response.status}`);
       failure.status = response.status;
+      if (response.status === 400) {
+        const detail = await response.json().catch(() => null);
+        failure.publicMessage = detail?.error;
+      }
       throw failure;
     }
     state.result = await response.json();
@@ -560,11 +485,7 @@ async function requestRecommendations() {
   }
 }
 
-/* ---------- Mobile profile drawer ----------
-   Below 920px the profile panel is an off-canvas overlay rather than a column
-   (see styles.css). The class on <body> is what the slide and the scroll lock
-   are keyed off, so what's left here is that state plus the focus handling any
-   overlay owes the keyboard. */
+/* Mobile profile drawer and focus handling. */
 
 const drawerToggle = document.querySelector("#drawer-toggle");
 const drawerClose = document.querySelector("#drawer-close");
@@ -660,16 +581,7 @@ form.addEventListener("submit", (event) => {
 
 retryAction.addEventListener("click", requestRecommendations);
 
-// "Current driver"/"current irons" are typeahead text fields backed by a
-// <datalist> of real catalog entries; collectPayload() reads the hidden id
-// field, not the visible text. The <datalist> is a data source only (no
-// list="" attribute links it to the input) - suggestions are rendered as a
-// custom dropdown instead, because native datalist popups are entirely
-// browser/OS-controlled and unstylable: on mobile several browsers render
-// them as an autofill strip glued to the keyboard rather than a list anchored
-// to the field, which reads as broken. Typing something that doesn't exactly
-// match a real option (case-insensitive) leaves the hidden id empty - same
-// as picking "skip" - rather than guessing at a fuzzy match.
+// Resolve exact catalog matches into hidden IDs; suggestions use a custom listbox.
 function wireCatalogTypeahead(textFieldName, datalistId, hiddenFieldName, listboxId) {
   const textField = form.querySelector(`[name="${textFieldName}"]`);
   const datalist = document.querySelector(`#${datalistId}`);
@@ -677,10 +589,7 @@ function wireCatalogTypeahead(textFieldName, datalistId, hiddenFieldName, listbo
   const listbox = document.querySelector(`#${listboxId}`);
   if (!textField || !datalist || !hiddenField || !listbox) return;
 
-  // Moved out of .profile-panel (which scrolls) to a direct child of <body>,
-  // so it renders relative to the viewport instead of a scrolling ancestor
-  // that could clip it. Position is computed from the field's own on-screen
-  // rect (positionList, below) rather than normal document flow.
+  // Attach to body so the scrolling profile panel cannot clip the listbox.
   document.body.appendChild(listbox);
 
   const options = [...datalist.options].map((option) => ({
@@ -711,10 +620,7 @@ function wireCatalogTypeahead(textFieldName, datalistId, hiddenFieldName, listbo
     textField.removeAttribute("aria-activedescendant");
     visibleMatches = [];
     activeIndex = -1;
-    // capture: true to match the addEventListener call in renderMatches -
-    // scroll events don't bubble, so catching them from .profile-panel's
-    // internal scroll (or any other scrolling ancestor) requires listening
-    // during the capture phase, not the default bubble phase.
+    // Scroll listeners use capture because ancestor scroll events do not bubble.
     window.removeEventListener("scroll", positionList, true);
     window.removeEventListener("resize", positionList);
   }

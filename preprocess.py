@@ -13,45 +13,21 @@ SHOT_SHAPES = ["Slice", "Fade", "Straight", "Draw", "Hook"]
 GOALS = ["Distance", "Accuracy", "Forgiveness"]
 IRON_MISSES = ["Fat/Thin", "Left/Right", "Inconsistent", "Consistent"]
 IRON_FEELS = ["Forged/Blade-like", "Confidence-inspiring", "No preference"]
-# Fairway wood fitting reuses every driver input (same swing, same session) and
-# earns its own results tab without a form question of its own. Wedges are the
-# one category that turns on a golf-relevant signal nothing else captures - the
-# turf/lie conditions a golfer's home course plays - so that's the only new
-# question in the profile form.
+# Driver and fairway wood share swing inputs.
 CLUB_CATEGORIES = ["Driver", "Fairway Wood", "Irons", "Wedges"]
 TURF_FIRMNESS = ["Firm", "Normal", "Soft"]
 # Attack angle proxy: how deep a divot the golfer typically takes with an
 # iron/wedge. Combines with turf firmness to drive bounce need, and separately
 # informs sole-width fit (deep divots want a wider sole regardless of turf).
 DIVOT_DEPTHS = ["Shallow", "Medium", "Deep"]
-# Greenside shot-shaping preference and bunker frequency are asked in outcome
-# terms so a golfer can self-assess without technical vocabulary. Both map
-# straight to wedge grind `bestFor` tags that nothing in the app used before -
-# they're scoring-time preferences only, not ML features (like driver/iron
-# trajectory), since there's no ambiguous pattern here worth training a model
-# on: "plays sand often" -> "favor sand-friendly grinds" is already a direct,
-# deterministic rule.
+# Shot style affects grind scoring, not the model features.
 WEDGE_SHOT_STYLES = ["One repeatable shot", "I like to shape shots around the green", "No preference"]
-# What loft the golfer is shopping for - drives which configuration on each
-# wedge gets evaluated (see recommend.py's _select_wedge_configuration),
-# rather than every wedge being judged on whichever configuration happens to
-# have the closest bounce degree regardless of loft. Covers the range the
-# catalog actually has strong coverage for (see data audit: 50-60 deg is
-# covered by 26-28 of 29 wedges; 46-48 deg by 16-17/29 since some brands
-# push shorter gap-wedge lofts into their iron sets instead).
+# The requested wedge loft selects which configurations are scored.
 WEDGE_LOFT_OPTIONS = [46, 48, 50, 52, 54, 56, 58, 60, 62]
 TRAJECTORIES = ["Too low", "About right", "Too high"]
-# Scoring-time only, like WEDGE_SHOT_STYLES above: nudges the displayed
-# shaft_flex letter (see app.py's _adjust_flex_for_tempo) rather than feeding
-# the ML model - swing speed alone already predicts a flex band, and tempo is
-# the standard real-fitting adjustment on top of that band, not a separate
-# axis worth training on.
+# Tempo adjusts the displayed flex after model inference.
 SWING_TEMPOS = ["Smooth", "Moderate", "Aggressive"]
-# Shared handicap -> swing speed coefficients: synthetic_data.py uses these
-# (plus noise) to generate training labels, and app.py's fallback estimator
-# uses them (without noise) for a live request. Keeping one source of truth
-# here means retuning the relationship can't update one call site and
-# silently leave the other using the old numbers.
+# Shared coefficients for synthetic profiles and the fallback speed estimate.
 SWING_SPEED_BASE_MPH = 108.0
 SWING_SPEED_PER_HANDICAP_MPH = -1.15
 SWING_SPEED_MIN_MPH = 60.0

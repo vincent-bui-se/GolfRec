@@ -11,11 +11,7 @@ _TRAILING_YEAR_RE = re.compile(r"\s*\(\d{4}\)\s*$")
 
 
 def _display_name(brand: str, model: str) -> str:
-    """Join brand and model without repeating a brand the model already carries.
-
-    Some records bake the brand into the model ("Mizuno" + "Mizuno Pro 245"),
-    which read as "Mizuno Mizuno Pro 245" when joined blindly.
-    """
+    """Join brand and model without repeating a brand already in the model name."""
     if model.lower().startswith(brand.lower()):
         return model
     return f"{brand} {model}"
@@ -53,14 +49,7 @@ class GolferInput:
     # What loft the golfer is shopping for - see _select_wedge_configuration_candidates.
     # Default (56) is the single most common "do-it-all" wedge loft.
     wedge_loft: float = 56.0
-    # The golfer's *current* driver/iron launchChar+spinChar, resolved by the
-    # caller from a catalog lookup (app.py) - None when they don't know or
-    # skipped the question. "Too high"/"Too low" trajectory only means
-    # something relative to what they already play: a golfer already on a
-    # low-launch head who still balloons it needs a small nudge further down,
-    # not the single lowest-launch head in the catalog (which is what an
-    # absolute target would otherwise recommend, risking overcorrecting them
-    # into "too low"). None falls back to the old absolute-target behavior.
+    # Current-club launch/spin buckets; None uses the trajectory fallback.
     current_driver_launch: str | None = None
     current_driver_spin: str | None = None
     current_iron_launch: str | None = None
@@ -102,13 +91,7 @@ def _build_recommendation(
     reasons: list[str],
     category: str,
 ) -> ClubRecommendation:
-    """Cap/round a raw score and assemble the final ClubRecommendation.
-
-    Shared by _score_wood, score_iron_set, and score_wedge, which all ended
-    with the same capping + name-building + construction logic - factored
-    out so a future change to that finalization (e.g. rounding precision)
-    only needs to happen once.
-    """
+    """Clamp the score to 0-100 and assemble a recommendation."""
     capped = round(max(0.0, min(score, 100.0)))
     name = _display_name(str(club.get("brand", "Unknown")), str(club.get("model", "Unknown")))
     return ClubRecommendation(
@@ -124,16 +107,7 @@ def _build_recommendation(
 
 
 def _rank_key(rec: ClubRecommendation) -> tuple[float, float]:
-    """Sort key: highest score first, cheapest MSRP breaking ties.
-
-    Genuinely tied scores are common and expected (many clubs suit the same
-    golfer equally well - see score_wedge/_score_wood/score_iron_set
-    docstrings), so this never re-scores anything to force a unique winner.
-    It only replaces an otherwise-arbitrary tie order (whichever club
-    happened to load first from the catalog JSON) with a deliberate,
-    useful one: cheaper of two equally-good options shown first. Unknown
-    MSRP sorts last among its tied peers rather than first.
-    """
+    """Sort by descending score, then ascending MSRP; unknown prices sort last."""
     msrp = rec.msrp if rec.msrp is not None else float("inf")
     return (-rec.score, msrp)
 
@@ -143,13 +117,7 @@ def _closest_loft(
     predicted_loft: str,
     adjust_range_deg: float = 0.0,
 ) -> tuple[float | None, float]:
-    """Find the closest available head loft accounting for adjustable hosels.
-
-    If the club has an adjustable hosel (adjustRangeDeg), the effective loft
-    range for each head extends by plus/minus adjust_range_deg. We report the gap after
-    this adjustment, so a club that can be dialled in to the target loft shows
-    a gap of 0 and earns full loft points.
-    """
+    """Return the closest head loft and target gap after hosel adjustment."""
     if not lofts:
         return None, 10.0
     target = float(predicted_loft)
@@ -159,14 +127,7 @@ def _closest_loft(
     return closest, best_gap
 
 
-# Launch/spin character on a 0-4 scale. "mid-low" and "low-mid" both appear
-# in the catalog for the same underlying bucket (different curators, same
-# meaning) - both must map to the same ordinal, which a literal string-set
-# membership check doesn't guarantee: the old code checked `{"low",
-# "mid-low"}` in some branches and `"mid" in launch` (a substring check that
-# happens to also catch "mid-low"/"low-mid") in others, so a driver spelled
-# "low-mid" could pass one branch's check and fail an equivalent one a few
-# lines later purely on wording.
+# Normalize catalog launch/spin spellings to a shared 0-4 scale.
 _LAUNCH_SPIN_ORDER = {
     "low": 0,
     "low-mid": 1,
@@ -231,92 +192,15 @@ def _speed_score(club: dict[str, Any], speed: float) -> tuple[float, str]:
     return score, f"Close to your {speed:.0f} mph swing speed range."
 
 
-def filter_recommendations_by_budget(
-    recommendations: list[ClubRecommendation],
-    max_budget: float,
-    limit: int | None = None,
-) -> list[ClubRecommendation]:
-    """Keep recommendations with a known MSRP at or below the selected budget.
-
-    NOT called by app.py / the live app. The budget slider needs instant,
-    server-round-trip-free filtering as the user drags it, so
-    static/app.js's `filterByBudget` reimplements this exact logic
-    client-side, and that JS copy is what actually runs in production. This
-    Python version exists as a tested, readable reference and for any future
-    server-side/API consumer - editing it has zero effect on the deployed
-    app unless the JS copy is also updated to match, or app.py is wired to
-    call this directly.
-    """
-    affordable = [
-        recommendation
-        for recommendation in recommendations
-        if recommendation.msrp is not None and recommendation.msrp <= max_budget
-    ]
-    ordered = sorted(affordable, key=_rank_key)
-    return ordered if limit is None else ordered[:limit]
-
-
-def select_recommendations_for_display(
-    recommendations: list[ClubRecommendation],
-    default_limit: int = 5,
-) -> list[ClubRecommendation]:
-    """Return default top recommendations, expanding flat top-score groups.
-
-    NOT called by app.py / the live app - same situation as
-    `filter_recommendations_by_budget` above: static/app.js's
-    `selectForDisplay` is the client-side duplicate that actually runs.
-    """
-    if len(recommendations) <= default_limit:
-        return recommendations
-
-    default_slice = recommendations[:default_limit]
-    first_score = default_slice[0].score
-    if any(recommendation.score != first_score for recommendation in default_slice):
-        return default_slice
-
-    selected = list(default_slice)
-    for recommendation in recommendations[default_limit:]:
-        selected.append(recommendation)
-        if recommendation.score < first_score:
-            break
-    return selected
-
-
-def _forgiveness_phrase(club: dict[str, Any], forgiveness: float) -> str:
-    """Name a head's measured forgiveness so two heads never read identically.
-
-    The score uses forgivenessScore as a continuous 0-10 value, but the reason
-    text used to collapse it into "at least 8" or silence. Across the 70 drivers
-    in the catalog that is 28 distinct values flattened into two outcomes: 44
-    clubs shared one sentence and the other 26 got no forgiveness line at all.
-    Two heads a full point apart then read identically, which is what made the
-    top of a near-tied list indistinguishable - exactly where the UI's tie note
-    tells the golfer to weigh the reasons instead of the score.
-
-    The value alone is what differentiates, and it is a property of this head,
-    not a claim about its rank in the current result set. Ranking language ("the
-    most forgiving here") would change meaning as the budget filter moves and
-    would go false on ties, so it is deliberately avoided.
-
-    `club` stays in the signature because the catalog also carries
-    forgivenessConfidence and forgivenessSource for this value; neither is shown
-    here by product decision, and a future caller wanting to surface provenance
-    has the club to read it from without changing every call site.
-    """
+def _forgiveness_phrase(forgiveness: float) -> str:
+    """Format the catalog forgiveness rating for a recommendation reason."""
     return f"forgiveness {forgiveness:g}/10"
 
 
 def prioritise_distinctive_reasons(
     recommendations: list[ClubRecommendation],
 ) -> list[ClubRecommendation]:
-    """Reorder each club's reasons so the least common ones come first.
-
-    Reasons are appended in scoring order, which front-loads the statements
-    nearly every club shares ("fits your swing speed", "adjustable hosel").
-    Callers only show the first few, so without this the list reads identically
-    down the page. Ranking by how many clubs in the set share a reason surfaces
-    what actually separates this club, and ties keep their original order.
-    """
+    """Show the reasons shared by the fewest recommendations first."""
     frequency = Counter(
         reason for recommendation in recommendations for reason in recommendation.reasons
     )
@@ -341,31 +225,8 @@ def _score_wood(
     predicted_loft: str,
     category: str,
 ) -> ClubRecommendation:
-    """Score one driver or fairway wood against the golfer and predicted loft.
-
-    Drivers and fairway woods share the same catalog schema (lofts,
-    adjustable hosel, launch/spin character, forgiveness score, family) and the
-    same fitting logic - only the target loft range differs, which the caller
-    already accounts for via `predicted_loft`. `category` only affects the
-    label on the returned recommendation, never the scoring itself.
-
-    Scoring weights (max 100 pts):
-      - Launch characteristic    : 20 pts
-      - Spin characteristic      : 18 pts
-      - Forgiveness / goal       : 20 pts
-      - Loft match (+ adjustable): 15 pts
-      - Swing speed range match  : 10 pts
-      - Shot shape / family bonus: 12 pts
-      - Base score (always)      :  5 pts
-
-    Launch+spin are weighted highest because optimizing them together for the
-    golfer's swing speed is the single biggest lever in real club fitting -
-    it drives carry distance and dispersion more than any other head trait.
-    Swing-speed range is mostly a fit/legality gate (most modern heads clear
-    a wide range) rather than a quality signal, so it carries less weight
-    than the traits that actually differentiate one head from another for a
-    golfer who already clears that gate.
-    """
+    """Score a driver or fairway wood: launch 20, spin 18, forgiveness 20,
+    loft 15, speed 10, shot shape 12, and base 5 points."""
     score = 0.0
     reasons: list[str] = []
 
@@ -397,20 +258,11 @@ def _score_wood(
     # forgivenessScore is 0-10 (was a 1-5 tier); default 6.0 mirrors the old
     # neutral default of 3/5.
     forgiveness = float(club.get("forgivenessScore", 6.0))
-    # Every branch below now states the head's forgiveness rather than only
-    # flagging the top band. The sentence still frames the number for the
-    # golfer's stated goal; the number is what separates two heads the scoring
-    # rates a point apart. The old ">= 10" branch was unreachable - the catalog
-    # tops out at 9.8 - so its wording is folded into the top band here instead
-    # of sitting as a line that can never print.
-    forgiveness_note = _forgiveness_phrase(club, forgiveness)
+    # Include the catalog rating in each forgiveness explanation.
+    forgiveness_note = _forgiveness_phrase(forgiveness)
     if golfer.goal == "Forgiveness":
         score += forgiveness * 1.75
-        # "game-improvement" is never a real driver/fairway-wood family
-        # value in the catalog (see _DRIVER_FAMILY_NOTES's 5 keys) - that's
-        # an ironCategory value, not a family one. Only "max-forgiveness"
-        # can ever match here; kept as a single check rather than a set to
-        # not imply a second live branch that doesn't exist.
+        # Wood families use max-forgiveness; game-improvement is an iron category.
         if club.get("family") == "max-forgiveness":
             score += 2.5
         if forgiveness >= 8:
@@ -439,12 +291,7 @@ def _score_wood(
         else:
             reasons.append(f"Mis-hits lose real distance on this head ({forgiveness_note}).")
 
-    # --- Launch characteristic (20 pts) ---
-    # There's no separate current-fairway-wood-trajectory question, so this
-    # baseline is always the golfer's current *driver* even when scoring a
-    # fairway wood - that's an intentional proxy for their general ball-flight
-    # tendency, but the reason text must say so explicitly for a fairway wood
-    # card, or "than your current driver" reads like a category mismatch.
+    # The current driver is also the baseline for fairway wood trajectory.
     baseline_suffix = "" if category == "Driver" else ", carrying that same fix into your fairway woods"
     launch = str(club.get("launchChar", "mid"))
     if golfer.current_driver_launch is not None:
@@ -511,10 +358,7 @@ def _score_wood(
     else:
         score += 6
 
-    # --- Shot shape / family bonus (12 pts) ---
-    # Weighted up from the original 5: draw-bias fitting is a real,
-    # well-documented corrective lever for the majority-slicing amateur
-    # population, not a minor tiebreaker.
+    # Shot shape / family bonus (12 points).
     if golfer.shot_shape == "Slice" and (
         club.get("drawBiasBuiltIn") or club.get("drawBiasAvailable") or club.get("family") == "draw-bias"
     ):
@@ -524,10 +368,7 @@ def _score_wood(
         score += 10
         reasons.append("Low-spin player's head supports maximum distance.")
     elif golfer.shot_shape in {"Draw", "Hook"} and _ordinal(club.get("spinChar")) <= 1:
-        # _ordinal(), not a raw string-set check - "low-mid" and "mid-low"
-        # both appear in the catalog for the same bucket (see
-        # _LAUNCH_SPIN_ORDER's comment), and a literal set membership check
-        # only catches one spelling.
+        # Normalize both low-mid and mid-low spellings before comparing.
         score += 7
         reasons.append("Low-spin design helps moderate a strong draw.")
 
@@ -565,22 +406,8 @@ def score_iron_set(
     golfer: GolferInput,
     predicted_iron_category: str,
 ) -> ClubRecommendation:
-    """Score one iron set against the golfer and predicted category.
-
-    Scoring weights (max 100 pts):
-      - Category match           : 32 pts
-      - Forgiveness / miss type  : 20 pts
-      - Launch (speed vs. iron)  : 18 pts
-      - Spin characteristic      : 10 pts
-      - Construction / feel pref :  8 pts (kept light; see the branch below)
-      - Shot-shape bonus         :  7 pts
-      - Base score               :  5 pts
-
-    Category carries the most weight because matching construction to skill
-    level (blade through super-game-improvement) is the single biggest
-    practical iron-fitting decision - a badly mismatched category is a worse
-    real-world outcome than any other factor scored here.
-    """
+    """Score an iron set: category 32, forgiveness 20, launch 18, spin 10,
+    feel 8, shot shape 7, and base 5 points."""
     score = 0.0
     reasons: list[str] = []
 
@@ -610,7 +437,7 @@ def score_iron_set(
     iron_goal = golfer.effective_iron_goal
     iron_shape = golfer.effective_iron_shot_shape
 
-    forgiveness_note = _forgiveness_phrase(club, forgiveness)
+    forgiveness_note = _forgiveness_phrase(forgiveness)
     if golfer.iron_miss in {"Fat/Thin", "Inconsistent"} or iron_goal == "Forgiveness":
         # Weight forgiveness heavily for inconsistent ball-strikers
         score += forgiveness * 2
@@ -621,10 +448,7 @@ def score_iron_set(
         else:
             reasons.append(f"Little forgiveness to spare for the miss you described ({forgiveness_note}).")
     else:
-        # Consistent ball-strikers mostly don't need forgiveness insurance, so
-        # the baseline is high regardless - but the tiers must still differ in
-        # points, not just in reason text, or a truly unforgiving iron ranks
-        # identically to a max-forgiveness one for every consistent striker.
+        # Keep forgiveness differences visible for consistent strikers too.
         score += 15
         if forgiveness >= 8:
             score += 5
@@ -636,10 +460,7 @@ def score_iron_set(
             score += 1
             reasons.append(f"Demands consistent centre contact ({forgiveness_note}).")
 
-    # --- Construction / feel preference (8 pts) ---
-    # Kept deliberately light: this axis previously ran to 15 pts and swung
-    # which irons got recommended more than a golfer could reliably
-    # self-assess from a dropdown. It still counts, just as a lighter tiebreaker.
+    # Construction / feel preference (8 points).
     construction = str(club.get("construction", "")).lower()
     workability = str(club.get("workability", "")).lower()
     if golfer.iron_feel == "Forged/Blade-like":
@@ -647,11 +468,7 @@ def score_iron_set(
             score += 8
             reasons.append("Forged construction delivers the preferred feel.")
         elif workability in {"high", "mid"}:
-            # Was {"high", "medium-high"} - "medium-high" never exists in
-            # the catalog (workability is only high/mid/low), so this
-            # branch was silently only ever matching "high", leaving every
-            # real mid-workability, non-forged iron scored identically to a
-            # low-workability one on this axis.
+            # Catalog workability values are high, mid, or low.
             score += 5
             reasons.append("High workability approximates a forged feel.")
         else:
@@ -760,15 +577,7 @@ def _recommend_woods(
         "game-improvement",
         "super-game-improvement",
     }:
-        # A genuinely forgiving or draw-biased club should survive the floor
-        # even if an unrelated axis (e.g. a speed or trajectory mismatch)
-        # dragged its total score down - forgiveness/draw-bias is exactly the
-        # trait that matters most for this golfer. Checked against the same
-        # catalog fields _score_wood's own bonus reads, not a name-string
-        # proxy for them: a club merely named "Max" for marketing reasons
-        # isn't necessarily forgiving, and a genuinely draw-biased head like
-        # the Ping G440 SFT ("Straight Flight Technology") has neither "max"
-        # nor "draw" in its name.
+        # Keep forgiving and draw-biased heads even when another axis lowers their score.
         filtered = [
             (club, rec)
             for club, rec in scored
@@ -816,22 +625,7 @@ def recommend_fairway_woods(
     )
 
 
-# ---------- Wedges ----------
-# Wedges still don't get an ML-predicted loft target the way drivers/fairway
-# woods/irons do - real wedge fitting is a multi-club gapping decision (a
-# golfer typically carries 2-3 wedges spanning a loft range, informed by
-# where their iron set stops), and recommending an assembled, gapped wedge
-# set is a materially different feature from what's built here. What IS
-# built here: the golfer states which single loft they're shopping for
-# (golfer.wedge_loft), and that loft picks which configuration on each wedge
-# gets evaluated. This matters because a wedge model commonly offers several
-# bounce/grind options at different lofts, and comparing wedges on whichever
-# configuration happens to have the closest bounce degree - regardless of
-# loft - let a generic "works everywhere" grind win a Low-bounce request just
-# by having a low-bounce loft option somewhere in its lineup, while a
-# genuinely purpose-built low-bounce specialist grind on another wedge lost
-# purely because its low-bounce loft wasn't the golfer's actual target loft.
-# Comparing wedges at the same loft fixes that.
+# Wedges rank individual models at the requested loft, not complete gapped sets.
 
 # Bounce tier boundaries, chosen from the catalog's own bounce values (4-14
 # degrees): most low-bounce grinds sit at 4-7, most mid at 8-10, most high at
@@ -849,10 +643,7 @@ _TURF_BESTFOR_TAGS = {
     "Soft": {"soft-turf", "sand-shots"},
 }
 
-# Divot depth is a direct attack-angle proxy for how much sole a golfer needs
-# under the leading edge, independent of turf: a deep digger wants a wide sole
-# regardless of ground firmness, a shallow sweeper wants a narrow sole so the
-# leading edge (not the sole) meets the turf first.
+# Match sole width to divot depth independently of turf firmness.
 _SOLE_WIDTH_FOR_DIVOT = {"Deep": "wide", "Medium": "medium", "Shallow": "narrow"}
 
 # Greenside shot-shaping preference maps straight to the two most common
@@ -886,18 +677,7 @@ def _bounce_tier(bounce: float) -> str:
 def _select_wedge_configuration_candidates(
     club: dict[str, Any], target_loft: float
 ) -> list[dict[str, Any]]:
-    """All configurations at the loft(s) closest to what the golfer is shopping for.
-
-    Usually 1-4 (a wedge often offers several bounce/grind options at the
-    same loft) - score_wedge scores each candidate fully and keeps whichever
-    fits best, rather than this function guessing which one to pick.
-
-    Compares by gap, not by a single "closest loft" value: when two distinct
-    lofts are equally close to the target (e.g. target 48, offered lofts 46
-    and 50), both are real candidates and must both be scored - picking one
-    "closest loft" via min() silently drops whichever loft didn't happen to
-    be first in the catalog's configuration list.
-    """
+    """Return every configuration at the closest available loft, including tied lofts."""
     configurations = club.get("configurations", [])
     if not configurations:
         return []
@@ -912,14 +692,7 @@ def _score_wedge_configuration(
     predicted_bounce: str,
     config: dict[str, Any],
 ) -> tuple[float, list[str], set[str]]:
-    """Score one specific loft/bounce/grind configuration's fit.
-
-    Covers only the axes that depend on *which* configuration was picked
-    (bounce tier, grind/turf, sole width, 60 pts combined) - score_wedge
-    scores this once per same-loft candidate and keeps the best result.
-    Everything config-independent (shot-style, forgiveness, workability,
-    base) is scored once in score_wedge itself, not repeated per candidate.
-    """
+    """Score bounce, grind/turf, and sole-width fit for one configuration (60 points)."""
     points = 0.0
     reasons: list[str] = []
     best_for = _grind_best_for(club, config.get("grindCode"))
@@ -982,27 +755,8 @@ def score_wedge(
     golfer: GolferInput,
     predicted_bounce: str,
 ) -> ClubRecommendation:
-    """Score one wedge against the golfer's stated loft and predicted bounce need.
-
-    Scoring weights (max 100 pts):
-      - Bounce tier match (from turf + divot depth) : 30 pts
-      - Grind fit for stated turf/lie                : 18 pts
-      - Sole-width fit for divot depth                : 12 pts
-      - Greenside shot-style fit                      : 12 pts
-      - Forgiveness / contact quality                 : 14 pts
-      - Workability / shot-shaping                    :  9 pts
-      - Base score (always)                           :  5 pts
-
-    Bounce/grind/sole (turf interaction, 60 pts combined) keeps the largest
-    share because wedge fitting is genuinely turf- and lie-centric - every
-    major wedge maker's own fitting guide centers on it, more so than for
-    full-swing clubs. Those three are scored per-candidate across every
-    configuration the wedge offers at the golfer's stated loft
-    (see _score_wedge_configuration) and the best-scoring one wins.
-    Forgiveness/MOI is trimmed relative to the driver/iron scoring: it's a
-    real but smaller factor for short-game clubs, where touch, spin, and
-    turf interaction matter more than off-centre-hit margin.
-    """
+    """Score the best configuration at the requested loft, then add shot style,
+    forgiveness, workability, and base points (100 points total)."""
     candidates = _select_wedge_configuration_candidates(club, golfer.wedge_loft)
     if not candidates:
         score, reasons, best_for = 0.0, [], set()
@@ -1030,14 +784,10 @@ def score_wedge(
     # Same combined trigger as score_iron_set: a digging/inconsistent miss or
     # an explicit Forgiveness goal both call for a forgiving wedge fit.
     forgiveness = float(club.get("forgivenessScore", 6.0))
-    wedge_forgiveness_note = _forgiveness_phrase(club, forgiveness)
+    wedge_forgiveness_note = _forgiveness_phrase(forgiveness)
     triggered = golfer.iron_miss in {"Fat/Thin", "Inconsistent"} or golfer.goal == "Forgiveness"
     if triggered:
-        # Base caps at 12, not the bucket's full 14, reserving real headroom
-        # for the versatility bonus below - at forgiveness=10 (4 real wedges
-        # in the catalog sit there) the old 1.4x/14 cap left zero room for
-        # the +1.4 bonus to add anything, so the reason text printed without
-        # actually changing the score.
+        # Reserve two forgiveness points for the versatility bonus.
         forgiveness_points = min(forgiveness * 1.2, 12)
         if forgiveness >= 8:
             reasons.append(f"High forgiveness helps with off-center wedge contact ({wedge_forgiveness_note}).")
@@ -1112,14 +862,8 @@ def _normalize_iron_model(model: str) -> str:
 def merge_same_name_iron_sets(
     recommendations: list[ClubRecommendation],
 ) -> list[ClubRecommendation]:
-    """Collapse same-brand/same-model iron sets that only differ by year into one entry.
-
-    Sets are merged only when their score and reasons are identical across years
-    (i.e. the years don't actually change the fit). The merged entry's `year` is
-    set to the oldest year in the group so the existing used-condition filter
-    (`year <= USED_MAX_YEAR`) still includes it correctly whenever any year in
-    the group qualifies.
-    """
+    """Merge model years only when scores and reasons match. Use the oldest year
+    for condition filtering and the lowest known MSRP for the merged entry."""
     groups: dict[tuple[str, str], list[ClubRecommendation]] = defaultdict(list)
     for rec in recommendations:
         key = (rec.brand, _normalize_iron_model(rec.model))

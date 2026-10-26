@@ -8,23 +8,7 @@
     <meta name="description" content="{{ meta_description }}">
     <link rel="canonical" href="{{ url_for('index', _external=True) }}">
 
-    <!-- Every icon is the header artwork itself. A simplified vector mark was
-         tried first on the assumption the illustration would mush at 16px;
-         rendered side by side it lost to the artwork at every size, so the
-         artwork is used throughout and the tab icon matches the logo.
-
-         Sizes are multiples of 48 because that is the shape Google asks a
-         favicon to be, and the file it reads is whichever THIS page declares -
-         the favicon in a search result is taken from the site's home page, not
-         from whichever page happened to rank.
-
-         These stay transparent: a browser tab is light or dark depending on
-         the viewer's theme, so the icon has to sit on either. The ball carries
-         a thin outline for the same reason - it is a white disc, drawn for the
-         ink sidebar, and on any light ground it would otherwise not be there
-         at all. favicon-32.png is still generated and still on disk, no longer
-         linked from here: the guides in golf-ai-monetize link it through the
-         proxy, and dropping the file would 404 them. -->
+    <!-- Keep favicon-32.png available for links in the separate site wrapper. -->
     <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='favicon-192.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon-96.png') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -38,10 +22,7 @@
     <meta property="og:title" content="Stickly - Free AI Golf Club Recommendations">
     <meta property="og:description" content="{{ meta_description }}">
     <meta property="og:url" content="{{ url_for('index', _external=True) }}">
-    <!-- A 1200x630 card, not the logo: a square image renders as a thumbnail
-         beside the title, which is what a shared link got before. These
-         dimensions are what Reddit, X, Slack and iMessage all read as a
-         full-width preview. -->
+    <!-- Wide preview card for shared links. -->
     <meta property="og:image" content="{{ url_for('static', filename='og-card.png', _external=True) }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -83,46 +64,14 @@
     }
     </script>
 
-    <!-- Fonts are self-hosted (see the @font-face rules at the top of
-         styles.css) rather than linked from fonts.googleapis.com - that
-         extra DNS+TLS+fetch round trip was the single largest contributor
-         to render-blocking delay on this page.
-
-         Self-hosting removed that round trip but not the serialization that
-         replaced it: an @font-face is only discovered once the stylesheet
-         declaring it has downloaded and parsed, so the fonts sat one level
-         down a dependency chain (HTML -> CSS -> font). Measured on this page,
-         the stylesheet was requested at ~37ms and the fonts not until ~61ms;
-         with these preloads the fonts are requested alongside the stylesheet
-         instead of behind it.
-
-         That delay is visible rather than merely slow, because font-display:
-         swap paints the fallback first and the two faces do not occupy the
-         same space, so every line shifts when the swap lands.
-
-         Preload does not save bytes - every face here is fetched either way -
-         it spends early bandwidth against the render-blocking stylesheet to
-         buy earlier discovery, so only the faces carrying real text earn it.
-         Both faces here do: Archivo sets every label, control and figure on
-         the page and Source Serif 4 sets the headings. Source Serif 4 is
-         also glyph-subset to the punctuation this page's headings actually
-         use rather than shipped as a full Latin font (see the @font-face
-         comment in styles.css), which is what keeps the pair at roughly the
-         same combined weight as the sans-only set they replaced. crossorigin
-         is required even though
-         these are same-origin: fonts are always fetched in CORS mode, and
-         without it the preload is ignored and the file fetched twice. -->
+    <!-- Preload the self-hosted text fonts with the same CORS mode as CSS font requests. -->
     <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/archivo-variable.woff2') }}">
     <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/source-serif-4-variable.woff2') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
     <div class="app-shell">
-      <!-- Mobile only. The sidebar becomes an off-canvas drawer below 920px, so
-           the brand needs a home that stays on screen while the drawer is shut,
-           and the drawer needs a control to open it. Exactly one of these two
-           <h1>s is ever rendered - this one below 920px, the sidebar's above -
-           so the page never carries a duplicate heading. -->
+      <!-- Mobile header and drawer controls. -->
       <header class="mobile-bar">
         <!-- Left, to match the direction the drawer it opens actually slides
              in from - it used to sit on the right while the drawer came from
@@ -601,6 +550,6 @@
       </main>
     </div>
 
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='app.js') }}"></script>
   </body>
 </html>

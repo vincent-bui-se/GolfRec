@@ -1,25 +1,4 @@
-/* Self-hosted, replacing the fonts.googleapis.com/fonts.gstatic.com link -
-   that round trip (DNS + TLS + a second fetch for the actual font files)
-   was measured as the single largest contributor to render-blocking delay
-   on this page (~78% of a 3.2s LCP in a real Lighthouse run). Archivo is a
-   variable font - one file covers a weight range, so it gets a single
-   ranged font-weight declaration rather than repeating the same file
-   behind separate weight-specific @font-face blocks.
-
-   Source Serif 4 replaced Libre Franklin as the display face (see the
-   palette note in :root below) and is glyph-subset rather than a full
-   Latin webfont: this page's headings only ever set plain product copy -
-   club names, section titles, guide titles - so the file was requested
-   from Google Fonts with an explicit text= sample (letters, digits, and
-   the punctuation actually in use, including the degree sign for spec
-   values and an en/em dash) rather than the ~2500-glyph default Latin
-   set. That took it from 122KB down to 31.5KB, in the same range as the
-   29.3KB Libre Franklin file it replaced. A future heading that needs a
-   glyph outside that sample (an accented name, a curly quote) falls back
-   silently to the next face in the stack for that one character rather
-   than breaking - re-run the same Google Fonts request with a wider
-   text= sample and replace this file if that starts happening for real
-   copy. */
+/* Self-hosted fonts. Source Serif 4 contains a subset of heading glyphs. */
 @font-face {
   font-family: "Source Serif 4";
   font-style: normal;
@@ -38,15 +17,7 @@
 :root {
   color-scheme: light;
 
-  /* Second re-skin (this one dropping golf-green, not just cream): ground is
-     cool near-white rather than warm stock, ink is neutral charcoal rather
-     than green-tinted, and the one identity color is a marine teal instead
-     of turf. Token NAMES are unchanged throughout this file on purpose -
-     --turf, --ochre, --flag, --strong/--qualified/--stretch all keep their
-     old names and functional roles, only the values and (for the score
-     badge below) how the bands render changed - so this diff is provably a
-     re-paint, not a restructure, and nothing downstream that reads these
-     variables needed to change. */
+  /* Page surfaces, text, and accent colors. */
   --stock: #fcfcfb;
   --surface: #ffffff;
   --stock-sunk: #f2f2ef;
@@ -70,12 +41,7 @@
      the ground turns white, so they are split. */
   --on-dark: #ffffff;
 
-  /* Fit confidence, redone as typographic hierarchy rather than a
-     red/amber/green stoplight: the score badge below now varies only text
-     color and weight per band, never fill or border, so --strong is the one
-     accent color in the whole scale and --qualified/--stretch are just ink
-     at two steps of fade. A three-hue traffic light reads as a quiz being
-     scored; weight and one color reads as a fact being stated. */
+  /* Score bands vary text color and weight. */
   --strong: #1f5f5b;
   --strong-wash: #e9f1f0;
   --qualified: #55564f;
@@ -83,11 +49,7 @@
   --stretch: #84837b;
   --stretch-wash: #f2f2ef;
 
-  /* Kept for exactly two functional jobs: the focus ring, which must stay
-     visible on a turf fill where a turf ring would vanish, and the tie-note
-     callout. Never a decorative accent - repointed from the old golf-sand
-     ochre to a plain accessible focus blue, which reads as "focus," not as
-     brand, on either the white ground or the teal-filled buttons. */
+  /* Focus-ring and tie-note accent. */
   --ochre: #2f6fed;
   --ochre-soft: #eaf1fd;
   --ochre-deep: #1d4ed8;
@@ -158,15 +120,7 @@ select {
   color: var(--on-dark);
   padding: 32px 28px;
   overflow-y: auto;
-  /* The bar itself is hidden, not the scrolling: on a laptop viewport the
-     intake form is taller than the panel, so a permanent light-on-ink track
-     ran the full height of the sidebar beside every field - the loudest
-     vertical line on the page, and drawn by the browser rather than by us.
-     Wheel, trackpad, touch, arrow keys, Page Up/Down and focus-scroll all
-     still work; only the chrome is gone. The sticky .form-actions shelf
-     below keeps the submit button reachable without the bar's position
-     cue. Restated in no media query, so this covers the desktop sidebar and
-     the mobile drawer alike. */
+  /* Hide scrollbar chrome while keeping keyboard, pointer, and touch scrolling. */
   scrollbar-width: none;
 }
 
@@ -276,19 +230,7 @@ select {
   box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.28);
 }
 
-/* Custom typeahead dropdown for "current driver"/"current irons" (see
-   app.js) - a real, positioned list the page controls, not a native
-   <datalist> popup. Native datalist rendering is entirely up to the
-   browser/OS and unstylable; several mobile browsers show it as an autofill
-   strip glued to the keyboard instead of a list anchored to the field.
-
-   position: fixed with JS-computed top/left/width (see app.js), not
-   position: absolute inside .typeahead-field - the field lives inside
-   .profile-panel, which scrolls (overflow-y: auto) and would clip an
-   absolutely-positioned dropdown whenever the field sits near its edge,
-   which is exactly the "current driver" field's usual position at the top
-   of a long scrollable form. app.js moves this element to a direct child of
-   <body> so no scrolling ancestor can clip it. */
+/* JS positions the listbox against the viewport to avoid sidebar clipping. */
 .typeahead-suggestions {
   position: fixed;
   z-index: 1000;
@@ -417,12 +359,7 @@ select {
   outline-offset: 2px;
 }
 
-/* The intake form is taller than a laptop viewport, so on wide screens the
-   submit button used to sit ~330px below the fold inside the panel's own
-   scroll area - the app's primary action was invisible until you scrolled.
-   Pinning it to the bottom of the panel keeps it reachable at any scroll
-   position. Only above the sidebar breakpoint: below it the panel is static
-   and a sticky bar would ride the viewport over the results. */
+/* Scroll the sidebar independently and keep the form action visible. */
 @media (min-width: 921px) {
   /* A sticky child cannot be pushed past its containing block, so the panel's
      bottom padding would hold the bar 32px short of the floor. The bar's own
@@ -581,13 +518,7 @@ select {
   line-height: 1.1;
 }
 
-/* A wash that clears, not a movement: these tiles read as cells on a paper
-   ticket, and a ticket gets filled in rather than animated. Nothing moves,
-   nothing scales - the ochre is the same one the tiles' own accents use, so
-   it reads as ink landing rather than a UI effect.
-   Applied by updateSpecGrid() in app.js, and only to specs whose value
-   actually changed. The prefers-reduced-motion block near the end of this
-   file already collapses this to 0.001ms via its * rule. */
+/* Highlight changed specs without moving the tiles. */
 @keyframes spec-fill {
   from {
     background-color: var(--ochre-soft);
@@ -866,11 +797,7 @@ select {
   font-size: 0.78rem;
 }
 
-/* The badge spans both card rows rather than sharing row 1 with the title.
-   A 52px badge next to a 19px title forced row 1 to badge height, leaving a
-   ~49px hole between the club name and the reasons below it. Spanning lets
-   the title and reasons stack at their own heights in column 1, so the gap
-   can't reopen no matter how tall the badge gets. */
+/* Span both card rows so the badge does not increase the title row height. */
 .score-block {
   grid-column: 2;
   grid-row: 1 / span 2;
@@ -905,10 +832,7 @@ select {
   font-weight: 600;
 }
 
-/* Bands vary text color and weight only - border and background stay the
-   plain neutral set on .score-badge above for all three. A red/amber/green
-   fill scores the visitor like a quiz; this states the number as a fact and
-   lets weight carry the emphasis, the same move as the reason list below. */
+/* Keep score-band borders and backgrounds consistent. */
 .score-badge.band-high {
   color: var(--strong);
   font-weight: 700;
@@ -1068,11 +992,7 @@ select {
     min-height: 44px;
   }
 
-  /* The intake form itself, which this block used to skip: the category
-     checkboxes sat at 34px and every text field and dropdown at 42px, so the
-     controls a visitor actually fills in were the ones still sized for a
-     mouse. Height rather than min-height on the fields, matching how they are
-     declared above - min-height would not lift a fixed height. */
+  /* Apply the responsive layout to form controls too. */
   .checkbox-option {
     min-height: 44px;
   }
@@ -1085,10 +1005,7 @@ select {
 
 /* ---------- Mobile chrome: the profile drawer ---------- */
 
-/* Inert on desktop, where the profile panel is a permanent sidebar and none of
-   this chrome has anything to do. Everything that drives the drawer lives in
-   the 920px block below - the same breakpoint at which the panel stops being
-   a column of the grid. */
+/* Drawer controls appear only at narrow widths. */
 .mobile-bar,
 .drawer-scrim,
 .drawer-close {
@@ -1097,21 +1014,11 @@ select {
 
 @media (max-width: 920px) {
   .app-shell {
-    /* minmax(0, 1fr), not plain 1fr - a bare 1fr track still defaults to
-       min-width: auto on its grid item, so non-shrinkable content inside
-       (e.g. a results row that doesn't wrap) forces the track past the
-       viewport instead of respecting it. The explicit 0 minimum is what
-       makes the desktop second column (line 55) safe; this mobile
-       single-column override needs the same guard. */
+    /* Zero track minima let the grid shrink inside narrow viewports. */
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* Five tiles at full width divide evenly with no wrap, but the same five
-     columns get cramped once the panel itself narrows below ~920px - "Super
-     Game Improvement" has nowhere to go. Three columns wrap to two rows
-     instead (3 then 2); the nth-child rule below drops the divider on
-     whichever tile now starts the second row, since :first-child alone only
-     ever catches the very first tile, not the first of each wrapped row. */
+  /* Reflow the five spec tiles at smaller widths. */
   .spec-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1127,13 +1034,7 @@ select {
     scroll-padding-top: 68px;
   }
 
-  /* The panel stops being a column of the page and becomes an overlay: fixed,
-     so opening it slides over the results instead of pushing them a screenful
-     further down, and off-canvas until body.drawer-open. Holding the
-     visibility change until the slide finishes keeps the shut panel out of the
-     tab order without cutting the transition short. dvh over vh because this
-     is a long form that scrolls inside a fixed box, which is exactly where a
-     retracting URL bar strands the last field. */
+  /* On narrow screens, the profile panel becomes a fixed drawer. */
   .profile-panel {
     position: fixed;
     top: 0;
@@ -1188,12 +1089,7 @@ select {
       visibility 0s;
   }
 
-  /* Three tracks so the brand centers over the whole bar regardless of the
-     toggle button's width, rather than being pushed off-center by it (a
-     plain two-item flex row puts the brand wherever space-between leaves it,
-     which reads as lopsided once the toggle moved to the left edge). The
-     third track has nothing in it - its only job is mirroring the toggle's
-     column so the middle one is genuinely centered, not just left-shifted. */
+  /* Equal side tracks keep the mobile brand centered. */
   .mobile-bar {
     position: sticky;
     top: 0;
@@ -1237,11 +1133,7 @@ select {
     display: none;
   }
 
-  /* Matches .drawer-close below - same circle, same border, same size - so
-     the button that opens the drawer and the one that closes it read as a
-     pair. It used to be a wide bordered pill with a text label, which had
-     more visual weight than the plain "x" it opens onto and read as a
-     generic dashboard control next to the illustrated brand mark. */
+  /* Match the drawer close control dimensions. */
   .drawer-toggle {
     grid-column: 1;
     justify-self: start;
@@ -1297,15 +1189,7 @@ select {
     cursor: pointer;
   }
 
-  /* The panel used to run the full width here, which left room to pair fields
-     two-up inside each section; at ~370px of drawer that pairing is back to
-     squeezing every field to ~150px, so the base single-column layout is what
-     applies now and the rules that arranged the two columns are gone with it.
-
-     The shelf matches the desktop one: the drawer scrolls internally and the
-     form is long, so the submit button stays on the floor instead of at the
-     end of a scroll. The negative margin bleeds it over the panel's 28px side
-     padding so it reaches the drawer's edges. */
+  /* Stack the narrow drawer fields in one column. */
   .form-actions {
     position: sticky;
     bottom: 0;
@@ -1393,16 +1277,7 @@ select {
     text-align: left;
   }
 
-  /* The tooltip hung off the 16px icon and grew sideways, so whichever edge it
-     grew toward landed wherever the icon happened to sit. On a full-width
-     mobile control that put it past the left of the card, where
-     .recommendations' overflow:hidden chopped the text off. Anchoring to
-     .condition-control instead pins both edges to a box that is already the
-     width of the toolbar, so the tooltip cannot reach either edge regardless
-     of where the icon sits or how narrow the phone is - no viewport
-     arithmetic to keep in sync with the icon's position. Absolute positioning
-     resolves against the nearest positioned ancestor, so taking .info-icon
-     out of that role is what hands the job to the control. */
+  /* Keep tooltips within the viewport near either screen edge. */
   .condition-control {
     position: relative;
   }
@@ -1425,11 +1300,7 @@ select {
     animation-iteration-count: 1 !important;
   }
 
-  /* Reduced motion should remove movement, not feedback. The wash that marks a
-     changed spec tile is pure background-color - nothing translates, scales, or
-     rotates - so it carries no vestibular trigger and stays, on the same
-     grounds as the spinner below. Without it the tiles change in silence and
-     a reduced-motion user cannot tell which numbers moved. */
+  /* Preserve change feedback without movement for reduced-motion users. */
   .spec-tile.spec-changed {
     animation-duration: 0.9s !important;
   }

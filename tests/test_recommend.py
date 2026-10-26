@@ -4,14 +4,12 @@ from preprocess import load_equipment_catalog
 from recommend import (
     ClubRecommendation,
     GolferInput,
-    filter_recommendations_by_budget,
     merge_same_name_iron_sets,
     prioritise_distinctive_reasons,
     recommend_clubs,
     recommend_fairway_woods,
     recommend_irons,
     recommend_wedges,
-    select_recommendations_for_display,
     score_driver,
     score_fairway_wood,
     score_iron_set,
@@ -57,12 +55,6 @@ def test_score_driver_prefers_speed_loft_and_goal_matches():
 
 
 def test_reasons_lead_with_what_distinguishes_each_club():
-    """The displayed reasons must not read identically down the results list.
-
-    Reasons are appended in scoring order, which front-loads statements nearly
-    every club shares. Callers show only the first few, so those must be
-    reordered by how rare they are within the result set.
-    """
     catalog = load_equipment_catalog(EQUIPMENT_DIR)
     golfer = GolferInput(
         handicap=16,
@@ -190,12 +182,6 @@ def test_driver_trajectory_changes_launch_scoring():
 
 
 def test_known_current_driver_prefers_a_modest_step_over_the_extreme():
-    """The core scenario a real current-setup baseline is meant to fix: a
-    golfer already on a "mid" launch driver who says their flight is too high
-    needs a mild reduction (mid-low), not the single most extreme low-launch
-    head in the catalog - jumping straight to the extreme risks overcorrecting
-    them into "too low", which is exactly the failure mode a baseline avoids.
-    """
     base_spec = {
         "brand": "Test",
         "lofts": [10.5],
@@ -249,11 +235,6 @@ def test_known_current_driver_prefers_a_modest_step_over_the_extreme():
 
 
 def test_launch_char_spelling_variants_score_identically_without_a_baseline():
-    """Regression test: the catalog has both "mid-low" and "low-mid" for the
-    same real bucket (different curators, same meaning). The old code checked
-    literal string sets like {"low", "mid-low"} in some branches, so a club
-    spelled "low-mid" could silently fall through to a worse-scoring branch
-    than an otherwise-identical club spelled "mid-low"."""
     base_spec = {
         "brand": "Test",
         "lofts": [10.5],
@@ -392,76 +373,6 @@ def test_iron_specific_shot_shape_goal_and_trajectory_affect_scoring():
     assert "slice" in " ".join(scored.reasons).lower()
 
 
-def test_filter_recommendations_by_budget_keeps_affordable_clubs():
-    recommendations = [
-        ClubRecommendation(
-            name="Affordable",
-            score=90,
-            reasons=[],
-            brand="A",
-            model="One",
-            msrp=599,
-            year=2024,
-        ),
-        ClubRecommendation(
-            name="Premium",
-            score=95,
-            reasons=[],
-            brand="P",
-            model="Two",
-            msrp=899,
-            year=2024,
-        ),
-        ClubRecommendation(
-            name="Unknown",
-            score=80,
-            reasons=[],
-            brand="U",
-            model="Three",
-            msrp=None,
-            year=2024,
-        ),
-    ]
-
-    filtered = filter_recommendations_by_budget(recommendations, max_budget=600)
-
-    assert [rec.name for rec in filtered] == ["Affordable"]
-
-
-def test_filter_recommendations_by_budget_preserves_score_order():
-    recommendations = [
-        ClubRecommendation("Second", 80, [], "B", "Two", 700, 2024),
-        ClubRecommendation("First", 90, [], "A", "One", 650, 2024),
-        ClubRecommendation("Too Much", 99, [], "C", "Three", 1200, 2024),
-    ]
-
-    filtered = filter_recommendations_by_budget(recommendations, max_budget=800)
-
-    assert [rec.name for rec in filtered] == ["First", "Second"]
-
-
-def test_select_recommendations_for_display_uses_default_when_top_score_is_clear():
-    recommendations = [
-        ClubRecommendation(f"Club {score}", score, [], "B", "M", 500, 2024)
-        for score in [98, 96, 95, 94, 93, 92, 91]
-    ]
-
-    selected = select_recommendations_for_display(recommendations, default_limit=5)
-
-    assert [rec.score for rec in selected] == [98, 96, 95, 94, 93]
-
-
-def test_select_recommendations_for_display_expands_flat_top_five_until_score_drops():
-    recommendations = [
-        ClubRecommendation(f"Club {index}", score, [], "B", "M", 500, 2024)
-        for index, score in enumerate([91, 91, 91, 91, 91, 91, 89, 88], start=1)
-    ]
-
-    selected = select_recommendations_for_display(recommendations, default_limit=5)
-
-    assert [rec.score for rec in selected] == [91, 91, 91, 91, 91, 91, 89]
-
-
 def test_driver_recommendations_include_all_years_when_budget_filter_is_separate():
     golfer = GolferInput(
         handicap=12,
@@ -509,14 +420,6 @@ def test_driver_recommendations_include_all_years_when_budget_filter_is_separate
 
 
 def test_forgiveness_floor_bypass_checks_real_fields_not_the_product_name():
-    """Regression test: the floor-bypass for Forgiveness/game-improvement
-    golfers used to check whether "max" or "draw" appeared in the club's
-    *name*, not whether it was actually forgiving or draw-biased. A real
-    catalog club - the Ping G440 SFT ("Straight Flight Technology") - is
-    genuinely draw-bias (drawBiasBuiltIn=True, family="draw-bias") but its
-    name contains neither substring, so it used to get dropped by the score
-    floor even for the exact golfer profile that filter exists to protect.
-    """
     low_score_draw_bias = {
         "brand": "Ping",
         "model": "G440 SFT",
@@ -1013,11 +916,6 @@ def test_score_wedge_uses_the_configuration_at_the_golfers_stated_loft():
 
 
 def test_score_wedge_picks_the_best_overall_fit_among_same_loft_candidates():
-    """Regression test: a genuinely purpose-built specialist grind must beat
-    a generic 'works everywhere' grind at the *same* loft when the
-    specialist is the real fit - a generic grind should not win just by
-    scoring adequately on every axis while the specialist correctly scores
-    low on axes it was never designed for."""
     specialist_club = {
         "brand": "Test",
         "model": "Specialist",
@@ -1071,10 +969,6 @@ def test_score_wedge_picks_the_best_overall_fit_among_same_loft_candidates():
 
 
 def test_score_wedge_considers_both_lofts_when_equidistant_from_target():
-    """When a wedge's two nearest lofts are equally close to the golfer's
-    stated loft, both are real candidates - picking only whichever comes
-    first in the catalog silently drops an equally valid option (and, if
-    that option scores better, understates the club's true fit)."""
     club = {
         "brand": "Test",
         "model": "EquidistantLofts",
@@ -1111,10 +1005,6 @@ def test_score_wedge_considers_both_lofts_when_equidistant_from_target():
 
 
 def test_recommend_irons_breaks_ties_by_lower_msrp():
-    """Two iron sets that score identically are a genuine tie (many real
-    clubs suit the same golfer equally well), but the order they're returned
-    in still needs to be deliberate, not whichever happened to load first
-    from the catalog JSON - cheapest-first is the useful default."""
     base = {
         "ironCategory": "game-improvement",
         "forgivenessScore": 8.0,
