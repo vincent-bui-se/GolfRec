@@ -1,7 +1,37 @@
+import json
+
+import numpy as np
 import pandas as pd
+from sklearn.model_selection import cross_val_score, train_test_split
+
+import train
 
 from synthetic_data import generate_golfer_profiles
-from train import LABEL_COLUMNS, normalize_label_columns, save_artifacts, train_models
+from train import LABEL_COLUMNS, build_base_pipeline, normalize_label_columns, save_artifacts, train_models
+
+
+def test_base_pipeline_balances_classes():
+    assert build_base_pipeline().named_steps["classifier"].class_weight == "balanced"
+
+
+def test_cv_evaluates_the_same_training_procedure_as_the_saved_model(monkeypatch):
+    monkeypatch.setattr(train, "PARAM_GRIDS", {
+        label: {"classifier__n_estimators": [5], "classifier__max_depth": [3]}
+        for label in LABEL_COLUMNS
+    })
+    golfers = normalize_label_columns(generate_golfer_profiles(n=1000, seed=21))
+    models, metrics = train_models(golfers, random_state=21)
+
+    for label, model in models.items():
+        x_train, _, y_train, _ = train_test_split(
+            golfers[train.INPUT_COLUMNS], golfers[label], test_size=0.2,
+            random_state=21, stratify=golfers[label],
+        )
+        cv_scores = cross_val_score(model, x_train, y_train, cv=5, scoring="balanced_accuracy")
+        assert model.named_steps["classifier"].class_weight == "balanced"
+        assert np.isclose(metrics[label]["cv_balanced_accuracy"], cv_scores.mean())
+        assert 0 <= metrics[label]["rule_baseline"]["accuracy"] <= 1
+        assert 0 <= metrics[label]["balanced_accuracy"] <= 1
 
 
 def test_train_models_returns_one_model_and_metric_bundle_per_label():
@@ -27,6 +57,8 @@ def test_save_artifacts_writes_metrics_and_confusion_matrix_images(tmp_path):
     save_artifacts(models, metrics, tmp_path)
 
     assert (tmp_path / "metrics.json").exists()
+    metadata = json.loads((tmp_path / "training_environment.json").read_text())
+    assert metadata["packages"]["scikit-learn"]
     for label in LABEL_COLUMNS:
         assert (tmp_path / f"{label}_model.joblib").exists()
         assert (tmp_path / f"{label}_confusion_matrix.png").exists()

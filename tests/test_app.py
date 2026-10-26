@@ -9,6 +9,59 @@ def client():
     return app_module.app.test_client()
 
 
+@pytest.mark.parametrize("body", [[], [1], "golfer", 12, True, None])
+def test_recommend_endpoint_rejects_non_object_json(client, body):
+    import json
+
+    response = client.post("/api/recommend", data=json.dumps(body), content_type="application/json")
+
+    assert response.status_code == 400
+    assert response.get_json()["field"] == "body"
+
+
+def test_recommend_endpoint_rejects_malformed_json(client):
+    response = client.post("/api/recommend", data="{", content_type="application/json")
+
+    assert response.status_code == 400
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("handicap", -1), ("handicap", 37), ("handicap", "inf"),
+        ("average_score", 67), ("average_score", 113),
+        ("swing_speed", -25), ("swing_speed", 121), ("swing_speed", "nan"),
+        ("driver_carry", 129), ("driver_carry", 316),
+        ("wedge_loft", 45), ("wedge_loft", 63),
+        ("swing_speed", True), ("swing_speed", None),
+        ("swing_speed", []), ("swing_speed", {}), ("swing_speed", ""),
+    ],
+)
+def test_recommend_endpoint_rejects_invalid_numeric_inputs(client, field, value):
+    response = client.post("/api/recommend", json={field: value})
+
+    assert response.status_code == 400
+    assert response.get_json()["field"] == field
+    assert response.get_json()["error"]
+
+
+def test_recommend_endpoint_keeps_defaults_for_missing_numbers(client):
+    response = client.post("/api/recommend", json={})
+
+    assert response.status_code == 200
+    assert response.get_json()["profile"]["handicap"] == 16
+
+
+def test_recommend_endpoint_accepts_numeric_strings_and_form_boundaries(client):
+    response = client.post("/api/recommend", json={
+        "handicap": "0", "average_score": 112, "swing_speed": "120",
+        "driver_carry": 130, "wedge_loft": 62,
+    })
+
+    assert response.status_code == 200
+    assert response.get_json()["profile"]["swing_speed"] == 120
+
+
 def test_current_club_options_sorts_by_label_and_skips_recordless_ids():
     records = [
         {"id": "b-driver", "brand": "Zeta", "model": "One", "year": 2024},
@@ -75,11 +128,6 @@ def test_index_page_renders_swing_tempo_field_and_disclaimer(client):
 
 
 def test_index_page_separates_speed_fields_from_driver_specific_fields(client):
-    """Swing speed/tempo feed shaft_flex and iron_category both, so they need
-    their own section (shown for Driver, Fairway Wood, or Irons) separate
-    from the driver/fairway-wood-only fields (current driver, shot shape,
-    goal) that stay in .wood-fields - see updateConditionalFields() in
-    app.js."""
     response = client.get("/")
     html = response.get_data(as_text=True)
 
@@ -202,10 +250,6 @@ def test_adjust_loft_for_trajectory(loft, trajectory, expected):
 
 
 def test_loft_ladder_is_sorted_numerically_not_alphabetically():
-    """The rungs come off the trained model's own label set, and sklearn orders
-    classes_ as strings - which puts "10.5" between "1" and "8" rather than
-    where a golfer would put it. Sorting by float is what makes index +/- 1 mean
-    one step of loft."""
 
     class FakeModel:
         classes_ = ["10.5", "12", "8", "9"]
@@ -225,14 +269,6 @@ def test_loft_ladder_is_empty_for_a_non_numeric_label_set():
 
 
 def test_ball_flight_changes_the_recommended_driver_loft(client):
-    """The regression this was filed as: "when I say my driver goes too low, it
-    still recommends the same loft".
-
-    Ball flight is not one of the model's nine INPUT_COLUMNS, so the raw
-    prediction is identical for all three answers - the number a golfer is
-    watching never moved no matter what they told it. Asserts the three answers
-    do not all agree, rather than naming lofts, so the label set can change
-    without making this a test of the label set."""
     payload = {
         "shopping_for": ["Driver"],
         "handicap": 14,
@@ -253,12 +289,6 @@ def test_ball_flight_changes_the_recommended_driver_loft(client):
 
 @pytest.mark.parametrize("spec", ["driver_loft", "fairway_wood_loft"])
 def test_ball_flight_adjusts_both_woods_by_one_rung(client, spec):
-    """The fairway wood rides the driver's Ball flight answer: the question sits
-    under "Driver & Fairway Wood" in the form, and recommend.py's _score_wood
-    already reads golfer.driver_trajectory for both categories.
-
-    Compares against the helper rather than a literal, the way the swing-tempo
-    test above does, so the assertion stays true if the ladders change."""
     payload = {
         "shopping_for": ["Driver", "Fairway Wood"],
         "handicap": 14,
@@ -297,14 +327,6 @@ def test_ball_flight_defaults_to_about_right(client):
 
 
 def test_a_golfer_already_on_the_top_rung_still_gets_different_clubs(client):
-    """A slow swinger is predicted at the most lofted driver made, so "too low"
-    has no rung left to climb - and that golfer is exactly the one most likely
-    to give that answer. The loft is pinned by the ladder, deliberately: a
-    fitter facing "already the most loft and still too low" changes the head,
-    not the number.
-
-    What has to keep working is that the answer still does something visible,
-    which it does through recommend.py's launch/spin preferences."""
     payload = {
         "shopping_for": ["Driver"],
         "handicap": 16,

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from functools import lru_cache
+from math import isfinite
 from pathlib import Path
 from typing import Any
 
@@ -48,11 +49,7 @@ MODEL_DIR = PROJECT_ROOT / "models"
 DATASET_PATH = PROJECT_ROOT / "data" / "golfers.csv"
 
 app = Flask(__name__)
-# Render/Cloudflare terminate TLS in front of this app and forward plain HTTP
-# to gunicorn, so request.scheme (and anything built from it, like
-# url_for(..., _external=True)) would read "http" without this - producing
-# a canonical/OG URL for the insecure scheme on a page that's only ever
-# actually served over HTTPS.
+# Trust the HTTPS scheme and host supplied by the deployment proxy.
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 _CONTENT_SECURITY_POLICY = (
@@ -70,17 +67,13 @@ _CONTENT_SECURITY_POLICY = (
 
 @app.after_request
 def _add_security_headers(response):
-    # HSTS only matters over a connection ProxyFix confirms was actually
-    # HTTPS - setting it on a plain-HTTP response (e.g. local dev) would be
-    # a lie the browser can't act on anyway.
+    # Add HSTS only to HTTPS responses.
     if request.is_secure:
         response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     response.headers["Permissions-Policy"] = "geolocation=(), camera=(), microphone=()"
-    # style-src needs 'unsafe-inline' for app.js's element.style.x = ...
-    # positioning of the typeahead dropdown; script-src does not, since
-    # that's the axis that actually matters against injection.
+    # The typeahead dropdown uses inline styles for viewport positioning.
     response.headers["Content-Security-Policy"] = _CONTENT_SECURITY_POLICY
     if request.path.startswith("/static/"):
         response.headers["Cache-Control"] = "public, max-age=3600"
@@ -116,15 +109,7 @@ _FLEX_ORDER = ["L", "A", "R", "S", "X"]
 
 
 def _adjust_flex_for_tempo(flex: str, tempo: str) -> str:
-    """Nudge a speed-predicted flex letter one step for tempo, real-fitting style.
-
-    Swing speed alone predicts a flex band; a fast transition through the ball
-    (tempo) is the standard adjustment fitters make on top of that band, one
-    step firmer or softer, not a full re-fit. Unrecognized flex letters (only
-    possible if a model's label set ever drifts from _FLEX_ORDER) pass through
-    unchanged rather than raising, since this is a display nicety, not a value
-    the recommendation logic depends on.
-    """
+    """Adjust the displayed shaft flex by one step for swing tempo."""
     if flex not in _FLEX_ORDER:
         return flex
     index = _FLEX_ORDER.index(flex)
@@ -136,42 +121,16 @@ def _adjust_flex_for_tempo(flex: str, tempo: str) -> str:
 
 
 def _loft_ladder(model: object) -> list[str]:
-    """The loft labels this model can emit, lowest loft first.
-
-    Read off the trained model rather than copied from synthetic_data's
-    DRIVER_LOFT_LABELS, so the ladder is always the one the prediction being
-    adjusted actually came from. _FLEX_ORDER above is a hand-written copy
-    because flex order is semantic (L < A < R < S < X) and cannot be recovered
-    by sorting; lofts are numbers, so they can.
-    """
+    """Sort numeric model labels from lowest to highest loft."""
     try:
         return sorted((str(label) for label in getattr(model, "classes_", ())), key=float)
     except (TypeError, ValueError):
-        # A label set that is not numeric means this is no longer a loft
-        # ladder; adjusting it by position would be guesswork.
+        # Non-numeric labels cannot define a loft ladder.
         return []
 
 
 def _adjust_loft_for_trajectory(loft: str, trajectory: str, ladder: list[str]) -> str:
-    """Nudge a predicted loft one rung for the golfer's ball flight.
-
-    Ball flight is not one of the model's inputs (see INPUT_COLUMNS), so the
-    predicted loft is byte-identical whether a golfer says their driver flies
-    too low, too high, or about right - which is exactly what a golfer notices
-    when they change that answer and the number does not move. Same situation
-    as swing tempo and shaft flex above, and the same remedy: the model gives
-    the band, the answer the model never saw nudges it one step, the way a
-    fitter would rather than re-fitting from scratch.
-
-    Loft is the primary launch lever on a wood, so the direction is the obvious
-    one: flying too low earns more loft, too high earns less. recommend.py
-    separately prefers higher-launch and higher-spin *heads* for the same
-    answer; those are head construction rather than loft, so the two stack the
-    way a real fitting does instead of double-counting one lever.
-
-    Off-ladder lofts and unrecognised answers pass through unchanged rather
-    than raising, matching _adjust_flex_for_tempo.
-    """
+    """Move the target loft one step for ball flight, clamping at the model limits."""
     if trajectory not in {"Too low", "Too high"} or loft not in ladder:
         return loft
     index = ladder.index(loft)
@@ -220,11 +179,28 @@ def build_model_row(
     )
 
 
-def _coerce_float(value: object, default: float) -> float:
-    try:
-        return float(value)
-    except (TypeError, ValueError):
-        return default
+_NUMERIC_FIELDS = {
+    "handicap": ("Handicap", 0, 36),
+    "average_score": ("Average score", 68, 112),
+    "swing_speed": ("Swing speed", 60, 120),
+    "driver_carry": ("Carry distance", 130, 315),
+    "wedge_loft": ("Wedge loft", WEDGE_LOFT_OPTIONS[0], WEDGE_LOFT_OPTIONS[-1]),
+}
+
+
+def _numeric_input_error(payload: dict[str, Any]) -> tuple[str, str] | None:
+    """Validate supplied numbers; missing fields keep their questionnaire defaults."""
+    for field, (label, minimum, maximum) in _NUMERIC_FIELDS.items():
+        if field not in payload:
+            continue
+        value = payload[field]
+        try:
+            number = float(value) if not isinstance(value, bool) else float("nan")
+        except (TypeError, ValueError, OverflowError):
+            number = float("nan")
+        if not isfinite(number) or not minimum <= number <= maximum:
+            return field, f"{label} must be a number between {minimum} and {maximum}."
+    return None
 
 
 def _current_club_options(records: list[dict[str, Any]]) -> list[dict[str, str]]:
@@ -276,18 +252,7 @@ def favicon():
 
 @app.get("/robots.txt")
 def robots():
-    """A plain static-file response, not a templated/catalog-driven one.
-
-    Distinct from a 404 (which crawlers correctly treat as "no restrictions")
-    - the actual risk this avoids is a 5xx here, which Google's crawler
-    treats as "robots.txt unreachable" and can suppress crawling of the
-    entire site while it persists. Routing through send_from_directory
-    keeps this response independent of catalog loading, model inference, or
-    template rendering, so an unrelated app-logic failure elsewhere can't
-    take robots.txt down with it. It doesn't protect against the host
-    process itself being asleep (Render free-tier hibernation) - only a
-    CDN-level static response or an always-on tier can close that gap.
-    """
+    """Serve robots.txt independently of catalog loading and model inference."""
     return send_from_directory(app.static_folder, "robots.txt", mimetype="text/plain")
 
 
@@ -314,7 +279,13 @@ def index():
 
 @app.post("/api/recommend")
 def api_recommend():
-    payload = request.get_json(silent=True) or {}
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        return jsonify(error="Send the profile as a JSON object.", field="body"), 400
+    numeric_error = _numeric_input_error(payload)
+    if numeric_error:
+        field, message = numeric_error
+        return jsonify(error=message, field=field), 400
 
     raw_shopping_for = payload.get("shopping_for")
     if not isinstance(raw_shopping_for, list):
@@ -325,18 +296,18 @@ def api_recommend():
 
     score_mode = str(payload.get("score_mode", "Handicap"))
     if score_mode == "Average score":
-        handicap = float(estimate_handicap_from_average_score(_coerce_float(payload.get("average_score"), 90)))
+        handicap = float(estimate_handicap_from_average_score(float(payload.get("average_score", 90))))
     else:
-        handicap = _coerce_float(payload.get("handicap"), 16)
+        handicap = float(payload.get("handicap", 16))
 
     swing_speed = estimate_swing_speed_from_handicap(handicap)
     driver_carry = round(swing_speed * 2.35)
     speed_mode = str(payload.get("speed_mode", "Swing speed"))
     if speed_mode == "Carry distance":
-        driver_carry = _coerce_float(payload.get("driver_carry"), driver_carry)
+        driver_carry = float(payload.get("driver_carry", driver_carry))
         swing_speed = round(driver_carry / 2.35, 1)
     else:
-        swing_speed = _coerce_float(payload.get("swing_speed"), swing_speed)
+        swing_speed = float(payload.get("swing_speed", swing_speed))
         driver_carry = round(swing_speed * 2.35)
 
     swing_tempo = str(payload.get("swing_tempo", "Moderate"))
@@ -352,11 +323,7 @@ def api_recommend():
     driver_trajectory = str(payload.get("driver_trajectory", "About right"))
     if driver_trajectory not in TRAJECTORIES:
         driver_trajectory = "About right"
-    # None (not defaulted to the driver's value here) so GolferInput's own
-    # effective_iron_shot_shape/effective_iron_goal fallback-to-driver logic
-    # is the single place that decision happens - see the iron_row build
-    # below, which must read the same effective_* values this feeds the
-    # catalog scorer, or the ML model and the scorer can silently diverge.
+    # Keep the driver-to-iron fallback in GolferInput so prediction and scoring agree.
     raw_iron_shot_shape = payload.get("iron_shot_shape")
     iron_shot_shape = str(raw_iron_shot_shape) if raw_iron_shot_shape in SHOT_SHAPES else None
     raw_iron_goal = payload.get("iron_goal")
@@ -379,12 +346,8 @@ def api_recommend():
     wedge_shot_style = str(payload.get("wedge_shot_style", "No preference"))
     if wedge_shot_style not in WEDGE_SHOT_STYLES:
         wedge_shot_style = "No preference"
-    # 56 deg (matches GolferInput.wedge_loft's own default) is the single
-    # most common "do-it-all" wedge loft - a reasonable fallback, not derived
-    # from WEDGE_LOFT_OPTIONS's position, which could silently drift if that
-    # list's contents ever change.
-    wedge_loft = _coerce_float(payload.get("wedge_loft"), 56.0)
-    wedge_loft = max(float(WEDGE_LOFT_OPTIONS[0]), min(float(WEDGE_LOFT_OPTIONS[-1]), wedge_loft))
+    # Use the same default wedge loft as GolferInput.
+    wedge_loft = float(payload.get("wedge_loft", 56.0))
     current_driver_id = str(payload.get("current_driver_id", "")).strip()
     current_iron_set_id = str(payload.get("current_iron_set_id", "")).strip()
 
@@ -448,24 +411,10 @@ def api_recommend():
         divot_depth=divot_depth,
     )
 
-    # fairway_wood_loft and wedge_bounce ride along in driver_specs: both are
-    # predicted from driver_row since neither has its own shot_shape/goal
-    # question, the same way iron_category gets its own prediction from
-    # iron_row below because it does. Only iron_category is actually needed
-    # from iron_row, so that's the only label predicted from it - predicting
-    # (and discarding) the other 4 labels from iron_row was pure waste.
+    # Only the iron category needs a separate feature row.
     driver_specs = predict_specs(models, driver_row)
     driver_specs["shaft_flex"] = _adjust_flex_for_tempo(driver_specs["shaft_flex"], swing_tempo)
-    # Both woods take the driver's Ball flight answer: the question sits under
-    # "Driver & Fairway Wood" in the form and recommend.py's _score_wood
-    # already reads golfer.driver_trajectory for both categories, so leaving
-    # the fairway wood's loft unmoved would have it fitted to a flight the
-    # golfer just said was wrong.
-    #
-    # Applied here, before recommend_clubs() is handed specs["driver_loft"],
-    # so the catalog scoring and every reason it writes ("Sold in your 12 deg
-    # target loft") describe the adjusted target rather than the raw
-    # prediction.
+    # Adjust both wood loft targets before ranking clubs.
     for label in ("driver_loft", "fairway_wood_loft"):
         driver_specs[label] = _adjust_loft_for_trajectory(
             driver_specs[label], driver_trajectory, _loft_ladder(models[label])

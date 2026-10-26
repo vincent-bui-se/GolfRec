@@ -71,11 +71,7 @@ def _shaft_flex(speed: float) -> str:
 
 
 def _fairway_wood_loft(speed: float, handicap: float, goal: str) -> str:
-    """Same shape of rule as _driver_loft: slower speed needs more loft to launch.
-
-    Fairway wood lofts run in finer steps than driver lofts (15/16.5/18/21 vs.
-    8/9/10.5/12), so the thresholds are recalibrated, not reused.
-    """
+    """Choose a fairway loft using speed, handicap, and goal thresholds."""
     if speed < 80:
         loft = "21"
     elif speed < 92:
@@ -93,17 +89,7 @@ def _fairway_wood_loft(speed: float, handicap: float, goal: str) -> str:
 
 
 def _wedge_bounce(turf: str, divot_depth: str) -> str:
-    """Bounce need combines turf/lie firmness with the golfer's attack angle.
-
-    Soft turf and sand need sole material under the leading edge (high bounce)
-    to keep the club from digging; firm turf needs the opposite so the leading
-    edge can reach the ball before the sole does. Divot depth is a direct
-    attack-angle proxy and carries at least as much weight as turf: a deep,
-    steep divot needs bounce to survive even on firm ground, while a shallow,
-    sweeping contact can get away with less bounce even on soft ground. The
-    two signals are combined additively rather than one overriding the other,
-    since neither alone is a reliable predictor.
-    """
+    """Combine turf firmness and divot depth into a bounce tier."""
     score = 0.0
     if turf == "Soft":
         score += 1.0
@@ -131,13 +117,7 @@ def _iron_category(
     iron_miss: str,
     iron_feel: str,
 ) -> str:
-    """Choose iron category from multiple fitting signals, not handicap alone.
-
-    Lower fit scores map to player-focused irons. Higher scores map to more
-    forgiving game-improvement irons. Handicap is intentionally only one input;
-    contact quality, speed, shot pattern, desired outcome, and preferred look
-    can move a golfer into a different category.
-    """
+    """Map handicap, contact, speed, shot shape, goal, and feel to an iron category."""
     fit_score = 0.0
 
     if handicap >= 28:
@@ -190,6 +170,24 @@ def _iron_category(
     return "super-game-improvement"
 
 
+def predict_rule_labels(golfers: pd.DataFrame) -> pd.DataFrame:
+    """Apply the generator's rules without label noise for a baseline comparison."""
+    rows = [
+        {
+            "driver_loft": _driver_loft(r.swing_speed, r.handicap, r.goal),
+            "shaft_flex": _shaft_flex(r.swing_speed),
+            "fairway_wood_loft": _fairway_wood_loft(r.swing_speed, r.handicap, r.goal),
+            "iron_category": _iron_category(
+                r.handicap, r.swing_speed, r.driver_carry, r.shot_shape,
+                r.goal, r.iron_miss, r.iron_feel,
+            ),
+            "wedge_bounce": _wedge_bounce(r.wedge_turf, r.divot_depth),
+        }
+        for r in golfers.itertuples()
+    ]
+    return pd.DataFrame(rows, index=golfers.index)
+
+
 def generate_golfer_profiles(
     n: int = 1500,
     seed: int = 42,
@@ -239,11 +237,7 @@ def generate_golfer_profiles(
         iron_misses.append(iron_miss)
         iron_feels.append(str(rng.choice(IRON_FEELS, p=feel_probs)))
 
-        # Divot depth (attack angle) correlates with iron miss pattern in real
-        # swings - a digging miss (Fat/Thin) comes from a steep, deep-divot
-        # attack angle, while a consistently clean strike tends to sweep the
-        # turf shallower. Sampled per-golfer, not per-handicap-band, since the
-        # correlation is with the miss itself rather than skill level.
+        # Sample divot depth from the miss-pattern assumptions used by this generator.
         if iron_miss == "Fat/Thin":
             divot_probs = [0.10, 0.25, 0.65]
         elif iron_miss == "Inconsistent":

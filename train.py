@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import platform
+from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
@@ -11,14 +13,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, classification_report, confusion_matrix
+from sklearn.metrics import (
+    ConfusionMatrixDisplay, accuracy_score, balanced_accuracy_score,
+    classification_report, confusion_matrix,
+)
 from sklearn.model_selection import GridSearchCV, train_test_split
-from sklearn.utils.class_weight import compute_sample_weight
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
 
 from preprocess import INPUT_COLUMNS, make_feature_frame
-from synthetic_data import save_dataset
+from synthetic_data import predict_rule_labels, save_dataset
 
 
 LABEL_COLUMNS = [
@@ -52,8 +56,7 @@ def normalize_label_columns(golfers: pd.DataFrame) -> pd.DataFrame:
     return normalized
 
 
-# Per-label hyperparameter search grids.
-# Narrower grids keep search fast; each entry is ~16 fits on 75% of 2 000 rows.
+# Twelve parameter combinations per label, evaluated across five folds.
 PARAM_GRIDS: dict[str, dict[str, list[Any]]] = {
     "driver_loft": {
         "classifier__n_estimators": [200, 300],
@@ -84,15 +87,7 @@ PARAM_GRIDS: dict[str, dict[str, list[Any]]] = {
 
 
 def build_base_pipeline(random_state: int = 42) -> Pipeline:
-    """Create the shared preprocessing + Random Forest pipeline (untuned).
-
-    n_jobs=1 here, not -1: GridSearchCV below already parallelises across
-    every fold x hyperparameter combination with its own n_jobs=-1. Letting
-    the classifier inside each of those also claim every core means dozens of
-    fits fight over the same cores at once - oversubscription, not extra
-    speed. One parallel layer is the right amount; the outer one already
-    saturates the machine.
-    """
+    """Build a class-balanced forest; GridSearchCV handles parallelism."""
     return Pipeline(
         steps=[
             ("features", FunctionTransformer(make_feature_frame, validate=False)),
@@ -100,6 +95,7 @@ def build_base_pipeline(random_state: int = 42) -> Pipeline:
                 "classifier",
                 RandomForestClassifier(
                     random_state=random_state,
+                    class_weight="balanced",
                     n_jobs=1,
                 ),
             ),
@@ -111,13 +107,7 @@ def train_models(
     golfers: pd.DataFrame,
     random_state: int = 42,
 ) -> tuple[dict[str, Pipeline], dict[str, dict[str, Any]]]:
-    """Train one tuned model per target label and return models plus metrics.
-
-    Uses GridSearchCV with 5-fold stratified cross-validation to find the best
-    Random Forest hyperparameters independently for each label.  class_weight
-    is set to 'balanced' so minority classes (e.g. X-flex, blade irons) are
-    not ignored in favour of the most common labels.
-    """
+    """Tune balanced forests with five-fold CV and evaluate on a held-out 20%."""
     golfers = normalize_label_columns(golfers)
     models: dict[str, Pipeline] = {}
     metrics: dict[str, dict[str, Any]] = {}
@@ -145,13 +135,8 @@ def train_models(
         grid.fit(x_train, y_train)
         best_model: Pipeline = grid.best_estimator_
 
-        # Apply balanced class weights computed from the FULL training set as
-        # per-sample weights so that the refit is not sensitive to fold subsets.
-        best_model.named_steps["classifier"].set_params(class_weight=None)
-        sample_weights = compute_sample_weight("balanced", y=y_train)
-        best_model.fit(x_train, y_train, classifier__sample_weight=sample_weights)
-
         y_pred = best_model.predict(x_test)
+        rule_pred = predict_rule_labels(x_test)[label]
         labels = sorted(y.unique())
 
         print(
@@ -161,6 +146,14 @@ def train_models(
 
         metrics[label] = {
             "accuracy": float(accuracy_score(y_test, y_pred)),
+            "balanced_accuracy": float(balanced_accuracy_score(y_test, y_pred)),
+            "rule_baseline": {
+                "accuracy": float(accuracy_score(y_test, rule_pred)),
+                "balanced_accuracy": float(balanced_accuracy_score(y_test, rule_pred)),
+            },
+            "train_rows": len(x_train),
+            "test_rows": len(x_test),
+            "random_state": random_state,
             "best_params": grid.best_params_,
             "cv_balanced_accuracy": float(grid.best_score_),
             "labels": labels,
@@ -195,6 +188,16 @@ def save_artifacts(
         plt.close()
 
     (output / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    environment = {
+        "python": platform.python_version(),
+        "packages": {
+            name: version(name)
+            for name in ("scikit-learn", "numpy", "scipy", "pandas", "joblib", "matplotlib")
+        },
+    }
+    (output / "training_environment.json").write_text(
+        json.dumps(environment, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def train_from_csv(
@@ -214,7 +217,7 @@ def train_from_csv(
 
 
 if __name__ == "__main__":
-    print("Generating dataset and running hyperparameter search (this may take ~60 s)...")
+    print("Loading dataset and running hyperparameter search...")
     _, run_metrics = train_from_csv()
     for target, values in run_metrics.items():
         print(
