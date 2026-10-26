@@ -48,21 +48,23 @@ Selecting a current driver or iron set supplies a baseline launch/spin bucket fo
 
 ## Training and evaluation
 
-The included CSV has **1,500 synthetic golfer profiles**, not measured fitting sessions. `synthetic_data.py` creates profiles and assigns labels using fitting rules, then replaces about 10% of labels at random.
+The included CSV has **12,000 synthetic golfer profiles**, not measured fitting sessions. `synthetic_data.py` creates profiles and assigns labels using fitting rules, then replaces about 10% of labels with a neighboring category. The generator varies carry distance per mph with handicap rather than using a fixed multiplier, and samples swing speed with a wider spread.
 
 The training task is to approximate those rules from examples. The report also evaluates the rules directly, without the random label replacements, to show whether the forest adds anything on this dataset.
 
 `train.py` reserves a stratified 20% test split for each target and tunes on the remaining 80% with five-fold cross-validation. The forest uses balanced class weights during both CV and the final refit. The search selects hyperparameters by balanced accuracy, giving each class equal weight in the evaluation. The fixed random seed is 42.
 
+The metrics file also reports accuracy across five-fold CV repeated four times on the training rows. Those values describe the selected hyperparameters on reused training data; the held-out split remains the separate evaluation. Models are saved with joblib compression to keep artifact sizes down.
+
 Model and rule-baseline results are evaluated on the same held-out rows. Full results, confusion matrices, and selected hyperparameters are in [`models/metrics.json`](models/metrics.json).
 
 | Target | Model accuracy | Model balanced accuracy (CV) | Rule accuracy |
 | --- | ---: | ---: | ---: |
-| Driver loft | 0.897 | 0.827 | 0.917 |
-| Shaft flex | 0.880 | 0.837 | 0.893 |
-| Fairway wood loft | 0.920 | 0.867 | 0.927 |
-| Iron category | 0.767 | 0.658 | 0.917 |
-| Wedge bounce | 0.903 | 0.898 | 0.907 |
+| Driver loft | 0.907 | 0.870 | 0.913 |
+| Shaft flex | 0.898 | 0.858 | 0.900 |
+| Fairway wood loft | 0.892 | 0.897 | 0.896 |
+| Iron category | 0.828 | 0.809 | 0.901 |
+| Wedge bounce | 0.902 | 0.901 | 0.902 |
 
 These measurements describe agreement with the synthetic labels. They do not measure whether a club will improve a real golfer's results. The baseline already knows the label-generation rules, so its advantage over the forest is expected.
 
@@ -74,7 +76,7 @@ To retrain from the included CSV:
 python train.py
 ```
 
-To regenerate the 1,500 profiles with seed 42 before training:
+To regenerate the 12,000 profiles with seed 42 before training:
 
 ```bash
 python synthetic_data.py
@@ -112,7 +114,7 @@ The fitting rules draw on these references:
 - [TaylorMade game-improvement irons guidance](https://www.taylormadegolf.com/clubhouse/1286718-who-should-play-game-improvement-irons.html?lang=en_US)
 - [PGA TOUR Superstore club fitting guide](https://www.pgatoursuperstore.com/learning-center/golf-club-fitting-guide.html)
 
-The app does not measure launch angle, spin, impact location, or other launch-monitor data. It ranks individual wedge models rather than building a gapped wedge set. Real fitting outcomes and expert-labeled examples would be needed to evaluate it beyond the synthetic rules.
+The app does not measure launch angle, spin, impact location, or other launch-monitor data. When given only swing speed or carry, it estimates the other using 2.35 yards per mph; that approximation does not capture the handicap-dependent carry distribution used in training. It ranks individual wedge models rather than building a gapped wedge set. Real fitting outcomes and expert-labeled examples would be needed to evaluate it beyond the synthetic rules.
 
 ## Code map
 

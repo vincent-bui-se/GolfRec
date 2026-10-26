@@ -28,8 +28,8 @@ TRAJECTORIES = ["Too low", "About right", "Too high"]
 # Tempo adjusts the displayed flex after model inference.
 SWING_TEMPOS = ["Smooth", "Moderate", "Aggressive"]
 # Shared coefficients for synthetic profiles and the fallback speed estimate.
-SWING_SPEED_BASE_MPH = 108.0
-SWING_SPEED_PER_HANDICAP_MPH = -1.15
+SWING_SPEED_BASE_MPH = 106.0
+SWING_SPEED_PER_HANDICAP_MPH = -0.68
 SWING_SPEED_MIN_MPH = 60.0
 SWING_SPEED_MAX_MPH = 120.0
 INPUT_COLUMNS = [
