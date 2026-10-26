@@ -7,6 +7,30 @@ from synthetic_data import (
 )
 
 
+def test_large_dataset_keeps_all_five_fitting_targets():
+    golfers = generate_golfer_profiles(n=12_000, seed=7)
+
+    assert len(golfers) == 12_000
+    assert {"driver_loft", "shaft_flex", "iron_category", "fairway_wood_loft", "wedge_bounce"}.issubset(golfers.columns)
+    assert golfers["wedge_turf"].notna().all()
+    assert golfers["divot_depth"].notna().all()
+
+
+def test_label_noise_changes_only_to_neighboring_categories():
+    golfers = generate_golfer_profiles(n=1000, seed=7, noise_rate=1)
+    baseline = predict_rule_labels(golfers)
+    orders = {
+        "driver_loft": ["8", "9", "10.5", "12"],
+        "shaft_flex": ["L", "A", "R", "S", "X"],
+        "fairway_wood_loft": ["15", "16.5", "18", "21"],
+        "iron_category": ["blade", "players-cb", "players-distance", "game-improvement", "super-game-improvement"],
+        "wedge_bounce": ["Low", "Mid", "High"],
+    }
+    for label, order in orders.items():
+        gaps = (golfers[label].map(order.index) - baseline[label].map(order.index)).abs()
+        assert gaps.eq(1).all(), label
+
+
 def test_rule_baseline_matches_generated_labels_without_noise():
     import pandas as pd
 

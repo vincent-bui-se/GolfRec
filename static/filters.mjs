@@ -56,4 +56,3 @@ export function maxMsrp(clubs, fallback) {
   }
   return Math.ceil(Math.max(...prices) / 25) * 25;
 }
-

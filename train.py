@@ -17,7 +17,7 @@ from sklearn.metrics import (
     ConfusionMatrixDisplay, accuracy_score, balanced_accuracy_score,
     classification_report, confusion_matrix,
 )
-from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.model_selection import GridSearchCV, RepeatedStratifiedKFold, cross_val_score, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
 
@@ -107,7 +107,10 @@ def train_models(
     golfers: pd.DataFrame,
     random_state: int = 42,
 ) -> tuple[dict[str, Pipeline], dict[str, dict[str, Any]]]:
-    """Tune balanced forests with five-fold CV and evaluate on a held-out 20%."""
+    """Tune balanced forests on training rows and evaluate on a held-out 20%.
+
+    Repeated CV describes the selected model on training rows only.
+    """
     golfers = normalize_label_columns(golfers)
     models: dict[str, Pipeline] = {}
     metrics: dict[str, dict[str, Any]] = {}
@@ -139,6 +142,11 @@ def train_models(
         rule_pred = predict_rule_labels(x_test)[label]
         labels = sorted(y.unique())
 
+        repeated = RepeatedStratifiedKFold(n_splits=5, n_repeats=4, random_state=random_state)
+        cv_scores = cross_val_score(
+            best_model, x_train, y_train, cv=repeated, scoring="accuracy", n_jobs=-1
+        )
+
         print(
             f"  [{label}] best params: {grid.best_params_}  "
             f"CV balanced-acc: {grid.best_score_:.3f}"
@@ -147,6 +155,8 @@ def train_models(
         metrics[label] = {
             "accuracy": float(accuracy_score(y_test, y_pred)),
             "balanced_accuracy": float(balanced_accuracy_score(y_test, y_pred)),
+            "cv_accuracy_mean": float(cv_scores.mean()),
+            "cv_accuracy_std": float(cv_scores.std()),
             "rule_baseline": {
                 "accuracy": float(accuracy_score(y_test, rule_pred)),
                 "balanced_accuracy": float(balanced_accuracy_score(y_test, rule_pred)),
@@ -177,7 +187,7 @@ def save_artifacts(
     output.mkdir(parents=True, exist_ok=True)
 
     for label, model in models.items():
-        joblib.dump(model, output / f"{label}_model.joblib")
+        joblib.dump(model, output / f"{label}_model.joblib", compress=3)
         label_names = metrics[label]["labels"]
         matrix = np.asarray(metrics[label]["confusion_matrix"])
         display = ConfusionMatrixDisplay(confusion_matrix=matrix, display_labels=label_names)
@@ -210,7 +220,7 @@ def train_from_csv(
     if path.exists():
         golfers = pd.read_csv(path)
     else:
-        golfers = save_dataset(path, n=2000, seed=random_state)
+        golfers = save_dataset(path, n=12_000, seed=random_state)
     models, metrics = train_models(golfers, random_state=random_state)
     save_artifacts(models, metrics, model_dir=model_dir)
     return models, metrics

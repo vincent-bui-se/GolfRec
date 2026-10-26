@@ -15,7 +15,6 @@ from preprocess import (
     SHOT_SHAPES,
     SWING_SPEED_BASE_MPH,
     SWING_SPEED_MAX_MPH,
-    SWING_SPEED_MIN_MPH,
     SWING_SPEED_PER_HANDICAP_MPH,
     TURF_FIRMNESS,
 )
@@ -34,27 +33,32 @@ IRON_CATEGORY_LABELS = [
 ]
 
 
-def _with_noise(label: str, labels: list[str], rng: np.random.Generator, rate: float) -> str:
+def _with_adjacent_noise(label: str, labels: list[str], rng: np.random.Generator, rate: float) -> str:
+    """Replace a label with a neighboring ordinal category at the requested rate."""
     if rng.random() >= rate:
         return label
-    alternatives = [candidate for candidate in labels if candidate != label]
+    index = labels.index(label)
+    alternatives = [labels[i] for i in (index - 1, index + 1) if 0 <= i < len(labels)]
     return str(rng.choice(alternatives))
 
 
 def _driver_loft(speed: float, handicap: float, goal: str) -> str:
-    if speed < 80:
+    if speed < 82:
         loft = "12"
-    elif speed < 95:
+    elif speed < 96:
         loft = "10.5"
-    elif speed < 106:
+    elif speed < 108:
         loft = "9"
     else:
         loft = "8"
 
     if handicap > 24 and loft in {"8", "9"}:
         loft = "10.5"
-    if goal == "Forgiveness" and speed < 92:
-        loft = "12"
+    if goal == "Forgiveness":
+        if loft == "8":
+            loft = "9"
+        elif loft == "9" and speed < 102:
+            loft = "10.5"
     return loft
 
 
@@ -65,7 +69,7 @@ def _shaft_flex(speed: float) -> str:
         return "A"
     if speed < 97:
         return "R"
-    if speed < 105:
+    if speed < 110:
         return "S"
     return "X"
 
@@ -159,13 +163,13 @@ def _iron_category(
     elif shot_shape in {"Draw", "Hook"}:
         fit_score -= 0.25
 
-    if fit_score <= 0.3:
+    if fit_score <= -0.8 and handicap <= 7:
         return "blade"
-    if fit_score <= 1.25:
+    if fit_score <= 1.0:
         return "players-cb"
-    if fit_score <= 2.35:
+    if fit_score <= 2.3:
         return "players-distance"
-    if fit_score <= 3.65:
+    if fit_score <= 3.6:
         return "game-improvement"
     return "super-game-improvement"
 
@@ -189,22 +193,23 @@ def predict_rule_labels(golfers: pd.DataFrame) -> pd.DataFrame:
 
 
 def generate_golfer_profiles(
-    n: int = 1500,
+    n: int = 12_000,
     seed: int = 42,
     noise_rate: float = 0.10,
 ) -> pd.DataFrame:
     """Generate synthetic golfers and labels for supervised learning."""
-    if not 1000 <= n <= 2000:
-        raise ValueError("n must be between 1,000 and 2,000 for this project")
+    if not 500 <= n <= 100_000:
+        raise ValueError("n must be between 500 and 100,000")
 
     rng = np.random.default_rng(seed)
     handicaps = np.clip(rng.normal(17, 9, n), 0, 36).round(1)
     swing_speeds = np.clip(
-        SWING_SPEED_BASE_MPH + SWING_SPEED_PER_HANDICAP_MPH * handicaps + rng.normal(0, 7, n),
-        SWING_SPEED_MIN_MPH,
+        SWING_SPEED_BASE_MPH + SWING_SPEED_PER_HANDICAP_MPH * handicaps + rng.normal(0, 10, n),
+        65,
         SWING_SPEED_MAX_MPH,
     ).round(1)
-    driver_carry = np.clip(swing_speeds * 2.35 + rng.normal(0, 13, n), 130, 315).round(0)
+    carry_ratio = 2.45 - 0.009 * handicaps
+    driver_carry = np.clip(swing_speeds * carry_ratio + rng.normal(0, 9, n), 120, 330).round(0)
     # A home course's turf firmness is a course/climate trait, not a skill
     # trait, so it is drawn independently of handicap rather than banded with
     # the fields below.
@@ -230,7 +235,7 @@ def generate_golfer_profiles(
             shot_probs = [0.10, 0.22, 0.36, 0.24, 0.08]
             goal_probs = [0.34, 0.48, 0.18]
             miss_probs = [0.1, 0.25, 0.15, 0.5]
-            feel_probs = [0.6, 0.1, 0.3]
+            feel_probs = [0.42, 0.18, 0.40]
         shot_shapes.append(str(rng.choice(SHOT_SHAPES, p=shot_probs)))
         goals.append(str(rng.choice(GOALS, p=goal_probs)))
         iron_miss = str(rng.choice(IRON_MISSES, p=miss_probs))
@@ -260,13 +265,13 @@ def generate_golfer_profiles(
         wedge_turfs,
         divot_depths,
     ):
-        loft = _with_noise(_driver_loft(speed, handicap, goal), DRIVER_LOFT_LABELS, rng, noise_rate)
-        flex = _with_noise(_shaft_flex(speed), SHAFT_FLEX_LABELS, rng, noise_rate)
-        fairway_loft = _with_noise(
+        loft = _with_adjacent_noise(_driver_loft(speed, handicap, goal), DRIVER_LOFT_LABELS, rng, noise_rate)
+        flex = _with_adjacent_noise(_shaft_flex(speed), SHAFT_FLEX_LABELS, rng, noise_rate)
+        fairway_loft = _with_adjacent_noise(
             _fairway_wood_loft(speed, handicap, goal), FAIRWAY_WOOD_LOFT_LABELS, rng, noise_rate
         )
-        bounce = _with_noise(_wedge_bounce(turf, divot), WEDGE_BOUNCE_LABELS, rng, noise_rate)
-        iron = _with_noise(
+        bounce = _with_adjacent_noise(_wedge_bounce(turf, divot), WEDGE_BOUNCE_LABELS, rng, noise_rate)
+        iron = _with_adjacent_noise(
             _iron_category(handicap, speed, carry, shape, goal, i_miss, i_feel),
             IRON_CATEGORY_LABELS,
             rng,
@@ -294,7 +299,7 @@ def generate_golfer_profiles(
     return pd.DataFrame(rows)
 
 
-def save_dataset(path: str | Path, n: int = 1500, seed: int = 42) -> pd.DataFrame:
+def save_dataset(path: str | Path, n: int = 12_000, seed: int = 42) -> pd.DataFrame:
     """Generate and save the golfer dataset to CSV."""
     frame = generate_golfer_profiles(n=n, seed=seed)
     output = Path(path)

@@ -2,7 +2,7 @@ import json
 
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.model_selection import RepeatedStratifiedKFold, cross_val_score, train_test_split
 
 import train
 
@@ -32,6 +32,10 @@ def test_cv_evaluates_the_same_training_procedure_as_the_saved_model(monkeypatch
         assert np.isclose(metrics[label]["cv_balanced_accuracy"], cv_scores.mean())
         assert 0 <= metrics[label]["rule_baseline"]["accuracy"] <= 1
         assert 0 <= metrics[label]["balanced_accuracy"] <= 1
+        repeated = RepeatedStratifiedKFold(n_splits=5, n_repeats=4, random_state=21)
+        repeated_scores = cross_val_score(model, x_train, y_train, cv=repeated, scoring="accuracy")
+        assert np.isclose(metrics[label]["cv_accuracy_mean"], repeated_scores.mean())
+        assert np.isclose(metrics[label]["cv_accuracy_std"], repeated_scores.std())
 
 
 def test_train_models_returns_one_model_and_metric_bundle_per_label():
