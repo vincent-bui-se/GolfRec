@@ -1,34 +1,83 @@
+/* Self-hosted fonts. Source Serif 4 contains a subset of heading glyphs. */
+@font-face {
+  font-family: "Source Serif 4";
+  font-style: normal;
+  font-weight: 600 700;
+  font-display: swap;
+  src: url("/static/fonts/source-serif-4-variable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/static/fonts/archivo-variable.woff2") format("woff2");
+}
+
 :root {
   color-scheme: light;
 
-  --ink: #17241c;
-  --ink-soft: #223327;
+  /* Page surfaces, text, and accent colors. */
+  --stock: #fcfcfb;
+  --surface: #ffffff;
+  --stock-sunk: #f2f2ef;
 
-  --turf: #3b6e4f;
-  --turf-deep: #2a4f38;
+  --ink: #20211f;
+  --ink-soft: #55564f;
+  --ink-faint: #84837b;
+  --ink-text: #20211f;
 
-  --chalk: #f6f2e7;
-  --paper: #fffdf8;
+  --turf: #1f5f5b;
+  --turf-deep: #163f3c;
+  --turf-wash: #e9f1f0;
 
-  --stone: #e2d9c4;
-  --stone-strong: #c9bd9c;
-  --moss: #5b6b5a;
+  /* Rules are grey biased toward the ink's hue rather than a warm beige, so
+     they read as chosen against this ground instead of inherited. */
+  --rule: #e6e5e0;
+  --rule-strong: #d3d2cb;
 
-  --ochre: #a8801f;
-  --ochre-soft: #f1e3bd;
-  --ochre-deep: #7e6017;
+  /* Light type on the ink sidebar and on turf fills. --chalk used to do this
+     job AND serve as the page ground; one token cannot hold both roles once
+     the ground turns white, so they are split. */
+  --on-dark: #ffffff;
+
+  /* Score bands vary text color and weight. */
+  --strong: #1f5f5b;
+  --strong-wash: #e9f1f0;
+  --qualified: #55564f;
+  --qualified-wash: #f2f2ef;
+  --stretch: #84837b;
+  --stretch-wash: #f2f2ef;
+
+  /* Focus-ring and tie-note accent. */
+  --ochre: #2f6fed;
+  --ochre-soft: #eaf1fd;
+  --ochre-deep: #1d4ed8;
 
   --flag: #8b3a2b;
 
-  --ink-text: #1c2620;
-  --shadow: 0 16px 40px rgba(23, 36, 28, 0.1);
-  --radius: 10px;
+  /* Fixed rem steps, ~1.2 ratio. Product UI is read at consistent DPI and the
+     old clamp()ed heading shrank inside the results panel rather than
+     adapting to it. */
+  --t-11: 0.6875rem;
+  --t-12: 0.75rem;
+  --t-13: 0.8125rem;
+  --t-14: 0.875rem;
+  --t-16: 1rem;
+  --t-19: 1.1875rem;
+  --t-22: 1.375rem;
+  --t-26: 1.625rem;
+  --t-32: 2rem;
 
-  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --font-body:
-    "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --shadow: 0 1px 0 rgba(32, 33, 31, 0.04), 0 2px 6px rgba(32, 33, 31, 0.10);
+  --radius: 3px;
+
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: Archivo, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Numerals now set in Archivo with tabular figures (its tnum feature is
+     present and its digits are proportional by default, so the rule does real
+     work here - unlike the previous subset, where tnum was absent entirely). */
+  --font-mono: Archivo, ui-sans-serif, system-ui, sans-serif;
 }
 
 * {
@@ -36,9 +85,10 @@
 }
 
 body {
+  font-variant-numeric: tabular-nums;
   margin: 0;
   min-height: 100vh;
-  background: var(--chalk);
+  background: var(--stock);
   color: var(--ink-text);
   font-family: var(--font-body);
   font-size: 15px;
@@ -67,9 +117,15 @@ select {
   height: 100vh;
   background: var(--ink);
   border-right: 1px solid rgba(0, 0, 0, 0.3);
-  color: var(--chalk);
+  color: var(--on-dark);
   padding: 32px 28px;
   overflow-y: auto;
+  /* Hide scrollbar chrome while keeping keyboard, pointer, and touch scrolling. */
+  scrollbar-width: none;
+}
+
+.profile-panel::-webkit-scrollbar {
+  display: none;
 }
 
 .brand-lockup {
@@ -79,16 +135,18 @@ select {
   margin-bottom: 30px;
 }
 
+/* 44px, not the 30px the old vector mark used: the artwork is an illustration
+   with thin shafts and separate club heads, and below ~40px those details
+   collapse into an unreadable smudge. */
 .brand-mark {
   flex: none;
-  width: 22px;
-  height: 22px;
-  color: var(--flag);
+  width: 44px;
+  height: 44px;
 }
 
 .brand-lockup h1 {
   margin: 0;
-  color: var(--chalk);
+  color: var(--on-dark);
   font-family: var(--font-display);
   font-weight: 600;
   font-style: italic;
@@ -97,11 +155,17 @@ select {
   letter-spacing: 0.01em;
 }
 
-.eyebrow,
+.brand-tagline {
+  margin: 4px 0 0;
+  color: rgba(246, 242, 231, 0.6);
+  font-size: 0.72rem;
+  font-style: italic;
+}
+
 .empty-state p,
 .list-toolbar p {
   margin: 0;
-  color: var(--moss);
+  color: var(--ink-soft);
 }
 
 .profile-form {
@@ -125,7 +189,7 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: var(--chalk);
+  color: var(--on-dark);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -155,7 +219,7 @@ select {
   border: 1px solid rgba(246, 242, 231, 0.24);
   border-radius: 7px;
   background: var(--ink-soft);
-  color: var(--chalk);
+  color: var(--on-dark);
   padding: 0 12px;
   outline: none;
 }
@@ -163,7 +227,86 @@ select {
 .field input:focus,
 .field select:focus {
   border-color: var(--ochre);
-  box-shadow: 0 0 0 3px rgba(168, 128, 31, 0.28);
+  box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.28);
+}
+
+/* JS positions the listbox against the viewport to avoid sidebar clipping. */
+.typeahead-suggestions {
+  position: fixed;
+  z-index: 1000;
+  margin: 4px 0 0;
+  padding: 4px;
+  list-style: none;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid rgba(246, 242, 231, 0.24);
+  border-radius: 7px;
+  background: var(--ink-soft);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+}
+
+.typeahead-suggestions[hidden] {
+  display: none;
+}
+
+.typeahead-suggestions li {
+  padding: 9px 10px;
+  border-radius: 5px;
+  color: var(--on-dark);
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.typeahead-suggestions li[aria-selected="true"] {
+  background: var(--turf);
+}
+
+/* Four independent toggles, unlike .segmented's mutually-exclusive pair, so
+   real checkboxes rather than a segmented control - each one reads on its own. */
+.shopping-for {
+  display: grid;
+  gap: 7px;
+  padding: 0;
+  border: none;
+  margin: 0;
+}
+
+.shopping-for legend {
+  display: block;
+  padding: 0;
+  margin: 0 0 2px;
+  color: rgba(246, 242, 231, 0.7);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(246, 242, 231, 0.24);
+  border-radius: 7px;
+  background: var(--ink-soft);
+  cursor: pointer;
+}
+
+.checkbox-option input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--turf);
+}
+
+.checkbox-option span {
+  color: rgba(246, 242, 231, 0.85);
+  font-size: 0.84rem;
+  font-weight: 500;
+}
+
+.checkbox-option input:focus-visible {
+  outline: 2px solid var(--ochre);
+  outline-offset: 2px;
 }
 
 .segmented {
@@ -197,9 +340,16 @@ select {
 }
 
 .segmented input:checked + span {
-  background: var(--chalk);
+  background: var(--stock);
   color: var(--ink);
   font-weight: 600;
+}
+
+/* Same reasoning as .primary-action:active - on a segmented control the
+   press is the whole interaction, and on touch it is the only confirmation
+   the tap was received before the selection redraws. */
+.segmented input:active + span {
+  transform: translateY(1px);
 }
 
 /* The real radio is visually hidden, so the focus ring has to live on the
@@ -209,7 +359,30 @@ select {
   outline-offset: 2px;
 }
 
+/* Scroll the sidebar independently and keep the form action visible. */
+@media (min-width: 921px) {
+  /* A sticky child cannot be pushed past its containing block, so the panel's
+     bottom padding would hold the bar 32px short of the floor. The bar's own
+     padding replaces it. */
+  .profile-panel {
+    padding-bottom: 0;
+  }
+
+  .form-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    /* Bleed over the panel's 28px side padding so the shelf reaches its
+       edges and no field scrolls through beside the button. */
+    margin: 0 -28px;
+    padding: 14px 28px 20px;
+    background: var(--ink);
+    border-top: 1px dashed rgba(246, 242, 231, 0.22);
+  }
+}
+
 .primary-action {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -217,7 +390,7 @@ select {
   border: 1px solid var(--turf);
   border-radius: 7px;
   background: var(--turf);
-  color: var(--chalk);
+  color: var(--on-dark);
   padding: 0 16px;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -233,6 +406,14 @@ select {
 .primary-action:focus-visible {
   outline: 2px solid var(--ochre);
   outline-offset: 2px;
+}
+
+/* The press itself. 1px is enough to read as a physical push against the
+   raised shadow above, and the shadow tightens with it so the button looks
+   pressed toward the paper rather than just nudged down it. */
+.primary-action:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.24);
 }
 
 .primary-action:disabled {
@@ -255,32 +436,40 @@ select {
 }
 
 .page-header h2 {
-  margin: 4px 0 0;
+  margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.5rem, 2.4vw, 2.15rem);
+  font-size: var(--t-32);
   line-height: 1.15;
   letter-spacing: 0.01em;
   max-width: 640px;
 }
 
-.eyebrow {
-  color: var(--moss);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+.page-subtitle {
+  margin: 8px 0 0;
+  max-width: 480px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.page-disclaimer {
+  margin: 10px 0 20px;
+  color: var(--ink-soft);
+  font-size: var(--t-13);
+  font-style: italic;
+  line-height: 1.4;
 }
 
 /* Spec grid rendered as a single fitting-sheet ticket, torn along the top */
 .spec-grid {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  border: 1px solid var(--stone);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border: 1px solid var(--rule);
   border-radius: var(--radius);
-  background: var(--paper);
+  background: var(--surface);
   box-shadow: var(--shadow);
   margin-bottom: 20px;
   overflow: hidden;
@@ -293,8 +482,8 @@ select {
   height: 4px;
   background-image: repeating-linear-gradient(
     90deg,
-    var(--stone-strong) 0,
-    var(--stone-strong) 8px,
+    var(--rule-strong) 0,
+    var(--rule-strong) 8px,
     transparent 8px,
     transparent 16px
   );
@@ -303,7 +492,7 @@ select {
 .spec-tile {
   min-height: 92px;
   padding: 18px 18px 16px;
-  border-left: 1px dashed var(--stone);
+  border-left: 1px dashed var(--rule);
 }
 
 .spec-tile:first-child {
@@ -312,7 +501,7 @@ select {
 
 .spec-tile span {
   display: block;
-  color: var(--moss);
+  color: var(--ink-soft);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -329,19 +518,39 @@ select {
   line-height: 1.1;
 }
 
+/* Highlight changed specs without moving the tiles. */
+@keyframes spec-fill {
+  from {
+    background-color: var(--ochre-soft);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+.spec-tile.spec-changed {
+  animation: spec-fill 0.9s ease-out;
+}
+
+/* align-content defaults to stretch, which grew the three auto rows to fill
+   340px and left the heading marooned between two bands of empty paper.
+   Centring the block and spacing it explicitly keeps it compact. */
 .empty-state {
   display: grid;
   place-items: center;
-  min-height: 340px;
-  border: 1px solid var(--stone);
+  align-content: center;
+  gap: 10px;
+  min-height: 260px;
+  padding: 32px 24px;
+  border: 1px solid var(--rule);
   border-radius: var(--radius);
-  background: var(--paper);
+  background: var(--surface);
   text-align: center;
   box-shadow: var(--shadow);
 }
 
 .empty-state h3 {
-  margin: 16px 0 6px;
+  margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
   font-weight: 500;
@@ -354,17 +563,17 @@ select {
   border-radius: 999px;
   background: repeating-linear-gradient(
     90deg,
-    var(--stone-strong) 0,
-    var(--stone-strong) 6px,
+    var(--rule-strong) 0,
+    var(--rule-strong) 6px,
     transparent 6px,
     transparent 12px
   );
 }
 
 .recommendations {
-  border: 1px solid var(--stone);
+  border: 1px solid var(--rule);
   border-radius: var(--radius);
-  background: var(--paper);
+  background: var(--surface);
   box-shadow: var(--shadow);
   overflow: hidden;
 }
@@ -373,8 +582,8 @@ select {
   display: flex;
   gap: 6px;
   padding: 10px;
-  border-bottom: 1px solid var(--stone);
-  background: var(--chalk);
+  border-bottom: 1px solid var(--rule);
+  background: var(--stock);
 }
 
 .tab-button {
@@ -382,7 +591,7 @@ select {
   border: 1px solid transparent;
   border-radius: 6px;
   background: transparent;
-  color: var(--moss);
+  color: var(--ink-soft);
   padding: 0 14px;
   font-weight: 600;
   cursor: pointer;
@@ -391,7 +600,7 @@ select {
 .tab-button.active {
   border-color: var(--ink);
   background: var(--ink);
-  color: var(--chalk);
+  color: var(--on-dark);
 }
 
 .tab-button:focus-visible {
@@ -435,7 +644,7 @@ select {
 .condition-control {
   display: grid;
   gap: 6px;
-  color: var(--moss);
+  color: var(--ink-soft);
 }
 
 .control-label {
@@ -449,9 +658,9 @@ select {
 .condition-control select {
   height: 34px;
   min-width: 92px;
-  border: 1px solid var(--stone-strong);
+  border: 1px solid var(--rule-strong);
   border-radius: 7px;
-  background: var(--chalk);
+  background: var(--stock);
   color: var(--ink);
   padding: 0 10px;
   font-weight: 500;
@@ -460,7 +669,7 @@ select {
 
 .condition-control select:focus {
   border-color: var(--turf);
-  box-shadow: 0 0 0 3px rgba(59, 110, 79, 0.16);
+  box-shadow: 0 0 0 3px rgba(31, 95, 91, 0.16);
 }
 
 .info-icon {
@@ -469,9 +678,9 @@ select {
   width: 16px;
   height: 16px;
   place-items: center;
-  border: 1px solid var(--moss);
+  border: 1px solid var(--ink-soft);
   border-radius: 999px;
-  color: var(--moss);
+  color: var(--ink-soft);
   font-size: 0.66rem;
   font-weight: 700;
   line-height: 1;
@@ -487,7 +696,7 @@ select {
   border: 1px solid var(--ink-soft);
   border-radius: 7px;
   background: var(--ink);
-  color: var(--chalk);
+  color: var(--on-dark);
   content: attr(data-tooltip);
   opacity: 0;
   padding: 9px 10px;
@@ -514,14 +723,31 @@ select {
   outline-offset: 2px;
 }
 
+/* Label above the control, matching .condition-control - the two sat beside
+   each other with their labels on different lines, which read as ragged. */
 .budget-control {
   display: grid;
-  grid-template-columns: auto minmax(140px, 220px) minmax(64px, auto);
+  grid-template-columns: minmax(140px, 220px) minmax(64px, auto);
+  grid-template-areas:
+    "label label"
+    "slider value";
   align-items: center;
-  gap: 10px;
-  color: var(--moss);
+  gap: 6px 10px;
+  color: var(--ink-soft);
   font-size: 0.82rem;
   font-weight: 500;
+}
+
+.budget-control > span {
+  grid-area: label;
+}
+
+.budget-control input {
+  grid-area: slider;
+}
+
+.budget-control strong {
+  grid-area: value;
 }
 
 .budget-control input {
@@ -543,29 +769,11 @@ select {
 .club-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 14px;
-  border: 1px solid var(--stone);
-  border-left: 3px solid var(--stone-strong);
+  gap: 8px 16px;
+  border: 1px solid var(--rule);
   border-radius: var(--radius);
-  background: var(--chalk);
-  padding: 13px 14px 13px 12px;
-}
-
-.club-card:hover {
-  border-color: var(--stone-strong);
-  box-shadow: 0 8px 20px rgba(23, 36, 28, 0.08);
-}
-
-.club-card.band-high {
-  border-left-color: var(--turf);
-}
-
-.club-card.band-mid {
-  border-left-color: var(--ochre);
-}
-
-.club-card.band-low {
-  border-left-color: var(--stone-strong);
+  background: var(--stock);
+  padding: 13px 14px;
 }
 
 .club-title {
@@ -584,70 +792,107 @@ select {
 }
 
 .club-meta {
-  color: var(--moss);
+  color: var(--ink-soft);
   font-family: var(--font-mono);
   font-size: 0.78rem;
 }
 
+/* Span both card rows so the badge does not increase the title row height. */
+.score-block {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.score-label {
+  color: var(--ink-soft);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
 .score-badge {
-  align-self: start;
   display: grid;
   place-items: center;
   width: 52px;
   height: 52px;
   border-radius: 999px;
-  border: 2px solid var(--stone-strong);
-  background: var(--paper);
+  border: 2px solid var(--rule-strong);
+  background: var(--surface);
   color: var(--ink);
   font-family: var(--font-mono);
   font-size: 0.9rem;
   font-weight: 600;
 }
 
+/* Keep score-band borders and backgrounds consistent. */
 .score-badge.band-high {
-  border-color: var(--turf);
-  background: var(--turf);
-  color: var(--chalk);
+  color: var(--strong);
+  font-weight: 700;
 }
 
 .score-badge.band-mid {
-  border-color: var(--ochre);
-  background: var(--ochre-soft);
-  color: var(--ochre-deep);
+  color: var(--qualified);
+  font-weight: 600;
 }
 
 .score-badge.band-low {
-  border-color: var(--stone-strong);
-  background: var(--paper);
-  color: var(--moss);
+  color: var(--stretch);
+  font-weight: 600;
 }
 
+/* Full-sentence reasons read poorly crammed into rounded chips, so this is
+   a plain list with a small marker instead of a row of pill badges. */
 .reason-list {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
+  grid-column: 1;
+  display: grid;
   gap: 6px;
-  margin: -2px 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .reason-list li {
-  border: 1px solid var(--stone);
-  border-radius: 999px;
-  background: var(--paper);
+  position: relative;
+  padding-left: 16px;
   color: var(--ink);
-  padding: 4px 9px;
-  font-size: 0.8rem;
-  line-height: 1.2;
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.reason-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--turf);
 }
 
 .notice {
-  border: 1px dashed var(--stone-strong);
+  border: 1px dashed var(--rule-strong);
   border-radius: var(--radius);
   padding: 18px;
-  color: var(--moss);
+  color: var(--ink-soft);
   text-align: center;
+}
+
+.tie-note {
+  border: 1px solid var(--ochre);
+  border-radius: var(--radius);
+  background: var(--ochre-soft);
+  padding: 10px 14px;
+  color: var(--ochre-deep);
+  font-size: 0.9em;
 }
 
 .hidden {
@@ -672,9 +917,8 @@ select {
   justify-items: start;
   gap: 10px;
   border: 1px solid var(--flag);
-  border-left: 3px solid var(--flag);
   border-radius: var(--radius);
-  background: var(--paper);
+  background: var(--surface);
   color: var(--ink-text);
   padding: 16px 18px;
   margin-bottom: 20px;
@@ -690,7 +934,7 @@ select {
 
 .form-error p {
   margin: 0;
-  color: var(--moss);
+  color: var(--ink-soft);
 }
 
 .retry-action {
@@ -706,7 +950,7 @@ select {
 
 .retry-action:hover {
   background: var(--flag);
-  color: var(--paper);
+  color: var(--stock);
 }
 
 .retry-action:focus-visible {
@@ -721,7 +965,7 @@ select {
 .spinner {
   width: 28px;
   height: 28px;
-  border: 3px solid var(--stone);
+  border: 3px solid var(--rule);
   border-top-color: var(--turf);
   border-radius: 999px;
   animation: spin 0.8s linear infinite;
@@ -747,44 +991,241 @@ select {
   .segmented span {
     min-height: 44px;
   }
+
+  /* Apply the responsive layout to form controls too. */
+  .checkbox-option {
+    min-height: 44px;
+  }
+
+  .field input,
+  .field select {
+    height: 44px;
+  }
+}
+
+/* ---------- Mobile chrome: the profile drawer ---------- */
+
+/* Drawer controls appear only at narrow widths. */
+.mobile-bar,
+.drawer-scrim,
+.drawer-close {
+  display: none;
 }
 
 @media (max-width: 920px) {
   .app-shell {
-    grid-template-columns: 1fr;
+    /* Zero track minima let the grid shrink inside narrow viewports. */
+    grid-template-columns: minmax(0, 1fr);
   }
 
+  /* Reflow the five spec tiles at smaller widths. */
+  .spec-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .spec-tile:nth-child(3n + 1) {
+    border-left: none;
+  }
+
+  /* The bar is sticky, so anything scrolled to the top of the viewport comes
+     to rest underneath it - which is where revealResults() puts the results
+     panel after a submit made from the drawer. */
+  html {
+    scroll-padding-top: 68px;
+  }
+
+  /* On narrow screens, the profile panel becomes a fixed drawer. */
   .profile-panel {
-    position: static;
-    height: auto;
-    border-right: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 40;
+    width: min(370px, 86vw);
+    height: 100vh;
+    height: 100dvh;
+    padding-bottom: 0;
+    border-bottom: 0;
+    box-shadow: 16px 0 44px rgba(0, 0, 0, 0.38);
+    overscroll-behavior: contain;
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition:
+      transform 0.24s ease,
+      visibility 0s linear 0.24s;
+  }
+
+  body.drawer-open .profile-panel {
+    transform: translateX(0);
+    visibility: visible;
+    transition:
+      transform 0.24s ease,
+      visibility 0s;
+  }
+
+  /* Without this the results scroll under the open drawer, which reads as the
+     drawer itself drifting. */
+  body.drawer-open {
+    overflow: hidden;
+  }
+
+  .drawer-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    display: block;
+    background: rgba(12, 15, 13, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.24s ease,
+      visibility 0s linear 0.24s;
+  }
+
+  body.drawer-open .drawer-scrim {
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 0.24s ease,
+      visibility 0s;
+  }
+
+  /* Equal side tracks keep the mobile brand centered. */
+  .mobile-bar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+    background: var(--ink);
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
   }
 
-  .profile-form {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
+  .mobile-bar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    grid-column: 2;
   }
 
-  .primary-action {
-    grid-column: 1 / -1;
+  .mobile-bar h1 {
+    margin: 0;
+    color: var(--on-dark);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-style: italic;
+    font-size: 1.45rem;
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+
+  .mobile-bar .brand-mark {
+    width: 34px;
+    height: 34px;
+  }
+
+  /* The bar carries the brand at this width, so the lockup inside the drawer
+     would only ever be a second copy of it one swipe away. */
+  .profile-panel .brand-lockup {
+    display: none;
+  }
+
+  /* Match the drawer close control dimensions. */
+  .drawer-toggle {
+    grid-column: 1;
+    justify-self: start;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(246, 242, 231, 0.3);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--on-dark);
+    cursor: pointer;
+  }
+
+  .drawer-toggle:focus-visible,
+  .drawer-close:focus-visible {
+    outline: 2px solid var(--ochre);
+    outline-offset: 2px;
+  }
+
+  .drawer-toggle-icon {
+    position: relative;
+    width: 15px;
+    height: 11px;
+    border-top: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+  }
+
+  .drawer-toggle-icon::before {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    right: 0;
+    border-top: 2px solid currentColor;
+    content: "";
+  }
+
+  /* The toggle that opened the drawer is underneath it once it's open, so the
+     drawer carries its own way out rather than relying on the sliver of bar
+     left beside it. */
+  .drawer-close {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    margin: 0 0 12px auto;
+    border: 1px solid rgba(246, 242, 231, 0.3);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--on-dark);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  /* Stack the narrow drawer fields in one column. */
+  .form-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    margin: 0 -28px;
+    padding: 14px 28px 20px;
+    background: var(--ink);
+    border-top: 1px dashed rgba(246, 242, 231, 0.22);
   }
 }
 
 @media (max-width: 680px) {
-  .profile-panel,
   .results-panel {
     padding: 20px;
   }
 
-  .profile-form,
+  /* No bottom padding, for the same reason as the desktop panel: it would hold
+     the sticky submit shelf short of the drawer's floor. */
+  .profile-panel {
+    padding: 20px 20px 0;
+  }
+
+  /* Re-bled to match the 20px padding above - the 28px bleed inherited from
+     the wider drawer would overhang the edges by 8px on each side. */
+  .form-actions {
+    margin: 0 -20px;
+    padding: 14px 20px 20px;
+  }
+
   .spec-grid {
     grid-template-columns: 1fr;
   }
 
   .spec-tile {
     border-left: none;
-    border-top: 1px dashed var(--stone);
+    border-top: 1px dashed var(--rule);
   }
 
   .spec-tile:first-child {
@@ -797,8 +1238,28 @@ select {
     display: grid;
   }
 
+  /* A phone can't spare a whole column for badge plus caption - the reasons
+     were wrapping inside 173px. The badge alone holds the title's row and the
+     reasons take the full width underneath; the caption is desktop-only. */
+  .score-block {
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .score-label {
+    display: none;
+  }
+
+  .reason-list {
+    grid-column: 1 / -1;
+  }
+
   .budget-control {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "label"
+      "slider"
+      "value";
     width: 100%;
   }
 
@@ -815,6 +1276,21 @@ select {
   .budget-control strong {
     text-align: left;
   }
+
+  /* Keep tooltips within the viewport near either screen edge. */
+  .condition-control {
+    position: relative;
+  }
+
+  .info-icon {
+    position: static;
+  }
+
+  .info-icon::after {
+    left: 0;
+    right: 0;
+    width: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -824,9 +1300,14 @@ select {
     animation-iteration-count: 1 !important;
   }
 
-  /* Reduced motion should remove movement, not feedback. A small spinner in a
-     fixed spot signals a live request without the large-area motion this
-     setting guards against, so it keeps spinning; everything else stays still. */
+  /* Preserve change feedback without movement for reduced-motion users. */
+  .spec-tile.spec-changed {
+    animation-duration: 0.9s !important;
+  }
+
+  /* A small spinner in a fixed spot signals a live request without the
+     large-area motion this setting guards against, so it keeps spinning;
+     everything else stays still. */
   .spinner {
     animation: spin 0.8s linear infinite !important;
     animation-duration: 0.8s !important;

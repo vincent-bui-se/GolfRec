@@ -13,8 +13,25 @@ SHOT_SHAPES = ["Slice", "Fade", "Straight", "Draw", "Hook"]
 GOALS = ["Distance", "Accuracy", "Forgiveness"]
 IRON_MISSES = ["Fat/Thin", "Left/Right", "Inconsistent", "Consistent"]
 IRON_FEELS = ["Forged/Blade-like", "Confidence-inspiring", "No preference"]
-SHOPPING_TARGETS = ["Driver", "Irons", "Both"]
+# Driver and fairway wood share swing inputs.
+CLUB_CATEGORIES = ["Driver", "Fairway Wood", "Irons", "Wedges"]
+TURF_FIRMNESS = ["Firm", "Normal", "Soft"]
+# Attack angle proxy: how deep a divot the golfer typically takes with an
+# iron/wedge. Combines with turf firmness to drive bounce need, and separately
+# informs sole-width fit (deep divots want a wider sole regardless of turf).
+DIVOT_DEPTHS = ["Shallow", "Medium", "Deep"]
+# Shot style affects grind scoring, not the model features.
+WEDGE_SHOT_STYLES = ["One repeatable shot", "I like to shape shots around the green", "No preference"]
+# The requested wedge loft selects which configurations are scored.
+WEDGE_LOFT_OPTIONS = [46, 48, 50, 52, 54, 56, 58, 60, 62]
 TRAJECTORIES = ["Too low", "About right", "Too high"]
+# Tempo adjusts the displayed flex after model inference.
+SWING_TEMPOS = ["Smooth", "Moderate", "Aggressive"]
+# Shared coefficients for synthetic profiles and the fallback speed estimate.
+SWING_SPEED_BASE_MPH = 106.0
+SWING_SPEED_PER_HANDICAP_MPH = -0.68
+SWING_SPEED_MIN_MPH = 60.0
+SWING_SPEED_MAX_MPH = 120.0
 INPUT_COLUMNS = [
     "handicap",
     "swing_speed",
@@ -23,6 +40,8 @@ INPUT_COLUMNS = [
     "goal",
     "iron_miss",
     "iron_feel",
+    "wedge_turf",
+    "divot_depth",
 ]
 FEATURE_COLUMNS = [
     "handicap",
@@ -43,6 +62,12 @@ FEATURE_COLUMNS = [
     "iron_feel_Forged/Blade-like",
     "iron_feel_Confidence-inspiring",
     "iron_feel_No preference",
+    "wedge_turf_Firm",
+    "wedge_turf_Normal",
+    "wedge_turf_Soft",
+    "divot_depth_Shallow",
+    "divot_depth_Medium",
+    "divot_depth_Deep",
 ]
 
 
@@ -92,6 +117,10 @@ def make_feature_frame(golfers: pd.DataFrame) -> pd.DataFrame:
         frame[f"iron_miss_{value}"] = (golfers["iron_miss"] == value).astype(int)
     for value in IRON_FEELS:
         frame[f"iron_feel_{value}"] = (golfers["iron_feel"] == value).astype(int)
+    for value in TURF_FIRMNESS:
+        frame[f"wedge_turf_{value}"] = (golfers["wedge_turf"] == value).astype(int)
+    for value in DIVOT_DEPTHS:
+        frame[f"divot_depth_{value}"] = (golfers["divot_depth"] == value).astype(int)
 
     return frame[FEATURE_COLUMNS]
 

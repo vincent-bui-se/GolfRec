@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import platform
+from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
@@ -11,29 +13,33 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import ConfusionMatrixDisplay, accuracy_score, classification_report, confusion_matrix
-from sklearn.model_selection import (
-    GridSearchCV,
-    RepeatedStratifiedKFold,
-    cross_val_score,
-    train_test_split,
+from sklearn.metrics import (
+    ConfusionMatrixDisplay, accuracy_score, balanced_accuracy_score,
+    classification_report, confusion_matrix,
 )
+from sklearn.model_selection import GridSearchCV, RepeatedStratifiedKFold, cross_val_score, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
-from sklearn.utils.class_weight import compute_sample_weight
 
 from preprocess import INPUT_COLUMNS, make_feature_frame
-from synthetic_data import save_dataset
+from synthetic_data import predict_rule_labels, save_dataset
 
 
 LABEL_COLUMNS = [
     "driver_loft",
     "shaft_flex",
+    "fairway_wood_loft",
     "iron_category",
+    "wedge_bounce",
 ]
 
+# Labels that are numeric loft degrees rather than category names round-trip
+# through CSV as floats (16.5 -> "16.5", but 15 -> "15.0"); the rest are
+# already display-ready strings.
+_NUMERIC_LABELS = ["driver_loft", "fairway_wood_loft"]
 
-def _clean_driver_loft(value: object) -> str:
+
+def _clean_numeric_label(value: object) -> str:
     number = float(value)
     if number.is_integer():
         return str(int(number))
@@ -43,14 +49,14 @@ def _clean_driver_loft(value: object) -> str:
 def normalize_label_columns(golfers: pd.DataFrame) -> pd.DataFrame:
     """Keep labels as display-ready strings after CSV round-trips."""
     normalized = golfers.copy()
-    normalized["driver_loft"] = normalized["driver_loft"].map(_clean_driver_loft)
-    for label in ["shaft_flex", "iron_category"]:
+    for label in _NUMERIC_LABELS:
+        normalized[label] = normalized[label].map(_clean_numeric_label)
+    for label in ["shaft_flex", "iron_category", "wedge_bounce"]:
         normalized[label] = normalized[label].astype(str)
     return normalized
 
 
-# Per-label hyperparameter search grids.
-# Narrower grids keep search fast; each entry is ~16 fits on 75% of 2 000 rows.
+# Twelve parameter combinations per label, evaluated across five folds.
 PARAM_GRIDS: dict[str, dict[str, list[Any]]] = {
     "driver_loft": {
         "classifier__n_estimators": [200, 300],
@@ -62,23 +68,26 @@ PARAM_GRIDS: dict[str, dict[str, list[Any]]] = {
         "classifier__max_depth": [10, 14, None],
         "classifier__min_samples_leaf": [1, 2],
     },
+    "fairway_wood_loft": {
+        "classifier__n_estimators": [200, 300],
+        "classifier__max_depth": [10, 14, None],
+        "classifier__min_samples_leaf": [1, 2],
+    },
     "iron_category": {
         "classifier__n_estimators": [200, 300],
         "classifier__max_depth": [12, 16, None],
+        "classifier__min_samples_leaf": [1, 2],
+    },
+    "wedge_bounce": {
+        "classifier__n_estimators": [200, 300],
+        "classifier__max_depth": [10, 14, None],
         "classifier__min_samples_leaf": [1, 2],
     },
 }
 
 
 def build_base_pipeline(random_state: int = 42) -> Pipeline:
-    """Create the shared preprocessing + Random Forest pipeline (untuned).
-
-    Balancing is applied as per-sample weights at fit time, not via
-    class_weight. scikit-learn 1.9 mishandles class_weight when the labels are
-    numeric-looking strings - driver_loft's "8"/"9"/"10.5"/"12" raise
-    "The classes, [12, 8, 9], are not in class_weight" - while sample_weight
-    handles the same labels correctly.
-    """
+    """Build a class-balanced forest; GridSearchCV handles parallelism."""
     return Pipeline(
         steps=[
             ("features", FunctionTransformer(make_feature_frame, validate=False)),
@@ -86,7 +95,8 @@ def build_base_pipeline(random_state: int = 42) -> Pipeline:
                 "classifier",
                 RandomForestClassifier(
                     random_state=random_state,
-                    n_jobs=-1,
+                    class_weight="balanced",
+                    n_jobs=1,
                 ),
             ),
         ]
@@ -97,21 +107,9 @@ def train_models(
     golfers: pd.DataFrame,
     random_state: int = 42,
 ) -> tuple[dict[str, Pipeline], dict[str, dict[str, Any]]]:
-    """Train one tuned model per target label and return models plus metrics.
+    """Tune balanced forests on training rows and evaluate on a held-out 20%.
 
-    Uses GridSearchCV with 5-fold stratified cross-validation to find the best
-    Random Forest hyperparameters independently for each label. Balanced sample
-    weights are passed into the search itself, so each candidate is scored under
-    the same weighting the winning model is refitted with. Previously the search
-    ran unweighted and only the final refit was weighted, which meant the chosen
-    hyperparameters were selected for a different objective than the model that
-    shipped.
-
-    A single 20% split of ~1 500 rows leaves only ~300 test rows, and the
-    smallest iron classes land ~30 rows in it, so that estimate swings by
-    several points on the split alone. The headline figure is therefore
-    repeated stratified CV over all rows; the held-out split is kept only to
-    produce a confusion matrix that is easy to read.
+    Repeated CV describes the selected model on training rows only.
     """
     golfers = normalize_label_columns(golfers)
     models: dict[str, Pipeline] = {}
@@ -137,29 +135,35 @@ def train_models(
             n_jobs=-1,
             refit=True,
         )
-        # Weight the search itself; GridSearchCV indexes the weights per fold.
-        train_weights = compute_sample_weight("balanced", y=y_train)
-        grid.fit(x_train, y_train, classifier__sample_weight=train_weights)
+        grid.fit(x_train, y_train)
         best_model: Pipeline = grid.best_estimator_
 
         y_pred = best_model.predict(x_test)
+        rule_pred = predict_rule_labels(x_test)[label]
         labels = sorted(y.unique())
 
-        # Stable estimate: 5-fold x 4 repeats across the whole dataset.
-        tuned = build_base_pipeline(random_state=random_state).set_params(**grid.best_params_)
         repeated = RepeatedStratifiedKFold(n_splits=5, n_repeats=4, random_state=random_state)
-        cv_scores = cross_val_score(tuned, x, y, cv=repeated, scoring="accuracy", n_jobs=-1)
+        cv_scores = cross_val_score(
+            best_model, x_train, y_train, cv=repeated, scoring="accuracy", n_jobs=-1
+        )
 
         print(
             f"  [{label}] best params: {grid.best_params_}  "
-            f"CV balanced-acc: {grid.best_score_:.3f}  "
-            f"repeated-CV acc: {cv_scores.mean():.3f} +/- {cv_scores.std():.3f}"
+            f"CV balanced-acc: {grid.best_score_:.3f}"
         )
 
         metrics[label] = {
             "accuracy": float(accuracy_score(y_test, y_pred)),
+            "balanced_accuracy": float(balanced_accuracy_score(y_test, y_pred)),
             "cv_accuracy_mean": float(cv_scores.mean()),
             "cv_accuracy_std": float(cv_scores.std()),
+            "rule_baseline": {
+                "accuracy": float(accuracy_score(y_test, rule_pred)),
+                "balanced_accuracy": float(balanced_accuracy_score(y_test, rule_pred)),
+            },
+            "train_rows": len(x_train),
+            "test_rows": len(x_test),
+            "random_state": random_state,
             "best_params": grid.best_params_,
             "cv_balanced_accuracy": float(grid.best_score_),
             "labels": labels,
@@ -183,11 +187,6 @@ def save_artifacts(
     output.mkdir(parents=True, exist_ok=True)
 
     for label, model in models.items():
-        # Forests grown on 12,000 rows serialise to ~100 MB across the three
-        # labels, and iron_category alone passes GitHub's 50 MB warning mark.
-        # Since git keeps every version, each retrain would add that again.
-        # compress=3 cuts the set to roughly a fifth for ~1s of extra write
-        # time and ~0.6s to load, which the app pays once at startup.
         joblib.dump(model, output / f"{label}_model.joblib", compress=3)
         label_names = metrics[label]["labels"]
         matrix = np.asarray(metrics[label]["confusion_matrix"])
@@ -199,6 +198,16 @@ def save_artifacts(
         plt.close()
 
     (output / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    environment = {
+        "python": platform.python_version(),
+        "packages": {
+            name: version(name)
+            for name in ("scikit-learn", "numpy", "scipy", "pandas", "joblib", "matplotlib")
+        },
+    }
+    (output / "training_environment.json").write_text(
+        json.dumps(environment, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def train_from_csv(
@@ -218,11 +227,10 @@ def train_from_csv(
 
 
 if __name__ == "__main__":
-    print("Generating dataset and running hyperparameter search (this may take ~60 s)...")
+    print("Loading dataset and running hyperparameter search...")
     _, run_metrics = train_from_csv()
     for target, values in run_metrics.items():
         print(
-            f"{target}: repeated-CV accuracy="
-            f"{values['cv_accuracy_mean']:.3f} +/- {values['cv_accuracy_std']:.3f}  "
-            f"(single-split={values['accuracy']:.3f})"
+            f"{target}: accuracy={values['accuracy']:.3f}  "
+            f"CV balanced-acc={values.get('cv_balanced_accuracy', 'n/a')}"
         )
