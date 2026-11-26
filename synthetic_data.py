@@ -17,6 +17,7 @@ from preprocess import (
     SWING_SPEED_MAX_MPH,
     SWING_SPEED_PER_HANDICAP_MPH,
     TURF_FIRMNESS,
+    carry_yards_per_mph,
 )
 
 
@@ -192,8 +193,11 @@ def predict_rule_labels(golfers: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows, index=golfers.index)
 
 
+DEFAULT_PROFILE_COUNT = 40_000
+
+
 def generate_golfer_profiles(
-    n: int = 12_000,
+    n: int = DEFAULT_PROFILE_COUNT,
     seed: int = 42,
     noise_rate: float = 0.10,
 ) -> pd.DataFrame:
@@ -208,11 +212,9 @@ def generate_golfer_profiles(
         65,
         SWING_SPEED_MAX_MPH,
     ).round(1)
-    carry_ratio = 2.45 - 0.009 * handicaps
+    carry_ratio = carry_yards_per_mph(handicaps)
     driver_carry = np.clip(swing_speeds * carry_ratio + rng.normal(0, 9, n), 120, 330).round(0)
-    # A home course's turf firmness is a course/climate trait, not a skill
-    # trait, so it is drawn independently of handicap rather than banded with
-    # the fields below.
+    # Turf firmness depends on the course, not the golfer, so it ignores handicap.
     wedge_turfs = [str(value) for value in rng.choice(TURF_FIRMNESS, size=n)]
 
     shot_shapes = []
@@ -299,7 +301,7 @@ def generate_golfer_profiles(
     return pd.DataFrame(rows)
 
 
-def save_dataset(path: str | Path, n: int = 12_000, seed: int = 42) -> pd.DataFrame:
+def save_dataset(path: str | Path, n: int = DEFAULT_PROFILE_COUNT, seed: int = 42) -> pd.DataFrame:
     """Generate and save the golfer dataset to CSV."""
     frame = generate_golfer_profiles(n=n, seed=seed)
     output = Path(path)

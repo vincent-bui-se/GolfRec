@@ -1,4 +1,4 @@
-"""Custom web interface for the AI Golf Club Recommendation System."""
+"""Flask app for Stickly: serves the page and the /api/recommend endpoint."""
 
 from __future__ import annotations
 
@@ -29,6 +29,7 @@ from preprocess import (
     TURF_FIRMNESS,
     WEDGE_LOFT_OPTIONS,
     WEDGE_SHOT_STYLES,
+    carry_yards_per_mph,
     estimate_handicap_from_average_score,
     load_equipment_catalog,
 )
@@ -39,6 +40,7 @@ from recommend import (
     recommend_fairway_woods,
     recommend_irons,
     recommend_wedges,
+    with_article,
 )
 from train import LABEL_COLUMNS, train_from_csv
 
@@ -78,6 +80,20 @@ def _add_security_headers(response):
     if request.path.startswith("/static/"):
         response.headers["Cache-Control"] = "public, max-age=3600"
     return response
+
+
+@app.url_defaults
+def _version_static_urls(endpoint: str, values: dict[str, Any]) -> None:
+    """Add ?v=<mtime> to static URLs so a deploy busts the one-hour cache."""
+    if endpoint != "static" or "filename" not in values or "v" in values:
+        return
+    # The CSS loads fonts without ?v, so preloads must match or they download twice.
+    if str(values["filename"]).startswith("fonts/"):
+        return
+    try:
+        values["v"] = int((Path(app.static_folder) / values["filename"]).stat().st_mtime)
+    except OSError:
+        pass
 
 
 @lru_cache(maxsize=1)
@@ -139,6 +155,20 @@ def _adjust_loft_for_trajectory(loft: str, trajectory: str, ladder: list[str]) -
     else:
         index = max(index - 1, 0)
     return ladder[index]
+
+
+def _spec_basis_notes(
+    *, swing_speed: float, handicap: float, wedge_turf: str, divot_depth: str
+) -> dict[str, str]:
+    """Short note shown under each spec. Tempo/ball-flight notes replace these later."""
+    speed = f"For {with_article(f'{swing_speed:.0f}')} mph swing"
+    return {
+        "driver_loft": speed,
+        "shaft_flex": speed,
+        "fairway_wood_loft": speed,
+        "iron_category": f"From {with_article(f'{handicap:g}')} handicap, your miss and feel",
+        "wedge_bounce": f"{wedge_turf} turf, {divot_depth.lower()} divots",
+    }
 
 
 def estimate_swing_speed_from_handicap(handicap: float) -> float:
@@ -297,18 +327,25 @@ def api_recommend():
     score_mode = str(payload.get("score_mode", "Handicap"))
     if score_mode == "Average score":
         handicap = float(estimate_handicap_from_average_score(float(payload.get("average_score", 90))))
+        handicap_source = "average score"
     else:
         handicap = float(payload.get("handicap", 16))
+        handicap_source = "entered"
 
+    # Same handicap-based carry ratio as the training data.
+    carry_ratio = carry_yards_per_mph(handicap)
     swing_speed = estimate_swing_speed_from_handicap(handicap)
-    driver_carry = round(swing_speed * 2.35)
     speed_mode = str(payload.get("speed_mode", "Swing speed"))
     if speed_mode == "Carry distance":
-        driver_carry = float(payload.get("driver_carry", driver_carry))
-        swing_speed = round(driver_carry / 2.35, 1)
+        driver_carry = float(payload.get("driver_carry", round(swing_speed * carry_ratio)))
+        swing_speed = round(
+            max(SWING_SPEED_MIN_MPH, min(SWING_SPEED_MAX_MPH, driver_carry / carry_ratio)), 1
+        )
+        speed_source = "carry"
     else:
         swing_speed = float(payload.get("swing_speed", swing_speed))
-        driver_carry = round(swing_speed * 2.35)
+        driver_carry = round(swing_speed * carry_ratio)
+        speed_source = "entered"
 
     swing_tempo = str(payload.get("swing_tempo", "Moderate"))
     if swing_tempo not in SWING_TEMPOS:
@@ -400,9 +437,7 @@ def api_recommend():
         handicap=handicap,
         swing_speed=swing_speed,
         driver_carry=driver_carry,
-        # Effective, not raw: must match what recommend.py's catalog scorer
-        # sees for this same golfer, or the ML prediction and the scoring
-        # reasons silently disagree about the golfer's iron shot shape/goal.
+        # Same fallback-to-driver values the scorer uses, so the two agree.
         shot_shape=golfer.effective_iron_shot_shape,
         goal=golfer.effective_iron_goal,
         iron_miss=iron_miss,
@@ -413,12 +448,30 @@ def api_recommend():
 
     # Only the iron category needs a separate feature row.
     driver_specs = predict_specs(models, driver_row)
-    driver_specs["shaft_flex"] = _adjust_flex_for_tempo(driver_specs["shaft_flex"], swing_tempo)
+    spec_notes = _spec_basis_notes(
+        swing_speed=swing_speed,
+        handicap=handicap,
+        wedge_turf=wedge_turf,
+        divot_depth=divot_depth,
+    )
+    model_flex = driver_specs["shaft_flex"]
+    driver_specs["shaft_flex"] = _adjust_flex_for_tempo(model_flex, swing_tempo)
+    if driver_specs["shaft_flex"] != model_flex:
+        if swing_tempo == "Aggressive":
+            spec_notes["shaft_flex"] = "One step stiffer for an aggressive tempo"
+        else:
+            spec_notes["shaft_flex"] = "One step softer for a smooth tempo"
     # Adjust both wood loft targets before ranking clubs.
     for label in ("driver_loft", "fairway_wood_loft"):
+        model_loft = driver_specs[label]
         driver_specs[label] = _adjust_loft_for_trajectory(
-            driver_specs[label], driver_trajectory, _loft_ladder(models[label])
+            model_loft, driver_trajectory, _loft_ladder(models[label])
         )
+        if driver_specs[label] != model_loft:
+            if driver_trajectory == "Too low":
+                spec_notes[label] = f"Raised from {model_loft}° for your low ball flight"
+            else:
+                spec_notes[label] = f"Lowered from {model_loft}° for your high ball flight"
     iron_category = predict_specs(models, iron_row, labels=["iron_category"])["iron_category"]
     specs = {**driver_specs, "iron_category": iron_category}
 
@@ -460,9 +513,12 @@ def api_recommend():
     return jsonify(
         {
             "specs": specs,
+            "spec_notes": spec_notes,
             "profile": {
                 "handicap": handicap,
+                "handicap_source": handicap_source,
                 "swing_speed": swing_speed,
+                "speed_source": speed_source,
                 "driver_carry": driver_carry,
                 "shopping_for": shopping_for,
             },

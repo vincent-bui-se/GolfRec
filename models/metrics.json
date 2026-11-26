@@ -1,22 +1,22 @@
 {
   "driver_loft": {
-    "accuracy": 0.9075,
-    "balanced_accuracy": 0.8956448017770129,
-    "cv_accuracy_mean": 0.8929166666666667,
-    "cv_accuracy_std": 0.0067011640002564675,
+    "accuracy": 0.90025,
+    "balanced_accuracy": 0.884468034250276,
+    "cv_accuracy_mean": 0.89559375,
+    "cv_accuracy_std": 0.0025743817522368415,
     "rule_baseline": {
-      "accuracy": 0.9129166666666667,
-      "balanced_accuracy": 0.8990838939493149
+      "accuracy": 0.90225,
+      "balanced_accuracy": 0.8855627826502156
     },
-    "train_rows": 9600,
-    "test_rows": 2400,
+    "train_rows": 32000,
+    "test_rows": 8000,
     "random_state": 42,
     "best_params": {
-      "classifier__max_depth": null,
-      "classifier__min_samples_leaf": 2,
-      "classifier__n_estimators": 300
+      "classifier__learning_rate": 0.1,
+      "classifier__max_leaf_nodes": 15,
+      "classifier__min_samples_leaf": 40
     },
-    "cv_balanced_accuracy": 0.8699996422926282,
+    "cv_balanced_accuracy": 0.8738527262406357,
     "labels": [
       "10.5",
       "12",
@@ -25,50 +25,50 @@
     ],
     "confusion_matrix": [
       [
-        1072,
-        31,
-        1,
-        39
+        3570,
+        125,
+        0,
+        128
       ],
       [
-        58,
-        292,
+        182,
+        1071,
         0,
         0
       ],
       [
         0,
         0,
-        209,
-        18
+        635,
+        93
       ],
       [
-        55,
+        205,
         0,
-        20,
-        605
+        65,
+        1926
       ]
     ],
-    "classification_report": "              precision    recall  f1-score   support\n\n        10.5       0.90      0.94      0.92      1143\n          12       0.90      0.83      0.87       350\n           8       0.91      0.92      0.91       227\n           9       0.91      0.89      0.90       680\n\n    accuracy                           0.91      2400\n   macro avg       0.91      0.90      0.90      2400\nweighted avg       0.91      0.91      0.91      2400\n"
+    "classification_report": "              precision    recall  f1-score   support\n\n        10.5       0.90      0.93      0.92      3823\n          12       0.90      0.85      0.87      1253\n           8       0.91      0.87      0.89       728\n           9       0.90      0.88      0.89      2196\n\n    accuracy                           0.90      8000\n   macro avg       0.90      0.88      0.89      8000\nweighted avg       0.90      0.90      0.90      8000\n"
   },
   "shaft_flex": {
-    "accuracy": 0.8979166666666667,
-    "balanced_accuracy": 0.8642459206322342,
-    "cv_accuracy_mean": 0.8984114583333334,
-    "cv_accuracy_std": 0.006328660814078491,
+    "accuracy": 0.8965,
+    "balanced_accuracy": 0.8638499009235892,
+    "cv_accuracy_mean": 0.8979921874999999,
+    "cv_accuracy_std": 0.003150007362962644,
     "rule_baseline": {
-      "accuracy": 0.8995833333333333,
-      "balanced_accuracy": 0.8705163427865829
+      "accuracy": 0.9,
+      "balanced_accuracy": 0.865912740677131
     },
-    "train_rows": 9600,
-    "test_rows": 2400,
+    "train_rows": 32000,
+    "test_rows": 8000,
     "random_state": 42,
     "best_params": {
-      "classifier__max_depth": 10,
-      "classifier__min_samples_leaf": 2,
-      "classifier__n_estimators": 300
+      "classifier__learning_rate": 0.05,
+      "classifier__max_leaf_nodes": 15,
+      "classifier__min_samples_leaf": 40
     },
-    "cv_balanced_accuracy": 0.857928688768004,
+    "cv_balanced_accuracy": 0.8579325404092797,
     "labels": [
       "A",
       "L",
@@ -78,61 +78,61 @@
     ],
     "confusion_matrix": [
       [
-        320,
-        6,
-        47,
+        1140,
+        36,
+        150,
         0,
         0
       ],
       [
-        16,
-        57,
+        56,
+        208,
         0,
         0,
         0
       ],
       [
-        16,
-        0,
-        865,
-        45,
+        82,
+        1,
+        2878,
+        139,
         0
       ],
       [
         0,
         0,
-        48,
-        707,
-        30
+        166,
+        2307,
+        74
       ],
       [
         0,
         0,
         0,
-        37,
-        206
+        124,
+        639
       ]
     ],
-    "classification_report": "              precision    recall  f1-score   support\n\n           A       0.91      0.86      0.88       373\n           L       0.90      0.78      0.84        73\n           R       0.90      0.93      0.92       926\n           S       0.90      0.90      0.90       785\n           X       0.87      0.85      0.86       243\n\n    accuracy                           0.90      2400\n   macro avg       0.90      0.86      0.88      2400\nweighted avg       0.90      0.90      0.90      2400\n"
+    "classification_report": "              precision    recall  f1-score   support\n\n           A       0.89      0.86      0.88      1326\n           L       0.85      0.79      0.82       264\n           R       0.90      0.93      0.91      3100\n           S       0.90      0.91      0.90      2547\n           X       0.90      0.84      0.87       763\n\n    accuracy                           0.90      8000\n   macro avg       0.89      0.86      0.87      8000\nweighted avg       0.90      0.90      0.90      8000\n"
   },
   "fairway_wood_loft": {
-    "accuracy": 0.8916666666666667,
-    "balanced_accuracy": 0.8914284461423134,
-    "cv_accuracy_mean": 0.8964843750000002,
-    "cv_accuracy_std": 0.00626923039798236,
+    "accuracy": 0.897625,
+    "balanced_accuracy": 0.8976355329276712,
+    "cv_accuracy_mean": 0.8983359375000001,
+    "cv_accuracy_std": 0.0038458692709475648,
     "rule_baseline": {
-      "accuracy": 0.8958333333333334,
-      "balanced_accuracy": 0.8951339797391513
+      "accuracy": 0.898125,
+      "balanced_accuracy": 0.8980870001962942
     },
-    "train_rows": 9600,
-    "test_rows": 2400,
+    "train_rows": 32000,
+    "test_rows": 8000,
     "random_state": 42,
     "best_params": {
-      "classifier__max_depth": 14,
-      "classifier__min_samples_leaf": 2,
-      "classifier__n_estimators": 300
+      "classifier__learning_rate": 0.05,
+      "classifier__max_leaf_nodes": 31,
+      "classifier__min_samples_leaf": 40
     },
-    "cv_balanced_accuracy": 0.8967839932234692,
+    "cv_balanced_accuracy": 0.8986615488238516,
     "labels": [
       "15",
       "16.5",
@@ -141,50 +141,50 @@
     ],
     "confusion_matrix": [
       [
-        442,
-        35,
+        1423,
+        115,
         0,
         0
       ],
       [
-        44,
-        606,
-        40,
+        156,
+        2014,
+        90,
         0
       ],
       [
         0,
-        28,
-        462,
-        83
+        130,
+        1619,
+        238
       ],
       [
         0,
-        3,
-        27,
-        630
+        0,
+        90,
+        2125
       ]
     ],
-    "classification_report": "              precision    recall  f1-score   support\n\n          15       0.91      0.93      0.92       477\n        16.5       0.90      0.88      0.89       690\n          18       0.87      0.81      0.84       573\n          21       0.88      0.95      0.92       660\n\n    accuracy                           0.89      2400\n   macro avg       0.89      0.89      0.89      2400\nweighted avg       0.89      0.89      0.89      2400\n"
+    "classification_report": "              precision    recall  f1-score   support\n\n          15       0.90      0.93      0.91      1538\n        16.5       0.89      0.89      0.89      2260\n          18       0.90      0.81      0.86      1987\n          21       0.90      0.96      0.93      2215\n\n    accuracy                           0.90      8000\n   macro avg       0.90      0.90      0.90      8000\nweighted avg       0.90      0.90      0.90      8000\n"
   },
   "iron_category": {
-    "accuracy": 0.8275,
-    "balanced_accuracy": 0.8102146783518449,
-    "cv_accuracy_mean": 0.8282291666666666,
-    "cv_accuracy_std": 0.008858148614411478,
+    "accuracy": 0.877375,
+    "balanced_accuracy": 0.86322372734728,
+    "cv_accuracy_mean": 0.8682109375000001,
+    "cv_accuracy_std": 0.0029317076368507037,
     "rule_baseline": {
-      "accuracy": 0.9008333333333334,
-      "balanced_accuracy": 0.8873972301434605
+      "accuracy": 0.903125,
+      "balanced_accuracy": 0.8885869150443938
     },
-    "train_rows": 9600,
-    "test_rows": 2400,
+    "train_rows": 32000,
+    "test_rows": 8000,
     "random_state": 42,
     "best_params": {
-      "classifier__max_depth": null,
-      "classifier__min_samples_leaf": 2,
-      "classifier__n_estimators": 300
+      "classifier__learning_rate": 0.05,
+      "classifier__max_leaf_nodes": 31,
+      "classifier__min_samples_leaf": 20
     },
-    "cv_balanced_accuracy": 0.809437667850881,
+    "cv_balanced_accuracy": 0.8536332863558534,
     "labels": [
       "blade",
       "game-improvement",
@@ -194,61 +194,61 @@
     ],
     "confusion_matrix": [
       [
-        137,
+        479,
         0,
-        25,
-        4,
-        0
-      ],
-      [
-        0,
-        360,
+        82,
         1,
-        47,
-        106
-      ],
-      [
-        26,
-        0,
-        425,
-        45,
         0
       ],
       [
         0,
-        54,
-        46,
-        286,
+        1330,
+        1,
+        96,
+        312
+      ],
+      [
+        87,
+        0,
+        1400,
+        99,
+        0
+      ],
+      [
+        3,
+        106,
+        76,
+        1124,
         1
       ],
       [
         0,
-        57,
+        116,
         0,
-        2,
-        778
+        1,
+        2686
       ]
     ],
-    "classification_report": "                        precision    recall  f1-score   support\n\n                 blade       0.84      0.83      0.83       166\n      game-improvement       0.76      0.70      0.73       514\n            players-cb       0.86      0.86      0.86       496\n      players-distance       0.74      0.74      0.74       387\nsuper-game-improvement       0.88      0.93      0.90       837\n\n              accuracy                           0.83      2400\n             macro avg       0.82      0.81      0.81      2400\n          weighted avg       0.83      0.83      0.83      2400\n"
+    "classification_report": "                        precision    recall  f1-score   support\n\n                 blade       0.84      0.85      0.85       562\n      game-improvement       0.86      0.76      0.81      1739\n            players-cb       0.90      0.88      0.89      1586\n      players-distance       0.85      0.86      0.85      1310\nsuper-game-improvement       0.90      0.96      0.93      2803\n\n              accuracy                           0.88      8000\n             macro avg       0.87      0.86      0.87      8000\n          weighted avg       0.88      0.88      0.88      8000\n"
   },
   "wedge_bounce": {
-    "accuracy": 0.9020833333333333,
-    "balanced_accuracy": 0.9059672556211593,
-    "cv_accuracy_mean": 0.8970312500000001,
-    "cv_accuracy_std": 0.0044135823546625754,
+    "accuracy": 0.8995,
+    "balanced_accuracy": 0.9028838304908305,
+    "cv_accuracy_mean": 0.8994609375000001,
+    "cv_accuracy_std": 0.003701995806213012,
     "rule_baseline": {
-      "accuracy": 0.9020833333333333,
-      "balanced_accuracy": 0.9059672556211593
+      "accuracy": 0.8995,
+      "balanced_accuracy": 0.9028838304908305
     },
-    "train_rows": 9600,
-    "test_rows": 2400,
+    "train_rows": 32000,
+    "test_rows": 8000,
     "random_state": 42,
     "best_params": {
-      "classifier__max_depth": 10,
-      "classifier__min_samples_leaf": 1,
-      "classifier__n_estimators": 200
+      "classifier__learning_rate": 0.05,
+      "classifier__max_leaf_nodes": 15,
+      "classifier__min_samples_leaf": 20
     },
-    "cv_balanced_accuracy": 0.9006515110229089,
+    "cv_balanced_accuracy": 0.9024038913670243,
     "labels": [
       "High",
       "Low",
@@ -256,21 +256,21 @@
     ],
     "confusion_matrix": [
       [
-        832,
+        2784,
         0,
-        41
+        122
       ],
       [
         0,
-        619,
-        34
+        2054,
+        131
       ],
       [
-        95,
-        65,
-        714
+        328,
+        223,
+        2358
       ]
     ],
-    "classification_report": "              precision    recall  f1-score   support\n\n        High       0.90      0.95      0.92       873\n         Low       0.90      0.95      0.93       653\n         Mid       0.90      0.82      0.86       874\n\n    accuracy                           0.90      2400\n   macro avg       0.90      0.91      0.90      2400\nweighted avg       0.90      0.90      0.90      2400\n"
+    "classification_report": "              precision    recall  f1-score   support\n\n        High       0.89      0.96      0.93      2906\n         Low       0.90      0.94      0.92      2185\n         Mid       0.90      0.81      0.85      2909\n\n    accuracy                           0.90      8000\n   macro avg       0.90      0.90      0.90      8000\nweighted avg       0.90      0.90      0.90      8000\n"
   }
 }

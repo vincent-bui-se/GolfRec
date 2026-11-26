@@ -1,4 +1,4 @@
-/* Self-hosted fonts. Source Serif 4 contains a subset of heading glyphs. */
+/* Self-hosted fonts. The Source Serif 4 file is subset to heading glyphs. */
 @font-face {
   font-family: "Source Serif 4";
   font-style: normal;
@@ -31,15 +31,19 @@
   --turf-deep: #163f3c;
   --turf-wash: #e9f1f0;
 
-  /* Rules are grey biased toward the ink's hue rather than a warm beige, so
-     they read as chosen against this ground instead of inherited. */
   --rule: #e6e5e0;
   --rule-strong: #d3d2cb;
 
-  /* Light type on the ink sidebar and on turf fills. --chalk used to do this
-     job AND serve as the page ground; one token cannot hold both roles once
-     the ground turns white, so they are split. */
+  /* Text on the dark sidebar and on turf fills. */
   --on-dark: #ffffff;
+  --on-dark-soft: rgba(255, 255, 255, 0.74);
+  --on-dark-faint: rgba(255, 255, 255, 0.56);
+
+  /* Sidebar inputs. */
+  --field: #2d2e2b;
+  --field-hover: #34352f;
+  --field-border: rgba(255, 255, 255, 0.16);
+  --field-border-strong: rgba(255, 255, 255, 0.3);
 
   /* Score bands vary text color and weight. */
   --strong: #1f5f5b;
@@ -56,9 +60,7 @@
 
   --flag: #8b3a2b;
 
-  /* Fixed rem steps, ~1.2 ratio. Product UI is read at consistent DPI and the
-     old clamp()ed heading shrank inside the results panel rather than
-     adapting to it. */
+  /* Type scale, ~1.2 ratio. */
   --t-11: 0.6875rem;
   --t-12: 0.75rem;
   --t-13: 0.8125rem;
@@ -74,9 +76,7 @@
 
   --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-body: Archivo, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  /* Numerals now set in Archivo with tabular figures (its tnum feature is
-     present and its digits are proportional by default, so the rule does real
-     work here - unlike the previous subset, where tnum was absent entirely). */
+  /* Numbers use Archivo with tabular figures (set on body). */
   --font-mono: Archivo, ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -100,6 +100,24 @@ select {
   font: inherit;
 }
 
+::selection {
+  background: var(--turf-wash);
+  color: var(--turf-deep);
+}
+
+.profile-panel ::selection {
+  background: var(--turf);
+  color: var(--on-dark);
+}
+
+input {
+  caret-color: var(--turf);
+}
+
+.profile-panel input {
+  caret-color: var(--on-dark);
+}
+
 .app-shell {
   display: grid;
   grid-template-columns: minmax(320px, 380px) minmax(0, 1fr);
@@ -108,8 +126,7 @@ select {
 
 /* ---------- Sidebar: fitting intake ---------- */
 
-/* Pinned to the viewport so a long results list doesn't stretch the panel
-   into a column of empty ink below the form. */
+/* Sticky so a long results list doesn't stretch the sidebar. */
 .profile-panel {
   position: sticky;
   top: 0;
@@ -135,9 +152,7 @@ select {
   margin-bottom: 30px;
 }
 
-/* 44px, not the 30px the old vector mark used: the artwork is an illustration
-   with thin shafts and separate club heads, and below ~40px those details
-   collapse into an unreadable smudge. */
+/* The mark loses its detail below ~40px. */
 .brand-mark {
   flex: none;
   width: 44px;
@@ -157,7 +172,7 @@ select {
 
 .brand-tagline {
   margin: 4px 0 0;
-  color: rgba(246, 242, 231, 0.6);
+  color: var(--on-dark-faint);
   font-size: 0.72rem;
   font-style: italic;
 }
@@ -209,19 +224,36 @@ select {
 }
 
 .profile-panel .field span {
-  color: rgba(246, 242, 231, 0.7);
+  color: var(--on-dark-soft);
 }
 
 .field input,
 .field select {
   width: 100%;
   height: 42px;
-  border: 1px solid rgba(246, 242, 231, 0.24);
+  border: 1px solid var(--field-border);
   border-radius: 7px;
-  background: var(--ink-soft);
+  background: var(--field);
   color: var(--on-dark);
   padding: 0 12px;
   outline: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.field input:hover,
+.field select:hover {
+  border-color: var(--field-border-strong);
+  background: var(--field-hover);
+}
+
+.field input::placeholder {
+  color: var(--on-dark-faint);
+  opacity: 1;
+}
+
+.field select option {
+  background: var(--field);
+  color: var(--on-dark);
 }
 
 .field input:focus,
@@ -239,9 +271,9 @@ select {
   list-style: none;
   max-height: 220px;
   overflow-y: auto;
-  border: 1px solid rgba(246, 242, 231, 0.24);
+  border: 1px solid var(--field-border-strong);
   border-radius: 7px;
-  background: var(--ink-soft);
+  background: var(--field);
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
 }
 
@@ -261,10 +293,9 @@ select {
   background: var(--turf);
 }
 
-/* Four independent toggles, unlike .segmented's mutually-exclusive pair, so
-   real checkboxes rather than a segmented control - each one reads on its own. */
 .shopping-for {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 7px;
   padding: 0;
   border: none;
@@ -274,8 +305,8 @@ select {
 .shopping-for legend {
   display: block;
   padding: 0;
-  margin: 0 0 2px;
-  color: rgba(246, 242, 231, 0.7);
+  margin: 0 0 8px;
+  color: var(--on-dark-soft);
   font-size: 0.8rem;
   font-weight: 500;
 }
@@ -284,12 +315,22 @@ select {
   display: flex;
   align-items: center;
   gap: 9px;
-  min-height: 34px;
+  min-height: 38px;
   padding: 0 10px;
-  border: 1px solid rgba(246, 242, 231, 0.24);
+  border: 1px solid var(--field-border);
   border-radius: 7px;
-  background: var(--ink-soft);
+  background: transparent;
   cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.checkbox-option:hover {
+  border-color: var(--field-border-strong);
+}
+
+.checkbox-option:has(input:checked) {
+  border-color: rgba(255, 255, 255, 0.42);
+  background: var(--field);
 }
 
 .checkbox-option input {
@@ -299,7 +340,7 @@ select {
 }
 
 .checkbox-option span {
-  color: rgba(246, 242, 231, 0.85);
+  color: var(--on-dark);
   font-size: 0.84rem;
   font-weight: 500;
 }
@@ -314,7 +355,7 @@ select {
   grid-template-columns: 1fr 1fr;
   gap: 4px;
   padding: 4px;
-  border: 1px solid rgba(246, 242, 231, 0.2);
+  border: 1px solid var(--field-border);
   border-radius: 7px;
   background: rgba(0, 0, 0, 0.16);
 }
@@ -334,7 +375,7 @@ select {
   min-height: 34px;
   place-items: center;
   border-radius: 5px;
-  color: rgba(246, 242, 231, 0.65);
+  color: var(--on-dark-soft);
   font-size: 0.84rem;
   font-weight: 500;
 }
@@ -345,15 +386,11 @@ select {
   font-weight: 600;
 }
 
-/* Same reasoning as .primary-action:active - on a segmented control the
-   press is the whole interaction, and on touch it is the only confirmation
-   the tap was received before the selection redraws. */
 .segmented input:active + span {
   transform: translateY(1px);
 }
 
-/* The real radio is visually hidden, so the focus ring has to live on the
-   rendered span or keyboard users get no indication at all. */
+/* The radio is hidden, so show focus on the span. */
 .segmented input:focus-visible + span {
   outline: 2px solid var(--ochre);
   outline-offset: 2px;
@@ -361,9 +398,7 @@ select {
 
 /* Scroll the sidebar independently and keep the form action visible. */
 @media (min-width: 921px) {
-  /* A sticky child cannot be pushed past its containing block, so the panel's
-     bottom padding would hold the bar 32px short of the floor. The bar's own
-     padding replaces it. */
+  /* Bottom padding would stop the sticky button short of the bottom edge. */
   .profile-panel {
     padding-bottom: 0;
   }
@@ -372,8 +407,6 @@ select {
     position: sticky;
     bottom: 0;
     z-index: 2;
-    /* Bleed over the panel's 28px side padding so the shelf reaches its
-       edges and no field scrolls through beside the button. */
     margin: 0 -28px;
     padding: 14px 28px 20px;
     background: var(--ink);
@@ -408,9 +441,6 @@ select {
   outline-offset: 2px;
 }
 
-/* The press itself. 1px is enough to read as a physical push against the
-   raised shadow above, and the shadow tightens with it so the button looks
-   pressed toward the paper rather than just nudged down it. */
 .primary-action:active:not(:disabled) {
   transform: translateY(1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.24);
@@ -419,6 +449,42 @@ select {
 .primary-action:disabled {
   cursor: wait;
   opacity: 0.65;
+}
+
+.action-arrow {
+  flex: none;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.primary-action:hover .action-arrow {
+  transform: translateX(3px);
+}
+
+.saved-note {
+  margin: 0 0 10px;
+  color: var(--on-dark-faint);
+  font-size: var(--t-12);
+}
+
+.link-action {
+  border: none;
+  background: none;
+  padding: 0 2px;
+  color: var(--on-dark-soft);
+  font-size: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.link-action:hover {
+  color: var(--on-dark);
+}
+
+.link-action:focus-visible {
+  outline: 2px solid var(--ochre);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* ---------- Results: the fitting sheet ---------- */
@@ -454,6 +520,13 @@ select {
   line-height: 1.4;
 }
 
+.fit-basis {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-size: var(--t-14);
+  line-height: 1.45;
+}
+
 .page-disclaimer {
   margin: 10px 0 20px;
   color: var(--ink-soft);
@@ -462,7 +535,7 @@ select {
   line-height: 1.4;
 }
 
-/* Spec grid rendered as a single fitting-sheet ticket, torn along the top */
+/* Spec grid, styled like a fitting ticket with a perforated top edge. */
 .spec-grid {
   position: relative;
   display: grid;
@@ -514,8 +587,26 @@ select {
   color: var(--ink);
   font-family: var(--font-mono);
   font-weight: 500;
-  font-size: 1.5rem;
-  line-height: 1.1;
+  font-size: var(--t-22);
+  line-height: 1.15;
+}
+
+.spec-note {
+  display: block;
+  margin-top: 8px;
+  color: var(--ink-soft);
+  font-size: var(--t-12);
+  line-height: 1.35;
+}
+
+/* Categories the golfer isn't shopping for. */
+.spec-tile.spec-off strong {
+  color: var(--ink-faint);
+}
+
+.spec-tile.spec-off span,
+.spec-tile.spec-off .spec-note {
+  color: var(--ink-faint);
 }
 
 /* Highlight changed specs without moving the tiles. */
@@ -532,9 +623,6 @@ select {
   animation: spec-fill 0.9s ease-out;
 }
 
-/* align-content defaults to stretch, which grew the three auto rows to fill
-   340px and left the heading marooned between two bands of empty paper.
-   Centring the block and spacing it explicitly keeps it compact. */
 .empty-state {
   display: grid;
   place-items: center;
@@ -555,6 +643,45 @@ select {
   font-family: var(--font-display);
   font-weight: 500;
   font-size: 1.2rem;
+}
+
+.empty-hint {
+  max-width: 420px;
+  font-size: var(--t-13);
+}
+
+.empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.secondary-action {
+  min-height: 40px;
+  border: 1px solid var(--turf);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--turf);
+  padding: 0 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.secondary-action:hover {
+  background: var(--turf);
+  color: var(--on-dark);
+}
+
+.secondary-action:focus-visible {
+  outline: 2px solid var(--ochre);
+  outline-offset: 2px;
+}
+
+.mobile-only {
+  display: none;
 }
 
 .empty-line {
@@ -723,8 +850,6 @@ select {
   outline-offset: 2px;
 }
 
-/* Label above the control, matching .condition-control - the two sat beside
-   each other with their labels on different lines, which read as ragged. */
 .budget-control {
   display: grid;
   grid-template-columns: minmax(140px, 220px) minmax(64px, auto);
@@ -780,7 +905,15 @@ select {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 4px 8px;
+}
+
+.club-rank {
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: var(--t-13);
+  font-weight: 600;
+  min-width: 1.2em;
 }
 
 .club-title h4 {
@@ -802,38 +935,24 @@ select {
   grid-column: 2;
   grid-row: 1 / span 2;
   align-self: center;
-  display: grid;
-  justify-items: center;
-  gap: 6px;
-}
-
-.score-label {
-  color: var(--ink-soft);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-align: center;
-  line-height: 1.15;
-  white-space: nowrap;
 }
 
 .score-badge {
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 999px;
   border: 2px solid var(--rule-strong);
   background: var(--surface);
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: var(--t-16);
   font-weight: 600;
 }
 
-/* Keep score-band borders and backgrounds consistent. */
 .score-badge.band-high {
+  border-color: var(--turf);
   color: var(--strong);
   font-weight: 700;
 }
@@ -848,14 +967,13 @@ select {
   font-weight: 600;
 }
 
-/* Full-sentence reasons read poorly crammed into rounded chips, so this is
-   a plain list with a small marker instead of a row of pill badges. */
+/* Indented to line up with the club name, past the rank number. */
 .reason-list {
   grid-column: 1;
   display: grid;
   gap: 6px;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 calc(1.2em + 8px);
   list-style: none;
 }
 
@@ -887,19 +1005,19 @@ select {
 }
 
 .tie-note {
-  border: 1px solid var(--ochre);
+  border: 1px solid var(--rule);
   border-radius: var(--radius);
-  background: var(--ochre-soft);
+  background: var(--stock-sunk);
   padding: 10px 14px;
-  color: var(--ochre-deep);
-  font-size: 0.9em;
+  color: var(--ink-soft);
+  font-size: var(--t-13);
+  line-height: 1.45;
 }
 
 .hidden {
   display: none !important;
 }
 
-/* Announced to screen readers only; results render silently otherwise. */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -992,7 +1110,6 @@ select {
     min-height: 44px;
   }
 
-  /* Apply the responsive layout to form controls too. */
   .checkbox-option {
     min-height: 44px;
   }
@@ -1013,12 +1130,21 @@ select {
 }
 
 @media (max-width: 920px) {
-  .app-shell {
-    /* Zero track minima let the grid shrink inside narrow viewports. */
-    grid-template-columns: minmax(0, 1fr);
+  .mobile-only {
+    display: revert;
   }
 
-  /* Reflow the five spec tiles at smaller widths. */
+  .desktop-only {
+    display: none;
+  }
+
+  .app-shell {
+    /* Zero track minima let the grid shrink inside narrow viewports. The
+       header row stays its own height; the results row takes the rest. */
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+
   .spec-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1027,9 +1153,12 @@ select {
     border-left: none;
   }
 
-  /* The bar is sticky, so anything scrolled to the top of the viewport comes
-     to rest underneath it - which is where revealResults() puts the results
-     panel after a submit made from the drawer. */
+  #run-defaults {
+    border-color: var(--rule-strong);
+    color: var(--ink);
+  }
+
+  /* Keep scrolled-to content clear of the sticky header. */
   html {
     scroll-padding-top: 68px;
   }
@@ -1062,8 +1191,6 @@ select {
       visibility 0s;
   }
 
-  /* Without this the results scroll under the open drawer, which reads as the
-     drawer itself drifting. */
   body.drawer-open {
     overflow: hidden;
   }
@@ -1127,13 +1254,11 @@ select {
     height: 34px;
   }
 
-  /* The bar carries the brand at this width, so the lockup inside the drawer
-     would only ever be a second copy of it one swipe away. */
+  /* The header already shows the brand. */
   .profile-panel .brand-lockup {
     display: none;
   }
 
-  /* Match the drawer close control dimensions. */
   .drawer-toggle {
     grid-column: 1;
     justify-self: start;
@@ -1171,9 +1296,6 @@ select {
     content: "";
   }
 
-  /* The toggle that opened the drawer is underneath it once it's open, so the
-     drawer carries its own way out rather than relying on the sliver of bar
-     left beside it. */
   .drawer-close {
     display: grid;
     place-items: center;
@@ -1189,7 +1311,6 @@ select {
     cursor: pointer;
   }
 
-  /* Stack the narrow drawer fields in one column. */
   .form-actions {
     position: sticky;
     bottom: 0;
@@ -1206,30 +1327,52 @@ select {
     padding: 20px;
   }
 
-  /* No bottom padding, for the same reason as the desktop panel: it would hold
-     the sticky submit shelf short of the drawer's floor. */
   .profile-panel {
     padding: 20px 20px 0;
   }
 
-  /* Re-bled to match the 20px padding above - the 28px bleed inherited from
-     the wider drawer would overhang the edges by 8px on each side. */
+  /* Match the 20px panel padding. */
   .form-actions {
     margin: 0 -20px;
     padding: 14px 20px 20px;
   }
 
   .spec-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .spec-tile {
+    min-height: 0;
+    padding: 14px;
     border-left: none;
     border-top: 1px dashed var(--rule);
   }
 
-  .spec-tile:first-child {
+  .spec-tile:nth-child(-n + 2) {
     border-top: none;
+  }
+
+  .spec-tile:nth-child(even) {
+    border-left: 1px dashed var(--rule);
+  }
+
+  .spec-tile:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .spec-tile strong {
+    margin-top: 8px;
+    font-size: var(--t-19);
+  }
+
+  .tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tab-button {
+    flex: none;
+    white-space: nowrap;
   }
 
   .page-header,
@@ -1238,16 +1381,10 @@ select {
     display: grid;
   }
 
-  /* A phone can't spare a whole column for badge plus caption - the reasons
-     were wrapping inside 173px. The badge alone holds the title's row and the
-     reasons take the full width underneath; the caption is desktop-only. */
+  /* Reasons take the full width under the title on phones. */
   .score-block {
     grid-row: 1;
     align-self: start;
-  }
-
-  .score-label {
-    display: none;
   }
 
   .reason-list {
@@ -1300,14 +1437,12 @@ select {
     animation-iteration-count: 1 !important;
   }
 
-  /* Preserve change feedback without movement for reduced-motion users. */
+  /* A color fade, no movement. */
   .spec-tile.spec-changed {
     animation-duration: 0.9s !important;
   }
 
-  /* A small spinner in a fixed spot signals a live request without the
-     large-area motion this setting guards against, so it keeps spinning;
-     everything else stays still. */
+  /* The spinner is small enough to keep spinning. */
   .spinner {
     animation: spin 0.8s linear infinite !important;
     animation-duration: 0.8s !important;

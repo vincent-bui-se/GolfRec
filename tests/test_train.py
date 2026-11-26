@@ -2,6 +2,7 @@ import json
 
 import numpy as np
 import pandas as pd
+import pytest
 from sklearn.model_selection import RepeatedStratifiedKFold, cross_val_score, train_test_split
 
 import train
@@ -14,11 +15,17 @@ def test_base_pipeline_balances_classes():
     assert build_base_pipeline().named_steps["classifier"].class_weight == "balanced"
 
 
-def test_cv_evaluates_the_same_training_procedure_as_the_saved_model(monkeypatch):
+@pytest.fixture(autouse=True)
+def tiny_search_grid(monkeypatch):
+    """These tests cover the training plumbing, not hyperparameters, so a
+    one-combination grid of five boosting rounds keeps them fast."""
     monkeypatch.setattr(train, "PARAM_GRIDS", {
-        label: {"classifier__n_estimators": [5], "classifier__max_depth": [3]}
+        label: {"classifier__max_iter": [5], "classifier__max_leaf_nodes": [7]}
         for label in LABEL_COLUMNS
     })
+
+
+def test_cv_evaluates_the_same_training_procedure_as_the_saved_model():
     golfers = normalize_label_columns(generate_golfer_profiles(n=1000, seed=21))
     models, metrics = train_models(golfers, random_state=21)
 

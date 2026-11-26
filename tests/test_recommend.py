@@ -76,29 +76,18 @@ def test_reasons_lead_with_what_distinguishes_each_club():
 
     shown = [tuple(rec.reasons[:3]) for rec in ranked]
 
-    # The near-tie band is the case this actually has to hold for. app.js uses
-    # NEAR_TIE_THRESHOLD = 2 to decide when to tell the golfer the score gap
-    # "isn't a meaningful difference, so weigh the reasons below more than the
-    # exact number" - so inside that band the reasons are the entire basis for
-    # choosing, and two clubs reading identically leaves the advice unfollowable.
-    #
-    # This is what the old bar missed: `>= 8` distinct out of top_n=16 passed
-    # while the top two results were byte-identical, because it allowed half the
-    # list to be duplicates and never looked at where the duplication landed.
+    # Within 2 points the UI tells users to compare reasons instead of scores,
+    # so clubs in that band must not show identical reasons.
     top_score = max(rec.score for rec in ranked)
     near_tie = [rec for rec in ranked if top_score - rec.score <= 2]
     near_tie_shown = [tuple(rec.reasons[:3]) for rec in near_tie]
     assert len(set(near_tie_shown)) == len(near_tie_shown), (
-        "clubs the UI calls too close to separate on score are showing "
-        "identical reasons, which is the one place that cannot happen"
+        "near-tied clubs are showing identical reasons"
     )
 
-    # Outside the tie band a repeat is allowed: two heads with the same speed
-    # window, forgiveness and launch genuinely are alike, and inventing a
-    # distinction to satisfy a counter would be worse than repeating one.
+    # Outside the tie band a few repeats are fine; some heads really are alike.
     assert len(set(shown)) >= len(shown) - 2, "results are collapsing to shared text"
 
-    # No single reason may lead every club; that is the flattening this guards.
     leads = {rec.reasons[0] for rec in ranked if rec.reasons}
     assert len(leads) > 1
 
@@ -215,10 +204,8 @@ def test_known_current_driver_prefers_a_modest_step_over_the_extreme():
     assert any("current driver" in reason.lower() for reason in
                score_driver(modest_step_driver, golfer_with_baseline, predicted_loft="10.5").reasons)
 
-    # Without a known baseline, the old undifferentiated behavior holds: both
-    # count as "low enough" for a "Too high" complaint and score identically
-    # on the launch axis specifically - confirming the difference above comes
-    # from the baseline, not some other change to these two fixtures.
+    # Without a baseline both clubs score the same, so the gap above comes
+    # from the current-driver baseline.
     golfer_without_baseline = GolferInput(
         handicap=14,
         swing_speed=95,
@@ -912,7 +899,7 @@ def test_score_wedge_uses_the_configuration_at_the_golfers_stated_loft():
     result = score_wedge(club, golfer, predicted_bounce="High")
 
     assert any("12" in reason for reason in result.reasons)
-    assert not any("6 deg bounce" in reason for reason in result.reasons)
+    assert not any("6° bounce" in reason for reason in result.reasons)
 
 
 def test_score_wedge_picks_the_best_overall_fit_among_same_loft_candidates():
@@ -1000,7 +987,7 @@ def test_score_wedge_considers_both_lofts_when_equidistant_from_target():
 
     result = score_wedge(club, golfer, predicted_bounce="Low")
 
-    assert any("6 deg bounce" in reason for reason in result.reasons)
+    assert any("6° bounce" in reason for reason in result.reasons)
     assert any("firm turf" in reason for reason in result.reasons)
 
 

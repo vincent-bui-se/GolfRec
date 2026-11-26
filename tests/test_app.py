@@ -350,3 +350,57 @@ def test_a_golfer_already_on_the_top_rung_still_gets_different_clubs(client):
         for result in (about, too_low)
     ]
     assert names[0] != names[1], "ball flight changed neither the loft nor the clubs"
+
+
+def test_carry_entry_converts_with_the_handicap_dependent_ratio(client):
+    # 230 yards for a scratch golfer is 230 / 2.45 mph; for a 30 handicap it
+    # takes more speed (230 / 2.18) to carry the same distance.
+    scratch = client.post("/api/recommend", json={
+        "handicap": 0, "speed_mode": "Carry distance", "driver_carry": 230,
+    }).get_json()["profile"]
+    high = client.post("/api/recommend", json={
+        "handicap": 30, "speed_mode": "Carry distance", "driver_carry": 230,
+    }).get_json()["profile"]
+
+    assert scratch["swing_speed"] == round(230 / 2.45, 1)
+    assert high["swing_speed"] > scratch["swing_speed"]
+    assert scratch["speed_source"] == "carry"
+
+
+def test_average_score_is_reported_as_an_estimated_handicap(client):
+    profile = client.post("/api/recommend", json={
+        "score_mode": "Average score", "average_score": 90,
+    }).get_json()["profile"]
+
+    assert profile["handicap"] == 15
+    assert profile["handicap_source"] == "average score"
+
+
+def test_spec_notes_explain_tempo_and_ball_flight_adjustments(client):
+    payload = client.post("/api/recommend", json={
+        "shopping_for": ["Driver"], "swing_speed": 95,
+        "swing_tempo": "Aggressive", "driver_trajectory": "Too low",
+    }).get_json()
+
+    assert payload["spec_notes"]["shaft_flex"] == "One step stiffer for an aggressive tempo"
+    assert payload["spec_notes"]["driver_loft"].startswith("Raised from")
+    assert "95 mph" in payload["spec_notes"]["fairway_wood_loft"] or payload["spec_notes"][
+        "fairway_wood_loft"
+    ].startswith("Raised from")
+
+
+def test_static_urls_carry_a_version_but_fonts_do_not(client):
+    page = client.get("/").get_data(as_text=True)
+
+    assert "/static/styles.css?v=" in page
+    assert "/static/app.js?v=" in page
+    assert "fonts/archivo-variable.woff2\"" in page
+
+
+@pytest.mark.parametrize(
+    ("number", "expected"),
+    [("8", "an 8"), ("8.5", "an 8.5"), ("11", "an 11"), ("18", "an 18"),
+     ("85", "an 85"), ("16", "a 16"), ("92", "a 92"), ("110", "a 110")],
+)
+def test_spec_notes_use_the_right_article_for_the_number(number, expected):
+    assert app_module.with_article(number) == expected

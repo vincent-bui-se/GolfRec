@@ -1,4 +1,4 @@
-"""Train and evaluate Random Forest models for golf fitting labels."""
+"""Train and evaluate gradient-boosted models for golf fitting labels."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ import joblib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.metrics import (
     ConfusionMatrixDisplay, accuracy_score, balanced_accuracy_score,
     classification_report, confusion_matrix,
@@ -22,7 +22,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
 
 from preprocess import INPUT_COLUMNS, make_feature_frame
-from synthetic_data import predict_rule_labels, save_dataset
+from synthetic_data import DEFAULT_PROFILE_COUNT, predict_rule_labels, save_dataset
 
 
 LABEL_COLUMNS = [
@@ -56,47 +56,31 @@ def normalize_label_columns(golfers: pd.DataFrame) -> pd.DataFrame:
     return normalized
 
 
-# Twelve parameter combinations per label, evaluated across five folds.
-PARAM_GRIDS: dict[str, dict[str, list[Any]]] = {
-    "driver_loft": {
-        "classifier__n_estimators": [200, 300],
-        "classifier__max_depth": [10, 14, None],
-        "classifier__min_samples_leaf": [1, 2],
-    },
-    "shaft_flex": {
-        "classifier__n_estimators": [200, 300],
-        "classifier__max_depth": [10, 14, None],
-        "classifier__min_samples_leaf": [1, 2],
-    },
-    "fairway_wood_loft": {
-        "classifier__n_estimators": [200, 300],
-        "classifier__max_depth": [10, 14, None],
-        "classifier__min_samples_leaf": [1, 2],
-    },
-    "iron_category": {
-        "classifier__n_estimators": [200, 300],
-        "classifier__max_depth": [12, 16, None],
-        "classifier__min_samples_leaf": [1, 2],
-    },
-    "wedge_bounce": {
-        "classifier__n_estimators": [200, 300],
-        "classifier__max_depth": [10, 14, None],
-        "classifier__min_samples_leaf": [1, 2],
-    },
+# 8 combinations per label, 5-fold CV.
+_SHARED_GRID: dict[str, list[Any]] = {
+    "classifier__learning_rate": [0.05, 0.1],
+    "classifier__max_leaf_nodes": [15, 31],
+    "classifier__min_samples_leaf": [20, 40],
 }
+PARAM_GRIDS: dict[str, dict[str, list[Any]]] = {label: dict(_SHARED_GRID) for label in LABEL_COLUMNS}
 
 
 def build_base_pipeline(random_state: int = 42) -> Pipeline:
-    """Build a class-balanced forest; GridSearchCV handles parallelism."""
+    """Class-balanced gradient boosting; GridSearchCV handles parallelism.
+
+    early_stopping is set explicitly because sklearn only turns it on by default
+    above 10k rows, and small runs (like the tests) would otherwise fit all 500.
+    """
     return Pipeline(
         steps=[
             ("features", FunctionTransformer(make_feature_frame, validate=False)),
             (
                 "classifier",
-                RandomForestClassifier(
-                    random_state=random_state,
+                HistGradientBoostingClassifier(
+                    max_iter=500,
+                    early_stopping=True,
                     class_weight="balanced",
-                    n_jobs=1,
+                    random_state=random_state,
                 ),
             ),
         ]
@@ -107,7 +91,7 @@ def train_models(
     golfers: pd.DataFrame,
     random_state: int = 42,
 ) -> tuple[dict[str, Pipeline], dict[str, dict[str, Any]]]:
-    """Tune balanced forests on training rows and evaluate on a held-out 20%.
+    """Tune balanced boosted-tree models on training rows and evaluate on a held-out 20%.
 
     Repeated CV describes the selected model on training rows only.
     """
@@ -220,7 +204,7 @@ def train_from_csv(
     if path.exists():
         golfers = pd.read_csv(path)
     else:
-        golfers = save_dataset(path, n=12_000, seed=random_state)
+        golfers = save_dataset(path, n=DEFAULT_PROFILE_COUNT, seed=random_state)
     models, metrics = train_models(golfers, random_state=random_state)
     save_artifacts(models, metrics, model_dir=model_dir)
     return models, metrics
