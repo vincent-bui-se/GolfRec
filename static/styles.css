@@ -658,7 +658,7 @@ input {
   margin-top: 6px;
 }
 
-.secondary-action {
+.empty-action {
   min-height: 40px;
   border: 1px solid var(--turf);
   border-radius: 7px;
@@ -670,12 +670,12 @@ input {
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.secondary-action:hover {
+.empty-action:hover {
   background: var(--turf);
   color: var(--on-dark);
 }
 
-.secondary-action:focus-visible {
+.empty-action:focus-visible {
   outline: 2px solid var(--ochre);
   outline-offset: 2px;
 }
