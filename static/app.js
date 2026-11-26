@@ -14,13 +14,15 @@ const formError = document.querySelector("#form-error");
 const formErrorDetail = document.querySelector("#form-error-detail");
 const retryAction = document.querySelector("#retry-action");
 const resultStatus = document.querySelector("#result-status");
+const specGrid = document.querySelector("#spec-grid");
+const fitBasis = document.querySelector("#fit-basis");
+const savedNote = document.querySelector("#saved-note");
 
-// Per-category result keys, controls, and questionnaire sections.
 const CATEGORIES = [
-  { tab: "drivers", resultKey: "drivers", wants: "wants_driver", idPrefix: "driver", fieldsSelector: ".wood-fields", fallbackBudget: 2500 },
-  { tab: "fairway-woods", resultKey: "fairway_woods", wants: "wants_fairway_woods", idPrefix: "fairway-wood", fieldsSelector: ".wood-fields", fallbackBudget: 500 },
-  { tab: "irons", resultKey: "irons", wants: "wants_irons", idPrefix: "iron", fieldsSelector: ".iron-fields", fallbackBudget: 2500 },
-  { tab: "wedges", resultKey: "wedges", wants: "wants_wedges", idPrefix: "wedge", fieldsSelector: ".wedge-fields", fallbackBudget: 350 },
+  { tab: "drivers", resultKey: "drivers", wants: "wants_driver", idPrefix: "driver", fallbackBudget: 2500 },
+  { tab: "fairway-woods", resultKey: "fairway_woods", wants: "wants_fairway_woods", idPrefix: "fairway-wood", fallbackBudget: 500 },
+  { tab: "irons", resultKey: "irons", wants: "wants_irons", idPrefix: "iron", fallbackBudget: 2500 },
+  { tab: "wedges", resultKey: "wedges", wants: "wants_wedges", idPrefix: "wedge", fallbackBudget: 350 },
 ];
 
 const categories = CATEGORIES.map((category) => ({
@@ -32,12 +34,17 @@ const categories = CATEGORIES.map((category) => ({
   countEl: document.querySelector(`#${category.idPrefix}-count`),
 }));
 
+const FLEX_NAMES = { L: "Ladies", A: "Senior", R: "Regular", S: "Stiff", X: "Extra stiff" };
+
 const SPEC_TILES = [
-  { spec: "driver_loft", wants: ["wants_driver"], format: (value) => `${value} deg` },
-  // Same swing-speed-derived flex for both - irons don't get their own
-  // prediction (yet), but the letter is still meaningful shopping for either.
-  { spec: "shaft_flex", wants: ["wants_driver", "wants_irons"], format: (value) => value },
-  { spec: "fairway_wood_loft", wants: ["wants_fairway_woods"], format: (value) => `${value} deg` },
+  { spec: "driver_loft", wants: ["wants_driver"], format: (value) => `${value}°` },
+  // There's no separate iron flex model yet, so woods and irons share one.
+  {
+    spec: "shaft_flex",
+    wants: ["wants_driver", "wants_fairway_woods", "wants_irons"],
+    format: (value) => (FLEX_NAMES[value] ? `${FLEX_NAMES[value]} (${value})` : value),
+  },
+  { spec: "fairway_wood_loft", wants: ["wants_fairway_woods"], format: (value) => `${value}°` },
   { spec: "iron_category", wants: ["wants_irons"], format: (value) => titleCaseSpec(value) },
   { spec: "wedge_bounce", wants: ["wants_wedges"], format: (value) => value },
 ];
@@ -49,14 +56,7 @@ const currency = new Intl.NumberFormat("en-US", {
 });
 
 function formValue(name) {
-  const field = form.elements[name];
-  if (!field) {
-    return "";
-  }
-  if (field instanceof RadioNodeList) {
-    return field.value;
-  }
-  return field.value;
+  return form.elements[name]?.value ?? "";
 }
 
 function checkedShoppingFor() {
@@ -99,20 +99,44 @@ function titleCaseSpec(value) {
 }
 
 function updateSpecGrid(specs, result) {
+  const notes = result.spec_notes || {};
   SPEC_TILES.forEach(({ spec, wants, format }) => {
     const tile = document.querySelector(`.spec-tile[data-spec="${spec}"]`);
     const value = tile.querySelector("strong");
+    const note = tile.querySelector(".spec-note");
     const wanted = wants.some((key) => result[key]);
+    tile.classList.toggle("spec-off", !wanted);
+    note.textContent = wanted ? notes[spec] || "" : "Not shopping for this";
     const next = wanted ? format(specs[spec]) : "-";
     if (value.textContent === next) {
       return;
     }
     value.textContent = next;
-    // Replay the highlight only for changed values; reflow restarts the animation.
+    // Force a reflow so the highlight animation restarts.
     tile.classList.remove("spec-changed");
     void tile.offsetWidth;
     tile.classList.add("spec-changed");
   });
+}
+
+// "an 8", "an 18", "an 85" (same rule as with_article in recommend.py).
+function withArticle(number) {
+  const text = String(number);
+  return /^(8\d?|11|18)(\D|$)/.test(text) ? `an ${text}` : `a ${text}`;
+}
+
+function describeFitBasis(profile) {
+  const speedMph = Math.round(profile.swing_speed);
+  const carry = Math.round(profile.driver_carry);
+  const handicap =
+    profile.handicap_source === "average score"
+      ? `${withArticle(profile.handicap)} handicap (estimated from your average score)`
+      : `${withArticle(profile.handicap)} handicap`;
+  const speed =
+    profile.speed_source === "carry"
+      ? `${withArticle(speedMph)} mph swing (estimated from ${carry} yards of carry)`
+      : `${withArticle(speedMph)} mph swing, about ${carry} yards of carry`;
+  return `Fitted for ${handicap} and ${speed}.`;
 }
 
 function updateConditionalFields() {
@@ -127,16 +151,12 @@ function updateConditionalFields() {
   });
 
   const checked = new Set(checkedShoppingFor());
-  // Show swing inputs for every category that uses them.
   document.querySelectorAll(".speed-fields").forEach((section) =>
     section.classList.toggle(
       "hidden",
       !checked.has("Driver") && !checked.has("Fairway Wood") && !checked.has("Irons"),
     ),
   );
-  // Driver and Fairway Wood share .wood-fields (same swing, same inputs), so
-  // that section shows for either; a category with its own question section
-  // only appears once its own checkbox is checked.
   document.querySelectorAll(".wood-fields").forEach((section) =>
     section.classList.toggle("hidden", !checked.has("Driver") && !checked.has("Fairway Wood")),
   );
@@ -162,10 +182,10 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
   const conditionMatches = filterByCondition(clubs, condition);
   const affordable = filterByBudget(conditionMatches, budget);
   const selected = selectForDisplay(affordable);
-  countElement.textContent = `${selected.length} ${selected.length === 1 ? "club" : "clubs"}`;
+  countElement.textContent = `${selected.length} ${selected.length === 1 ? "club" : "clubs"} · fit score out of 100`;
 
   if (!selected.length) {
-    // Name the cheapest qualifying club so the user can adjust the budget.
+    // Tell the user how far to raise the budget.
     const cheapest = conditionMatches
       .map((club) => club.msrp)
       .filter((price) => typeof price === "number" && Number.isFinite(price))
@@ -175,9 +195,6 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
       condition === "used"
         ? `No clubs match this budget with Used selected. Used means ${USED_MAX_YEAR} or older.`
         : "No clubs match this budget.";
-    // Only offered when a real price backs it; with nothing left after the
-    // condition filter there is no honest number to name, and inventing a
-    // target would be worse than the dead end.
     const recovery =
       typeof cheapest === "number"
         ? ` The cheapest that fits your other answers is $${Math.round(cheapest)}.`
@@ -188,24 +205,20 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
   }
 
   const topScore = selected[0].score;
-  // A gap this small is inside the model's own noise floor - it can reflect
-  // a genuinely sourced difference (e.g. a measured vs. estimated
-  // forgiveness rating) or just which discrete point bucket a club happened
-  // to land in, and there's no way to tell which from the number alone. So
-  // don't let list position imply a meaningful win either way.
+  // Scores within 2 points are basically a tie given how coarse the catalog data is.
   const NEAR_TIE_THRESHOLD = 2;
   const closeGroup = selected.filter((club) => topScore - club.score <= NEAR_TIE_THRESHOLD);
   const exactTie = closeGroup.length > 1 && closeGroup.every((club) => club.score === topScore);
   let tieNote = "";
   if (exactTie) {
-    tieNote = `<div class="tie-note">${closeGroup.length} clubs tie at ${topScore}%. The order below isn't a ranking.</div>`;
+    tieNote = `<div class="tie-note">${closeGroup.length} clubs tie at ${topScore}. The order below isn't a ranking, so choose on the reasons and the price.</div>`;
   } else if (closeGroup.length > 1) {
     const lowScore = closeGroup[closeGroup.length - 1].score;
-    tieNote = `<div class="tie-note">${closeGroup.length} clubs land within ${NEAR_TIE_THRESHOLD} points (${lowScore}-${topScore}%). That gap isn't a meaningful difference, so go by the reasons rather than the number.</div>`;
+    tieNote = `<div class="tie-note">The top ${closeGroup.length} land within ${NEAR_TIE_THRESHOLD} points (${lowScore}-${topScore}). That gap isn't a meaningful difference, so go by the reasons rather than the number.</div>`;
   }
 
   listElement.innerHTML = tieNote + selected
-    .map((club) => {
+    .map((club, index) => {
       const years = displayYears(club, condition);
       const meta = [
         years.length > 1
@@ -228,15 +241,13 @@ function renderClubList(listElement, countElement, clubs, budget, condition) {
 
       return `
         <article class="club-card ${scoreBand(club.score)}">
-          <div>
-            <div class="club-title">
-              <h4>${escapeHtml(club.name)}</h4>
-              <span class="club-meta">${escapeHtml(meta)}</span>
-            </div>
+          <div class="club-title">
+            <span class="club-rank" aria-hidden="true">${index + 1}</span>
+            <h4>${escapeHtml(club.name)}</h4>
+            <span class="club-meta">${escapeHtml(meta)}</span>
           </div>
-          <div class="score-block">
-            <span class="score-label">Stickly Score</span>
-            <div class="score-badge ${scoreBand(club.score)}">${club.score}%</div>
+          <div class="score-block" role="img" aria-label="Fit score ${club.score} out of 100">
+            <div class="score-badge ${scoreBand(club.score)}">${club.score}</div>
           </div>
           <ul class="reason-list">${reasons}</ul>
         </article>
@@ -288,7 +299,6 @@ function updateTabAvailability(result) {
     setActiveTab(visibleTabs[0] || categories[0].tab);
   }
 
-  // No point showing tabs to switch between when at most one has anything in it.
   tabs.classList.toggle("hidden", visibleTabs.length < 2);
 }
 
@@ -309,9 +319,7 @@ function renderRecommendations() {
   });
 }
 
-// A focused number input treats the wheel as increment/decrement, so scrolling
-// the page over one silently rewrites the handicap or swing speed. Dropping
-// focus stops the edit and leaves the scroll itself untouched.
+// Stop the mouse wheel from changing a focused number input while scrolling.
 document.addEventListener(
   "wheel",
   (event) => {
@@ -325,8 +333,75 @@ document.addEventListener(
 
 form.addEventListener("change", updateConditionalFields);
 
-// Unchecking the last box would leave nothing to shop for and no visible tab
-// to recover from, so the group always keeps at least one category checked.
+// Remember the form between visits (localStorage only).
+
+const STORAGE_KEY = "stickly.profile.v1";
+
+function saveAnswers() {
+  try {
+    const answers = {};
+    [...form.elements].forEach((field) => {
+      if (!field.name) return;
+      if (field.type === "checkbox") {
+        answers[field.name] = answers[field.name] || [];
+        if (field.checked) answers[field.name].push(field.value);
+      } else if (field.type === "radio") {
+        if (field.checked) answers[field.name] = field.value;
+      } else {
+        answers[field.name] = field.value;
+      }
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
+    savedNote.classList.remove("hidden");
+  } catch {
+    // Storage can be blocked (private mode); the form still works without it.
+  }
+}
+
+function restoreAnswers() {
+  let answers;
+  try {
+    answers = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+  } catch {
+    answers = null;
+  }
+  if (!answers || typeof answers !== "object") return;
+  [...form.elements].forEach((field) => {
+    if (!field.name || !(field.name in answers)) return;
+    const saved = answers[field.name];
+    if (field.type === "checkbox") {
+      field.checked = Array.isArray(saved) && saved.includes(field.value);
+    } else if (field.type === "radio") {
+      field.checked = field.value === saved;
+    } else if (field.tagName === "SELECT") {
+      if ([...field.options].some((option) => option.value === saved)) field.value = saved;
+    } else {
+      field.value = String(saved);
+    }
+  });
+  if (!checkedShoppingFor().length) {
+    form.querySelectorAll('input[name="shopping_for"]').forEach((box) => {
+      box.checked = true;
+    });
+  }
+  savedNote.classList.remove("hidden");
+}
+
+document.querySelector("#reset-answers").addEventListener("click", () => {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    // Ignore blocked storage.
+  }
+  form.reset();
+  form.querySelectorAll('input[type="hidden"]').forEach((field) => {
+    field.value = "";
+  });
+  savedNote.classList.add("hidden");
+  updateConditionalFields();
+});
+
+// Keep at least one category checked.
 document.querySelectorAll('input[name="shopping_for"]').forEach((checkbox) => {
   checkbox.addEventListener("click", (event) => {
     if (checkedShoppingFor().length === 0) {
@@ -384,8 +459,7 @@ tabs.addEventListener("keydown", (event) => {
 });
 
 function revealResults() {
-  // On narrow screens the form stacks above the results, leaving the outcome a
-  // full screen below the fold; without this, submitting looks like a no-op.
+  // On mobile the results can be off screen after submitting.
   const panel = document.querySelector(".results-panel");
   if (!panel) {
     return;
@@ -405,13 +479,12 @@ function revealResults() {
 function announceResults() {
   const counts = categories
     .filter((category) => state.result[category.wants])
-    .map((category) => category.countEl.textContent.trim());
+    .map((category) => `${category.countEl.textContent.split(" · ")[0]} for ${category.tab.replace("-", " ")}`);
   resultStatus.textContent = counts.length
     ? `Recommendations ready: ${counts.join(", ")}.`
     : "Recommendations ready.";
 }
 
-// Show recovery steps to visitors; log diagnostic details to the console.
 function describeFailure(error) {
   if (error instanceof TypeError) {
     return "Couldn't reach Stickly. Check your connection, then try again.";
@@ -434,7 +507,6 @@ async function requestRecommendations() {
   recommendations.classList.add("hidden");
   loadingState.classList.remove("hidden");
   resultStatus.textContent = "Fitting your clubs.";
-  // Move to the panel now so the spinner, and then the outcome, are on screen.
   revealResults();
 
   try {
@@ -462,6 +534,9 @@ async function requestRecommendations() {
       );
     });
     updateSpecGrid(state.result.specs, state.result);
+    specGrid.classList.remove("hidden");
+    fitBasis.textContent = describeFitBasis(state.result.profile);
+    fitBasis.classList.remove("hidden");
     updateTabAvailability(state.result);
     loadingState.classList.add("hidden");
     recommendations.classList.remove("hidden");
@@ -472,7 +547,6 @@ async function requestRecommendations() {
     loadingState.classList.add("hidden");
     formErrorDetail.textContent = describeFailure(error);
     formError.classList.remove("hidden");
-    // Results are gone, so put the starting instruction back on screen.
     if (!state.result) {
       emptyState.classList.remove("hidden");
     } else {
@@ -485,7 +559,7 @@ async function requestRecommendations() {
   }
 }
 
-/* Mobile profile drawer and focus handling. */
+// Mobile profile drawer
 
 const drawerToggle = document.querySelector("#drawer-toggle");
 const drawerClose = document.querySelector("#drawer-close");
@@ -504,8 +578,6 @@ function setDrawer(open) {
 
 function openDrawer() {
   setDrawer(true);
-  // The close button rather than the first field: it sits at the top of the
-  // panel, so focusing it can't scroll the form before it's been seen.
   drawerClose.focus();
 }
 
@@ -541,8 +613,7 @@ document.addEventListener("keydown", (event) => {
     closeDrawer();
     return;
   }
-  // An overlay shouldn't leak the keyboard into the results sitting behind the
-  // scrim, so Tab wraps at both ends of the panel while it's open.
+  // Trap focus inside the open drawer.
   if (event.key !== "Tab" || !drawerIsOpen()) {
     return;
   }
@@ -561,9 +632,7 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-// Past the breakpoint the panel is a plain sidebar again and the CSS follows
-// the media query by itself - but aria-expanded and the scroll lock hang off
-// the class, so a drawer left open while widening has to be cleared.
+// Reset drawer state when the window widens past the breakpoint.
 drawerBreakpoint.addEventListener("change", (event) => {
   if (!event.matches) {
     setDrawer(false);
@@ -572,16 +641,17 @@ drawerBreakpoint.addEventListener("change", (event) => {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  // The drawer covers the results on mobile, so leaving it open would hide the
-  // spinner and then the outcome behind it. Focus stays where the submit left
-  // it rather than snapping back to the toggle.
+  saveAnswers();
   closeDrawer({ returnFocus: false });
   requestRecommendations();
 });
 
 retryAction.addEventListener("click", requestRecommendations);
 
-// Resolve exact catalog matches into hidden IDs; suggestions use a custom listbox.
+document.querySelector("#run-defaults").addEventListener("click", () => form.requestSubmit());
+document.querySelector("#open-profile").addEventListener("click", openDrawer);
+
+// Typeahead for the current driver/irons. An exact match fills the hidden id field.
 function wireCatalogTypeahead(textFieldName, datalistId, hiddenFieldName, listboxId) {
   const textField = form.querySelector(`[name="${textFieldName}"]`);
   const datalist = document.querySelector(`#${datalistId}`);
@@ -589,7 +659,7 @@ function wireCatalogTypeahead(textFieldName, datalistId, hiddenFieldName, listbo
   const listbox = document.querySelector(`#${listboxId}`);
   if (!textField || !datalist || !hiddenField || !listbox) return;
 
-  // Attach to body so the scrolling profile panel cannot clip the listbox.
+  // Move to <body> so the scrolling sidebar doesn't clip it.
   document.body.appendChild(listbox);
 
   const options = [...datalist.options].map((option) => ({
@@ -620,7 +690,7 @@ function wireCatalogTypeahead(textFieldName, datalistId, hiddenFieldName, listbo
     textField.removeAttribute("aria-activedescendant");
     visibleMatches = [];
     activeIndex = -1;
-    // Scroll listeners use capture because ancestor scroll events do not bubble.
+    // Capture, because scroll events from the sidebar don't bubble.
     window.removeEventListener("scroll", positionList, true);
     window.removeEventListener("resize", positionList);
   }
@@ -697,9 +767,7 @@ function wireCatalogTypeahead(textFieldName, datalistId, hiddenFieldName, listbo
     }
   });
 
-  // mousedown, not click: it fires before the input's blur, so the list is
-  // still open (and the tapped option still exists) when we act on it - a
-  // click handler here would fire after blur already closed the list.
+  // mousedown fires before the input's blur closes the list; click would be too late.
   listbox.addEventListener("mousedown", (event) => {
     const li = event.target.closest("li");
     if (!li) return;
@@ -732,4 +800,5 @@ document.querySelectorAll(".info-icon[data-tooltip]").forEach((icon) => {
   icon.dataset.tooltip = withYear;
 });
 
+restoreAnswers();
 updateConditionalFields();

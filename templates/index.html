@@ -12,9 +12,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='favicon-192.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon-96.png') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <!-- Opaque, unlike the favicons above: iOS composites a transparent PNG
-         onto black, which would land the near-black grips on a near-black
-         ground. -->
+    <!-- Opaque background: iOS puts transparent icons on black. -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
 
     <meta property="og:type" content="website">
@@ -22,7 +20,6 @@
     <meta property="og:title" content="Stickly - Free AI Golf Club Recommendations">
     <meta property="og:description" content="{{ meta_description }}">
     <meta property="og:url" content="{{ url_for('index', _external=True) }}">
-    <!-- Wide preview card for shared links. -->
     <meta property="og:image" content="{{ url_for('static', filename='og-card.png', _external=True) }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -64,18 +61,14 @@
     }
     </script>
 
-    <!-- Preload the self-hosted text fonts with the same CORS mode as CSS font requests. -->
     <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/archivo-variable.woff2') }}">
     <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ url_for('static', filename='fonts/source-serif-4-variable.woff2') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
     <div class="app-shell">
-      <!-- Mobile header and drawer controls. -->
+      <!-- Mobile header -->
       <header class="mobile-bar">
-        <!-- Left, to match the direction the drawer it opens actually slides
-             in from - it used to sit on the right while the drawer came from
-             the left, which read as if the button opened the wrong panel. -->
         <button
           type="button"
           class="drawer-toggle"
@@ -103,7 +96,7 @@
           <img class="brand-mark" src="{{ url_for('static', filename='brand-mark.webp') }}" alt="" width="44" height="44" aria-hidden="true">
           <div>
             <h1>Stickly</h1>
-            <p class="brand-tagline">Your Game. Your Sticks</p>
+            <p class="brand-tagline">Your game. Your sticks.</p>
           </div>
         </div>
 
@@ -343,16 +336,20 @@
               <span>What loft are you shopping for?</span>
               <select name="wedge_loft">
                 {% for value in wedge_lofts %}
-                <option value="{{ value }}" {% if value == 56 %}selected{% endif %}>{{ value }} deg</option>
+                <option value="{{ value }}" {% if value == 56 %}selected{% endif %}>{{ value }}°</option>
                 {% endfor %}
               </select>
             </label>
           </section>
 
           <div class="form-actions">
+            <p class="saved-note hidden" id="saved-note">
+              Your answers are saved on this device.
+              <button type="button" class="link-action" id="reset-answers">Reset</button>
+            </p>
             <button class="primary-action" type="submit">
               <span>Find My Sticks</span>
-              <span aria-hidden="true">&gt;</span>
+              <svg class="action-arrow" aria-hidden="true" viewBox="0 0 20 20" width="18" height="18"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
         </form>
@@ -362,7 +359,7 @@
         <header class="page-header">
           <div>
             <h2>Clubs matched to your game</h2>
-            <p class="page-subtitle">Stickly uses machine learning to turn your profile into personalized recommendations, matched against real club specifications.</p>
+            <p class="page-subtitle">Tell Stickly how you play. It predicts your loft, shaft flex, iron type and wedge bounce, then ranks real clubs against those specs.</p>
           </div>
         </header>
 
@@ -374,26 +371,33 @@
 
         <p class="sr-only" role="status" aria-live="polite" id="result-status"></p>
 
-        <section class="spec-grid" id="spec-grid">
+        <p class="fit-basis hidden" id="fit-basis"></p>
+
+        <section class="spec-grid hidden" id="spec-grid" aria-label="Recommended specs">
           <article class="spec-tile" data-spec="driver_loft">
             <span>Driver Loft</span>
             <strong>-</strong>
+            <small class="spec-note"></small>
           </article>
           <article class="spec-tile" data-spec="shaft_flex">
             <span>Shaft Flex</span>
             <strong>-</strong>
+            <small class="spec-note"></small>
           </article>
           <article class="spec-tile" data-spec="fairway_wood_loft">
             <span>Fairway Wood Loft</span>
             <strong>-</strong>
+            <small class="spec-note"></small>
           </article>
           <article class="spec-tile" data-spec="iron_category">
             <span>Iron Type</span>
             <strong>-</strong>
+            <small class="spec-note"></small>
           </article>
           <article class="spec-tile" data-spec="wedge_bounce">
             <span>Wedge Bounce</span>
             <strong>-</strong>
+            <small class="spec-note"></small>
           </article>
         </section>
 
@@ -401,8 +405,13 @@
 
         <section class="empty-state" id="empty-state">
           <div class="empty-line"></div>
-          <h3>No recommendations yet</h3>
-          <p>Fill in your profile, then choose Find My Sticks.</p>
+          <h3>No fitting yet</h3>
+          <p class="empty-hint desktop-only">Fill in the profile on the left, or try it with the default answers and adjust from there.</p>
+          <p class="empty-hint mobile-only">Answer a few questions about your game, or try it with the default answers first.</p>
+          <div class="empty-actions">
+            <button type="button" class="secondary-action mobile-only" id="open-profile">Answer the questions</button>
+            <button type="button" class="secondary-action" id="run-defaults">Use the defaults</button>
+          </div>
         </section>
 
         <section class="empty-state loading-state hidden" id="loading-state">
