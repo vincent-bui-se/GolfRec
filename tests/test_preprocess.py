@@ -4,6 +4,7 @@ import pandas as pd
 
 from preprocess import (
     FEATURE_COLUMNS,
+    carry_yards_per_mph,
     estimate_handicap_from_average_score,
     load_equipment_catalog,
     make_feature_frame,
@@ -66,7 +67,14 @@ def test_make_feature_frame_encodes_expected_inputs():
     assert frame.loc[0, "divot_depth_Shallow"] == 0
 
 
-def test_estimate_handicap_from_average_score_uses_par_72_baseline():
-    assert estimate_handicap_from_average_score(90) == 18
+def test_estimate_handicap_from_average_score_allows_for_scores_running_above_handicap():
+    # Typical scores run about three strokes over par plus handicap index.
+    assert estimate_handicap_from_average_score(90) == 15
+    assert estimate_handicap_from_average_score(75) == 0
     assert estimate_handicap_from_average_score(68) == 0
     assert estimate_handicap_from_average_score(112) == 36
+
+
+def test_carry_per_mph_falls_with_handicap():
+    assert carry_yards_per_mph(0) == 2.45
+    assert carry_yards_per_mph(20) < carry_yards_per_mph(5)

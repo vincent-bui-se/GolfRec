@@ -32,6 +32,13 @@ SWING_SPEED_BASE_MPH = 106.0
 SWING_SPEED_PER_HANDICAP_MPH = -0.68
 SWING_SPEED_MIN_MPH = 60.0
 SWING_SPEED_MAX_MPH = 120.0
+# Carry yards per mph of swing speed. Better players get more carry from the
+# same speed, so the ratio drops as handicap rises. Used by both the synthetic
+# data and the app so they convert speed and carry the same way.
+CARRY_PER_MPH_SCRATCH = 2.45
+CARRY_PER_MPH_PER_HANDICAP = -0.009
+# Handicap index uses the best 8 of 20 rounds, so average scores run ~3 higher.
+AVERAGE_SCORE_OVER_HANDICAP = 3
 INPUT_COLUMNS = [
     "handicap",
     "swing_speed",
@@ -99,8 +106,14 @@ def load_equipment_catalog(equipment_dir: str | Path) -> dict[str, list[dict[str
 
 
 def estimate_handicap_from_average_score(average_score: float, par: int = 72) -> int:
-    """Estimate handicap when the golfer knows score but not handicap."""
-    return int(max(0, min(36, round(float(average_score) - par))))
+    """Estimate handicap from average score, e.g. 90 -> 15 on a par 72."""
+    estimate = float(average_score) - par - AVERAGE_SCORE_OVER_HANDICAP
+    return int(max(0, min(36, round(estimate))))
+
+
+def carry_yards_per_mph(handicap):
+    """Carry yards per mph for this handicap. Works on floats or numpy arrays."""
+    return CARRY_PER_MPH_SCRATCH + CARRY_PER_MPH_PER_HANDICAP * handicap
 
 
 def make_feature_frame(golfers: pd.DataFrame) -> pd.DataFrame:
